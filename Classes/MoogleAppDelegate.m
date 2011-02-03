@@ -15,6 +15,19 @@
 
 @interface MoogleAppDelegate (Private)
 
+// Authentication
+- (BOOL)isAuthenticatedWithFacebook;
+- (void)restoreFacebookCredentials;
+- (void)loginFacebook;
+- (void)fbDidLogin;
+- (void)fbDidLogout;
+
+// Session
+- (void)startSession;
+
+// Requests
+- (void)getCurrentUserRequest;
+
 // Used for FB SSO
 - (NSDictionary*)parseURLParams:(NSString *)query;
 

@@ -69,5 +69,9 @@
 // Config
 @property (nonatomic, assign, readonly) BOOL isLoggedIn;
 
+// Logout from Facebook
+// This is called from MeViewController also
+- (void)logoutFacebook;;
+
 @end
 
