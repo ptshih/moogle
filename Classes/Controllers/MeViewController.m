@@ -27,17 +27,21 @@
   [self setupButtons];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+}
+
 - (void)setupButtons {
-  if (APP_DELEGATE.fbAccessToken) {
-    UIBarButtonItem *logoutButton = [[[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease];
-    self.navigationItem.leftBarButtonItem = logoutButton;
-  }
+  UIBarButtonItem *logoutButton = [[[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease];
+  self.navigationItem.leftBarButtonItem = logoutButton;
 }
 
 - (void)logout {
-  UIAlertView *logoutAlert = [[UIAlertView alloc] initWithTitle:@"Logout" message:@"Are you sure you want to logout?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-  [logoutAlert show];
-  [logoutAlert autorelease];
+  if (APP_DELEGATE.fbAccessToken) {
+    UIAlertView *logoutAlert = [[UIAlertView alloc] initWithTitle:@"Logout" message:@"Are you sure you want to logout?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [logoutAlert show];
+    [logoutAlert autorelease];
+  }
 }
 
 #pragma mark UIAlertViewDelegate

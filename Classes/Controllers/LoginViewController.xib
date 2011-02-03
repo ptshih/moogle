@@ -2,17 +2,17 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1056</int>
-		<string key="IBDocument.SystemVersion">10H574</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
 		<string key="IBDocument.InterfaceBuilderVersion">823</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">132</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
+			<integer value="10"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -59,18 +59,6 @@
 						<int key="NSvFlags">274</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIImageView" id="963016316">
-								<reference key="NSNextResponder" ref="816887183"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 36}, {280, 48}}</string>
-								<reference key="NSSuperview" ref="816887183"/>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">friendmash_portrait.png</string>
-								</object>
-							</object>
 							<object class="IBUILabel" id="294016982">
 								<reference key="NSNextResponder" ref="816887183"/>
 								<int key="NSvFlags">292</int>
@@ -195,17 +183,27 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIStyle">0</int>
 							</object>
-							<object class="IBUIImageView" id="160322706">
+							<object class="IBUILabel" id="496700173">
 								<reference key="NSNextResponder" ref="816887183"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{59, 128}, {200, 132}}</string>
+								<string key="NSFrame">{{20, 36}, {280, 48}}</string>
 								<reference key="NSSuperview" ref="816887183"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">fmlogo.png</string>
+								<string key="IBUIText">Moogle</string>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica-Bold</string>
+									<double key="NSSize">24</double>
+									<int key="NSfFlags">16</int>
 								</object>
+								<reference key="IBUITextColor" ref="933440694"/>
+								<reference key="IBUIHighlightedColor" ref="933440694"/>
+								<int key="IBUIBaselineAdjustment">1</int>
+								<float key="IBUIMinimumFontSize">10</float>
+								<int key="IBUITextAlignment">1</int>
 							</object>
 						</object>
 						<string key="NSFrameSize">{320, 460}</string>
@@ -395,8 +393,7 @@
 							<reference ref="350751521"/>
 							<reference ref="188751225"/>
 							<reference ref="294016982"/>
-							<reference ref="963016316"/>
-							<reference ref="160322706"/>
+							<reference ref="496700173"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">splashView</string>
@@ -438,13 +435,8 @@
 						<string key="objectName">splashActivity</string>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">34</int>
-						<reference key="object" ref="963016316"/>
-						<reference key="parent" ref="816887183"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">35</int>
-						<reference key="object" ref="160322706"/>
+						<int key="objectID">38</int>
+						<reference key="object" ref="496700173"/>
 						<reference key="parent" ref="816887183"/>
 					</object>
 				</object>
@@ -472,10 +464,7 @@
 					<string>25.IBViewBoundsToFrameTransform</string>
 					<string>30.IBPluginDependency</string>
 					<string>30.IBViewBoundsToFrameTransform</string>
-					<string>34.IBPluginDependency</string>
-					<string>34.IBViewBoundsToFrameTransform</string>
-					<string>35.IBPluginDependency</string>
-					<string>35.IBViewBoundsToFrameTransform</string>
+					<string>38.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
 					<string>6.IBViewBoundsToFrameTransform</string>
 				</object>
@@ -537,13 +526,6 @@
 						<bytes key="NSTransformStruct">P4AAAL+AAABDDQAAw7qAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABCHAAAwvAAAA</bytes>
-					</object>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABBoAAAw2sAAA</bytes>
-					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABAoAAAw4uAAA</bytes>
@@ -566,7 +548,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">37</int>
+			<int key="maxID">38</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -846,14 +828,6 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">UIImageView</string>
-					<string key="superclassName">UIView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">UIKit.framework/Headers/UIImageView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">UILabel</string>
 					<string key="superclassName">UIView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -961,22 +935,11 @@
 			<integer value="3000" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
-		<string key="IBDocument.LastKnownRelativeProjectPath">../../../Friendmash.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../../Moogle.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<bool key="EncodedWithXMLCoder">YES</bool>
-			<object class="NSArray" key="dict.sortedKeys">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>btn_login.png</string>
-				<string>fmlogo.png</string>
-				<string>friendmash_portrait.png</string>
-			</object>
-			<object class="NSMutableArray" key="dict.values">
-				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{280, 37}</string>
-				<string>{280, 184}</string>
-				<string>{280, 48}</string>
-			</object>
+			<string key="NS.key.0">btn_login.png</string>
+			<string key="NS.object.0">{280, 37}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">132</string>
 	</data>

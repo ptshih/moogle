@@ -43,6 +43,7 @@
   UIAlertView *_tokenFailedAlert;
   
   BOOL _isLoggedIn;
+  BOOL _isShowingLogin;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

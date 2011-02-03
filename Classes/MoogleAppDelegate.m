@@ -51,6 +51,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   // Setup Default Settings
   _isLoggedIn = NO;
+  _isShowingLogin = NO;
   
   // Prepare View Controllers
   _launcherViewController = [[LauncherViewController alloc] initWithNibName:@"LauncherViewController" bundle:nil];
@@ -117,11 +118,17 @@
 }
 
 - (void)loginFacebook {
-  [self.launcherViewController presentModalViewController:self.loginViewController animated:YES];
+  if(_isShowingLogin) {
+    [self.loginViewController resetLoginState];
+  } else {
+      _isShowingLogin = YES;
+    [self.launcherViewController presentModalViewController:self.loginViewController animated:YES];
+  }
 }
 
 - (void)dismissLoginView:(BOOL)animated {
   [self.loginViewController dismissModalViewControllerAnimated:animated];
+  _isShowingLogin = NO;
 }
 
 - (void)logoutFacebook {
