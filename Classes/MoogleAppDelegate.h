@@ -7,12 +7,66 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Reachability.h"
+#import "LauncherViewController.h"
+#import "LoginViewController.h"
 
-@interface MoogleAppDelegate : NSObject <UIApplicationDelegate> {
-    UIWindow *window;
+@class ASIHTTPRequest;
+
+@interface MoogleAppDelegate : NSObject <UIApplicationDelegate, FacebookLoginDelegate> {
+  UIWindow *_window;
+  LauncherViewController *_launcherViewController;
+  LoginViewController *_loginViewController;
+  
+  // Requests
+  ASIHTTPRequest *_currentUserRequest;
+  ASIHTTPRequest *_moogleUserRequest;
+  
+  // Reachability
+  Reachability *_hostReach;
+	NetworkStatus _netStatus;
+  UIAlertView *_reachabilityAlertView;
+  
+  // Session
+  NSString *_sessionKey;
+  
+  // Facebook
+  NSString *_fbAccessToken;
+  NSString *_fbUserId;
+//  NSString *_fbUserName;
+//  NSString *_fbUserFirstName;
+//  NSString *_fbUserLastName;
+  
+  // AlertViews
+  UIAlertView *_networkErrorAlert;
+  UIAlertView *_loginFailedAlert;
+  UIAlertView *_tokenFailedAlert;
+  
+  BOOL _isLoggedIn;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) LauncherViewController *launcherViewController;
+@property (nonatomic, retain) LoginViewController *loginViewController;
+
+// Requests
+@property (nonatomic, retain) ASIHTTPRequest *currentUserRequest;
+@property (nonatomic, retain) ASIHTTPRequest *moogleUserRequest;
+
+// Reachability
+@property (nonatomic, retain) Reachability *hostReach;
+@property (nonatomic, assign) NetworkStatus netStatus;
+@property (nonatomic, retain) UIAlertView *reachabilityAlertView;
+
+// Session
+@property (nonatomic, retain) NSString *sessionKey;
+
+// Facebook
+@property (nonatomic, retain) NSString *fbAccessToken;
+@property (nonatomic, retain) NSString *fbUserId;
+
+// Config
+@property (nonatomic, assign, readonly) BOOL isLoggedIn;
 
 @end
 
