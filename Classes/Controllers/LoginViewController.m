@@ -60,12 +60,7 @@
 }
 
 - (void)webViewWithURL:(NSString *)url andTitle:(NSString *)title {
-  WebViewController *wvc;
-  if(isDeviceIPad()) {
-    wvc = [[WebViewController alloc] initWithNibName:@"WebViewController_iPad" bundle:nil];
-  } else {
-    wvc = [[WebViewController alloc] initWithNibName:@"WebViewController_iPhone" bundle:nil];
-  }
+  WebViewController *wvc = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:nil];
   [self presentModalViewController:wvc animated:YES];
   [wvc setWebViewTitle:title];
   [wvc loadURL:url];
