@@ -7,6 +7,7 @@
 //
 
 #import "NearbyPlacesViewController.h"
+#import "PlaceViewController.h"
 #import "Constants.h"
 #import "LocationManager.h"
 
@@ -85,6 +86,14 @@
 }
 
 #pragma mark UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  
+  PlaceViewController *pvc = [[PlaceViewController alloc] initWithNibName:@"PlaceViewController" bundle:nil];
+  pvc.placeId = [[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"id"];
+  [self presentModalViewController:pvc animated:YES];
+  [pvc release];
+}
 
 #pragma mark UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

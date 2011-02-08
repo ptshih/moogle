@@ -27,6 +27,8 @@
 /*
  * Facebook
  */
++ (ASIHTTPRequest *)postFacebookCheckinRequestWithParams:(NSMutableDictionary *)params withDelegate:(id)delegate;
+
 + (ASIHTTPRequest *)getFacebookRequestForMeWithDelegate:(id)delegate;
 
 + (ASIHTTPRequest *)getFacebookRequestForFriendsWithDelegate:(id)delegate;
@@ -36,5 +38,7 @@
 + (NSString *)serializeURL:(NSString *)baseUrl params:(NSDictionary *)params;
   
 + (NSString*)serializeURL:(NSString *)baseUrl params:(NSDictionary *)params httpMethod:(NSString *)httpMethod;
+
++ (NSData *)postDataWithParams:(NSDictionary *)params;
 
 @end

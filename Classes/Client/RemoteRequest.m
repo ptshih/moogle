@@ -79,6 +79,31 @@ static NSString *_secretString = nil;
   return postRequest;
 }
 
+#pragma mark Facebook API
++ (ASIHTTPRequest *)postFacebookCheckinRequestWithParams:(NSMutableDictionary *)params withDelegate:(id)delegate {
+  [params setObject:[APP_DELEGATE.fbAccessToken stringWithPercentEscape] forKey:@"access_token"];
+  
+//  NSString *token = [NSString stringWithFormat:@"access_token=%@", [APP_DELEGATE.fbAccessToken stringWithPercentEscape]];
+//  NSString *coordinates = [NSString stringWithFormat:@"&coordinates={\"latitude\":\"%@\", \"longitude\":\"%@\"}", [[params objectForKey:@"coordinates"] objectForKey:@"latitude"], [[params objectForKey:@"coordinates"] objectForKey:@"longitude"]];
+//  NSString *place = [NSString stringWithFormat:@"&place=%@", [params objectForKey:@"place"]];
+  
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/checkins", FB_GRAPH_ME];
+  
+  NSData *postData = [self postDataWithParams:params];
+  
+  ASIHTTPRequest *checkinRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:baseURLString]];
+  [checkinRequest setDelegate:delegate];
+  [checkinRequest setNumberOfTimesToRetryOnTimeout:2];
+  [checkinRequest setRequestMethod:@"POST"];
+  [checkinRequest setPostBody:postData];
+  
+//  [checkinRequest appendPostData:[token dataUsingEncoding:NSUTF8StringEncoding]];
+//  [checkinRequest appendPostData:[place dataUsingEncoding:NSUTF8StringEncoding]];
+//  [checkinRequest appendPostData:[coordinates dataUsingEncoding:NSUTF8StringEncoding]];
+  
+  return checkinRequest;
+}
+
 + (ASIHTTPRequest *)getFacebookRequestForMeWithDelegate:(id)delegate {
   NSString *token = [APP_DELEGATE.fbAccessToken stringWithPercentEscape];
   NSString *fields = FB_PARAMS;
@@ -157,6 +182,23 @@ static NSString *_secretString = nil;
   NSString* query = [pairs componentsJoinedByString:@"&"];
   
   return [NSString stringWithFormat:@"%@%@%@", baseUrl, queryPrefix, query];
+}
+
++ (NSData *)postDataWithParams:(NSDictionary *)params {
+  
+  NSMutableString *encodedParameterPairs = [[NSMutableString alloc] initWithCapacity:256];
+  
+  NSArray *allKeys = [params allKeys];
+  NSArray *allValues = [params allValues];
+  
+  for (int i = 0; i < [params count]; i++) {
+    [encodedParameterPairs appendFormat:@"%@=%@", [[allKeys objectAtIndex:i] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], [[allValues objectAtIndex:i] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    if (i < [params count] - 1) {
+      [encodedParameterPairs appendString:@"&"];
+    }
+  }
+  
+  return [encodedParameterPairs dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
 }
 
 @end
