@@ -168,7 +168,7 @@
     self.responseArray = [[CJSONDeserializer deserializer] deserializeAsArray:[request responseData] error:nil];
     [self.tableView reloadData];
   }
-  DLog(@"me checkins request finished successfully");
+  DLog(@"checkins request finished successfully");
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request {
@@ -236,6 +236,11 @@
 
 
 - (void)dealloc {
+  if(_checkinsRequest) {
+    [_checkinsRequest clearDelegatesAndCancel];
+    [_checkinsRequest release], _checkinsRequest = nil;
+  }
+  
   RELEASE_SAFELY(_nearbyPlacesViewController);
   RELEASE_SAFELY(_tableView);
   RELEASE_SAFELY(_filterView);

@@ -19,6 +19,9 @@
 #define USER_LANGUAGE [[NSLocale preferredLanguages] objectAtIndex:0]
 #define USER_LOCALE [[NSLocale autoupdatingCurrentLocale] localeIdentifier]
 
+// Notifications
+#define kLocationAcquired @"LocationAcquired"
+
 // API Version
 #define API_VERSION @"v1"
 
@@ -26,7 +29,7 @@
 // #define STAGING
 
 #if TARGET_IPHONE_SIMULATOR
-//  #define STAGING
+  #define STAGING
   #define USE_LOCALHOST
 #endif
 

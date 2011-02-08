@@ -9,6 +9,8 @@
 #import "LocationManager.h"
 #import "Constants.h"
 
+static CGFloat _distance = 500;
+
 @implementation LocationManager
 
 @synthesize locationManager = _locationManager;
@@ -26,7 +28,7 @@
   self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
   
   // Set a movement threshold for new events.
-  self.locationManager.distanceFilter = 500;
+  self.locationManager.distanceFilter = _distance;
   
   [self.locationManager startUpdatingLocation];
 }
@@ -46,6 +48,18 @@
   else return NO;
 }
 
+- (CGFloat)latitude {
+  return self.currentLocation.coordinate.latitude;
+}
+
+- (CGFloat)longitude {
+  return self.currentLocation.coordinate.longitude;
+}
+
+- (CGFloat)distance {
+  return _distance;
+}
+
 #pragma mark CLLocationManagerDelegate
 // Delegate method from the CLLocationManagerDelegate protocol.
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
@@ -60,6 +74,8 @@
     NSLog(@"latitude %+.6f, longitude %+.6f\n",
           newLocation.coordinate.latitude,
           newLocation.coordinate.longitude);
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationAcquired object:nil];
   }
   // else skip the event and process the next one.
 }

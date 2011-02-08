@@ -8,14 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@class ASIHTTPRequest;
 
 @interface NearbyPlacesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
   IBOutlet UITableView *_tableView;
   
+  ASIHTTPRequest *_nearbyPlacesRequest;
   NSArray *_responseArray;
 }
 
 @property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, retain) ASIHTTPRequest *nearbyPlacesRequest;
 @property (nonatomic, retain) NSArray *responseArray;
 
 @end

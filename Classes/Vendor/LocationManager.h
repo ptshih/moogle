@@ -24,4 +24,8 @@
 
 - (BOOL)hasAcquiredLocation;
 
+- (CGFloat)latitude;
+- (CGFloat)longitude;
+- (CGFloat)distance;
+
 @end
