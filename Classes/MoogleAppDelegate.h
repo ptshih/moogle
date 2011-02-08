@@ -8,14 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "Reachability.h"
-#import "LauncherViewController.h"
 #import "LoginViewController.h"
 
 @class ASIHTTPRequest;
+@class CheckinsViewController;
 
 @interface MoogleAppDelegate : NSObject <UIApplicationDelegate, FacebookLoginDelegate> {
   UIWindow *_window;
-  LauncherViewController *_launcherViewController;
+  UINavigationController *_navigationController;
+  CheckinsViewController *_checkinsViewController;
   LoginViewController *_loginViewController;
   
   // Requests
@@ -47,7 +48,8 @@
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) LauncherViewController *launcherViewController;
+@property (nonatomic, retain) UINavigationController *navigationController;
+@property (nonatomic, retain) CheckinsViewController *checkinsViewController;
 @property (nonatomic, retain) LoginViewController *loginViewController;
 
 // Requests

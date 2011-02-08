@@ -7,6 +7,7 @@
 //
 
 #import "MoogleAppDelegate.h"
+#import "CheckinsViewController.h"
 #import "Constants.h"
 #import "ASIHTTPRequest.h"
 #import "RemoteRequest.h"
@@ -36,7 +37,8 @@
 @implementation MoogleAppDelegate
 
 @synthesize window = _window;
-@synthesize launcherViewController = _launcherViewController;
+@synthesize navigationController = _navigationController;
+@synthesize checkinsViewController = _checkinsViewController;
 @synthesize loginViewController =_loginViewController;
 
 // Requests
@@ -67,7 +69,8 @@
   _isShowingLogin = NO;
   
   // Prepare View Controllers
-  _launcherViewController = [[LauncherViewController alloc] initWithNibName:@"LauncherViewController" bundle:nil];
+  _checkinsViewController = [[CheckinsViewController alloc] initWithNibName:@"CheckinsViewController" bundle:nil];
+  _navigationController = [[UINavigationController alloc] initWithRootViewController:self.checkinsViewController];
   _loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
   self.loginViewController.delegate = self;
   
@@ -80,9 +83,13 @@
   [self.hostReach startNotifier];
   
   // Finish Launching
-  [self.window addSubview:self.launcherViewController.view];
+  [self.window addSubview:self.navigationController.view];
   [self.window makeKeyAndVisible];
   
+  return YES;
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
   // Check Authentication
   _isLoggedIn = [self isAuthenticatedWithFacebook];
   
@@ -91,10 +98,7 @@
   } else {
     [self loginFacebook];
   }
-  
-  return YES;
 }
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
 }
@@ -106,11 +110,6 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
 }
-
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-}
-
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 }
@@ -135,7 +134,7 @@
     [self.loginViewController resetLoginState];
   } else {
       _isShowingLogin = YES;
-    [self.launcherViewController presentModalViewController:self.loginViewController animated:YES];
+    [self.checkinsViewController presentModalViewController:self.loginViewController animated:YES];
   }
 }
 
@@ -418,7 +417,7 @@
     [_moogleUserRequest release], _moogleUserRequest = nil;
   }
   
-  RELEASE_SAFELY(_launcherViewController);
+  RELEASE_SAFELY(_checkinsViewController);
   RELEASE_SAFELY(_loginViewController);
   RELEASE_SAFELY(_hostReach);
   RELEASE_SAFELY(_reachabilityAlertView);

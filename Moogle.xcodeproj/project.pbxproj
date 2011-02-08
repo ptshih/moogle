@@ -11,6 +11,9 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		2529FB1B130105380041DA95 /* NSDate+HumanInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = 2529FB1A130105380041DA95 /* NSDate+HumanInterval.m */; };
+		2529FBB9130139A10041DA95 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2529FBB7130139A10041DA95 /* Icon.png */; };
+		2529FBBA130139A10041DA95 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2529FBB8130139A10041DA95 /* Icon@2x.png */; };
 		25433D7712FA241B0066A191 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25433D7612FA241B0066A191 /* LoginViewController.m */; };
 		25433D8512FA24270066A191 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25433D8412FA24270066A191 /* LoginViewController.xib */; };
 		25433D8912FA24400066A191 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25433D8812FA24400066A191 /* WebViewController.xib */; };
@@ -27,15 +30,11 @@
 		25433DB612FA24980066A191 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 25433DAE12FA24980066A191 /* ASIDataDecompressor.m */; };
 		25433DC412FA27380066A191 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25433DC312FA27380066A191 /* CFNetwork.framework */; };
 		25433DCA12FA275E0066A191 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25433DC912FA275E0066A191 /* MobileCoreServices.framework */; };
-		25433DD612FA28BA0066A191 /* LauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25433DD412FA28BA0066A191 /* LauncherViewController.m */; };
 		25433E2912FA2E510066A191 /* btn_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25433E2812FA2E510066A191 /* btn_login@2x.png */; };
 		25433E2B12FA2E560066A191 /* btn_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 25433E2A12FA2E560066A191 /* btn_login.png */; };
-		25433F0C12FA3B770066A191 /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25433F0A12FA3B770066A191 /* MeViewController.m */; };
-		25433F0D12FA3B770066A191 /* MeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25433F0B12FA3B770066A191 /* MeViewController.xib */; };
-		25433F4212FA3E260066A191 /* LauncherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25433F4112FA3E260066A191 /* LauncherViewController.xib */; };
+		25433F0C12FA3B770066A191 /* CheckinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25433F0A12FA3B770066A191 /* CheckinsViewController.m */; };
+		25433F0D12FA3B770066A191 /* CheckinsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25433F0B12FA3B770066A191 /* CheckinsViewController.xib */; };
 		25606A9812FA465200481E43 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25606A9712FA465200481E43 /* MainWindow.xib */; };
-		25606B1112FA48ED00481E43 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25606B0F12FA48ED00481E43 /* FriendsViewController.m */; };
-		25606B1212FA48ED00481E43 /* FriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25606B1012FA48ED00481E43 /* FriendsViewController.xib */; };
 		25606B1612FA48F500481E43 /* PlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25606B1412FA48F500481E43 /* PlacesViewController.m */; };
 		25606B1712FA48F500481E43 /* PlacesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25606B1512FA48F500481E43 /* PlacesViewController.xib */; };
 		25B464D412F7BA3200C71FA9 /* NSData+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B464D312F7BA3200C71FA9 /* NSData+Compression.m */; };
@@ -69,6 +68,10 @@
 		1D3623250D0F684500981E51 /* MoogleAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoogleAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Moogle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moogle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2529FB19130105380041DA95 /* NSDate+HumanInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+HumanInterval.h"; sourceTree = "<group>"; };
+		2529FB1A130105380041DA95 /* NSDate+HumanInterval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HumanInterval.m"; sourceTree = "<group>"; };
+		2529FBB7130139A10041DA95 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		2529FBB8130139A10041DA95 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		25433D7512FA241B0066A191 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		25433D7612FA241B0066A191 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		25433D8412FA24270066A191 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -102,18 +105,12 @@
 		25433DAE12FA24980066A191 /* ASIDataDecompressor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIDataDecompressor.m; sourceTree = "<group>"; };
 		25433DC312FA27380066A191 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		25433DC912FA275E0066A191 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		25433DD312FA28BA0066A191 /* LauncherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherViewController.h; sourceTree = "<group>"; };
-		25433DD412FA28BA0066A191 /* LauncherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherViewController.m; sourceTree = "<group>"; };
 		25433E2812FA2E510066A191 /* btn_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_login@2x.png"; sourceTree = "<group>"; };
 		25433E2A12FA2E560066A191 /* btn_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_login.png; sourceTree = "<group>"; };
-		25433F0912FA3B770066A191 /* MeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeViewController.h; sourceTree = "<group>"; };
-		25433F0A12FA3B770066A191 /* MeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeViewController.m; sourceTree = "<group>"; };
-		25433F0B12FA3B770066A191 /* MeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeViewController.xib; sourceTree = "<group>"; };
-		25433F4112FA3E260066A191 /* LauncherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LauncherViewController.xib; sourceTree = "<group>"; };
+		25433F0912FA3B770066A191 /* CheckinsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinsViewController.h; sourceTree = "<group>"; };
+		25433F0A12FA3B770066A191 /* CheckinsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinsViewController.m; sourceTree = "<group>"; };
+		25433F0B12FA3B770066A191 /* CheckinsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckinsViewController.xib; sourceTree = "<group>"; };
 		25606A9712FA465200481E43 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = SOURCE_ROOT; };
-		25606B0E12FA48ED00481E43 /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
-		25606B0F12FA48ED00481E43 /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
-		25606B1012FA48ED00481E43 /* FriendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsViewController.xib; sourceTree = "<group>"; };
 		25606B1312FA48F500481E43 /* PlacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacesViewController.h; sourceTree = "<group>"; };
 		25606B1412FA48F500481E43 /* PlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacesViewController.m; sourceTree = "<group>"; };
 		25606B1512FA48F500481E43 /* PlacesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlacesViewController.xib; sourceTree = "<group>"; };
@@ -252,6 +249,8 @@
 		25433E2612FA2E000066A191 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				2529FBB7130139A10041DA95 /* Icon.png */,
+				2529FBB8130139A10041DA95 /* Icon@2x.png */,
 				25433E2A12FA2E560066A191 /* btn_login.png */,
 				25433E2812FA2E510066A191 /* btn_login@2x.png */,
 			);
@@ -271,6 +270,8 @@
 				25B4651912F7BAC700C71FA9 /* NSString+ConvenienceMethods.m */,
 				25B464D212F7BA3200C71FA9 /* NSData+Compression.h */,
 				25B464D312F7BA3200C71FA9 /* NSData+Compression.m */,
+				2529FB19130105380041DA95 /* NSDate+HumanInterval.h */,
+				2529FB1A130105380041DA95 /* NSDate+HumanInterval.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -278,15 +279,9 @@
 		25B464CD12F7BA2200C71FA9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				25433DD312FA28BA0066A191 /* LauncherViewController.h */,
-				25433DD412FA28BA0066A191 /* LauncherViewController.m */,
-				25433F4112FA3E260066A191 /* LauncherViewController.xib */,
-				25433F0912FA3B770066A191 /* MeViewController.h */,
-				25433F0A12FA3B770066A191 /* MeViewController.m */,
-				25433F0B12FA3B770066A191 /* MeViewController.xib */,
-				25606B0E12FA48ED00481E43 /* FriendsViewController.h */,
-				25606B0F12FA48ED00481E43 /* FriendsViewController.m */,
-				25606B1012FA48ED00481E43 /* FriendsViewController.xib */,
+				25433F0912FA3B770066A191 /* CheckinsViewController.h */,
+				25433F0A12FA3B770066A191 /* CheckinsViewController.m */,
+				25433F0B12FA3B770066A191 /* CheckinsViewController.xib */,
 				25606B1312FA48F500481E43 /* PlacesViewController.h */,
 				25606B1412FA48F500481E43 /* PlacesViewController.m */,
 				25606B1512FA48F500481E43 /* PlacesViewController.xib */,
@@ -502,11 +497,11 @@
 				25433D8912FA24400066A191 /* WebViewController.xib in Resources */,
 				25433E2912FA2E510066A191 /* btn_login@2x.png in Resources */,
 				25433E2B12FA2E560066A191 /* btn_login.png in Resources */,
-				25433F0D12FA3B770066A191 /* MeViewController.xib in Resources */,
-				25433F4212FA3E260066A191 /* LauncherViewController.xib in Resources */,
+				25433F0D12FA3B770066A191 /* CheckinsViewController.xib in Resources */,
 				25606A9812FA465200481E43 /* MainWindow.xib in Resources */,
-				25606B1212FA48ED00481E43 /* FriendsViewController.xib in Resources */,
 				25606B1712FA48F500481E43 /* PlacesViewController.xib in Resources */,
+				2529FBB9130139A10041DA95 /* Icon.png in Resources */,
+				2529FBBA130139A10041DA95 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,10 +544,9 @@
 				25433DB412FA24980066A191 /* ASINetworkQueue.m in Sources */,
 				25433DB512FA24980066A191 /* ASIDataCompressor.m in Sources */,
 				25433DB612FA24980066A191 /* ASIDataDecompressor.m in Sources */,
-				25433DD612FA28BA0066A191 /* LauncherViewController.m in Sources */,
-				25433F0C12FA3B770066A191 /* MeViewController.m in Sources */,
-				25606B1112FA48ED00481E43 /* FriendsViewController.m in Sources */,
+				25433F0C12FA3B770066A191 /* CheckinsViewController.m in Sources */,
 				25606B1612FA48F500481E43 /* PlacesViewController.m in Sources */,
+				2529FB1B130105380041DA95 /* NSDate+HumanInterval.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
