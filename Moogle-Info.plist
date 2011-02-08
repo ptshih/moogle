@@ -33,6 +33,10 @@
 	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>location-services</string>
+	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

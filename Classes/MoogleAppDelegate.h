@@ -11,6 +11,7 @@
 #import "LoginViewController.h"
 
 @class ASIHTTPRequest;
+@class LocationManager;
 @class CheckinsViewController;
 
 @interface MoogleAppDelegate : NSObject <UIApplicationDelegate, FacebookLoginDelegate> {
@@ -45,6 +46,8 @@
   
   BOOL _isLoggedIn;
   BOOL _isShowingLogin;
+  
+  LocationManager *_locationManager;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
@@ -70,6 +73,9 @@
 
 // Config
 @property (nonatomic, assign, readonly) BOOL isLoggedIn;
+
+// Location
+@property (nonatomic, retain) LocationManager *locationManager;
 
 // Logout from Facebook
 // This is called from MeViewController also

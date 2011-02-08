@@ -9,15 +9,25 @@
 #import <UIKit/UIKit.h>
 
 @class ASIHTTPRequest;
+@class NearbyPlacesViewController;
 
 @interface CheckinsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-  IBOutlet UITableView *_meTableView;
+  IBOutlet UITableView *_tableView;
+  IBOutlet UIView *_filterView;
+  
+  NearbyPlacesViewController *_nearbyPlacesViewController;
   
   ASIHTTPRequest *_checkinsRequest;
   NSArray *_responseArray;
+  
+  BOOL _isFiltering;
+  BOOL _isShowingNearbyPlaces;
 }
 
-@property (nonatomic, retain) UITableView *meTableView;
+@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, retain) UIView *filterView;
+
+@property (nonatomic, retain) NearbyPlacesViewController *nearbyPlacesViewController;
 
 @property (nonatomic, retain) ASIHTTPRequest *checkinsRequest;
 @property (nonatomic, retain) NSArray *responseArray;

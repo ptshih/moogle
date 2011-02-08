@@ -8,6 +8,7 @@
  */
 
 #import "MoogleAppDelegate.h"
+#import "UIView+Additions.h"
 
 #define USE_ROUNDED_CORNERS
 
@@ -76,6 +77,7 @@
 #define FB_COLOR_VERY_LIGHT_BLUE RGBCOLOR(220.0,225.0,235.0)
 #define FB_COLOR_LIGHT_BLUE RGBCOLOR(161.0,176.0,206.0)
 #define FB_COLOR_DARK_BLUE RGBCOLOR(51.0,78.0,141.0)
+#define LIGHT_GRAY RGBCOLOR(247.0,247.0,247.0)
 
 #define RGBCOLOR(R,G,B) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0]
 #define RGBACOLOR(R,G,B,A) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]

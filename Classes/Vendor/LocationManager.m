@@ -1,0 +1,74 @@
+//
+//  LocationManager.m
+//  Moogle
+//
+//  Created by Peter Shih on 2/8/11.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//
+
+#import "LocationManager.h"
+#import "Constants.h"
+
+@implementation LocationManager
+
+@synthesize locationManager = _locationManager;
+@synthesize oldLocation = _oldLocation;
+@synthesize currentLocation = _currentLocation;
+
+
+- (void)startStandardUpdates {
+  // Create the location manager if this object does not
+  // already have one.
+  if (nil == _locationManager)
+    _locationManager = [[CLLocationManager alloc] init];
+  
+  self.locationManager.delegate = self;
+  self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+  
+  // Set a movement threshold for new events.
+  self.locationManager.distanceFilter = 500;
+  
+  [self.locationManager startUpdatingLocation];
+}
+
+- (void)startSignificantChangeUpdates {
+  // Create the location manager if this object does not
+  // already have one.
+  if (nil == _locationManager)
+    self.locationManager = [[CLLocationManager alloc] init];
+  
+  self.locationManager.delegate = self;
+  [self.locationManager startMonitoringSignificantLocationChanges];
+}
+
+- (BOOL)hasAcquiredLocation {
+  if (self.currentLocation) return YES;
+  else return NO;
+}
+
+#pragma mark CLLocationManagerDelegate
+// Delegate method from the CLLocationManagerDelegate protocol.
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+  // If it's a relatively recent event, turn off updates to save power
+  NSDate* eventDate = newLocation.timestamp;
+  NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+  if (abs(howRecent) < 15.0)
+  {
+    self.oldLocation = self.currentLocation;
+    self.currentLocation = newLocation;
+    
+    NSLog(@"latitude %+.6f, longitude %+.6f\n",
+          newLocation.coordinate.latitude,
+          newLocation.coordinate.longitude);
+  }
+  // else skip the event and process the next one.
+}
+
+- (void)dealloc {
+  RELEASE_SAFELY(_locationManager);
+  RELEASE_SAFELY(_oldLocation);
+  RELEASE_SAFELY(_currentLocation);
+  [super dealloc];
+}
+
+@end

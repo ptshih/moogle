@@ -13,6 +13,7 @@
 #import "RemoteRequest.h"
 #import "RemoteOperation.h"
 #import "CJSONDeserializer.h"
+#import "LocationManager.h"
 
 @interface MoogleAppDelegate (Private)
 
@@ -60,6 +61,9 @@
 // Config
 @synthesize isLoggedIn = _isLoggedIn;
 
+// Location
+@synthesize locationManager = _locationManager;
+
 #pragma mark -
 #pragma mark Application lifecycle
 
@@ -81,6 +85,10 @@
   _netStatus = 0; // default netstatus to 0
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
   [self.hostReach startNotifier];
+  
+  // Location
+  _locationManager = [[LocationManager alloc] init];
+  [self.locationManager startStandardUpdates];
   
   // Finish Launching
   [self.window addSubview:self.navigationController.view];
@@ -424,6 +432,7 @@
   RELEASE_SAFELY(_sessionKey);
   RELEASE_SAFELY(_fbAccessToken);
   RELEASE_SAFELY(_fbUserId);
+  RELEASE_SAFELY(_locationManager);
   RELEASE_SAFELY(_window);
   [super dealloc];
 }
