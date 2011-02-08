@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NearbyPlacesDelegate.h"
 
 @class ASIHTTPRequest;
 
@@ -15,10 +16,14 @@
   
   ASIHTTPRequest *_nearbyPlacesRequest;
   NSArray *_responseArray;
+  
+  id <NearbyPlacesDelegate> delegate;
 }
 
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) ASIHTTPRequest *nearbyPlacesRequest;
 @property (nonatomic, retain) NSArray *responseArray;
+
+@property (nonatomic, assign) id <NearbyPlacesDelegate> delegate;
 
 @end

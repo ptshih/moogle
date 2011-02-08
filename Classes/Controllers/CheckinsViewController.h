@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NearbyPlacesDelegate.h"
 
 @class ASIHTTPRequest;
 @class NearbyPlacesViewController;
 
-@interface CheckinsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface CheckinsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, NearbyPlacesDelegate> {
   IBOutlet UITableView *_tableView;
   IBOutlet UIView *_filterView;
   

@@ -25,6 +25,7 @@
 - (void)animateShowFilter;
 - (void)animateHideFilter;
 - (void)getCheckins;
+- (void)showPlaceWithId:(NSNumber *)placeId;
 
 @end
 
@@ -42,6 +43,7 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     _nearbyPlacesViewController = [[NearbyPlacesViewController alloc] initWithNibName:@"NearbyPlacesViewController" bundle:nil];
+    self.nearbyPlacesViewController.delegate = self;
     _responseArray = [[NSArray alloc] init];
     _isFiltering = NO;
     _isShowingNearbyPlaces = NO;
@@ -155,6 +157,17 @@
   }
 }
 
+- (void)showPlaceWithId:(NSNumber *)placeId {
+  PlaceViewController *pvc = [[PlaceViewController alloc] initWithNibName:@"PlaceViewController" bundle:nil];
+  pvc.placeId = placeId;
+  [self.navigationController pushViewController:pvc animated:YES];
+  [pvc release];  
+}
+
+#pragma mark NearbyPlacesDelegate
+- (void)tappedPlaceWithId:(NSNumber *)placeId {
+  [self showPlaceWithId:placeId];
+}
 
 #pragma mark ASIHTTPRequestDelegate
 - (void)requestFinished:(ASIHTTPRequest *)request {
@@ -187,6 +200,12 @@
 }
 
 #pragma mark UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  
+  [self showPlaceWithId:[[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"place_id"]];
+}
+
 
 #pragma mark UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -202,7 +221,6 @@
   cell = [tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
   if(cell == nil) { 
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CheckinCell"] autorelease];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.numberOfLines = 100;
     cell.textLabel.font = [UIFont systemFontOfSize:14.0];
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_cell_bg.png"]];

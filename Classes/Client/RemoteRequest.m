@@ -95,7 +95,7 @@ static NSString *_secretString = nil;
   [checkinRequest setDelegate:delegate];
   [checkinRequest setNumberOfTimesToRetryOnTimeout:2];
   [checkinRequest setRequestMethod:@"POST"];
-  [checkinRequest setPostBody:postData];
+  [checkinRequest setPostBody:(NSMutableData *)postData];
   
 //  [checkinRequest appendPostData:[token dataUsingEncoding:NSUTF8StringEncoding]];
 //  [checkinRequest appendPostData:[place dataUsingEncoding:NSUTF8StringEncoding]];

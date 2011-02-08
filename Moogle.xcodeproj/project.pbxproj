@@ -112,6 +112,7 @@
 		2529FD561301598D0041DA95 /* NearbyPlacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyPlacesViewController.h; sourceTree = "<group>"; };
 		2529FD571301598D0041DA95 /* NearbyPlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyPlacesViewController.m; sourceTree = "<group>"; };
 		2529FD581301598D0041DA95 /* NearbyPlacesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NearbyPlacesViewController.xib; sourceTree = "<group>"; };
+		2529FFC7130184DE0041DA95 /* NearbyPlacesDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyPlacesDelegate.h; sourceTree = "<group>"; };
 		25433D7512FA241B0066A191 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		25433D7612FA241B0066A191 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		25433D8412FA24270066A191 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -343,6 +344,7 @@
 				25606B1512FA48F500481E43 /* PlaceViewController.xib */,
 				2529FD561301598D0041DA95 /* NearbyPlacesViewController.h */,
 				2529FD571301598D0041DA95 /* NearbyPlacesViewController.m */,
+				2529FFC7130184DE0041DA95 /* NearbyPlacesDelegate.h */,
 				2529FD581301598D0041DA95 /* NearbyPlacesViewController.xib */,
 				25433D7512FA241B0066A191 /* LoginViewController.h */,
 				25433D7612FA241B0066A191 /* LoginViewController.m */,

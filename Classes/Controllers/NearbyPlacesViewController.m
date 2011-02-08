@@ -24,6 +24,8 @@
 @synthesize nearbyPlacesRequest = _nearbyPlacesRequest;
 @synthesize responseArray = _responseArray;
 
+@synthesize delegate = _delegate;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
@@ -89,10 +91,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
-  PlaceViewController *pvc = [[PlaceViewController alloc] initWithNibName:@"PlaceViewController" bundle:nil];
-  pvc.placeId = [[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"id"];
-  [self presentModalViewController:pvc animated:YES];
-  [pvc release];
+  if (self.delegate) {
+    [self.delegate retain];
+    if ([self.delegate respondsToSelector:@selector(tappedPlaceWithId:)]) {
+      [self.delegate performSelector:@selector(tappedPlaceWithId:) withObject:[[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"id"]];
+    }
+    [self.delegate release];
+  }
 }
 
 #pragma mark UITableViewDataSource
@@ -109,7 +114,6 @@
   cell = [tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
   if(cell == nil) { 
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CheckinCell"] autorelease];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.numberOfLines = 100;
     cell.textLabel.font = [UIFont systemFontOfSize:14.0];
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_cell_bg.png"]];
