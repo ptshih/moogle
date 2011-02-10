@@ -43,7 +43,7 @@
   [super viewDidLoad];
   
   // Gestures
-  [self addGestures];
+//  [self addGestures];
   
   // Setup Scroll/Paging View
   self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * kNumberOfPages, self.scrollView.frame.size.height);
@@ -76,11 +76,11 @@
   [self.checkinsViewController getCheckins];
 }
 
-- (void)addGestures {
-  UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleZoom:)];
-  doubleTapGestureRecognizer.numberOfTapsRequired = 2;
-  
-}
+//- (void)addGestures {
+//  UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleZoom:)];
+//  doubleTapGestureRecognizer.numberOfTapsRequired = 2;
+//  
+//}
 
 - (void)toggleZoom:(UIView *)aView {
   if (_isZoomed) {
@@ -106,7 +106,7 @@
 - (void)zoomOut:(UIView *)aView {
   [UIView beginAnimations:nil context:NULL];
   [UIView setAnimationDuration:0.2];
-  aView.transform = CGAffineTransformMakeScale(0.9,0.92);
+  aView.transform = CGAffineTransformMakeScale(0.9,0.915);
   [UIView commitAnimations];
 }
 
