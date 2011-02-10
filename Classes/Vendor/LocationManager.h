@@ -26,6 +26,6 @@
 
 - (CGFloat)latitude;
 - (CGFloat)longitude;
-- (CGFloat)distance;
+- (NSInteger)distance;
 
 @end

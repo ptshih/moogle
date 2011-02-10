@@ -21,6 +21,8 @@
   ASIHTTPRequest *_checkinsRequest;
   NSArray *_responseArray;
   
+  UIAlertView *_logoutAlert;
+  
   BOOL _isFiltering;
   BOOL _isShowingNearbyPlaces;
 }
@@ -32,5 +34,7 @@
 
 @property (nonatomic, retain) ASIHTTPRequest *checkinsRequest;
 @property (nonatomic, retain) NSArray *responseArray;
+
+- (void)getCheckins;
 
 @end

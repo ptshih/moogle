@@ -9,7 +9,7 @@
 #import "LocationManager.h"
 #import "Constants.h"
 
-static CGFloat _distance = 500;
+static NSInteger _distance = 500;
 
 @implementation LocationManager
 
@@ -56,7 +56,7 @@ static CGFloat _distance = 500;
   return self.currentLocation.coordinate.longitude;
 }
 
-- (CGFloat)distance {
+- (NSInteger)distance {
   return _distance;
 }
 
@@ -65,6 +65,7 @@ static CGFloat _distance = 500;
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
   // If it's a relatively recent event, turn off updates to save power
   NSDate* eventDate = newLocation.timestamp;
+  
   NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
   if (abs(howRecent) < 15.0)
   {
@@ -74,8 +75,10 @@ static CGFloat _distance = 500;
     NSLog(@"latitude %+.6f, longitude %+.6f\n",
           newLocation.coordinate.latitude,
           newLocation.coordinate.longitude);
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationAcquired object:nil];
+
+    if (!self.oldLocation) {
+      [[NSNotificationCenter defaultCenter] postNotificationName:kLocationAcquired object:nil];
+    }
   }
   // else skip the event and process the next one.
 }

@@ -17,12 +17,12 @@
 /**
  * GET
  */
-+ (ASIHTTPRequest *)getRequestWithBaseURLString:(NSString *)baseURLString andParams:(NSString *)params withDelegate:(id)delegate;
++ (ASIHTTPRequest *)getRequestWithBaseURLString:(NSString *)baseURLString andParams:(NSMutableDictionary *)params withDelegate:(id)delegate;
 
 /**
  * POST
  */
-+ (ASIHTTPRequest *)postRequestWithBaseURLString:(NSString *)baseURLString andParams:(NSString *)params andPostData:(NSData *)postData isGzip:(BOOL)isGzip withDelegate:(id)delegate;
++ (ASIHTTPRequest *)postRequestWithBaseURLString:(NSString *)baseURLString andParams:(NSMutableDictionary *)params isGzip:(BOOL)isGzip withDelegate:(id)delegate;
 
 /*
  * Facebook
@@ -40,5 +40,6 @@
 + (NSString*)serializeURL:(NSString *)baseUrl params:(NSDictionary *)params httpMethod:(NSString *)httpMethod;
 
 + (NSData *)postDataWithParams:(NSDictionary *)params;
++ (NSString *)getStringWithParams:(NSDictionary *)params;
 
 @end

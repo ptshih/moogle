@@ -28,7 +28,7 @@
 - (void)startSession;
 
 // Requests
-- (void)getCurrentUserRequest;
+- (void)postStartSessionRequest;
 
 // Used for FB SSO
 - (NSDictionary*)parseURLParams:(NSString *)query;
@@ -43,8 +43,7 @@
 @synthesize loginViewController =_loginViewController;
 
 // Requests
-@synthesize currentUserRequest = _currentUserRequest;
-@synthesize moogleUserRequest = _moogleUserRequest;
+@synthesize sessionRequest = _sessionRequest;
 
 // Reachability
 @synthesize hostReach = _hostReach;
@@ -60,6 +59,7 @@
 
 // Config
 @synthesize isLoggedIn = _isLoggedIn;
+@synthesize isSessionReady = _isSessionReady;
 
 // Location
 @synthesize locationManager = _locationManager;
@@ -71,6 +71,7 @@
   // Setup Default Settings
   _isLoggedIn = NO;
   _isShowingLogin = NO;
+  _isSessionReady = NO;
   
   // Prepare View Controllers
   _checkinsViewController = [[CheckinsViewController alloc] initWithNibName:@"CheckinsViewController" bundle:nil];
@@ -100,6 +101,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
   // Check Authentication
   _isLoggedIn = [self isAuthenticatedWithFacebook];
+  _isSessionReady = NO;
   
   if (_isLoggedIn) {
     [self restoreFacebookCredentials];
@@ -135,6 +137,8 @@
 - (void)restoreFacebookCredentials {
   self.fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
   self.fbUserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbUserId"];
+  
+  [self startSession];
 }
 
 - (void)loginFacebook {
@@ -201,9 +205,6 @@
   
   // Set session start key
   [self startSession];
-  
-  // We need to fire off a GET CURRENT USER request to FB GRAPH API
-  [self getCurrentUserRequest];
 }
 
 - (void)fbDidNotLoginWithError:(NSError *)error userDidCancel:(BOOL)userDidCancel {
@@ -225,20 +226,14 @@
 
 #pragma mark -
 #pragma mark HTTP Requests
-- (void)getCurrentUserRequest {
-  self.currentUserRequest = [RemoteRequest getFacebookRequestForMeWithDelegate:self];
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.currentUserRequest];
-}
-
-- (void)sendFacebookAccessToken {
-  // Send the newly acquired FB access token to the friendmash server
-  // The friendmash server should then use this token to get the user's information and friends list
-//  NSString *token = [self.fbAccessToken stringWithPercentEscape];
-//  NSString *params = [NSString stringWithFormat:@"access_token=%@", token];
-//  NSString *baseURLString = [NSString stringWithFormat:@"%@/mash/token/%@", FRIENDMASH_BASE_URL, self.currentUserId];
-//  //  self.tokenRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:nil];
-//  self.tokenRequest = [RemoteRequest postRequestWithBaseURLString:baseURLString andParams:params andPostData:self.currentUser isGzip:NO withDelegate:self];
-//  [[RemoteOperation sharedInstance] addRequestToQueue:self.tokenRequest];
+- (void)postStartSessionRequest {
+  DLog(@"starting session request to moogle");
+  
+  NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/moogle/session", MOOGLE_BASE_URL, API_VERSION];
+  self.sessionRequest = [RemoteRequest postRequestWithBaseURLString:baseURLString andParams:params isGzip:NO withDelegate:self];
+  [[RemoteOperation sharedInstance] addRequestToQueue:self.sessionRequest];
 }
 
 #pragma mark -
@@ -247,22 +242,25 @@
 - (void)requestFinished:(ASIHTTPRequest *)request {
   NSInteger statusCode = [request responseStatusCode];
   
-  if([request isEqual:self.currentUserRequest]) {
-    DLog(@"current user request finished");
+  if([request isEqual:self.sessionRequest]) {
+    DLog(@"session request finished");
     if(statusCode > 200) {
       _networkErrorAlert = [[UIAlertView alloc] initWithTitle:@"Network Error" message:FM_NETWORK_ERROR delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:nil];
       [_networkErrorAlert show];
       [_networkErrorAlert autorelease];
     } else {
-      self.fbUserId = [[[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:nil] objectForKey:@"id"];
+      // Moogle server will send user ID and name back
+      self.fbUserId = [[[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:nil] objectForKey:@"facebook_id"];
       // Maybe make more use of this info later?
       // Like read out names
       
       [[NSUserDefaults standardUserDefaults] setObject:self.fbUserId forKey:@"fbUserId"];
       [[NSUserDefaults standardUserDefaults] synchronize];
       
-      // Fire off the server request to friendmash with auth token and userid
-//      [self sendFacebookAccessToken];
+      // Ready the session
+      _isSessionReady = YES;
+      
+      [self.checkinsViewController getCheckins];
       
       // dismiss the login view
       [self dismissLoginView:YES];
@@ -272,7 +270,7 @@
 
 - (void)requestFailed:(ASIHTTPRequest *)request {
   DLog(@"Request Failed with Error: %@", [request error]);
-  if([request isEqual:self.currentUserRequest]) {
+  if([request isEqual:self.sessionRequest]) {
     _networkErrorAlert = [[UIAlertView alloc] initWithTitle:@"Network Error" message:FM_NETWORK_ERROR delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:nil];
     [_networkErrorAlert show];
     [_networkErrorAlert autorelease];
@@ -284,11 +282,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
   if([alertView isEqual:_networkErrorAlert]) {
     // get current user failed
-    [self getCurrentUserRequest];
+    [self postStartSessionRequest];
   } else if([alertView isEqual:_loginFailedAlert]) {
     [self loginFacebook];
-  } else if([alertView isEqual:_tokenFailedAlert]) {
-    // token failed
   }
 }
 
@@ -404,7 +400,9 @@
   // Set Session Key
   NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
   NSInteger currentTimestampInteger = floor(currentTimestamp);
-  self.sessionKey = [NSString stringWithFormat:@"%d", currentTimestampInteger]; 
+  self.sessionKey = [NSString stringWithFormat:@"%d", currentTimestampInteger];
+  
+  [self postStartSessionRequest];
 }
 
 #pragma mark -
@@ -415,14 +413,9 @@
 
 
 - (void)dealloc {
-  if(_currentUserRequest) {
-    [_currentUserRequest clearDelegatesAndCancel];
-    [_currentUserRequest release], _currentUserRequest = nil;
-  }
-  
-  if(_moogleUserRequest) {
-    [_moogleUserRequest clearDelegatesAndCancel];
-    [_moogleUserRequest release], _moogleUserRequest = nil;
+  if (_sessionRequest) {
+    [_sessionRequest clearDelegatesAndCancel];
+    [_sessionRequest release], _sessionRequest = nil;
   }
   
   RELEASE_SAFELY(_checkinsViewController);

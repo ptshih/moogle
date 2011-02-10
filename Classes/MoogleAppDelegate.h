@@ -21,8 +21,7 @@
   LoginViewController *_loginViewController;
   
   // Requests
-  ASIHTTPRequest *_currentUserRequest;
-  ASIHTTPRequest *_moogleUserRequest;
+  ASIHTTPRequest *_sessionRequest;
   
   // Reachability
   Reachability *_hostReach;
@@ -42,10 +41,10 @@
   // AlertViews
   UIAlertView *_networkErrorAlert;
   UIAlertView *_loginFailedAlert;
-  UIAlertView *_tokenFailedAlert;
   
   BOOL _isLoggedIn;
   BOOL _isShowingLogin;
+  BOOL _isSessionReady;
   
   LocationManager *_locationManager;
 }
@@ -56,8 +55,7 @@
 @property (nonatomic, retain) LoginViewController *loginViewController;
 
 // Requests
-@property (nonatomic, retain) ASIHTTPRequest *currentUserRequest;
-@property (nonatomic, retain) ASIHTTPRequest *moogleUserRequest;
+@property (nonatomic, retain) ASIHTTPRequest *sessionRequest;
 
 // Reachability
 @property (nonatomic, retain) Reachability *hostReach;
@@ -73,6 +71,7 @@
 
 // Config
 @property (nonatomic, assign, readonly) BOOL isLoggedIn;
+@property (nonatomic, assign, readonly) BOOL isSessionReady;
 
 // Location
 @property (nonatomic, retain) LocationManager *locationManager;

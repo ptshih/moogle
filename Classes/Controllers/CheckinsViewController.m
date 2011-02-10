@@ -24,7 +24,6 @@
 - (void)setupButtons;
 - (void)animateShowFilter;
 - (void)animateHideFilter;
-- (void)getCheckins;
 - (void)showPlaceWithId:(NSNumber *)placeId;
 
 @end
@@ -65,7 +64,7 @@
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
   
-  if (APP_DELEGATE.isLoggedIn) {
+  if (APP_DELEGATE.isSessionReady) {
     [self getCheckins];
   }
 }
@@ -119,8 +118,8 @@
 
 - (void)getCheckins {
   // Mode selection
-  NSString *params = nil;
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkin/me/%@", MOOGLE_BASE_URL, API_VERSION, APP_DELEGATE.fbUserId];
+  NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins", MOOGLE_BASE_URL, API_VERSION];
   
   self.checkinsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self];
   [[RemoteOperation sharedInstance] addRequestToQueue:self.checkinsRequest];
@@ -151,9 +150,9 @@
 
 - (void)logout {
   if (APP_DELEGATE.fbAccessToken) {
-    UIAlertView *logoutAlert = [[UIAlertView alloc] initWithTitle:@"Logout" message:@"Are you sure you want to logout?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-    [logoutAlert show];
-    [logoutAlert autorelease];
+    _logoutAlert = [[UIAlertView alloc] initWithTitle:@"Logout" message:@"Are you sure you want to logout?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [_logoutAlert show];
+    [_logoutAlert autorelease];
   }
 }
 
@@ -193,9 +192,14 @@
 
 #pragma mark UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-  if (buttonIndex != alertView.cancelButtonIndex) {
-    [self.navigationController popToRootViewControllerAnimated:NO];
-    [APP_DELEGATE logoutFacebook];
+  if ([alertView isEqual:_logoutAlert]) {
+    if (buttonIndex != alertView.cancelButtonIndex) {
+      [self.navigationController popToRootViewControllerAnimated:NO];
+      [APP_DELEGATE logoutFacebook];
+    }
+  } else {
+    // Assume this is a network error
+    [self getCheckins];
   }
 }
 

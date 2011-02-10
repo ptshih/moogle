@@ -24,12 +24,15 @@ static NSString *_secretString = nil;
   [pool drain];
 }
 
-+ (ASIHTTPRequest *)getRequestWithBaseURLString:(NSString *)baseURLString andParams:(NSString *)params withDelegate:(id)delegate {
-  NSString *getURLString = params ? [NSString stringWithFormat:@"%@?%@", baseURLString, params] : baseURLString;
++ (ASIHTTPRequest *)getRequestWithBaseURLString:(NSString *)baseURLString andParams:(NSMutableDictionary *)params withDelegate:(id)delegate {
+  [params setObject:[APP_DELEGATE.fbAccessToken stringWithPercentEscape] forKey:@"access_token"];
+  NSString *paramsString = [self getStringWithParams:params];
+  NSString *getURLString = [NSString stringWithFormat:@"%@?%@", baseURLString, paramsString];
   NSURL *getURL = [NSURL URLWithString:getURLString];
   
   ASIHTTPRequest *getRequest = [ASIHTTPRequest requestWithURL:getURL];
   [getRequest setDelegate:delegate];
+  [getRequest setTimeOutSeconds:120];
   [getRequest setNumberOfTimesToRetryOnTimeout:2];
   [getRequest setAllowCompressedResponse:YES];
   [getRequest addRequestHeader:@"Content-Type" value:@"application/json"];
@@ -44,23 +47,28 @@ static NSString *_secretString = nil;
   [getRequest addRequestHeader:@"X-User-Language" value:USER_LANGUAGE];
   [getRequest addRequestHeader:@"X-User-Locale" value:USER_LOCALE];
   if(APP_DELEGATE.sessionKey) [getRequest addRequestHeader:@"X-Session-Key" value:APP_DELEGATE.sessionKey];
-  if(APP_DELEGATE.fbUserId) [getRequest addRequestHeader:@"X-User-Id" value:APP_DELEGATE.fbUserId];
+//  if(APP_DELEGATE.fbUserId) [getRequest addRequestHeader:@"X-User-Id" value:APP_DELEGATE.fbUserId];
   [getRequest addRequestHeader:@"X-Friendmash-Secret" value:_secretString];
   
   return getRequest;
 }
 
-+ (ASIHTTPRequest *)postRequestWithBaseURLString:(NSString *)baseURLString andParams:(NSString *)params andPostData:(NSData *)postData isGzip:(BOOL)isGzip withDelegate:(id)delegate {
-  NSString *postURLString = params ? [NSString stringWithFormat:@"%@?%@", baseURLString, params] : baseURLString;
-  NSURL *postURL = [NSURL URLWithString:postURLString];
++ (ASIHTTPRequest *)postRequestWithBaseURLString:(NSString *)baseURLString andParams:(NSMutableDictionary *)params isGzip:(BOOL)isGzip withDelegate:(id)delegate {
+  // Send access_token as a parameter
+  [params setObject:[APP_DELEGATE.fbAccessToken stringWithPercentEscape] forKey:@"access_token"];
+  
+  // Build parameters as postData
+  NSData *postData = [self postDataWithParams:params];
+  NSURL *postURL = [NSURL URLWithString:baseURLString];
   
   ASIHTTPRequest *postRequest = [ASIHTTPRequest requestWithURL:postURL];
 
   [postRequest setDelegate:delegate];
+  [postRequest setTimeOutSeconds:120];
   [postRequest setNumberOfTimesToRetryOnTimeout:2];
   [postRequest setRequestMethod:@"POST"];
   [postRequest setShouldCompressRequestBody:isGzip]; // GZIP the postData
-  [postRequest addRequestHeader:@"Content-Type" value:@"application/json"];
+//  [postRequest addRequestHeader:@"Content-Type" value:@"application/json"];
   [postRequest addRequestHeader:@"Accept" value:@"application/json"];
   [postRequest addRequestHeader:@"X-UDID" value:[[UIDevice currentDevice] uniqueIdentifier]];
   [postRequest addRequestHeader:@"X-Device-Model" value:[[UIDevice currentDevice] model]];
@@ -71,9 +79,9 @@ static NSString *_secretString = nil;
   [postRequest addRequestHeader:@"X-User-Language" value:USER_LANGUAGE];
   [postRequest addRequestHeader:@"X-User-Locale" value:USER_LOCALE];
   if(APP_DELEGATE.sessionKey) [postRequest addRequestHeader:@"X-Session-Key" value:APP_DELEGATE.sessionKey];
-  if(APP_DELEGATE.fbUserId) [postRequest addRequestHeader:@"X-User-Id" value:APP_DELEGATE.fbUserId];
+//  if(APP_DELEGATE.fbUserId) [postRequest addRequestHeader:@"X-User-Id" value:APP_DELEGATE.fbUserId];
   [postRequest addRequestHeader:@"X-Friendmash-Secret" value:_secretString];
-//  [postRequest setPostLength:[postData length]];
+  [postRequest setPostLength:[postData length]];
   [postRequest setPostBody:(NSMutableData *)postData];
   
   return postRequest;
@@ -184,8 +192,7 @@ static NSString *_secretString = nil;
   return [NSString stringWithFormat:@"%@%@%@", baseUrl, queryPrefix, query];
 }
 
-+ (NSData *)postDataWithParams:(NSDictionary *)params {
-  
++ (NSData *)postDataWithParams:(NSDictionary *)params {  
   NSMutableString *encodedParameterPairs = [[NSMutableString alloc] initWithCapacity:256];
   
   NSArray *allKeys = [params allKeys];
@@ -199,6 +206,22 @@ static NSString *_secretString = nil;
   }
   
   return [encodedParameterPairs dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+}
+
++ (NSString *)getStringWithParams:(NSDictionary *)params {
+  NSMutableString *encodedParameterPairs = [[NSMutableString alloc] initWithCapacity:256];
+  
+  NSArray *allKeys = [params allKeys];
+  NSArray *allValues = [params allValues];
+  
+  for (int i = 0; i < [params count]; i++) {
+    [encodedParameterPairs appendFormat:@"%@=%@", [[allKeys objectAtIndex:i] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], [[allValues objectAtIndex:i] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    if (i < [params count] - 1) {
+      [encodedParameterPairs appendString:@"&"];
+    }
+  }
+  
+  return encodedParameterPairs;
 }
 
 @end
