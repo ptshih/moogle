@@ -24,6 +24,8 @@
   
   NSArray *_cards;
   NSInteger _currentPage;
+  
+  BOOL _isZoomed;
 }
 
 @property (nonatomic, retain) UIScrollView *scrollView;

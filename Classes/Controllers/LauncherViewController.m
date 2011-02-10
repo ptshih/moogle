@@ -34,6 +34,7 @@
     self.nearbyPlacesViewController.delegate = self;
     _trendsViewController = [[TrendsViewController alloc] initWithNibName:@"TrendsViewController" bundle:nil];
     _currentPage = 0;
+    _isZoomed = NO;
   }
   return self;
 }
@@ -41,8 +42,12 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  // Gestures
+  [self addGestures];
+  
   // Setup Scroll/Paging View
   self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * kNumberOfPages, self.scrollView.frame.size.height);
+//  self.scrollView.contentInset = UIEdgeInsetsMake(5, 0, 5, 0);
   self.scrollView.scrollsToTop = NO;
   
   // Setup Page Control
@@ -64,11 +69,45 @@
   [self.scrollView addSubview:nearbyNavController.view];
   [self.scrollView addSubview:trendsNavController.view];
   
-  self.cards = [NSArray arrayWithObjects:self.checkinsViewController, self.nearbyPlacesViewController, self.trendsViewController, nil];
+  self.cards = [NSArray arrayWithObjects:checkinsNavController, nearbyNavController, trendsNavController, nil];
 }
 
 - (void)reloadCheckins {
   [self.checkinsViewController getCheckins];
+}
+
+- (void)addGestures {
+  UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleZoom:)];
+  doubleTapGestureRecognizer.numberOfTapsRequired = 2;
+  
+}
+
+- (void)toggleZoom:(UIView *)aView {
+  if (_isZoomed) {
+    _isZoomed = NO;
+    [UIView animateWithDuration:0.2 animations:^{
+      aView.frame = CGRectMake(0, 0, 320, 440);
+    }];
+  } else {
+    _isZoomed = YES;
+    [UIView animateWithDuration:0.2 animations:^{
+      aView.frame = CGRectMake(10, 10, 300, 420);
+    }];
+  }
+}
+
+- (void)zoomIn:(UIView *)aView {
+  [UIView beginAnimations:nil context:NULL];
+  [UIView setAnimationDuration:0.2];
+  aView.transform = CGAffineTransformMakeScale(1,1);
+  [UIView commitAnimations];
+}
+
+- (void)zoomOut:(UIView *)aView {
+  [UIView beginAnimations:nil context:NULL];
+  [UIView setAnimationDuration:0.2];
+  aView.transform = CGAffineTransformMakeScale(0.9,0.92);
+  [UIView commitAnimations];
 }
 
 #pragma mark UIScrollViewDelegate
@@ -83,10 +122,25 @@
   self.pageControl.currentPage = page;
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+  // When the user begins scrolling, zoom into card view
+  for (UIViewController *card in self.cards) {
+    [self zoomOut:card.view];
+  }
+}
+
 // At the end of scroll animation, load the active view
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+  // When the card is finished paging, zoom it out to take the full screen
+  for (UIViewController *card in self.cards) {
+    [self zoomIn:card.view];
+  }
+  
+  // Tell the new visible controller to reload it's data if it responds to it
   id visibleViewController = [self.cards objectAtIndex:self.pageControl.currentPage];
-  [visibleViewController performSelector:@selector(reloadCardController)];
+  if ([[visibleViewController topViewController] respondsToSelector:@selector(reloadCardController)]) {
+    [[visibleViewController topViewController] performSelector:@selector(reloadCardController)];
+  }
 }
 
 
