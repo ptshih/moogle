@@ -1,8 +1,8 @@
 //
-//  CheckinsViewController.h
+//  TrendsViewController.h
 //  Moogle
 //
-//  Created by Peter Shih on 2/2/11.
+//  Created by Peter Shih on 2/10/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
@@ -11,22 +11,18 @@
 
 @class ASIHTTPRequest;
 
-@interface CheckinsViewController : CardViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface TrendsViewController : CardViewController {
   IBOutlet UITableView *_tableView;
   IBOutlet UIView *_filterView;
   
-  ASIHTTPRequest *_checkinsRequest;
+  ASIHTTPRequest *_trendsRequest;
   NSArray *_responseArray;
-  
-  UIAlertView *_logoutAlert;
 }
 
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) UIView *filterView;
 
-@property (nonatomic, retain) ASIHTTPRequest *checkinsRequest;
+@property (nonatomic, retain) ASIHTTPRequest *trendsRequest;
 @property (nonatomic, retain) NSArray *responseArray;
-
-- (void)getCheckins;
 
 @end

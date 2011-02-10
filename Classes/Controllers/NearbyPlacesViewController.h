@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CardViewController.h"
 #import "NearbyPlacesDelegate.h"
 
 @class ASIHTTPRequest;
 
-@interface NearbyPlacesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface NearbyPlacesViewController : CardViewController <UITableViewDelegate, UITableViewDataSource> {
   IBOutlet UITableView *_tableView;
   
   ASIHTTPRequest *_nearbyPlacesRequest;
@@ -25,5 +26,7 @@
 @property (nonatomic, retain) NSArray *responseArray;
 
 @property (nonatomic, assign) id <NearbyPlacesDelegate> delegate;
+
+- (void)getNearbyPlaces;
 
 @end

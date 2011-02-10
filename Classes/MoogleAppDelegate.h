@@ -12,13 +12,12 @@
 
 @class ASIHTTPRequest;
 @class LocationManager;
-@class CheckinsViewController;
+@class LauncherViewController;
 
 @interface MoogleAppDelegate : NSObject <UIApplicationDelegate, FacebookLoginDelegate> {
   UIWindow *_window;
-  UINavigationController *_navigationController;
-  CheckinsViewController *_checkinsViewController;
   LoginViewController *_loginViewController;
+  LauncherViewController *_launcherViewController;
   
   // Requests
   ASIHTTPRequest *_sessionRequest;
@@ -50,9 +49,8 @@
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) UINavigationController *navigationController;
-@property (nonatomic, retain) CheckinsViewController *checkinsViewController;
 @property (nonatomic, retain) LoginViewController *loginViewController;
+@property (nonatomic, retain) LauncherViewController *launcherViewController;
 
 // Requests
 @property (nonatomic, retain) ASIHTTPRequest *sessionRequest;

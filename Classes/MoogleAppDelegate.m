@@ -7,7 +7,7 @@
 //
 
 #import "MoogleAppDelegate.h"
-#import "CheckinsViewController.h"
+#import "LauncherViewController.h"
 #import "Constants.h"
 #import "ASIHTTPRequest.h"
 #import "RemoteRequest.h"
@@ -38,9 +38,8 @@
 @implementation MoogleAppDelegate
 
 @synthesize window = _window;
-@synthesize navigationController = _navigationController;
-@synthesize checkinsViewController = _checkinsViewController;
 @synthesize loginViewController =_loginViewController;
+@synthesize launcherViewController = _launcherViewController;
 
 // Requests
 @synthesize sessionRequest = _sessionRequest;
@@ -74,8 +73,7 @@
   _isSessionReady = NO;
   
   // Prepare View Controllers
-  _checkinsViewController = [[CheckinsViewController alloc] initWithNibName:@"CheckinsViewController" bundle:nil];
-  _navigationController = [[UINavigationController alloc] initWithRootViewController:self.checkinsViewController];
+  _launcherViewController = [[LauncherViewController alloc] initWithNibName:@"LauncherViewController" bundle:nil];
   _loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
   self.loginViewController.delegate = self;
   
@@ -92,7 +90,7 @@
   [self.locationManager startStandardUpdates];
   
   // Finish Launching
-  [self.window addSubview:self.navigationController.view];
+  [self.window addSubview:self.launcherViewController.view];
   [self.window makeKeyAndVisible];
   
   return YES;
@@ -146,7 +144,7 @@
     [self.loginViewController resetLoginState];
   } else {
       _isShowingLogin = YES;
-    [self.checkinsViewController presentModalViewController:self.loginViewController animated:YES];
+    [self.launcherViewController presentModalViewController:self.loginViewController animated:YES];
   }
 }
 
@@ -260,7 +258,7 @@
       // Ready the session
       _isSessionReady = YES;
       
-      [self.checkinsViewController getCheckins];
+      [self.launcherViewController reloadCheckins];
       
       // dismiss the login view
       [self dismissLoginView:YES];
@@ -418,8 +416,8 @@
     [_sessionRequest release], _sessionRequest = nil;
   }
   
-  RELEASE_SAFELY(_checkinsViewController);
   RELEASE_SAFELY(_loginViewController);
+  RELEASE_SAFELY(_launcherViewController);
   RELEASE_SAFELY(_hostReach);
   RELEASE_SAFELY(_reachabilityAlertView);
   RELEASE_SAFELY(_sessionKey);

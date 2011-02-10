@@ -7,7 +7,6 @@
 //
 
 #import "NearbyPlacesViewController.h"
-#import "PlaceViewController.h"
 #import "Constants.h"
 #import "LocationManager.h"
 
@@ -38,6 +37,9 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
+  self.title = @"Nearby Places";
+  
 //  self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
 //  self.title = @"Nearby Places";
   
@@ -45,9 +47,13 @@
   
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-
+#pragma mark CardViewController
+- (void)reloadCardController {
+  [super reloadCardController];
+  
+  if ([APP_DELEGATE.locationManager hasAcquiredLocation]) {
+    [self getNearbyPlaces];
+  }
 }
 
 - (void)getNearbyPlaces {
@@ -89,13 +95,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
-  if (self.delegate) {
-    [self.delegate retain];
-    if ([self.delegate respondsToSelector:@selector(tappedPlaceWithId:)]) {
-      [self.delegate performSelector:@selector(tappedPlaceWithId:) withObject:[[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"id"]];
-    }
-    [self.delegate release];
-  }
+  [self showPlaceWithId:[[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"id"]];
 }
 
 #pragma mark UITableViewDataSource
@@ -123,24 +123,6 @@
   
   return cell;
 }
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-  return UIInterfaceOrientationIsPortrait(interfaceOrientation);
-}
-
-- (void)didReceiveMemoryWarning {
-  // Releases the view if it doesn't have a superview.
-  [super didReceiveMemoryWarning];
-  
-  // Release any cached data, images, etc. that aren't in use.
-}
-
-- (void)viewDidUnload {
-  [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
-}
-
 
 - (void)dealloc {
   if(_nearbyPlacesRequest) {

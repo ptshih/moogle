@@ -7,8 +7,6 @@
 //
 
 #import "CheckinsViewController.h"
-#import "NearbyPlacesViewController.h"
-#import "PlaceViewController.h"
 #import "Constants.h"
 
 #import "ASIHTTPRequest.h"
@@ -22,15 +20,10 @@
 @interface CheckinsViewController (Private)
 
 - (void)setupButtons;
-- (void)animateShowFilter;
-- (void)animateHideFilter;
-- (void)showPlaceWithId:(NSNumber *)placeId;
 
 @end
 
 @implementation CheckinsViewController
-
-@synthesize nearbyPlacesViewController = _nearbyPlacesViewController;
 
 @synthesize tableView = _tableView;
 @synthesize filterView = _filterView;
@@ -41,11 +34,8 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
-    _nearbyPlacesViewController = [[NearbyPlacesViewController alloc] initWithNibName:@"NearbyPlacesViewController" bundle:nil];
-    self.nearbyPlacesViewController.delegate = self;
     _responseArray = [[NSArray alloc] init];
     _isFiltering = NO;
-    _isShowingNearbyPlaces = NO;
   }
   return self;
 }
@@ -54,19 +44,18 @@
   [super viewDidLoad];
   
   self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
-  self.title = @"Moogle";
+  self.title = @"Moogle Me";
   
   self.filterView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"filter_gradient.png"]];
   
   [self setupButtons];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
+#pragma mark CardViewController
+- (void)reloadCardController {
+  [super reloadCardController];
   
-  if (APP_DELEGATE.isSessionReady) {
-    [self getCheckins];
-  }
+  [self getCheckins];
 }
 
 - (void)setupButtons {
@@ -78,47 +67,17 @@
   self.navigationItem.leftBarButtonItem = checkinButton;
   
   // Setup Filter button
-  UIBarButtonItem *filterButton = [[[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStyleBordered target:self action:@selector(filterCheckins)] autorelease];
+  UIBarButtonItem *filterButton = [[[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStyleBordered target:self action:@selector(filter)] autorelease];
   self.navigationItem.rightBarButtonItem = filterButton;
 }
 
 - (void)checkin {
-  if (_isShowingNearbyPlaces) {
-    _isShowingNearbyPlaces = NO;
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:1.0];
-    [UIView setAnimationBeginsFromCurrentState:NO];
-    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];
-    [self.view bringSubviewToFront:self.tableView];
-    [UIView commitAnimations];
-    [self.nearbyPlacesViewController.view removeFromSuperview];
-  } else {
-    _isShowingNearbyPlaces = YES;
-    [self.view insertSubview:self.nearbyPlacesViewController.view atIndex:0];
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:1.0];
-    [UIView setAnimationBeginsFromCurrentState:NO];
-    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight forView:self.view cache:YES];
-    [self.view bringSubviewToFront:self.nearbyPlacesViewController.view];
-    [UIView commitAnimations];
-  }
-}
-
-- (void)filterCheckins {
-  if (_isFiltering) {
-    // Hide filter drop-down
-    _isFiltering = NO;
-    [self animateHideFilter];
-  } else {
-    // Show filter drop-down
-    _isFiltering = YES;
-    [self animateShowFilter];
-  }
 }
 
 - (void)getCheckins {
   // Mode selection
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  [params setObject:@"me" forKey:@"people"];
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins", MOOGLE_BASE_URL, API_VERSION];
   
   self.checkinsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self];
@@ -156,17 +115,7 @@
   }
 }
 
-- (void)showPlaceWithId:(NSNumber *)placeId {
-  PlaceViewController *pvc = [[PlaceViewController alloc] initWithNibName:@"PlaceViewController" bundle:nil];
-  pvc.placeId = placeId;
-  [self.navigationController pushViewController:pvc animated:YES];
-  [pvc release];  
-}
 
-#pragma mark NearbyPlacesDelegate
-- (void)tappedPlaceWithId:(NSNumber *)placeId {
-  [self showPlaceWithId:placeId];
-}
 
 #pragma mark ASIHTTPRequestDelegate
 - (void)requestFinished:(ASIHTTPRequest *)request {
@@ -231,31 +180,14 @@
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:20]];
   }
   
-  cell.textLabel.text = [[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"place_name"];
+  cell.textLabel.text = [[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"name"];
+  cell.detailTextLabel.text = [[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"place_name"];
   
-  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"checkin_timestamp"] intValue]];
-  cell.detailTextLabel.text = [date humanIntervalSinceNow];
+//  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"checkin_timestamp"] intValue]];
+//  cell.detailTextLabel.text = [date humanIntervalSinceNow];
   
   return cell;
 }
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-  return UIInterfaceOrientationIsPortrait(interfaceOrientation);
-}
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc. that aren't in use.
-}
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
 
 - (void)dealloc {
   if(_checkinsRequest) {
@@ -263,7 +195,6 @@
     [_checkinsRequest release], _checkinsRequest = nil;
   }
   
-  RELEASE_SAFELY(_nearbyPlacesViewController);
   RELEASE_SAFELY(_tableView);
   RELEASE_SAFELY(_filterView);
   RELEASE_SAFELY(_responseArray);

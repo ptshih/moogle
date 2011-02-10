@@ -11,6 +11,11 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		25290186130410660041DA95 /* LauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25290184130410660041DA95 /* LauncherViewController.m */; };
+		25290187130410660041DA95 /* LauncherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25290185130410660041DA95 /* LauncherViewController.xib */; };
+		2529023913041E6D0041DA95 /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2529023813041E6D0041DA95 /* CardViewController.m */; };
+		25290272130421BC0041DA95 /* TrendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25290270130421BC0041DA95 /* TrendsViewController.m */; };
+		25290273130421BC0041DA95 /* TrendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25290271130421BC0041DA95 /* TrendsViewController.xib */; };
 		2529FB1B130105380041DA95 /* NSDate+HumanInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = 2529FB1A130105380041DA95 /* NSDate+HumanInterval.m */; };
 		2529FBB9130139A10041DA95 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2529FBB7130139A10041DA95 /* Icon.png */; };
 		2529FBBA130139A10041DA95 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2529FBB8130139A10041DA95 /* Icon@2x.png */; };
@@ -87,6 +92,14 @@
 		1D3623250D0F684500981E51 /* MoogleAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoogleAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Moogle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moogle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		25290183130410660041DA95 /* LauncherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherViewController.h; sourceTree = "<group>"; };
+		25290184130410660041DA95 /* LauncherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherViewController.m; sourceTree = "<group>"; };
+		25290185130410660041DA95 /* LauncherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LauncherViewController.xib; sourceTree = "<group>"; };
+		2529023713041E6D0041DA95 /* CardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
+		2529023813041E6D0041DA95 /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
+		2529026F130421BC0041DA95 /* TrendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendsViewController.h; sourceTree = "<group>"; };
+		25290270130421BC0041DA95 /* TrendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendsViewController.m; sourceTree = "<group>"; };
+		25290271130421BC0041DA95 /* TrendsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrendsViewController.xib; sourceTree = "<group>"; };
 		2529FB19130105380041DA95 /* NSDate+HumanInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+HumanInterval.h"; sourceTree = "<group>"; };
 		2529FB1A130105380041DA95 /* NSDate+HumanInterval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HumanInterval.m"; sourceTree = "<group>"; };
 		2529FBB7130139A10041DA95 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -336,6 +349,11 @@
 		25B464CD12F7BA2200C71FA9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2529023713041E6D0041DA95 /* CardViewController.h */,
+				2529023813041E6D0041DA95 /* CardViewController.m */,
+				25290183130410660041DA95 /* LauncherViewController.h */,
+				25290184130410660041DA95 /* LauncherViewController.m */,
+				25290185130410660041DA95 /* LauncherViewController.xib */,
 				25433F0912FA3B770066A191 /* CheckinsViewController.h */,
 				25433F0A12FA3B770066A191 /* CheckinsViewController.m */,
 				25433F0B12FA3B770066A191 /* CheckinsViewController.xib */,
@@ -346,6 +364,9 @@
 				2529FD571301598D0041DA95 /* NearbyPlacesViewController.m */,
 				2529FFC7130184DE0041DA95 /* NearbyPlacesDelegate.h */,
 				2529FD581301598D0041DA95 /* NearbyPlacesViewController.xib */,
+				2529026F130421BC0041DA95 /* TrendsViewController.h */,
+				25290270130421BC0041DA95 /* TrendsViewController.m */,
+				25290271130421BC0041DA95 /* TrendsViewController.xib */,
 				25433D7512FA241B0066A191 /* LoginViewController.h */,
 				25433D7612FA241B0066A191 /* LoginViewController.m */,
 				25433D8412FA24270066A191 /* LoginViewController.xib */,
@@ -582,6 +603,8 @@
 				2529FD51130158800041DA95 /* bubble.png in Resources */,
 				2529FD52130158800041DA95 /* bubble@2x.png in Resources */,
 				2529FD5A1301598D0041DA95 /* NearbyPlacesViewController.xib in Resources */,
+				25290187130410660041DA95 /* LauncherViewController.xib in Resources */,
+				25290273130421BC0041DA95 /* TrendsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +652,9 @@
 				2529FB1B130105380041DA95 /* NSDate+HumanInterval.m in Sources */,
 				2529FC4D130140B70041DA95 /* LocationManager.m in Sources */,
 				2529FD591301598D0041DA95 /* NearbyPlacesViewController.m in Sources */,
+				25290186130410660041DA95 /* LauncherViewController.m in Sources */,
+				2529023913041E6D0041DA95 /* CardViewController.m in Sources */,
+				25290272130421BC0041DA95 /* TrendsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
