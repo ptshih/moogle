@@ -64,6 +64,7 @@
 }
 
 - (void)checkin {
+  [APP_DELEGATE logoutFacebook];
 }
 
 - (void)getCheckins {
