@@ -33,6 +33,9 @@
 // Used for FB SSO
 - (NSDictionary*)parseURLParams:(NSString *)query;
 
+// User Defaults
++ (void)setupDefaults;
+
 @end
 
 @implementation MoogleAppDelegate
@@ -65,6 +68,22 @@
 
 #pragma mark -
 #pragma mark Application lifecycle
+
++ (void)initialize {
+  [self setupDefaults];
+}
+
++ (void)setupDefaults {
+  if ([self class] == [MoogleAppDelegate class]) {
+    NSString *initialDefaultsPath = [[NSBundle mainBundle] pathForResource:@"InitialDefaults" ofType:@"plist"];
+    assert(initialDefaultsPath != nil);
+    
+    NSDictionary *initialDefaults = [NSDictionary dictionaryWithContentsOfFile:initialDefaultsPath];
+    assert(initialDefaults != nil);
+    
+    [[NSUserDefaults standardUserDefaults] registerDefaults:initialDefaults];
+  }
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   // Setup Default Settings

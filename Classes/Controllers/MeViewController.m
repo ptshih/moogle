@@ -6,7 +6,7 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "CheckinsViewController.h"
+#import "MeViewController.h"
 #import "Constants.h"
 
 #import "ASIHTTPRequest.h"
@@ -17,36 +17,28 @@
 
 #import "NSDate+HumanInterval.h"
 
-@interface CheckinsViewController (Private)
+@interface MeViewController (Private)
 
 - (void)setupButtons;
 
 @end
 
-@implementation CheckinsViewController
-
-@synthesize tableView = _tableView;
-@synthesize filterView = _filterView;
+@implementation MeViewController
 
 @synthesize checkinsRequest = _checkinsRequest;
-@synthesize responseArray = _responseArray;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id)init {
+  self = [super init];
   if (self) {
-    _responseArray = [[NSArray alloc] init];
-    _isFiltering = NO;
   }
   return self;
 }
 
-- (void)viewDidLoad {
-  [super viewDidLoad];
+- (void)loadView {
+  [super loadView];
   
   self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
   self.title = @"Moogle Me";
-  
-  self.filterView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"filter_gradient.png"]];
   
   [self setupButtons];
 }
@@ -125,8 +117,12 @@
     UIAlertView *networkErrorAlert = [[UIAlertView alloc] initWithTitle:@"Network Error" message:FM_NETWORK_ERROR delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Try Again", nil];
     [networkErrorAlert show];
     [networkErrorAlert autorelease];
-  } else {  
-    self.responseArray = [[CJSONDeserializer deserializer] deserializeAsArray:[request responseData] error:nil];
+  } else {
+    [self.sections removeAllObjects];
+    [self.sections addObject:@"Checkins"];
+    
+    [self.items removeAllObjects];
+    [self.items addObjectsFromArray:[[CJSONDeserializer deserializer] deserializeAsArray:[request responseData] error:nil]];
     [self.tableView reloadData];
   }
   DLog(@"checkins request finished successfully");
@@ -156,19 +152,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
-  [self showPlaceWithId:[[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"place_id"]];
+  [self showPlaceWithId:[[self.items objectAtIndex:indexPath.row] objectForKey:@"place_id"]];
 }
 
 
 #pragma mark UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return [self.responseArray count];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   UITableViewCell *cell = nil;
   cell = [tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
@@ -180,8 +168,8 @@
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:20]];
   }
   
-  cell.textLabel.text = [[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-  cell.detailTextLabel.text = [[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"place_name"];
+  cell.textLabel.text = [[self.items objectAtIndex:indexPath.row] objectForKey:@"name"];
+  cell.detailTextLabel.text = [[self.items objectAtIndex:indexPath.row] objectForKey:@"place_name"];
   
 //  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"checkin_timestamp"] intValue]];
 //  cell.detailTextLabel.text = [date humanIntervalSinceNow];
@@ -195,9 +183,6 @@
     [_checkinsRequest release], _checkinsRequest = nil;
   }
   
-  RELEASE_SAFELY(_tableView);
-  RELEASE_SAFELY(_filterView);
-  RELEASE_SAFELY(_responseArray);
   [super dealloc];
 }
 

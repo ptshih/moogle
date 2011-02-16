@@ -1,12 +1,12 @@
 //
-//  NearbyPlacesViewController.m
+//  NearbyViewController.m
 //  Moogle
 //
 //  Created by Peter Shih on 2/8/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "NearbyPlacesViewController.h"
+#import "NearbyViewController.h"
 #import "Constants.h"
 #import "LocationManager.h"
 
@@ -17,25 +17,20 @@
 #import "CJSONDeserializer.h"
 #import "CJSONDataSerializer.h"
 
-@implementation NearbyPlacesViewController
+@implementation NearbyViewController
 
-@synthesize tableView = _tableView;
-@synthesize nearbyPlacesRequest = _nearbyPlacesRequest;
-@synthesize responseArray = _responseArray;
+@synthesize nearbyRequest = _nearbyRequest;
 
-@synthesize delegate = _delegate;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id)init {
+  self = [super init];
   if (self) {
-    _responseArray = [[NSArray alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNearbyPlaces) name:kLocationAcquired object:nil];
   }
   return self;
 }
 
-- (void)viewDidLoad {
-  [super viewDidLoad];
+- (void)loadView {
+  [super loadView];
   
   self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
   self.title = @"Nearby Places";
@@ -65,8 +60,8 @@
   DLog(@"requesting nearby facebook places at lat: %f, lng: %f, distance: %d", lat, lng, distance);
   NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%f", lat], @"lat", [NSString stringWithFormat:@"%f", lng], @"lng", [NSString stringWithFormat:@"%d", distance], @"distance", query, @"query", nil];
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins/nearby", MOOGLE_BASE_URL, API_VERSION];
-  self.nearbyPlacesRequest = [RemoteRequest postRequestWithBaseURLString:baseURLString andParams:params isGzip:NO withDelegate:self];
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.nearbyPlacesRequest];
+  self.nearbyRequest = [RemoteRequest postRequestWithBaseURLString:baseURLString andParams:params isGzip:NO withDelegate:self];
+  [[RemoteOperation sharedInstance] addRequestToQueue:self.nearbyRequest];
 }
 
 #pragma mark ASIHTTPRequestDelegate
@@ -78,7 +73,11 @@
     [networkErrorAlert show];
     [networkErrorAlert autorelease];
   } else {  
-    self.responseArray = [[CJSONDeserializer deserializer] deserializeAsArray:[request responseData] error:nil];
+    [self.sections removeAllObjects];
+    [self.sections addObject:@"Nearby Places"];
+    
+    [self.items removeAllObjects];
+    [self.items addObjectsFromArray:[[CJSONDeserializer deserializer] deserializeAsArray:[request responseData] error:nil]];
     [self.tableView reloadData];
   }
   DLog(@"nearby facebook places request finished successfully");
@@ -95,7 +94,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
-  [self showPlaceWithId:[[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"id"]];
+  [self showPlaceWithId:[[self.items objectAtIndex:indexPath.row] objectForKey:@"id"]];
 }
 
 #pragma mark UITableViewDataSource
@@ -104,7 +103,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return [self.responseArray count];
+  return [self.items count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -118,21 +117,20 @@
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:20]];
   }
   
-  cell.textLabel.text = [[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-  cell.detailTextLabel.text = [[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"category"];
+  cell.textLabel.text = [[self.items objectAtIndex:indexPath.row] objectForKey:@"name"];
+  cell.detailTextLabel.text = [[self.items objectAtIndex:indexPath.row] objectForKey:@"category"];
   
   return cell;
 }
 
 - (void)dealloc {
-  if(_nearbyPlacesRequest) {
-    [_nearbyPlacesRequest clearDelegatesAndCancel];
-    [_nearbyPlacesRequest release], _nearbyPlacesRequest = nil;
+  if(_nearbyRequest) {
+    [_nearbyRequest clearDelegatesAndCancel];
+    [_nearbyRequest release], _nearbyRequest = nil;
   }
   
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationAcquired object:nil];
   
-  RELEASE_SAFELY(_tableView);
   [super dealloc];
 }
 

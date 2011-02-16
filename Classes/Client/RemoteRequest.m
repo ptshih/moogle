@@ -193,7 +193,7 @@ static NSString *_secretString = nil;
 }
 
 + (NSData *)postDataWithParams:(NSDictionary *)params {  
-  NSMutableString *encodedParameterPairs = [[NSMutableString alloc] initWithCapacity:256];
+  NSMutableString *encodedParameterPairs = [[[NSMutableString alloc] initWithCapacity:256] autorelease];
   
   NSArray *allKeys = [params allKeys];
   NSArray *allValues = [params allValues];
@@ -209,7 +209,7 @@ static NSString *_secretString = nil;
 }
 
 + (NSString *)getStringWithParams:(NSDictionary *)params {
-  NSMutableString *encodedParameterPairs = [[NSMutableString alloc] initWithCapacity:256];
+  NSMutableString *encodedParameterPairs = [[[NSMutableString alloc] initWithCapacity:256] autorelease];
   
   NSArray *allKeys = [params allKeys];
   NSArray *allValues = [params allValues];

@@ -10,8 +10,15 @@
 
 
 @interface CardViewController : UIViewController {
+  UIView *_filterView;
+  
   BOOL _isFiltering;
 }
+
+@property (nonatomic, retain) UIView *filterView;
+
+- (void)unloadCardController;
+- (void)reloadCardController;
 
 - (void)showPlaceWithId:(NSNumber *)placeId;
 - (void)reloadCardController;

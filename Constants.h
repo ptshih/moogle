@@ -25,6 +25,10 @@
 // API Version
 #define API_VERSION @"v1"
 
+#define kCardWidth 320.0
+#define kCardHeight 440.0
+#define kPageControlHeight 20.0
+
 // If this is defined, we will hit the staging server instead of prod
 // #define STAGING
 
@@ -81,6 +85,7 @@
 #define FB_COLOR_LIGHT_BLUE RGBCOLOR(161.0,176.0,206.0)
 #define FB_COLOR_DARK_BLUE RGBCOLOR(51.0,78.0,141.0)
 #define LIGHT_GRAY RGBCOLOR(247.0,247.0,247.0)
+#define FILTER_COLOR_BLUE RGBCOLOR(79.0,92.0,117.0)
 
 #define RGBCOLOR(R,G,B) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0]
 #define RGBACOLOR(R,G,B,A) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]

@@ -7,34 +7,34 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NearbyPlacesDelegate.h"
+#import <QuartzCore/QuartzCore.h>
 
-@class CheckinsViewController;
-@class NearbyPlacesViewController;
-@class TrendsViewController;
+@class MeViewController;
+@class NearbyViewController;
+@class FriendsViewController;
 
-@interface LauncherViewController : UIViewController <NearbyPlacesDelegate> {
+@interface LauncherViewController : UIViewController {
   IBOutlet UIScrollView *_scrollView;
   IBOutlet UIPageControl *_pageControl;
   
   // Cards
-  CheckinsViewController *_checkinsViewController;
-  NearbyPlacesViewController *_nearbyPlacesViewController;
-  TrendsViewController *_trendsViewController;
+  MeViewController *_meViewController;
+  NearbyViewController *_nearbyViewController;
+  FriendsViewController *_friendsViewController;
   
   NSArray *_cards;
-  NSInteger _currentPage;
   
   BOOL _isZoomed;
+  NSInteger _previousPage;
 }
 
 @property (nonatomic, retain) UIScrollView *scrollView;
 @property (nonatomic, retain) UIPageControl *pageControl;
 
 // Cards
-@property (nonatomic, retain) CheckinsViewController *checkinsViewController;
-@property (nonatomic, retain) NearbyPlacesViewController *nearbyPlacesViewController;
-@property (nonatomic, retain) TrendsViewController *trendsViewController;
+@property (nonatomic, retain) MeViewController *meViewController;
+@property (nonatomic, retain) NearbyViewController *nearbyViewController;
+@property (nonatomic, retain) FriendsViewController *friendsViewController;
 
 @property (nonatomic, retain) NSArray *cards;
 
