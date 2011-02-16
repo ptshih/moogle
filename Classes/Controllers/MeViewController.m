@@ -145,7 +145,9 @@
     }
   } else {
     // Assume this is a network error
-    [self getCheckins];
+    if (buttonIndex != alertView.cancelButtonIndex) {
+      [self getCheckins];
+    }
   }
 }
 
