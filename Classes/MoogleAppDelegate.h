@@ -20,7 +20,9 @@
   LauncherViewController *_launcherViewController;
   
   // Requests
+  ASIHTTPRequest *_registerRequest;
   ASIHTTPRequest *_sessionRequest;
+  ASIHTTPRequest *_progressRequest;
   
   // Reachability
   Reachability *_hostReach;
@@ -53,7 +55,9 @@
 @property (nonatomic, retain) LauncherViewController *launcherViewController;
 
 // Requests
+@property (nonatomic, retain) ASIHTTPRequest *registerRequest;
 @property (nonatomic, retain) ASIHTTPRequest *sessionRequest;
+@property (nonatomic, retain) ASIHTTPRequest *progressRequest;
 
 // Reachability
 @property (nonatomic, retain) Reachability *hostReach;

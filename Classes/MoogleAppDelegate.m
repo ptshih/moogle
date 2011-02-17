@@ -45,7 +45,9 @@
 @synthesize launcherViewController = _launcherViewController;
 
 // Requests
+@synthesize registerRequest = _registerRequest;
 @synthesize sessionRequest = _sessionRequest;
+@synthesize progressRequest = _progressRequest;
 
 // Reachability
 @synthesize hostReach = _hostReach;
@@ -116,14 +118,17 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-  // Check Authentication
-  _isLoggedIn = [self isAuthenticatedWithFacebook];
-  _isSessionReady = NO;
-  
-  if (_isLoggedIn) {
-    [self restoreFacebookCredentials];
-  } else {
-    [self loginFacebook];
+  if (!_isShowingLogin) {
+    // Check Authentication
+    _isLoggedIn = [self isAuthenticatedWithFacebook];
+    
+    _isSessionReady = NO;
+    
+    if (_isLoggedIn) {
+      [self restoreFacebookCredentials];
+    } else {
+      [self loginFacebook];
+    }
   }
 }
 
@@ -144,7 +149,7 @@
 #pragma mark -
 #pragma mark Facebook Login
 - (BOOL)isAuthenticatedWithFacebook {
-  if ([[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"]) {
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isLoggedIn"]) {
     return YES;
   } else {
     return NO;
@@ -204,8 +209,10 @@
   self.fbAccessToken = nil;
   self.fbUserId = nil;
   self.sessionKey = nil;
+  
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbAccessToken"];
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbUserId"];
+  [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"isLoggedIn"];
   [[NSUserDefaults standardUserDefaults] synchronize];
   [self loginFacebook];
 }
@@ -220,8 +227,8 @@
   [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"fbAccessToken"];
   [[NSUserDefaults standardUserDefaults] synchronize];
   
-  // Set session start key
-  [self startSession];
+  // Start register flow with moogle
+  [self startRegister];
 }
 
 - (void)fbDidNotLoginWithError:(NSError *)error userDidCancel:(BOOL)userDidCancel {
@@ -243,6 +250,16 @@
 
 #pragma mark -
 #pragma mark HTTP Requests
+- (void)postRegisterRequest {
+  DLog(@"starting register request to moogle");
+  
+  NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/moogle/register", MOOGLE_BASE_URL, API_VERSION];
+  self.registerRequest = [RemoteRequest postRequestWithBaseURLString:baseURLString andParams:params isGzip:NO withDelegate:self];
+  [[RemoteOperation sharedInstance] addRequestToQueue:self.registerRequest];
+}
+
 - (void)postStartSessionRequest {
   DLog(@"starting session request to moogle");
   
@@ -253,14 +270,24 @@
   [[RemoteOperation sharedInstance] addRequestToQueue:self.sessionRequest];
 }
 
+- (void)pollProgressRequest {
+  DLog(@"starting progress request to moogle");
+  
+  NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/moogle/progress", MOOGLE_BASE_URL, API_VERSION];
+  self.progressRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self];
+  [[RemoteOperation sharedInstance] addRequestToQueue:self.progressRequest];
+}
+
 #pragma mark -
-#pragma mark ASIHTTPRequestDelegate
 #pragma mark ASIHTTPRequestDelegate
 - (void)requestFinished:(ASIHTTPRequest *)request {
   NSInteger statusCode = [request responseStatusCode];
   
-  if([request isEqual:self.sessionRequest]) {
-    DLog(@"session request finished");
+  if ([request isEqual:self.registerRequest]) {
+    // First time registering a new user
+    DLog(@"register request finished");
     if(statusCode > 200) {
       _networkErrorAlert = [[UIAlertView alloc] initWithTitle:@"Network Error" message:FM_NETWORK_ERROR delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:nil];
       [_networkErrorAlert show];
@@ -271,16 +298,43 @@
       // Maybe make more use of this info later?
       // Like read out names
       
+      [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLoggedIn"];
       [[NSUserDefaults standardUserDefaults] setObject:self.fbUserId forKey:@"fbUserId"];
       [[NSUserDefaults standardUserDefaults] synchronize];
       
-      // Ready the session
+      // Initiate polling
+      [self pollProgressRequest];
+    }
+  } else if([request isEqual:self.sessionRequest]) {
+    // Starting a new session
+    DLog(@"session request finished");
+    if(statusCode > 200) {
+      _networkErrorAlert = [[UIAlertView alloc] initWithTitle:@"Network Error" message:FM_NETWORK_ERROR delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:nil];
+      [_networkErrorAlert show];
+      [_networkErrorAlert autorelease];
+    } else {
+      // Success, do nothing
       _isSessionReady = YES;
-      
       [self.launcherViewController reloadCheckins];
+    }
+  } else if ([request isEqual:self.progressRequest]) {
+    if (statusCode > 200) {
+    } else {
+      CGFloat progress = [[[[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:nil] objectForKey:@"progress"] floatValue];
+      DLog(@"got progress: %f", progress);
       
-      // dismiss the login view
-      [self dismissLoginView:YES];
+      if (progress == 1.0) {
+        // Ready the session
+        _isSessionReady = YES;
+        
+        [self.launcherViewController reloadCheckins];
+        
+        // dismiss the login view
+        [self dismissLoginView:YES];
+      } else {
+        self.loginViewController.progressView.progress = progress;
+        [self performSelector:@selector(pollProgressRequest) withObject:nil afterDelay:3];
+      }
     }
   }
 }
@@ -299,7 +353,6 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
   if([alertView isEqual:_networkErrorAlert]) {
     // get current user failed
-    [self postStartSessionRequest];
   } else if([alertView isEqual:_loginFailedAlert]) {
     [self loginFacebook];
   }
@@ -414,12 +467,23 @@
 
 #pragma mark Session
 - (void)startSession {
+  // This gets called on subsequent app launches
   // Set Session Key
   NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
   NSInteger currentTimestampInteger = floor(currentTimestamp);
   self.sessionKey = [NSString stringWithFormat:@"%d", currentTimestampInteger];
   
   [self postStartSessionRequest];
+}
+
+- (void)startRegister {
+  // This gets called if it is the first time logging in
+  // Set Session Key
+  NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
+  NSInteger currentTimestampInteger = floor(currentTimestamp);
+  self.sessionKey = [NSString stringWithFormat:@"%d", currentTimestampInteger];
+  
+  [self postRegisterRequest];  
 }
 
 #pragma mark -
@@ -430,9 +494,19 @@
 
 
 - (void)dealloc {
+  if (_registerRequest) {
+    [_registerRequest clearDelegatesAndCancel];
+    [_registerRequest release], _registerRequest = nil;
+  }
+  
   if (_sessionRequest) {
     [_sessionRequest clearDelegatesAndCancel];
     [_sessionRequest release], _sessionRequest = nil;
+  }
+  
+  if (_progressRequest) {
+    [_progressRequest clearDelegatesAndCancel];
+    [_progressRequest release], _progressRequest = nil;
   }
   
   RELEASE_SAFELY(_loginViewController);

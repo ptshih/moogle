@@ -27,6 +27,7 @@
 @synthesize splashActivity = _splashActivity;
 @synthesize termsButton = _termsButton;
 @synthesize privacyButton = _privacyButton;
+@synthesize progressView = _progressView;
 
 @synthesize authorizeURL = _authorizeURL;
 @synthesize delegate = _delegate;
@@ -56,6 +57,8 @@
   self.privacyButton.hidden = NO;
   self.splashLabel.text = nil;
   [self.splashActivity stopAnimating];
+  self.progressView.progress = 0.0;
+  self.progressView.hidden = YES;
 }
 
 - (void)webViewWithURL:(NSString *)url andTitle:(NSString *)title {
@@ -81,6 +84,7 @@
   self.privacyButton.hidden = YES;
   self.splashLabel.text = @"Logging in to Facebook";
   [self.splashActivity startAnimating];
+  self.progressView.hidden = NO;
   [self authorizeWithFBAppAuth:YES safariAuth:YES];
 }
 
@@ -91,6 +95,7 @@
   self.privacyButton.hidden = YES;
   self.splashLabel.text = @"Logging in to Facebook";
   [self.splashActivity startAnimating];
+  self.progressView.hidden = NO;
   [self authorizeWithFBAppAuth:NO safariAuth:NO];
 }
 
@@ -248,6 +253,7 @@
   RELEASE_SAFELY(_splashActivity);
   RELEASE_SAFELY(_termsButton);
   RELEASE_SAFELY(_privacyButton);
+  RELEASE_SAFELY (_progressView);
   
   // IVARS
   if(_authorizeURL) [_authorizeURL release];

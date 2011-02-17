@@ -23,6 +23,7 @@
   IBOutlet UIActivityIndicatorView *_splashActivity;
   IBOutlet UIButton *_termsButton;
   IBOutlet UIButton *_privacyButton;
+  IBOutlet UIProgressView *_progressView;
   NSURL *_authorizeURL;
   id <FacebookLoginDelegate> _delegate;
 }
@@ -35,6 +36,7 @@
 @property (nonatomic, retain) UIActivityIndicatorView *splashActivity;
 @property (nonatomic, retain) UIButton *termsButton;
 @property (nonatomic, retain) UIButton *privacyButton;
+@property (nonatomic, retain) UIProgressView *progressView;
 
 @property (nonatomic, retain) NSURL *authorizeURL;
 @property (nonatomic, assign) id <FacebookLoginDelegate> delegate;

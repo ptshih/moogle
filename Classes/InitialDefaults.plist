@@ -4,6 +4,8 @@
 <dict>
 	<key>isLoggedIn</key>
 	<false/>
+	<key>isFirstLogin</key>
+	<true/>
 	<key>lastSelectedCard</key>
 	<integer>1</integer>
 </dict>
