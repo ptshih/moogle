@@ -34,10 +34,6 @@
   
   // Facebook
   NSString *_fbAccessToken;
-  NSString *_fbUserId;
-//  NSString *_fbUserName;
-//  NSString *_fbUserFirstName;
-//  NSString *_fbUserLastName;
   
   // AlertViews
   UIAlertView *_networkErrorAlert;
@@ -69,7 +65,6 @@
 
 // Facebook
 @property (nonatomic, retain) NSString *fbAccessToken;
-@property (nonatomic, retain) NSString *fbUserId;
 
 // Config
 @property (nonatomic, assign, readonly) BOOL isLoggedIn;

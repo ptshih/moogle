@@ -25,6 +25,7 @@
 - (void)fbDidLogout;
 
 // Session
+- (void)startRegister;
 - (void)startSession;
 
 // Requests
@@ -59,7 +60,6 @@
 
 // Facebook
 @synthesize fbAccessToken = _fbAccessToken;
-@synthesize fbUserId = _fbUserId;
 
 // Config
 @synthesize isLoggedIn = _isLoggedIn;
@@ -158,7 +158,6 @@
 
 - (void)restoreFacebookCredentials {
   self.fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
-  self.fbUserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbUserId"];
   
   [self startSession];
 }
@@ -207,11 +206,11 @@
 
 - (void)fbDidLogout {
   self.fbAccessToken = nil;
-  self.fbUserId = nil;
   self.sessionKey = nil;
   
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbAccessToken"];
-  [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbUserId"];
+  [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"facebookId"];
+  [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"friends"];
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"isLoggedIn"];
   [[NSUserDefaults standardUserDefaults] synchronize];
   [self loginFacebook];
@@ -293,17 +292,16 @@
       [_networkErrorAlert show];
       [_networkErrorAlert autorelease];
     } else {
-      // Moogle server will send user ID and name back
-      self.fbUserId = [[[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:nil] objectForKey:@"facebook_id"];
-      // Maybe make more use of this info later?
-      // Like read out names
+      // Moogle server will send user ID, name, and array of friend ids
       
       [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLoggedIn"];
-      [[NSUserDefaults standardUserDefaults] setObject:self.fbUserId forKey:@"fbUserId"];
+      [[NSUserDefaults standardUserDefaults] setObject:[[[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:nil] objectForKey:@"facebook_id"] forKey:@"facebookId"];
+      [[NSUserDefaults standardUserDefaults] setObject:[[[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:nil] objectForKey:@"friends"] forKey:@"friends"];
       [[NSUserDefaults standardUserDefaults] synchronize];
       
       // Initiate polling
       [self pollProgressRequest];
+      self.loginViewController.splashLabel.text = @"Downloading Your Checkins";
     }
   } else if([request isEqual:self.sessionRequest]) {
     // Starting a new session
@@ -332,6 +330,11 @@
         // dismiss the login view
         [self dismissLoginView:YES];
       } else {
+        if (progress >= 0.25 && progress < 0.75) {
+          self.loginViewController.splashLabel.text = @"Downloading Checkins For Your Friends";
+        } else if (progress >= 0.75) {
+          self.loginViewController.splashLabel.text = @"Downloading Places For Your Friends";
+        }
         self.loginViewController.progressView.progress = progress;
         [self performSelector:@selector(pollProgressRequest) withObject:nil afterDelay:3];
       }
@@ -515,7 +518,6 @@
   RELEASE_SAFELY(_reachabilityAlertView);
   RELEASE_SAFELY(_sessionKey);
   RELEASE_SAFELY(_fbAccessToken);
-  RELEASE_SAFELY(_fbUserId);
   RELEASE_SAFELY(_locationManager);
   RELEASE_SAFELY(_window);
   [super dealloc];

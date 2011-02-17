@@ -47,7 +47,6 @@ static NSString *_secretString = nil;
   [getRequest addRequestHeader:@"X-User-Language" value:USER_LANGUAGE];
   [getRequest addRequestHeader:@"X-User-Locale" value:USER_LOCALE];
   if(APP_DELEGATE.sessionKey) [getRequest addRequestHeader:@"X-Session-Key" value:APP_DELEGATE.sessionKey];
-//  if(APP_DELEGATE.fbUserId) [getRequest addRequestHeader:@"X-User-Id" value:APP_DELEGATE.fbUserId];
   [getRequest addRequestHeader:@"X-Friendmash-Secret" value:_secretString];
   
   return getRequest;
@@ -79,7 +78,6 @@ static NSString *_secretString = nil;
   [postRequest addRequestHeader:@"X-User-Language" value:USER_LANGUAGE];
   [postRequest addRequestHeader:@"X-User-Locale" value:USER_LOCALE];
   if(APP_DELEGATE.sessionKey) [postRequest addRequestHeader:@"X-Session-Key" value:APP_DELEGATE.sessionKey];
-//  if(APP_DELEGATE.fbUserId) [postRequest addRequestHeader:@"X-User-Id" value:APP_DELEGATE.fbUserId];
   [postRequest addRequestHeader:@"X-Friendmash-Secret" value:_secretString];
   [postRequest setPostLength:[postData length]];
   [postRequest setPostBody:(NSMutableData *)postData];
