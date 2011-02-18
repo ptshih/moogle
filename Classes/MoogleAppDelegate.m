@@ -350,11 +350,6 @@
 
 - (void)requestFailed:(ASIHTTPRequest *)request {
   DLog(@"Request Failed with Error: %@", [request error]);
-  if([request isEqual:self.sessionRequest]) {
-    _networkErrorAlert = [[UIAlertView alloc] initWithTitle:@"Network Error" message:FM_NETWORK_ERROR delegate:self cancelButtonTitle:@"Try Again" otherButtonTitles:nil];
-    [_networkErrorAlert show];
-    [_networkErrorAlert autorelease];
-  }
 }
 
 #pragma mark -

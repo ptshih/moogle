@@ -85,9 +85,6 @@
 
 - (void)requestFailed:(ASIHTTPRequest *)request {
   DLog(@"Request Failed with Error: %@", [request error]);
-  UIAlertView *networkErrorAlert = [[UIAlertView alloc] initWithTitle:@"Network Error" message:FM_NETWORK_ERROR delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Try Again", nil];
-  [networkErrorAlert show];
-  [networkErrorAlert autorelease];
 }
 
 #pragma mark UITableViewDelegate
