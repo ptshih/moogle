@@ -80,6 +80,11 @@
   [whoButton release];
 }
 
+// Called when the user logs out and we need to clear all cached data
+// Subclasses should override this method
+- (void)clearCachedData {
+}
+
 // Called when this card controller leaves active view
 // Subclasses should override this method
 - (void)unloadCardController {

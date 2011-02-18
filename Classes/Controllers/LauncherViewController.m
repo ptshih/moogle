@@ -91,6 +91,14 @@
   [self.meViewController getCheckins];
 }
 
+- (void)clearAllCachedData {
+  for (UINavigationController *card in self.cards) {
+    if ([[card topViewController] respondsToSelector:@selector(clearCachedData)]) {
+      [[card topViewController] performSelector:@selector(clearCachedData)];
+    }
+  }
+}
+
 //- (void)addGestures {
 //  UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleZoom:)];
 //  doubleTapGestureRecognizer.numberOfTapsRequired = 2;

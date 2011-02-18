@@ -17,6 +17,7 @@
 
 @property (nonatomic, retain) UIView *filterView;
 
+- (void)clearCachedData;
 - (void)unloadCardController;
 - (void)reloadCardController;
 

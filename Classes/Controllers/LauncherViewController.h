@@ -39,5 +39,6 @@
 @property (nonatomic, retain) NSArray *cards;
 
 - (void)reloadCheckins;
+- (void)clearAllCachedData;
 
 @end

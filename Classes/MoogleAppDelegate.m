@@ -133,10 +133,12 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
+  [[RemoteOperation sharedInstance] cancelAllRequests];
 }
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+  [[RemoteOperation sharedInstance] cancelAllRequests];
 }
 
 
@@ -144,6 +146,7 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+  [[RemoteOperation sharedInstance] cancelAllRequests];
 }
 
 #pragma mark -
@@ -205,6 +208,9 @@
 }
 
 - (void)fbDidLogout {
+  // Tell all cards to unload their cached data
+  [self.launcherViewController clearAllCachedData];
+  
   self.fbAccessToken = nil;
   self.sessionKey = nil;
   

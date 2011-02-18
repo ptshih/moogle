@@ -36,6 +36,13 @@
   [self.view addSubview:self.tableView];
 }
 
+// Called when the user logs out and we need to clear all cached data
+// Subclasses should override this method
+- (void)clearCachedData {
+  [self.sections removeAllObjects];
+  [self.items removeAllObjects];
+}
+
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
