@@ -25,8 +25,10 @@ static NSString *_secretString = nil;
 }
 
 + (ASIHTTPRequest *)getRequestWithBaseURLString:(NSString *)baseURLString andParams:(NSMutableDictionary *)params withDelegate:(id)delegate {
+  [params retain];
   [params setObject:[APP_DELEGATE.fbAccessToken stringWithPercentEscape] forKey:@"access_token"];
   NSString *paramsString = [self getStringWithParams:params];
+  [params release];
   NSString *getURLString = [NSString stringWithFormat:@"%@?%@", baseURLString, paramsString];
   NSURL *getURL = [NSURL URLWithString:getURLString];
   
