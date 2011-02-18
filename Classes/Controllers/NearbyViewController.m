@@ -77,7 +77,7 @@
     [self.sections addObject:@"Nearby Places"];
     
     [self.items removeAllObjects];
-    [self.items addObjectsFromArray:[[CJSONDeserializer deserializer] deserializeAsArray:[request responseData] error:nil]];
+    [self.items addObject:[[CJSONDeserializer deserializer] deserializeAsArray:[request responseData] error:nil]];
     [self.tableView reloadData];
   }
   DLog(@"nearby facebook places request finished successfully");
@@ -114,8 +114,8 @@
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:20]];
   }
   
-  cell.textLabel.text = [[self.items objectAtIndex:indexPath.row] objectForKey:@"name"];
-  cell.detailTextLabel.text = [[self.items objectAtIndex:indexPath.row] objectForKey:@"category"];
+  cell.textLabel.text = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"name"];
+  cell.detailTextLabel.text = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"category"];
   
   return cell;
 }

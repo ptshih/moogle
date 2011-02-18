@@ -8,14 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import "CardTableViewController.h"
+#import "WhoFilterDelegate.h"
 
 @class ASIHTTPRequest;
+@class WhoViewController;
 
-@interface FriendsViewController : CardTableViewController {
+@interface FriendsViewController : CardTableViewController <WhoFilterDelegate> {
   ASIHTTPRequest *_checkinsRequest;
+  UIBarButtonItem *_filterButton;
+  UIView *_filterView;
+  BOOL _isFiltering;
+  
+  WhoViewController *_wvc;
+  NSString *_who;
 }
 
 @property (nonatomic, retain) ASIHTTPRequest *checkinsRequest;
+@property (nonatomic, retain) UIView *filterView;
 
 - (void)getCheckins;
 

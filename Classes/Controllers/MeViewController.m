@@ -57,14 +57,12 @@
   // Setup Checkin button
   UIBarButtonItem *checkinButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(checkin)] autorelease];
   self.navigationItem.leftBarButtonItem = checkinButton;
-  
-  // Setup Filter button
-  UIBarButtonItem *filterButton = [[[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStyleBordered target:self action:@selector(filter)] autorelease];
-  self.navigationItem.rightBarButtonItem = filterButton;
 }
 
 - (void)checkin {
-  [APP_DELEGATE logoutFacebook];
+  _logoutAlert = [[UIAlertView alloc] initWithTitle:@"Logout of Moogle?" message:MOOGLE_LOGOUT_ALERT delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+  [_logoutAlert show];
+  [_logoutAlert autorelease];
 }
 
 - (void)getCheckins {
@@ -76,39 +74,6 @@
   self.checkinsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self];
   [[RemoteOperation sharedInstance] addRequestToQueue:self.checkinsRequest];
 }
-
-- (void)animateShowFilter {
-  [UIView beginAnimations:@"ShowFilter" context:nil];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationBeginsFromCurrentState:YES];
-	[UIView setAnimationCurve:UIViewAnimationCurveLinear];  
-	[UIView setAnimationDuration:0.3]; // Fade out is configurable in seconds (FLOAT)
-  self.filterView.top = 0.0;
-  self.tableView.frame = CGRectMake(0, 44.0, self.tableView.width, self.tableView.height - 44.0);
-//  self.tableView.contentInset = UIEdgeInsetsMake(44.0, 0.0, 0.0, 0.0);
-	[UIView commitAnimations];
-}
-
-- (void)animateHideFilter {
-  [UIView beginAnimations:@"HideFilter" context:nil];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationBeginsFromCurrentState:YES];
-	[UIView setAnimationCurve:UIViewAnimationCurveLinear];  
-	[UIView setAnimationDuration:0.3]; // Fade out is configurable in seconds (FLOAT)
-  self.filterView.top = -44.0;
-  self.tableView.frame = CGRectMake(0, 0, self.tableView.width, self.tableView.height + 44.0);
-	[UIView commitAnimations];
-}
-
-- (void)logout {
-  if (APP_DELEGATE.fbAccessToken) {
-    _logoutAlert = [[UIAlertView alloc] initWithTitle:@"Logout" message:@"Are you sure you want to logout?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-    [_logoutAlert show];
-    [_logoutAlert autorelease];
-  }
-}
-
-
 
 #pragma mark ASIHTTPRequestDelegate
 - (void)requestFinished:(ASIHTTPRequest *)request {
@@ -123,7 +88,7 @@
     [self.sections addObject:@"Checkins"];
     
     [self.items removeAllObjects];
-    [self.items addObjectsFromArray:[[CJSONDeserializer deserializer] deserializeAsArray:[request responseData] error:nil]];
+    [self.items addObject:[[CJSONDeserializer deserializer] deserializeAsArray:[request responseData] error:nil]];
     [self.tableView reloadData];
   }
   DLog(@"checkins request finished successfully");
@@ -168,8 +133,8 @@
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:20]];
   }
   
-  cell.textLabel.text = [[self.items objectAtIndex:indexPath.row] objectForKey:@"name"];
-  cell.detailTextLabel.text = [[self.items objectAtIndex:indexPath.row] objectForKey:@"place_name"];
+  cell.textLabel.text = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"name"];
+  cell.detailTextLabel.text = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"place_name"];
   
 //  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"checkin_timestamp"] intValue]];
 //  cell.detailTextLabel.text = [date humanIntervalSinceNow];
