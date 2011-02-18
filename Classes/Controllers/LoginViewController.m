@@ -20,13 +20,9 @@
 @implementation LoginViewController
 
 @synthesize fbWebView = _fbWebView;
+@synthesize loginView = _loginView;
 @synthesize splashView = _splashView;
 @synthesize splashLabel = _splashLabel;
-@synthesize ssoButton = _ssoButton;
-@synthesize normalButton = _normalButton;
-@synthesize splashActivity = _splashActivity;
-@synthesize termsButton = _termsButton;
-@synthesize privacyButton = _privacyButton;
 @synthesize progressView = _progressView;
 
 @synthesize authorizeURL = _authorizeURL;
@@ -51,14 +47,10 @@
 }
 
 - (void)resetLoginState {
-  self.ssoButton.hidden = NO;
-  self.normalButton.hidden = NO;
-  self.termsButton.hidden = NO;
-  self.privacyButton.hidden = NO;
-  self.splashLabel.text = nil;
-  [self.splashActivity stopAnimating];
-  self.progressView.progress = 0.0;
-  self.progressView.hidden = YES;
+  [self.view sendSubviewToBack:self.fbWebView];
+  self.splashLabel.text = @"Welcome to Moogle!";
+  self.progressView.progress = 0.01;
+  self.splashView.hidden = YES;
 }
 
 - (void)webViewWithURL:(NSString *)url andTitle:(NSString *)title {
@@ -78,24 +70,14 @@
 }
 
 - (IBAction)ssoLogin {
-  self.ssoButton.hidden = YES;
-  self.normalButton.hidden = YES;
-  self.termsButton.hidden = YES;
-  self.privacyButton.hidden = YES;
   self.splashLabel.text = @"Logging in to Facebook";
-  [self.splashActivity startAnimating];
-  self.progressView.hidden = NO;
+  self.splashView.hidden = NO;
   [self authorizeWithFBAppAuth:YES safariAuth:YES];
 }
 
 - (IBAction)normalLogin {
-  self.ssoButton.hidden = YES;
-  self.normalButton.hidden = YES;
-  self.termsButton.hidden = YES;
-  self.privacyButton.hidden = YES;
   self.splashLabel.text = @"Logging in to Facebook";
-  [self.splashActivity startAnimating];
-  self.progressView.hidden = NO;
+  self.splashView.hidden = NO;
   [self authorizeWithFBAppAuth:NO safariAuth:NO];
 }
 
@@ -185,10 +167,12 @@
 #pragma mark UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
  navigationType:(UIWebViewNavigationType)navigationType {
-  self.splashView.hidden = NO;
   NSURL *url = request.URL;
   
   if ([url.scheme isEqualToString:@"fbconnect"]) {
+    // Send webview to back
+    [self.view sendSubviewToBack:self.fbWebView];
+    
     if ([[url.resourceSpecifier substringToIndex:8] isEqualToString:@"//cancel"]) {
       NSString *errorCode = [self getStringFromUrl:[url absoluteString] needle:@"error_code="];
       NSString *errorStr = [self getStringFromUrl:[url absoluteString] needle:@"error_msg="];
@@ -215,7 +199,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
   self.title = [self.fbWebView stringByEvaluatingJavaScriptFromString:@"document.title"];
-  self.splashView.hidden = YES;
+  [self.view bringSubviewToFront:self.fbWebView];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -246,13 +230,9 @@
 - (void)dealloc {  
   // IBOutlets
   RELEASE_SAFELY(_fbWebView);
+  RELEASE_SAFELY (_loginView);
   RELEASE_SAFELY(_splashView);
   RELEASE_SAFELY(_splashLabel);
-  RELEASE_SAFELY(_ssoButton);
-  RELEASE_SAFELY(_normalButton);
-  RELEASE_SAFELY(_splashActivity);
-  RELEASE_SAFELY(_termsButton);
-  RELEASE_SAFELY(_privacyButton);
   RELEASE_SAFELY (_progressView);
   
   // IVARS

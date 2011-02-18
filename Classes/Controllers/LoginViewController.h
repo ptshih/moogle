@@ -16,26 +16,18 @@
 
 @interface LoginViewController : UIViewController {
   IBOutlet UIWebView *_fbWebView;
+  IBOutlet UIView *_loginView;
   IBOutlet UIView *_splashView;
   IBOutlet UILabel *_splashLabel;
-  IBOutlet UIButton *_ssoButton;
-  IBOutlet UIButton *_normalButton;
-  IBOutlet UIActivityIndicatorView *_splashActivity;
-  IBOutlet UIButton *_termsButton;
-  IBOutlet UIButton *_privacyButton;
   IBOutlet UIProgressView *_progressView;
   NSURL *_authorizeURL;
   id <FacebookLoginDelegate> _delegate;
 }
 
 @property (nonatomic, retain) UIWebView *fbWebView;
+@property (nonatomic, retain) UIView *loginView;
 @property (nonatomic, retain) UIView *splashView;
 @property (nonatomic, retain) UILabel *splashLabel;
-@property (nonatomic, retain) UIButton *ssoButton;
-@property (nonatomic, retain) UIButton *normalButton;
-@property (nonatomic, retain) UIActivityIndicatorView *splashActivity;
-@property (nonatomic, retain) UIButton *termsButton;
-@property (nonatomic, retain) UIButton *privacyButton;
 @property (nonatomic, retain) UIProgressView *progressView;
 
 @property (nonatomic, retain) NSURL *authorizeURL;
