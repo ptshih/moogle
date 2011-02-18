@@ -75,6 +75,7 @@
 #define FM_RANKINGS_COUNT 99
 
 // ERROR STRINGS
+#define MOOGLE_LOGOUT_ALERT @"Are you sure you want to logout?"
 #define FM_NETWORK_ERROR @"Moogle has encountered a network error. Please check your network connection and try again."
 
 //#define OAUTH_TOKEN @"151779758183785|2.mlbpS5_RD5Ao_hTpWQtBVg__.3600.1289080800-548430564|es6q1fc8hb7pSL2UpwFegiF1F8c"
