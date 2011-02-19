@@ -219,7 +219,7 @@
 					<object class="IBUILabel" id="61208543">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{25, 44}, {270, 80}}</string>
+						<string key="NSFrame">{{25, 0}, {270, 80}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -244,7 +244,7 @@
 					<object class="IBUIImageView" id="453310337">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{103, 160}, {114, 114}}</string>
+						<string key="NSFrame">{{90, 88}, {139, 211}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="IBUIBackgroundColor" ref="464794785"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -989,7 +989,7 @@
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{280, 37}</string>
-				<string>{114, 114}</string>
+				<string>{139, 211}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">132</string>

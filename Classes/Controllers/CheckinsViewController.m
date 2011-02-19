@@ -1,12 +1,12 @@
-    //
-//  FriendsViewController.m
+//
+//  CheckinsViewController.m
 //  Moogle
 //
 //  Created by Peter Shih on 2/15/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "FriendsViewController.h"
+#import "CheckinsViewController.h"
 #import "Constants.h"
 
 #import "ASIHTTPRequest.h"
@@ -19,7 +19,7 @@
 
 #import "WhoViewController.h"
 
-@interface FriendsViewController (Private)
+@interface CheckinsViewController (Private)
 
 - (void)setupButtons;
 - (void)setupFilterButtons;
@@ -27,7 +27,7 @@
 - (void)animateHideFilter;
 @end
 
-@implementation FriendsViewController
+@implementation CheckinsViewController
 
 @synthesize checkinsRequest = _checkinsRequest;
 @synthesize filterView = _filterView;
@@ -46,7 +46,7 @@
   [super loadView];
   
   self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
-  self.title = @"Moogle Friends";
+  self.title = @"Moogle Checkins";
   
   // Setup Filter View
   self.filterView.frame = CGRectMake(0, -44.0, 320.0, 44.0);
@@ -209,7 +209,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
-  [self showPlaceWithId:[[self.items objectAtIndex:indexPath.row] objectForKey:@"place_id"]];
+  [self showPlaceWithId:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"place_id"]];
 }
 
 

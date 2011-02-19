@@ -1,5 +1,5 @@
 //
-//  FriendsViewController.h
+//  CheckinsViewController.h
 //  Moogle
 //
 //  Created by Peter Shih on 2/15/11.
@@ -13,7 +13,7 @@
 @class ASIHTTPRequest;
 @class WhoViewController;
 
-@interface FriendsViewController : CardTableViewController <WhoFilterDelegate> {
+@interface CheckinsViewController : CardTableViewController <WhoFilterDelegate> {
   ASIHTTPRequest *_checkinsRequest;
   UIBarButtonItem *_filterButton;
   UIView *_filterView;

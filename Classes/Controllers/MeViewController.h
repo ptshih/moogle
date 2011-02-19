@@ -7,18 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CardTableViewController.h"
+#import "CardViewController.h"
 
 @class ASIHTTPRequest;
 
-@interface MeViewController : CardTableViewController {
-  ASIHTTPRequest *_checkinsRequest;
-  
+@interface MeViewController : CardViewController {
   UIAlertView *_logoutAlert;
 }
-
-@property (nonatomic, retain) ASIHTTPRequest *checkinsRequest;
-
-- (void)getCheckins;
 
 @end

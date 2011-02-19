@@ -11,7 +11,7 @@
 
 @class MeViewController;
 @class NearbyViewController;
-@class FriendsViewController;
+@class CheckinsViewController;
 
 @interface LauncherViewController : UIViewController {
   IBOutlet UIScrollView *_scrollView;
@@ -20,7 +20,7 @@
   // Cards
   MeViewController *_meViewController;
   NearbyViewController *_nearbyViewController;
-  FriendsViewController *_friendsViewController;
+  CheckinsViewController *_checkinsViewController;
   
   NSArray *_cards;
   
@@ -34,11 +34,10 @@
 // Cards
 @property (nonatomic, retain) MeViewController *meViewController;
 @property (nonatomic, retain) NearbyViewController *nearbyViewController;
-@property (nonatomic, retain) FriendsViewController *friendsViewController;
+@property (nonatomic, retain) CheckinsViewController *checkinsViewController;
 
 @property (nonatomic, retain) NSArray *cards;
 
-- (void)reloadCheckins;
 - (void)clearAllCachedData;
 
 @end

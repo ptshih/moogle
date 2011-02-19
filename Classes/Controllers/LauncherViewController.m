@@ -9,7 +9,7 @@
 #import "LauncherViewController.h"
 #import "MeViewController.h"
 #import "NearbyViewController.h"
-#import "FriendsViewController.h"
+#import "CheckinsViewController.h"
 #import "Constants.h"
 
 #define kNumberOfPages 3 // We have 3 cards for now: Timeline | Me | Trends
@@ -32,7 +32,7 @@
 // Cards
 @synthesize meViewController = _meViewController;
 @synthesize nearbyViewController = _nearbyViewController;
-@synthesize friendsViewController = _friendsViewController;
+@synthesize checkinsViewController = _checkinsViewController;
 
 @synthesize cards = _cards;
 
@@ -41,7 +41,7 @@
   if (self) {
     _meViewController = [[MeViewController alloc] init];
     _nearbyViewController = [[NearbyViewController alloc] init];
-    _friendsViewController = [[FriendsViewController alloc] init];
+    _checkinsViewController = [[CheckinsViewController alloc] init];
     _previousPage = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastSelectedCard"]; // Start at last selected card
     _isZoomed = NO;
   }
@@ -72,7 +72,7 @@
   UINavigationController *meNavController = [[UINavigationController alloc] initWithRootViewController:self.meViewController];
   meNavController.view.frame = CGRectMake(kCardWidth * 1, 0, self.scrollView.width, self.scrollView.height);
   
-  UINavigationController *trendsNavController = [[UINavigationController alloc] initWithRootViewController:self.friendsViewController];
+  UINavigationController *trendsNavController = [[UINavigationController alloc] initWithRootViewController:self.checkinsViewController];
   trendsNavController.view.frame = CGRectMake(kCardWidth * 2, 0, self.scrollView.width, self.scrollView.height);
   
   // Add the three cards
@@ -85,10 +85,6 @@
   [meNavController release];
   [nearbyNavController release];
   [trendsNavController release];
-}
-
-- (void)reloadCheckins {
-  [self.meViewController getCheckins];
 }
 
 - (void)clearAllCachedData {
@@ -249,7 +245,7 @@
   RELEASE_SAFELY (_pageControl);
   RELEASE_SAFELY (_meViewController);
   RELEASE_SAFELY (_nearbyViewController);
-  RELEASE_SAFELY (_friendsViewController);
+  RELEASE_SAFELY (_checkinsViewController);
   RELEASE_SAFELY (_cards);
   [super dealloc];
 }

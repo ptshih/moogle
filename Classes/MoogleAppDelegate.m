@@ -319,7 +319,6 @@
     } else {
       // Success, do nothing
       _isSessionReady = YES;
-      [self.launcherViewController reloadCheckins];
     }
   } else if ([request isEqual:self.progressRequest]) {
     if (statusCode > 200) {
@@ -330,8 +329,6 @@
       if (progress == 1.0) {
         // Ready the session
         _isSessionReady = YES;
-        
-        [self.launcherViewController reloadCheckins];
         
         // dismiss the login view
         [self dismissLoginView:YES];

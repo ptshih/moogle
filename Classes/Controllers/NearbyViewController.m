@@ -33,7 +33,7 @@
   [super loadView];
   
   self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
-  self.title = @"Nearby Places";
+  self.title = @"Moogle Places";
   
 //  self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
 //  self.title = @"Nearby Places";
@@ -91,18 +91,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
-  [self showPlaceWithId:[[self.items objectAtIndex:indexPath.row] objectForKey:@"id"]];
+  [self showPlaceWithId:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"place_id"]];
 }
 
 #pragma mark UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return [self.items count];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   UITableViewCell *cell = nil;
   cell = [tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];

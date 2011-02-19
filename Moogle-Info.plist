@@ -17,6 +17,8 @@
 		<string>Icon-Small.png</string>
 		<string>Icon-Small@2x.png</string>
 	</array>
+	<key>UILaunchImageFile</key>
+	<string>Default</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.sevenminuteapps.moogle</string>
 	<key>CFBundleInfoDictionaryVersion</key>

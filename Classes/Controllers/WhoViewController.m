@@ -61,10 +61,10 @@
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
   NSString *selected = nil;
-  if([[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] isKindOfClass:[NSNumber class]]) {
-    selected = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] stringValue];
-  } else {
+  if([[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] isKindOfClass:[NSString class]]) {
     selected = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  } else {
+    selected = [[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_id"] stringValue];
   }
 
   
@@ -101,7 +101,10 @@
   } else if (indexPath.section == 1) {
     cell.textLabel.text = @"My Friends";
   } else {
-    cell.textLabel.text = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] stringValue];
+    // Friends array
+    cell.textLabel.text = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_name"];
+    cell.detailTextLabel.text = [[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_id"] stringValue]
+    ;
   }
 
   return cell;

@@ -9,7 +9,7 @@
 #import "LocationManager.h"
 #import "Constants.h"
 
-static NSInteger _distance = 1000;
+static NSInteger _distance = 2000;
 
 @implementation LocationManager
 

@@ -81,9 +81,12 @@
 		25B4651C12F7BAC700C71FA9 /* NSObject+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B4651712F7BAC700C71FA9 /* NSObject+ConvenienceMethods.m */; };
 		25B4651D12F7BAC700C71FA9 /* NSString+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B4651912F7BAC700C71FA9 /* NSString+ConvenienceMethods.m */; };
 		25F29A99130BA96700B0077F /* InitialDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25F29A98130BA96700B0077F /* InitialDefaults.plist */; };
-		25F29B1A130BAE7500B0077F /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F29B19130BAE7500B0077F /* FriendsViewController.m */; };
+		25F29B1A130BAE7500B0077F /* CheckinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F29B19130BAE7500B0077F /* CheckinsViewController.m */; };
 		25FC2D09130E5E8A0077C9A7 /* moogle.png in Resources */ = {isa = PBXBuildFile; fileRef = 25FC2D08130E5E8A0077C9A7 /* moogle.png */; };
 		25FC2D2B130E644B0077C9A7 /* WhoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25FC2D2A130E644B0077C9A7 /* WhoViewController.m */; };
+		25FC2E69130E7C1B0077C9A7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 25FC2E66130E7C1B0077C9A7 /* Default.png */; };
+		25FC2E6A130E7C1B0077C9A7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25FC2E67130E7C1B0077C9A7 /* Default@2x.png */; };
+		25FC2E6B130E7C1B0077C9A7 /* moogle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25FC2E68130E7C1B0077C9A7 /* moogle@2x.png */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
@@ -207,12 +210,15 @@
 		25B4651912F7BAC700C71FA9 /* NSString+ConvenienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ConvenienceMethods.m"; sourceTree = "<group>"; };
 		25B4654F12F7BAF200C71FA9 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		25F29A98130BA96700B0077F /* InitialDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InitialDefaults.plist; sourceTree = "<group>"; };
-		25F29B18130BAE7500B0077F /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
-		25F29B19130BAE7500B0077F /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
+		25F29B18130BAE7500B0077F /* CheckinsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinsViewController.h; sourceTree = "<group>"; };
+		25F29B19130BAE7500B0077F /* CheckinsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinsViewController.m; sourceTree = "<group>"; };
 		25FC2D08130E5E8A0077C9A7 /* moogle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moogle.png; sourceTree = "<group>"; };
 		25FC2D29130E644B0077C9A7 /* WhoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoViewController.h; sourceTree = "<group>"; };
 		25FC2D2A130E644B0077C9A7 /* WhoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoViewController.m; sourceTree = "<group>"; };
 		25FC2E35130E70560077C9A7 /* WhoFilterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoFilterDelegate.h; sourceTree = "<group>"; };
+		25FC2E66130E7C1B0077C9A7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		25FC2E67130E7C1B0077C9A7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		25FC2E68130E7C1B0077C9A7 /* moogle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moogle@2x.png"; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Moogle_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Moogle_Prefix.pch; sourceTree = "<group>"; };
@@ -321,6 +327,9 @@
 			isa = PBXGroup;
 			children = (
 				25FC2D08130E5E8A0077C9A7 /* moogle.png */,
+				25FC2E68130E7C1B0077C9A7 /* moogle@2x.png */,
+				25FC2E66130E7C1B0077C9A7 /* Default.png */,
+				25FC2E67130E7C1B0077C9A7 /* Default@2x.png */,
 				2529FBB7130139A10041DA95 /* Icon.png */,
 				2529FBB8130139A10041DA95 /* Icon@2x.png */,
 				25433E2A12FA2E560066A191 /* btn_login.png */,
@@ -372,8 +381,8 @@
 				25290185130410660041DA95 /* LauncherViewController.xib */,
 				25433F0912FA3B770066A191 /* MeViewController.h */,
 				25433F0A12FA3B770066A191 /* MeViewController.m */,
-				25F29B18130BAE7500B0077F /* FriendsViewController.h */,
-				25F29B19130BAE7500B0077F /* FriendsViewController.m */,
+				25F29B18130BAE7500B0077F /* CheckinsViewController.h */,
+				25F29B19130BAE7500B0077F /* CheckinsViewController.m */,
 				2529FD561301598D0041DA95 /* NearbyViewController.h */,
 				2529FD571301598D0041DA95 /* NearbyViewController.m */,
 				25606B1312FA48F500481E43 /* PlaceViewController.h */,
@@ -619,6 +628,9 @@
 				25290187130410660041DA95 /* LauncherViewController.xib in Resources */,
 				25F29A99130BA96700B0077F /* InitialDefaults.plist in Resources */,
 				25FC2D09130E5E8A0077C9A7 /* moogle.png in Resources */,
+				25FC2E69130E7C1B0077C9A7 /* Default.png in Resources */,
+				25FC2E6A130E7C1B0077C9A7 /* Default@2x.png in Resources */,
+				25FC2E6B130E7C1B0077C9A7 /* moogle@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,7 +681,7 @@
 				25290186130410660041DA95 /* LauncherViewController.m in Sources */,
 				2529023913041E6D0041DA95 /* CardViewController.m in Sources */,
 				251098D3130BA09200065607 /* CardTableViewController.m in Sources */,
-				25F29B1A130BAE7500B0077F /* FriendsViewController.m in Sources */,
+				25F29B1A130BAE7500B0077F /* CheckinsViewController.m in Sources */,
 				25FC2D2B130E644B0077C9A7 /* WhoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
