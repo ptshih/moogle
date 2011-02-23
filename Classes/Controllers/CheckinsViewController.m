@@ -19,6 +19,8 @@
 
 #import "MoogleDataCenter.h"
 
+#import "CheckinCell.h"
+
 @interface CheckinsViewController (Private)
 
 - (void)setupButtons;
@@ -205,22 +207,22 @@
 
 
 #pragma mark UITableViewDataSource
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return 60.0;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  UITableViewCell *cell = nil;
-  cell = [tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
+  CheckinCell *cell = nil;
+  cell = (CheckinCell *)[tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
   if(cell == nil) { 
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CheckinCell"] autorelease];
+    cell = [[[CheckinCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CheckinCell"] autorelease];
     cell.textLabel.numberOfLines = 100;
     cell.textLabel.font = [UIFont systemFontOfSize:14.0];
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_cell_bg.png"]];
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:20]];
   }
   
-  cell.textLabel.text = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"name"];
-  cell.detailTextLabel.text = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"place_name"];
-  
-  //  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[[self.responseArray objectAtIndex:indexPath.row] objectForKey:@"checkin_timestamp"] intValue]];
-  //  cell.detailTextLabel.text = [date humanIntervalSinceNow];
+  [CheckinCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
   
   return cell;
 }

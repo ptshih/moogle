@@ -43,7 +43,11 @@
 
 - (void)loadView {
   [super loadView];
+  self.view.backgroundColor = [UIColor whiteColor];
+  
+  [self getPlace];
 }
+
 // Called when this card controller leaves active view
 // Subclasses should override this method
 - (void)unloadCardController {
@@ -54,6 +58,8 @@
 // Subclasses should override this method
 - (void)reloadCardController {
   DLog(@"Called by class: %@", [self class]);
+  
+  [self getPlace];
 }
 
 - (IBAction)checkinHere {
@@ -82,7 +88,13 @@
 }
 
 - (void)getPlace {
+  CGFloat lat = [APP_DELEGATE.locationManager latitude];
+  CGFloat lng = [APP_DELEGATE.locationManager longitude];
+  
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  [params setObject:[[NSNumber numberWithFloat:lat] stringValue] forKey:@"lat"];
+  [params setObject:[[NSNumber numberWithFloat:lng] stringValue] forKey:@"lng"];
+  
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/place/%@", MOOGLE_BASE_URL, API_VERSION, self.placeId];
   
   self.placeRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.placesDataCenter];

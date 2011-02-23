@@ -13,8 +13,6 @@
 #import "RemoteRequest.h"
 #import "RemoteOperation.h"
 
-#import "CJSONDeserializer.h"
-
 #import "NSDate+HumanInterval.h"
 
 @interface MeViewController (Private)

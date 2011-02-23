@@ -82,6 +82,7 @@
 		25F207981314E6FE00178E09 /* PlacesDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F207971314E6FE00178E09 /* PlacesDataCenter.m */; };
 		25F2079B1314E72400178E09 /* MoogleDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F2079A1314E72400178E09 /* MoogleDataCenter.m */; };
 		25F208531314EE3300178E09 /* CheckinsDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F208521314EE3300178E09 /* CheckinsDataCenter.m */; };
+		25F208C81314F7A800178E09 /* CheckinCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F208C71314F7A800178E09 /* CheckinCell.m */; };
 		25F29A99130BA96700B0077F /* InitialDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25F29A98130BA96700B0077F /* InitialDefaults.plist */; };
 		25F29B1A130BAE7500B0077F /* CheckinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F29B19130BAE7500B0077F /* CheckinsViewController.m */; };
 		25FC2D09130E5E8A0077C9A7 /* moogle.png in Resources */ = {isa = PBXBuildFile; fileRef = 25FC2D08130E5E8A0077C9A7 /* moogle.png */; };
@@ -217,6 +218,8 @@
 		25F2079C1314E73C00178E09 /* MoogleDataCenterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoogleDataCenterDelegate.h; sourceTree = "<group>"; };
 		25F208511314EE3300178E09 /* CheckinsDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinsDataCenter.h; sourceTree = "<group>"; };
 		25F208521314EE3300178E09 /* CheckinsDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinsDataCenter.m; sourceTree = "<group>"; };
+		25F208C61314F7A800178E09 /* CheckinCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinCell.h; sourceTree = "<group>"; };
+		25F208C71314F7A800178E09 /* CheckinCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinCell.m; sourceTree = "<group>"; };
 		25F29A98130BA96700B0077F /* InitialDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InitialDefaults.plist; sourceTree = "<group>"; };
 		25F29B18130BAE7500B0077F /* CheckinsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinsViewController.h; sourceTree = "<group>"; };
 		25F29B19130BAE7500B0077F /* CheckinsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinsViewController.m; sourceTree = "<group>"; };
@@ -440,6 +443,8 @@
 		25B464D112F7BA2200C71FA9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				25F208C61314F7A800178E09 /* CheckinCell.h */,
+				25F208C71314F7A800178E09 /* CheckinCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -707,6 +712,7 @@
 				25F207981314E6FE00178E09 /* PlacesDataCenter.m in Sources */,
 				25F2079B1314E72400178E09 /* MoogleDataCenter.m in Sources */,
 				25F208531314EE3300178E09 /* CheckinsDataCenter.m in Sources */,
+				25F208C81314F7A800178E09 /* CheckinCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
