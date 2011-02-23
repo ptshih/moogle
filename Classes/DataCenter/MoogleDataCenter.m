@@ -31,14 +31,18 @@
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request {
-  DLog(@"Request Failed with Error: %@", [request error]);
+  DLog(@"Data center Failed with Error: %@", [request error]);
 }
 
 - (void)moogleRequestDidFinish:(ASIHTTPRequest *)request {
-  DLog(@"Successfully got a list of checkins with response: %@", [request responseString]);
+  DLog(@"Data center Finished with response: %@", [request responseString]);
   
   _parsedResponse = [[[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil] retain];
   
+  [self dataCenterFinishedWithRequest:request];
+}
+
+- (void)dataCenterFinishedWithRequest:(ASIHTTPRequest *)request {
   // Inform delegate the operation Finished
   if (self.delegate) {
     [self.delegate retain];

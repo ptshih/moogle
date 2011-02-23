@@ -19,6 +19,11 @@
   
   ASIHTTPRequest *_placeRequest;
   MoogleDataCenter *_dataCenter;
+  
+  // UI
+  UILabel *_totalLabel;
+  UILabel *_friendsLabel;
+  UILabel *_likesLabel;
 }
 
 @property (nonatomic, retain) NSNumber *placeId;

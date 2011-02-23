@@ -44,27 +44,13 @@
 - (void)checkinHereRequestDidFinish:(ASIHTTPRequest *)request {
   DLog(@"Successfully posted a checkin to facebook with response: %@", [request responseString]);
   
-  // Inform delegate the operation Finished
-  if (self.delegate) {
-    [self.delegate retain];
-    if ([self.delegate respondsToSelector:@selector(dataCenterDidFinish:)]) {
-      [self.delegate performSelector:@selector(dataCenterDidFinish:) withObject:request];
-    }
-    [self.delegate release];
-  }
+  [self dataCenterFinishedWithRequest:request];
 }
 
 - (void)placeRequestDidFinish:(ASIHTTPRequest *)request {
   DLog(@"Successfully got place with response: %@", [request responseString]);
   
-  // Inform delegate the operation Finished
-  if (self.delegate) {
-    [self.delegate retain];
-    if ([self.delegate respondsToSelector:@selector(dataCenterDidFinish:)]) {
-      [self.delegate performSelector:@selector(dataCenterDidFinish:) withObject:request];
-    }
-    [self.delegate release];
-  }
+  [self dataCenterFinishedWithRequest:request];
 }
 
 @end

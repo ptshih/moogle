@@ -20,4 +20,6 @@
 @property (nonatomic, retain) id <MoogleDataCenterDelegate> delegate;
 @property (nonatomic, retain) id parsedResponse;
 
+- (void)dataCenterFinishedWithRequest:(ASIHTTPRequest *)request;
+
 @end

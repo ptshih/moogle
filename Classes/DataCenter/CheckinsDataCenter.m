@@ -39,14 +39,7 @@
 - (void)checkinsRequestDidFinish:(ASIHTTPRequest *)request {
   DLog(@"Successfully got a list of checkins with response: %@", [request responseString]);
   
-  // Inform delegate the operation Finished
-  if (self.delegate) {
-    [self.delegate retain];
-    if ([self.delegate respondsToSelector:@selector(dataCenterDidFinish:)]) {
-      [self.delegate performSelector:@selector(dataCenterDidFinish:) withObject:request];
-    }
-    [self.delegate release];
-  }
+  [self dataCenterFinishedWithRequest:request];
 }
 
 @end
