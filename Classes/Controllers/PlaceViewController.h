@@ -11,27 +11,19 @@
 #import "MoogleDataCenterDelegate.h"
 
 @class ASIHTTPRequest;
-@class PlacesDataCenter;
+@class MoogleDataCenter;
 
 @interface PlaceViewController : CardViewController <MoogleDataCenterDelegate> {
   // Params
   NSNumber *_placeId;
-  NSString *_message;
-  NSArray *_tagsArray; // Tagged friend IDs
   
-  ASIHTTPRequest *_checkinHereRequest;
   ASIHTTPRequest *_placeRequest;
-  PlacesDataCenter *_placesDataCenter;
+  MoogleDataCenter *_dataCenter;
 }
 
 @property (nonatomic, retain) NSNumber *placeId;
-@property (nonatomic, retain) NSString *message;
-@property (nonatomic, retain) NSArray *tagsArray;
 
-@property (nonatomic, retain) ASIHTTPRequest *checkinHereRequest;
 @property (nonatomic, retain) ASIHTTPRequest *placeRequest;
-@property (nonatomic, retain) PlacesDataCenter *placesDataCenter;
-
-- (void)checkinHere;
+@property (nonatomic, retain) MoogleDataCenter *dataCenter;
 
 @end

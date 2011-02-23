@@ -83,6 +83,8 @@
 		25F2079B1314E72400178E09 /* MoogleDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F2079A1314E72400178E09 /* MoogleDataCenter.m */; };
 		25F208531314EE3300178E09 /* CheckinsDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F208521314EE3300178E09 /* CheckinsDataCenter.m */; };
 		25F208C81314F7A800178E09 /* CheckinCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F208C71314F7A800178E09 /* CheckinCell.m */; };
+		25F209551315072200178E09 /* CheckinHereViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F209531315072200178E09 /* CheckinHereViewController.m */; };
+		25F209561315072200178E09 /* CheckinHereViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25F209541315072200178E09 /* CheckinHereViewController.xib */; };
 		25F29A99130BA96700B0077F /* InitialDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25F29A98130BA96700B0077F /* InitialDefaults.plist */; };
 		25F29B1A130BAE7500B0077F /* CheckinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F29B19130BAE7500B0077F /* CheckinsViewController.m */; };
 		25FC2D09130E5E8A0077C9A7 /* moogle.png in Resources */ = {isa = PBXBuildFile; fileRef = 25FC2D08130E5E8A0077C9A7 /* moogle.png */; };
@@ -220,6 +222,9 @@
 		25F208521314EE3300178E09 /* CheckinsDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinsDataCenter.m; sourceTree = "<group>"; };
 		25F208C61314F7A800178E09 /* CheckinCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinCell.h; sourceTree = "<group>"; };
 		25F208C71314F7A800178E09 /* CheckinCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinCell.m; sourceTree = "<group>"; };
+		25F209521315072200178E09 /* CheckinHereViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinHereViewController.h; sourceTree = "<group>"; };
+		25F209531315072200178E09 /* CheckinHereViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinHereViewController.m; sourceTree = "<group>"; };
+		25F209541315072200178E09 /* CheckinHereViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckinHereViewController.xib; sourceTree = "<group>"; };
 		25F29A98130BA96700B0077F /* InitialDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InitialDefaults.plist; sourceTree = "<group>"; };
 		25F29B18130BAE7500B0077F /* CheckinsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinsViewController.h; sourceTree = "<group>"; };
 		25F29B19130BAE7500B0077F /* CheckinsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinsViewController.m; sourceTree = "<group>"; };
@@ -408,6 +413,9 @@
 				25FC2D29130E644B0077C9A7 /* WhoViewController.h */,
 				25FC2D2A130E644B0077C9A7 /* WhoViewController.m */,
 				25FC2E35130E70560077C9A7 /* WhoFilterDelegate.h */,
+				25F209521315072200178E09 /* CheckinHereViewController.h */,
+				25F209531315072200178E09 /* CheckinHereViewController.m */,
+				25F209541315072200178E09 /* CheckinHereViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -657,6 +665,7 @@
 				25FC2E69130E7C1B0077C9A7 /* Default.png in Resources */,
 				25FC2E6A130E7C1B0077C9A7 /* Default@2x.png in Resources */,
 				25FC2E6B130E7C1B0077C9A7 /* moogle@2x.png in Resources */,
+				25F209561315072200178E09 /* CheckinHereViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -713,6 +722,7 @@
 				25F2079B1314E72400178E09 /* MoogleDataCenter.m in Sources */,
 				25F208531314EE3300178E09 /* CheckinsDataCenter.m in Sources */,
 				25F208C81314F7A800178E09 /* CheckinCell.m in Sources */,
+				25F209551315072200178E09 /* CheckinHereViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

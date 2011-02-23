@@ -15,28 +15,29 @@
 
 #import "LocationManager.h"
 
-#import "PlacesDataCenter.h"
+#import "MoogleDataCenter.h"
+
+#import "CheckinHereViewController.h"
 
 @interface PlaceViewController (Private)
 
-- (void)postCheckin;
+- (void)getPlace;
+- (void)setupCheckinHereButton;
+- (void)showCheckinHereModal;
 
 @end
 
 @implementation PlaceViewController
 
 @synthesize placeId = _placeId;
-@synthesize message = _message;
-@synthesize tagsArray = _tagsArray;
-@synthesize checkinHereRequest = _checkinHereRequest;
 @synthesize placeRequest = _placeRequest;
-@synthesize placesDataCenter = _placesDataCenter;
+@synthesize dataCenter = _dataCenter;
 
 - (id)init {
   self = [super init];
   if (self) {
-    _placesDataCenter = [[PlacesDataCenter alloc] init];
-    _placesDataCenter.delegate = self;
+    _dataCenter = [[MoogleDataCenter alloc] init];
+    _dataCenter.delegate = self;
   }
   return self;
 }
@@ -45,7 +46,23 @@
   [super loadView];
   self.view.backgroundColor = [UIColor whiteColor];
   
+  [self setupCheckinHereButton];
   [self getPlace];
+}
+
+- (void)setupCheckinHereButton {
+  UIButton *checkinHereButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.height - 37, 320, 37)];
+  [checkinHereButton setBackgroundColor:FB_COLOR_DARK_BLUE];
+  [checkinHereButton addTarget:self action:@selector(showCheckinHereModal) forControlEvents:UIControlEventTouchUpInside];
+  [checkinHereButton setTitle:@"Checkin Here" forState:UIControlStateNormal];
+  [self.view addSubview:checkinHereButton];
+  [checkinHereButton release];
+}
+
+- (void)showCheckinHereModal {
+  CheckinHereViewController *chvc = [[CheckinHereViewController alloc] initWithNibName:@"CheckinHereViewController" bundle:nil];
+  [APP_DELEGATE.launcherViewController presentModalViewController:chvc animated:YES];
+  // NOTE: need to release here  
 }
 
 // Called when this card controller leaves active view
@@ -62,31 +79,6 @@
   [self getPlace];
 }
 
-- (IBAction)checkinHere {
-  [self postCheckin];
-}
-
-- (void)postCheckin {
-  CGFloat lat = [APP_DELEGATE.locationManager latitude];
-  CGFloat lng = [APP_DELEGATE.locationManager longitude];
-  
-  NSString *coordinates = [NSString stringWithFormat:@"{\"latitude\":\"%f\", \"longitude\":\"%f\"}", lat, lng];
-  
-  NSMutableDictionary *postDict = [NSMutableDictionary dictionary];
-  [postDict setObject:self.placeId forKey:@"place"];
-  [postDict setObject:coordinates forKey:@"coordinates"];
-  if (self.message) [postDict setObject:self.message forKey:@"message"];
-  if (self.tagsArray) {
-    NSString *tags = [self.tagsArray componentsJoinedByString:@","];
-    [postDict setObject:tags forKey:@"tags"];
-  }
-  
-  DLog(@"posting checkin to facebook with params: %@", postDict);
-  self.checkinHereRequest = [RemoteRequest postFacebookCheckinRequestWithParams:postDict withDelegate:self.placesDataCenter];
-  self.placesDataCenter.checkinHereRequest = self.checkinHereRequest;
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.checkinHereRequest];
-}
-
 - (void)getPlace {
   CGFloat lat = [APP_DELEGATE.locationManager latitude];
   CGFloat lng = [APP_DELEGATE.locationManager longitude];
@@ -97,26 +89,24 @@
   
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/place/%@", MOOGLE_BASE_URL, API_VERSION, self.placeId];
   
-  self.placeRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.placesDataCenter];
+  self.placeRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   [[RemoteOperation sharedInstance] addRequestToQueue:self.placeRequest];
 }
 
+#pragma mark MoogleDataCenterDelegate
+- (void)dataCenterDidFinish:(ASIHTTPRequest *)request {
+  DLog(@"Successfully got place with response: %@", [request responseString]);
+}
+
 - (void)dealloc {
-  if (_checkinHereRequest) {
-    [_checkinHereRequest clearDelegatesAndCancel];
-    [_checkinHereRequest release], _checkinHereRequest = nil;
-  }
-  
   if (_placeRequest) {
     [_placeRequest clearDelegatesAndCancel];
     [_placeRequest release], _placeRequest = nil;
   }
   
-  RELEASE_SAFELY (_placesDataCenter);
+  RELEASE_SAFELY (_dataCenter);
   
   RELEASE_SAFELY (_placeId);
-  RELEASE_SAFELY (_message);
-  RELEASE_SAFELY (_tagsArray);
   [super dealloc];
 }
 
