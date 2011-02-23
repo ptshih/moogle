@@ -13,11 +13,11 @@
 #import "RemoteRequest.h"
 #import "RemoteOperation.h"
 
-#import "CJSONDeserializer.h"
-
 #import "NSDate+HumanInterval.h"
 
 #import "WhoViewController.h"
+
+#import "MoogleDataCenter.h"
 
 @interface CheckinsViewController (Private)
 
@@ -29,12 +29,16 @@
 
 @implementation CheckinsViewController
 
+@synthesize dataCenter = _dataCenter;
 @synthesize checkinsRequest = _checkinsRequest;
 @synthesize filterView = _filterView;
 
 - (id)init {
   self = [super init];
   if (self) {
+    _dataCenter = [[MoogleDataCenter alloc ]init];
+    _dataCenter.delegate = self;
+    
     _filterView = [[UIView alloc] init];
     _isFiltering = NO;
     _who = [[NSString alloc] initWithString:@"friends"];
@@ -147,7 +151,7 @@
   [params setObject:_who forKey:@"who"];
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins", MOOGLE_BASE_URL, API_VERSION];
   
-  self.checkinsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self];
+  self.checkinsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   [[RemoteOperation sharedInstance] addRequestToQueue:self.checkinsRequest];
 }
 
@@ -174,27 +178,14 @@
 	[UIView commitAnimations];
 }
 
-#pragma mark ASIHTTPRequestDelegate
-- (void)requestFinished:(ASIHTTPRequest *)request {
-  // This is on the main thread
-  NSInteger statusCode = [request responseStatusCode];
-  if(statusCode > 200) {
-    UIAlertView *networkErrorAlert = [[UIAlertView alloc] initWithTitle:@"Network Error" message:FM_NETWORK_ERROR delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Try Again", nil];
-    [networkErrorAlert show];
-    [networkErrorAlert autorelease];
-  } else {
-    [self.sections removeAllObjects];
-    [self.sections addObject:@"Checkins"];
-    
-    [self.items removeAllObjects];
-    [self.items addObject:[[CJSONDeserializer deserializer] deserializeAsArray:[request responseData] error:nil]];
-    [self.tableView reloadData];
-  }
-  DLog(@"checkins request finished successfully");
-}
-
-- (void)requestFailed:(ASIHTTPRequest *)request {
-  DLog(@"Request Failed with Error: %@", [request error]);
+#pragma mark MoogleDataCenterDelegate
+- (void)dataCenterDidFinish:(ASIHTTPRequest *)request {
+  [self.sections removeAllObjects];
+  [self.sections addObject:@"Checkins"];
+  
+  [self.items removeAllObjects];
+  [self.items addObject:self.dataCenter.parsedResponse];
+  [self.tableView reloadData];
 }
 
 #pragma mark UIAlertViewDelegate
@@ -240,6 +231,7 @@
     [_checkinsRequest release], _checkinsRequest = nil;
   }
   
+  RELEASE_SAFELY (_dataCenter);
   RELEASE_SAFELY (_filterButton);
   RELEASE_SAFELY (_filterView);
   [super dealloc];

@@ -33,6 +33,12 @@ static NSInteger _distance = 2000;
   [self.locationManager startUpdatingLocation];
 }
 
+- (void)stopStandardUpdates {
+  [self.locationManager stopUpdatingLocation];
+  self.oldLocation = nil;
+  self.currentLocation = nil;
+}
+
 - (void)startSignificantChangeUpdates {
   // Create the location manager if this object does not
   // already have one.

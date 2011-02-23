@@ -49,7 +49,7 @@
 }
 
 - (void)showPlaceWithId:(NSNumber *)placeId {
-  PlaceViewController *pvc = [[PlaceViewController alloc] initWithNibName:@"PlaceViewController" bundle:nil];
+  PlaceViewController *pvc = [[PlaceViewController alloc] init];
   pvc.placeId = placeId;
   [self.navigationController pushViewController:pvc animated:YES];
   [pvc release];  

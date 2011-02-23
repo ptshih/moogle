@@ -14,16 +14,19 @@
 #import "RemoteRequest.h"
 #import "RemoteOperation.h"
 
-#import "CJSONDeserializer.h"
-#import "CJSONDataSerializer.h"
+#import "MoogleDataCenter.h"
 
 @implementation NearbyViewController
 
+@synthesize dataCenter = _dataCenter;
 @synthesize nearbyRequest = _nearbyRequest;
 
 - (id)init {
   self = [super init];
   if (self) {
+    _dataCenter = [[MoogleDataCenter alloc] init];
+    _dataCenter.delegate = self;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNearbyPlaces) name:kLocationAcquired object:nil];
   }
   return self;
@@ -46,6 +49,8 @@
 - (void)reloadCardController {
   [super reloadCardController];
   
+  [APP_DELEGATE.locationManager startStandardUpdates];
+  
   if ([APP_DELEGATE.locationManager hasAcquiredLocation]) {
     [self getNearbyPlaces];
   }
@@ -60,38 +65,25 @@
   DLog(@"requesting nearby facebook places at lat: %f, lng: %f, distance: %d", lat, lng, distance);
   NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%f", lat], @"lat", [NSString stringWithFormat:@"%f", lng], @"lng", [NSString stringWithFormat:@"%d", distance], @"distance", query, @"query", nil];
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins/nearby", MOOGLE_BASE_URL, API_VERSION];
-  self.nearbyRequest = [RemoteRequest postRequestWithBaseURLString:baseURLString andParams:params isGzip:NO withDelegate:self];
+  self.nearbyRequest = [RemoteRequest postRequestWithBaseURLString:baseURLString andParams:params isGzip:NO withDelegate:self.dataCenter];
   [[RemoteOperation sharedInstance] addRequestToQueue:self.nearbyRequest];
 }
 
-#pragma mark ASIHTTPRequestDelegate
-- (void)requestFinished:(ASIHTTPRequest *)request {
-  // This is on the main thread
-  NSInteger statusCode = [request responseStatusCode];
-  if(statusCode > 200) {
-    UIAlertView *networkErrorAlert = [[UIAlertView alloc] initWithTitle:@"Network Error" message:FM_NETWORK_ERROR delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Try Again", nil];
-    [networkErrorAlert show];
-    [networkErrorAlert autorelease];
-  } else {  
-    [self.sections removeAllObjects];
-    [self.sections addObject:@"Nearby Places"];
-    
-    [self.items removeAllObjects];
-    [self.items addObject:[[CJSONDeserializer deserializer] deserializeAsArray:[request responseData] error:nil]];
-    [self.tableView reloadData];
-  }
-  DLog(@"nearby facebook places request finished successfully");
-}
-
-- (void)requestFailed:(ASIHTTPRequest *)request {
-  DLog(@"Request Failed with Error: %@", [request error]);
+#pragma mark MoogleDataCenterDelegate
+- (void)dataCenterDidFinish:(ASIHTTPRequest *)request {
+  [self.sections removeAllObjects];
+  [self.sections addObject:@"Nearby Places"];
+  
+  [self.items removeAllObjects];
+  [self.items addObject:self.dataCenter.parsedResponse];
+  [self.tableView reloadData];
 }
 
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
-  [self showPlaceWithId:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"place_id"]];
+  [self showPlaceWithId:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"id"]];
 }
 
 #pragma mark UITableViewDataSource
@@ -117,6 +109,8 @@
     [_nearbyRequest clearDelegatesAndCancel];
     [_nearbyRequest release], _nearbyRequest = nil;
   }
+  
+  RELEASE_SAFELY (_dataCenter);
   
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationAcquired object:nil];
   

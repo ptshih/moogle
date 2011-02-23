@@ -108,7 +108,6 @@
   
   // Location
   _locationManager = [[LocationManager alloc] init];
-  [self.locationManager startStandardUpdates];
   
   // Finish Launching
   [self.window addSubview:self.launcherViewController.view];
@@ -134,11 +133,13 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application {
   [[RemoteOperation sharedInstance] cancelAllRequests];
+  [self.locationManager stopStandardUpdates];
 }
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
   [[RemoteOperation sharedInstance] cancelAllRequests];
+  [self.locationManager stopStandardUpdates];
 }
 
 
@@ -332,6 +333,7 @@
         
         // dismiss the login view
         [self dismissLoginView:YES];
+        
       } else {
         if (progress >= 0.25 && progress < 0.75) {
           self.loginViewController.splashLabel.text = @"Downloading Checkins For Your Friends";
@@ -475,6 +477,8 @@
   self.sessionKey = [NSString stringWithFormat:@"%d", currentTimestampInteger];
   
   [self postStartSessionRequest];
+  
+  [self.locationManager startStandardUpdates];
 }
 
 - (void)startRegister {
@@ -484,7 +488,9 @@
   NSInteger currentTimestampInteger = floor(currentTimestamp);
   self.sessionKey = [NSString stringWithFormat:@"%d", currentTimestampInteger];
   
-  [self postRegisterRequest];  
+  [self postRegisterRequest];
+  
+  [self.locationManager startStandardUpdates];
 }
 
 #pragma mark -

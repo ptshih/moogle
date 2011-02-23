@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "CardTableViewController.h"
 #import "WhoFilterDelegate.h"
+#import "MoogleDataCenterDelegate.h"
 
+@class MoogleDataCenter;
 @class ASIHTTPRequest;
 @class WhoViewController;
 
-@interface CheckinsViewController : CardTableViewController <WhoFilterDelegate> {
+@interface CheckinsViewController : CardTableViewController <WhoFilterDelegate, MoogleDataCenterDelegate> {
+  MoogleDataCenter *_dataCenter;
   ASIHTTPRequest *_checkinsRequest;
   UIBarButtonItem *_filterButton;
   UIView *_filterView;
@@ -23,6 +26,7 @@
   NSString *_who;
 }
 
+@property (nonatomic, retain) MoogleDataCenter *dataCenter;
 @property (nonatomic, retain) ASIHTTPRequest *checkinsRequest;
 @property (nonatomic, retain) UIView *filterView;
 

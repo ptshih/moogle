@@ -8,13 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "CardTableViewController.h"
+#import "MoogleDataCenterDelegate.h"
 
+@class MoogleDataCenter;
 @class ASIHTTPRequest;
 
-@interface NearbyViewController : CardTableViewController{
+@interface NearbyViewController : CardTableViewController <MoogleDataCenterDelegate> {
+  MoogleDataCenter *_dataCenter;
   ASIHTTPRequest *_nearbyRequest;
 }
 
+@property (nonatomic, retain) MoogleDataCenter *dataCenter;
 @property (nonatomic, retain) ASIHTTPRequest *nearbyRequest;
 
 - (void)getNearbyPlaces;

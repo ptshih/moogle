@@ -20,6 +20,8 @@
 @property (nonatomic, retain) CLLocation *currentLocation;
 
 - (void)startStandardUpdates;
+- (void)stopStandardUpdates;
+
 - (void)startSignificantChangeUpdates;
 
 - (BOOL)hasAcquiredLocation;
