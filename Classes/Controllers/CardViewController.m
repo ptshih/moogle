@@ -23,8 +23,8 @@
   return self;
 }
 
-- (void)loadView {
-  [super loadView];
+- (void)viewDidLoad {
+  [super viewDidLoad];
   self.view.frame = CGRectMake(0, 0, kCardWidth, kCardHeight - 44.0);
   self.view.clipsToBounds = YES;
 }

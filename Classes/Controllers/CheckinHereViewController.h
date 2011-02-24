@@ -29,5 +29,6 @@
 @property (nonatomic, retain) NSArray *tagsArray;
 
 - (IBAction)checkinHere;
+- (IBAction)cancel;
 
 @end

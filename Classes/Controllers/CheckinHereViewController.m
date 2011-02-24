@@ -50,6 +50,10 @@
   [self postCheckin];
 }
 
+- (IBAction)cancel {
+  [self dismissModalViewControllerAnimated:YES];
+}
+
 - (void)postCheckin {
   CGFloat lat = [APP_DELEGATE.locationManager latitude];
   CGFloat lng = [APP_DELEGATE.locationManager longitude];

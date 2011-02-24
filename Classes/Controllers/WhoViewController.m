@@ -33,8 +33,8 @@
   return self;
 }
 
-- (void)loadView {
-  [super loadView];
+- (void)viewDidLoad {
+  [super viewDidLoad];
   self.view.frame = CGRectMake(0, 0, 320, 460);
   _tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
   _tableView.delegate = self;

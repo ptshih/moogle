@@ -29,8 +29,8 @@
   return self;
 }
 
-- (void)loadView {
-  [super loadView];
+- (void)viewDidLoad {
+  [super viewDidLoad];
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   self.tableView.frame = self.view.frame;
   [self.view addSubview:self.tableView];
