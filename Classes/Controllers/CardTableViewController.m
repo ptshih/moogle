@@ -64,6 +64,7 @@
 - (void)reloadCardController {
   [super reloadCardController];
   _reloading = YES;
+  [_refreshHeaderView setState:EGOOPullRefreshLoading];
 }
 
 - (void)dataSourceDidLoad {

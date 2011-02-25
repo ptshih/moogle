@@ -61,7 +61,7 @@
   NSString *coordinates = [NSString stringWithFormat:@"{\"latitude\":\"%f\", \"longitude\":\"%f\"}", lat, lng];
   
   NSMutableDictionary *postDict = [NSMutableDictionary dictionary];
-  [postDict setObject:self.placeId forKey:@"place"];
+  [postDict setObject:[self.placeId stringValue] forKey:@"place"];
   [postDict setObject:coordinates forKey:@"coordinates"];
   if (self.message) [postDict setObject:self.message forKey:@"message"];
   if (self.tagsArray) {

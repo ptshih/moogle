@@ -32,7 +32,7 @@
 
 
 @interface EGORefreshTableHeaderView (Private)
-- (void)setState:(EGOPullRefreshState)aState;
+//- (void)setState:(EGOPullRefreshState)aState;
 @end
 
 @implementation EGORefreshTableHeaderView

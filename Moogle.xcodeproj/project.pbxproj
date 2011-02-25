@@ -60,7 +60,6 @@
 		25606A9812FA465200481E43 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25606A9712FA465200481E43 /* MainWindow.xib */; };
 		25606B1612FA48F500481E43 /* PlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25606B1412FA48F500481E43 /* PlaceViewController.m */; };
 		25B464D412F7BA3200C71FA9 /* NSData+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B464D312F7BA3200C71FA9 /* NSData+Compression.m */; };
-		25B464D812F7BA3800C71FA9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B464D712F7BA3800C71FA9 /* Reachability.m */; };
 		25B464DA12F7BA4600C71FA9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B464D912F7BA4600C71FA9 /* SystemConfiguration.framework */; };
 		25B464DE12F7BA5000C71FA9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B464DD12F7BA5000C71FA9 /* QuartzCore.framework */; };
 		25B464E212F7BA5700C71FA9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B464E112F7BA5700C71FA9 /* MapKit.framework */; };
@@ -92,6 +91,7 @@
 		25C6C2C71317C8030092E598 /* grayArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6C2BF1317C8030092E598 /* grayArrow@2x.png */; };
 		25C6C2C81317C8030092E598 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6C2C01317C8030092E598 /* whiteArrow.png */; };
 		25C6C2C91317C8030092E598 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6C2C11317C8030092E598 /* whiteArrow@2x.png */; };
+		25C6C2F81317CD1F0092E598 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2F71317CD1F0092E598 /* Reachability.m */; };
 		25F207981314E6FE00178E09 /* PlacesDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F207971314E6FE00178E09 /* PlacesDataCenter.m */; };
 		25F2079B1314E72400178E09 /* MoogleDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F2079A1314E72400178E09 /* MoogleDataCenter.m */; };
 		25F208531314EE3300178E09 /* CheckinsDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F208521314EE3300178E09 /* CheckinsDataCenter.m */; };
@@ -192,8 +192,6 @@
 		25606B1412FA48F500481E43 /* PlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceViewController.m; sourceTree = "<group>"; };
 		25B464D212F7BA3200C71FA9 /* NSData+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Compression.h"; sourceTree = "<group>"; };
 		25B464D312F7BA3200C71FA9 /* NSData+Compression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Compression.m"; sourceTree = "<group>"; };
-		25B464D612F7BA3800C71FA9 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		25B464D712F7BA3800C71FA9 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		25B464D912F7BA4600C71FA9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		25B464DD12F7BA5000C71FA9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		25B464E112F7BA5700C71FA9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -245,6 +243,8 @@
 		25C6C2BF1317C8030092E598 /* grayArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayArrow@2x.png"; sourceTree = "<group>"; };
 		25C6C2C01317C8030092E598 /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
 		25C6C2C11317C8030092E598 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
+		25C6C2F61317CD1F0092E598 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		25C6C2F71317CD1F0092E598 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		25F207961314E6FE00178E09 /* PlacesDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacesDataCenter.h; sourceTree = "<group>"; };
 		25F207971314E6FE00178E09 /* PlacesDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacesDataCenter.m; sourceTree = "<group>"; };
 		25F207991314E72400178E09 /* MoogleDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoogleDataCenter.h; sourceTree = "<group>"; };
@@ -470,6 +470,7 @@
 		25B464D012F7BA2200C71FA9 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				25C6C2F51317CD1F0092E598 /* Reachability */,
 				25C6C2B61317C7CA0092E598 /* EGORefreshTableHeaderView.h */,
 				25C6C2B71317C7CA0092E598 /* EGORefreshTableHeaderView.m */,
 				253FED9B1317B79D00871D79 /* ImageCacheDelegate.h */,
@@ -479,7 +480,6 @@
 				25B464F112F7BABD00C71FA9 /* TouchJSON */,
 				25B464ED12F7BAB800C71FA9 /* HashValue */,
 				25B464E912F7BA8C00C71FA9 /* Appirater */,
-				25B464D512F7BA3800C71FA9 /* Reachability */,
 				2529FC4B130140B70041DA95 /* LocationManager.h */,
 				2529FC4C130140B70041DA95 /* LocationManager.m */,
 			);
@@ -499,15 +499,6 @@
 				25C6C2B11317BE9C0092E598 /* MoogleCell.m */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		25B464D512F7BA3800C71FA9 /* Reachability */ = {
-			isa = PBXGroup;
-			children = (
-				25B464D612F7BA3800C71FA9 /* Reachability.h */,
-				25B464D712F7BA3800C71FA9 /* Reachability.m */,
-			);
-			path = Reachability;
 			sourceTree = "<group>";
 		};
 		25B464E912F7BA8C00C71FA9 /* Appirater */ = {
@@ -584,6 +575,15 @@
 				25C6C2C11317C8030092E598 /* whiteArrow@2x.png */,
 			);
 			path = PullRefresh;
+			sourceTree = "<group>";
+		};
+		25C6C2F51317CD1F0092E598 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				25C6C2F61317CD1F0092E598 /* Reachability.h */,
+				25C6C2F71317CD1F0092E598 /* Reachability.m */,
+			);
+			path = Reachability;
 			sourceTree = "<group>";
 		};
 		25F207891314E6CC00178E09 /* DataCenter */ = {
@@ -746,7 +746,6 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* MoogleAppDelegate.m in Sources */,
 				25B464D412F7BA3200C71FA9 /* NSData+Compression.m in Sources */,
-				25B464D812F7BA3800C71FA9 /* Reachability.m in Sources */,
 				25B464EC12F7BA8C00C71FA9 /* Appirater.m in Sources */,
 				25B464F012F7BAB800C71FA9 /* HashValue.m in Sources */,
 				25B4650812F7BABD00C71FA9 /* CDataScanner.m in Sources */,
@@ -795,6 +794,7 @@
 				25C6C2B21317BE9D0092E598 /* MoogleCell.m in Sources */,
 				25C6C2B51317C08B0092E598 /* FeedCell.m in Sources */,
 				25C6C2B81317C7CA0092E598 /* EGORefreshTableHeaderView.m in Sources */,
+				25C6C2F81317CD1F0092E598 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -810,7 +810,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Moogle_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = "Moogle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Moogle;
@@ -824,7 +824,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Moogle_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = "Moogle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Moogle;
