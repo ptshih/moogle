@@ -14,7 +14,7 @@
 #define LABEL_HEIGHT 24.0
 
 @interface MoogleCell : UITableViewCell {
-    
+  UIActivityIndicatorView *_imageLoadingIndicator;
 }
 
 @end

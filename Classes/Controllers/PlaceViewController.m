@@ -82,6 +82,7 @@
   
   [self.view addSubview:headerView];
   
+  [placeImageView release];
   [headerView release];
 }
 
@@ -102,10 +103,9 @@
 }
 
 - (void)showCheckinHereModal {
-  CheckinHereViewController *chvc = [[CheckinHereViewController alloc] initWithNibName:@"CheckinHereViewController" bundle:nil];
-  chvc.placeId = self.placeId;
-  [APP_DELEGATE.launcherViewController presentModalViewController:chvc animated:YES];
-  // NOTE: need to release here  
+  _checkinHereViewController = [[CheckinHereViewController alloc] initWithNibName:@"CheckinHereViewController" bundle:nil];
+  _checkinHereViewController.placeId = self.placeId;
+  [APP_DELEGATE.launcherViewController presentModalViewController:_checkinHereViewController animated:YES];
 }
 
 // Called when this card controller leaves active view
@@ -147,6 +147,8 @@
     [_placeRequest clearDelegatesAndCancel];
     [_placeRequest release], _placeRequest = nil;
   }
+  
+  RELEASE_SAFELY(_checkinHereViewController);
   
   RELEASE_SAFELY (_dataCenter);
   

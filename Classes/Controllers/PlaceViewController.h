@@ -12,8 +12,11 @@
 
 @class ASIHTTPRequest;
 @class MoogleDataCenter;
+@class CheckinHereViewController;
 
 @interface PlaceViewController : CardViewController <MoogleDataCenterDelegate> {
+  CheckinHereViewController *_checkinHereViewController;
+  
   // Params
   NSNumber *_placeId;
   

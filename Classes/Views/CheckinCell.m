@@ -25,6 +25,7 @@
     _timestampLabel = [[UILabel alloc] init];
     _countLabel = [[UILabel alloc] init];
     
+    self.placeImageView.backgroundColor = [UIColor clearColor];
     self.nameLabel.backgroundColor = [UIColor clearColor];
     self.placeNameLabel.backgroundColor = [UIColor clearColor];
     self.countLabel.backgroundColor = [UIColor clearColor];
