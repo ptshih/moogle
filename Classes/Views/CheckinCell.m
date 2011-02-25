@@ -11,6 +11,7 @@
 #import "NSDate+HumanInterval.h"
 
 #define SPACING_X 7.0
+#define LABEL_HEIGHT 24.0
 
 @implementation CheckinCell
 
@@ -74,11 +75,11 @@
   
   self.nameLabel.top = 8.0;
   self.placeNameLabel.top = 30.0;
-  self.countLabel.top = 8.0;
-  self.timestampLabel.top = 30.0;
+  self.countLabel.top = 30.0;
+  self.timestampLabel.top = 8.0;
   
   CGFloat textWidth = self.contentView.width - self.placeImageView.width - 3 * SPACING_X;
-  CGSize textSize = CGSizeMake(textWidth, INT_MAX);
+  CGSize textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
   
   // Name
   CGSize nameSize = [self.nameLabel.text sizeWithFont:self.nameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];

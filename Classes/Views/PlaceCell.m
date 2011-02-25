@@ -11,6 +11,7 @@
 #import "NSDate+HumanInterval.h"
 
 #define SPACING_X 7.0
+#define LABEL_HEIGHT 24.0
 
 @implementation PlaceCell
 
@@ -38,6 +39,8 @@
     
     self.nameLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     self.countLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+    
+    self.nameLabel.numberOfLines = 1;
     
     [self.contentView addSubview:self.placeImageView];
     [self.contentView addSubview:self.nameLabel];
@@ -68,14 +71,14 @@
   left = self.placeImageView.right + SPACING_X;
   
   self.nameLabel.top = 8.0;
-  self.distanceLabel.top = 8.0;
+  self.distanceLabel.top = 30.0;
   self.countLabel.top = 30.0;
   
   CGFloat textWidth = self.contentView.width - self.placeImageView.width - 3 * SPACING_X;
-  CGSize textSize = CGSizeMake(textWidth, INT_MAX);
+  CGSize textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
   
   // Name
-  CGSize nameSize = [self.nameLabel.text sizeWithFont:self.nameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
+  CGSize nameSize = [self.nameLabel.text sizeWithFont:self.nameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
   self.nameLabel.width = nameSize.width;
   self.nameLabel.height = nameSize.height;
   self.nameLabel.left = left;
@@ -97,7 +100,7 @@
   cell.placeImageView.image = image;
   
   cell.nameLabel.text = [dictionary objectForKey:@"name"];
-  cell.distanceLabel.text = [dictionary objectForKey:@"distance"];
+  cell.distanceLabel.text = [NSString stringWithFormat:@"%.2fmi", [[dictionary objectForKey:@"distance"] floatValue]];
   cell.countLabel.text = @"1";
 }
 

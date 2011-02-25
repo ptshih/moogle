@@ -88,6 +88,10 @@
 }
 
 #pragma mark UITableViewDataSource
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return 60.0;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   PlaceCell *cell = nil;
   cell = (PlaceCell *)[tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
