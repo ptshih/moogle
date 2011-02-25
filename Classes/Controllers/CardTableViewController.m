@@ -18,10 +18,8 @@
 @implementation CardTableViewController
 
 @synthesize tableView = _tableView;
-
 @synthesize sections = _sections;
 @synthesize items = _items;
-
 @synthesize imageCache = _imageCache;
 
 - (id)init {
@@ -101,7 +99,7 @@
 }
 
 - (void)loadImagesForOnScreenRows {
-  // Subclass
+  // MUST Subclass
 }
 
 - (void)didReceiveMemoryWarning {
@@ -113,6 +111,8 @@
 
 - (void)dealloc {
   RELEASE_SAFELY(_tableView);
+  RELEASE_SAFELY(_sections);
+  RELEASE_SAFELY(_items);
   RELEASE_SAFELY(_imageCache);
   [super dealloc];
 }

@@ -108,7 +108,7 @@
   
   cell.nameLabel.text = [dictionary objectForKey:@"name"];
   cell.placeNameLabel.text = [dictionary objectForKey:@"place_name"];
-  cell.countLabel.text = @"1";
+  cell.countLabel.text = @"5";
   cell.timestampLabel.text = [date humanIntervalSinceNow];
 }
 

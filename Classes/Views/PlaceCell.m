@@ -93,16 +93,10 @@
 + (void)fillCell:(PlaceCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
   cell.placeImageView.image = image;
   
-  cell.nameLabel.text = [dictionary objectForKey:@"name"];
-  cell.distanceLabel.text = [NSString stringWithFormat:@"%.2fmi", [[dictionary objectForKey:@"distance"] floatValue]];
-  cell.countLabel.text = @"1";
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-  [super setSelected:selected animated:animated];
-  
-  // Configure the view for the selected state
+  // NOTE: make sure not <null>
+  cell.nameLabel.text = [dictionary valueForKey:@"name"];
+  cell.distanceLabel.text = [NSString stringWithFormat:@"%.2fmi", [[dictionary valueForKey:@"distance"] floatValue]];
+  cell.countLabel.text = [NSString stringWithFormat:@"A: %@, F: %@, L: %@", [dictionary valueForKey:@"checkins_count"], [dictionary valueForKey:@"checkins_friend_count"], [dictionary valueForKey:@"like_count"]];
 }
 
 - (void)dealloc {

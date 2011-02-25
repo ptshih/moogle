@@ -29,8 +29,6 @@
   self.view.clipsToBounds = YES;
 }
 
-
-
 // Called when the user logs out and we need to clear all cached data
 // Subclasses should override this method
 - (void)clearCachedData {

@@ -28,7 +28,8 @@
 @synthesize activityView = _activityView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+  if (self) {
 		// Custom initialization
 		_isRefreshState = NO;
 	}

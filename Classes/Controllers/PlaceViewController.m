@@ -55,11 +55,11 @@
 }
 
 - (void)setupHeaderView {
-  UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, 300, 200)];
-  UIImageView *placeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(200, 0, 100, 100)];
-  _totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 27)];
-  _friendsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 27, 200, 27)];
-  _likesLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 54, 200, 27)];
+  UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
+  UIImageView *placeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(210, 0, 100, 100)];
+  _totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 27)];
+  _friendsLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 27, 200, 27)];
+  _likesLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 54, 200, 27)];
   
   headerView.backgroundColor = FB_COLOR_VERY_LIGHT_BLUE;
   placeImageView.backgroundColor = [UIColor clearColor];
