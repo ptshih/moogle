@@ -7,11 +7,6 @@
 //
 
 #import "CheckinCell.h"
-#import "Constants.h"
-#import "NSDate+HumanInterval.h"
-
-#define SPACING_X 7.0
-#define LABEL_HEIGHT 24.0
 
 @implementation CheckinCell
 
@@ -111,18 +106,10 @@
   
   NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"checkin_timestamp"] integerValue]];
   
-  
   cell.nameLabel.text = [dictionary objectForKey:@"name"];
   cell.placeNameLabel.text = [dictionary objectForKey:@"place_name"];
   cell.countLabel.text = @"1";
   cell.timestampLabel.text = [date humanIntervalSinceNow];
-
-}
-
-                              
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-  [super setSelected:selected animated:animated];
-  // Configure the view for the selected state.
 }
 
 - (void)dealloc {

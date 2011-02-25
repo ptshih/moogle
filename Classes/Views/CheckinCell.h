@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MoogleCell.h"
 
-
-@interface CheckinCell : UITableViewCell {
+@interface CheckinCell : MoogleCell {
   UIImageView *_placeImageView;
   UILabel *_nameLabel;
   UILabel *_placeNameLabel;

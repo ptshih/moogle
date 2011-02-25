@@ -7,11 +7,6 @@
 //
 
 #import "PlaceCell.h"
-#import "Constants.h"
-#import "NSDate+HumanInterval.h"
-
-#define SPACING_X 7.0
-#define LABEL_HEIGHT 24.0
 
 @implementation PlaceCell
 
@@ -20,8 +15,7 @@
 @synthesize distanceLabel = _distanceLabel;
 @synthesize countLabel = _countLabel;
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
     _placeImageView = [[UIImageView alloc] init];
