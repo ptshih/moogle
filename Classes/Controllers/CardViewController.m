@@ -46,6 +46,10 @@
   DLog(@"Called by class: %@", [self class]);
 }
 
+// Subclass
+- (void)dataSourceDidLoad {
+}
+
 - (void)showPlaceWithId:(NSNumber *)placeId {
   PlaceViewController *pvc = [[PlaceViewController alloc] init];
   pvc.placeId = placeId;

@@ -188,6 +188,7 @@
   [self.items removeAllObjects];
   [self.items addObject:self.dataCenter.parsedResponse];
   [self.tableView reloadData];
+  [self dataSourceDidLoad];
 }
 
 #pragma mark UIAlertViewDelegate

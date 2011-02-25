@@ -43,6 +43,15 @@
   self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   self.tableView.frame = self.view.frame;
   [self.view addSubview:self.tableView];
+  
+  if (_refreshHeaderView == nil) {
+    _refreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
+    _refreshHeaderView.delegate = self;
+		[self.tableView addSubview:_refreshHeaderView];		
+	}
+	
+  //  update the last update date
+  [_refreshHeaderView refreshLastUpdatedDate];
 }
 
 // Called when the user logs out and we need to clear all cached data
@@ -50,6 +59,16 @@
 - (void)clearCachedData {
   [self.sections removeAllObjects];
   [self.items removeAllObjects];
+}
+
+- (void)reloadCardController {
+  [super reloadCardController];
+  _reloading = YES;
+}
+
+- (void)dataSourceDidLoad {
+  _reloading = NO;
+	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 }
 
 #pragma mark UITableViewDelegate
@@ -88,18 +107,38 @@
   [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
+- (void)loadImagesForOnScreenRows {
+  // MUST Subclass
+}
+
+#pragma mark UIScrollViewDelegate
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
   if (!decelerate) {
     [self loadImagesForOnScreenRows];
   }
+  [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
   [self loadImagesForOnScreenRows];
 }
 
-- (void)loadImagesForOnScreenRows {
-  // MUST Subclass
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{	
+	[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+#pragma mark -
+#pragma mark EGORefreshTableHeaderDelegate Methods
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view {
+  [self reloadCardController];
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view {
+	return _reloading; // should return if data source model is reloading
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view {
+	return [NSDate date]; // should return date data source was last changed
 }
 
 - (void)didReceiveMemoryWarning {
@@ -114,6 +153,7 @@
   RELEASE_SAFELY(_sections);
   RELEASE_SAFELY(_items);
   RELEASE_SAFELY(_imageCache);
+  RELEASE_SAFELY(_refreshHeaderView);
   [super dealloc];
 }
 

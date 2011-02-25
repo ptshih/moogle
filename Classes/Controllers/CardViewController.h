@@ -15,6 +15,7 @@
 - (void)clearCachedData;
 - (void)unloadCardController;
 - (void)reloadCardController;
+- (void)dataSourceDidLoad;
 
 - (void)showPlaceWithId:(NSNumber *)placeId;
 

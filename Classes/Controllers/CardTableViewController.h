@@ -21,6 +21,7 @@
   ImageCache *_imageCache;
   
   EGORefreshTableHeaderView *_refreshHeaderView;
+  BOOL _reloading;
 }
 
 @property (nonatomic, retain) UITableView *tableView;
