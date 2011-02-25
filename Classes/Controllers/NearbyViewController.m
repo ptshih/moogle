@@ -8,6 +8,7 @@
 
 #import "NearbyViewController.h"
 #import "Constants.h"
+#import "PlaceCell.h"
 #import "LocationManager.h"
 
 #import "ASIHTTPRequest.h"
@@ -88,20 +89,43 @@
 
 #pragma mark UITableViewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  UITableViewCell *cell = nil;
-  cell = [tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
+  PlaceCell *cell = nil;
+  cell = (PlaceCell *)[tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
   if(cell == nil) { 
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CheckinCell"] autorelease];
+    cell = [[[PlaceCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CheckinCell"] autorelease];
     cell.textLabel.numberOfLines = 100;
     cell.textLabel.font = [UIFont systemFontOfSize:14.0];
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_cell_bg.png"]];
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:20]];
   }
   
-  cell.textLabel.text = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"name"];
-  cell.detailTextLabel.text = [[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"distance"] stringValue];
+  NSDictionary *place = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  
+  UIImage *placeImage = [self.imageCache getImageForIndexPath:indexPath];
+  if (!placeImage) {
+    if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
+      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [place objectForKey:@"place_id"]]] forIndexPath:indexPath];
+    }
+    placeImage = nil;
+  }
+  
+  [PlaceCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] withImage:placeImage];
   
   return cell;
+}
+
+#pragma mark ImageCacheDelegate
+- (void)loadImagesForOnScreenRows {
+  NSArray *visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
+  
+  for (NSIndexPath *indexPath in visibleIndexPaths) {
+    NSDictionary *checkin = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    //    if ([checkin objectForKey:@""]) {
+    //    }
+    if (![self.imageCache getImageForIndexPath:indexPath]) {
+      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [checkin objectForKey:@"place_id"]]] forIndexPath:indexPath];
+    }
+  }
 }
 
 - (void)dealloc {
