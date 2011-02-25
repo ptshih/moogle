@@ -15,7 +15,12 @@
 #import "RemoteRequest.h"
 #import "RemoteOperation.h"
 
+#import "PlaceViewController.h"
 #import "MoogleDataCenter.h"
+
+@interface NearbyViewController (Private)
+- (void)showPlaceWithId:(NSNumber *)placeId;
+@end
 
 @implementation NearbyViewController
 
@@ -68,6 +73,14 @@
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins/nearby", MOOGLE_BASE_URL, API_VERSION];
   self.nearbyRequest = [RemoteRequest postRequestWithBaseURLString:baseURLString andParams:params isGzip:NO withDelegate:self.dataCenter];
   [[RemoteOperation sharedInstance] addRequestToQueue:self.nearbyRequest];
+}
+
+- (void)showPlaceWithId:(NSNumber *)placeId {
+  PlaceViewController *pvc = [[PlaceViewController alloc] init];
+  pvc.placeId = placeId;
+  pvc.shouldShowCheckinHere = YES;
+  [self.navigationController pushViewController:pvc animated:YES];
+  [pvc release];  
 }
 
 #pragma mark MoogleDataCenterDelegate

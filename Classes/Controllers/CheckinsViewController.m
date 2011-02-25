@@ -16,7 +16,7 @@
 #import "NSDate+HumanInterval.h"
 
 #import "WhoViewController.h"
-
+#import "PlaceViewController.h"
 #import "MoogleDataCenter.h"
 
 #import "CheckinCell.h"
@@ -27,6 +27,8 @@
 - (void)setupFilterButtons;
 - (void)animateShowFilter;
 - (void)animateHideFilter;
+
+- (void)showPlaceWithId:(NSNumber *)placeId;
 @end
 
 @implementation CheckinsViewController
@@ -178,6 +180,14 @@
   self.filterView.top = -44.0;
   self.tableView.frame = CGRectMake(0, 0, self.tableView.width, self.tableView.height + 44.0);
 	[UIView commitAnimations];
+}
+
+- (void)showPlaceWithId:(NSNumber *)placeId {
+  PlaceViewController *pvc = [[PlaceViewController alloc] init];
+  pvc.placeId = placeId;
+  pvc.shouldShowCheckinHere = NO;
+  [self.navigationController pushViewController:pvc animated:YES];
+  [pvc release];  
 }
 
 #pragma mark MoogleDataCenterDelegate

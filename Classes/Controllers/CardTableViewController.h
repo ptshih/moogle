@@ -14,7 +14,6 @@
 
 @interface CardTableViewController : CardViewController <UITableViewDelegate, UITableViewDataSource, ImageCacheDelegate, EGORefreshTableHeaderDelegate> {
   UITableView *_tableView;
-  
   NSMutableArray *_sections;
   NSMutableArray *_items;
   
@@ -25,7 +24,6 @@
 }
 
 @property (nonatomic, retain) UITableView *tableView;
-
 @property (nonatomic, retain) NSMutableArray *sections;
 @property (nonatomic, retain) NSMutableArray *items;
 

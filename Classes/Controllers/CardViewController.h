@@ -17,6 +17,4 @@
 - (void)reloadCardController;
 - (void)dataSourceDidLoad;
 
-- (void)showPlaceWithId:(NSNumber *)placeId;
-
 @end

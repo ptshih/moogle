@@ -7,7 +7,6 @@
 //
 
 #import "CardViewController.h"
-#import "PlaceViewController.h"
 #import "Constants.h"
 
 @interface CardViewController (Private)
@@ -48,13 +47,6 @@
 
 // Subclass
 - (void)dataSourceDidLoad {
-}
-
-- (void)showPlaceWithId:(NSNumber *)placeId {
-  PlaceViewController *pvc = [[PlaceViewController alloc] init];
-  pvc.placeId = placeId;
-  [self.navigationController pushViewController:pvc animated:YES];
-  [pvc release];  
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
