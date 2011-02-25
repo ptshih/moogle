@@ -10,14 +10,17 @@
 #import "CardViewController.h"
 #import "ImageCacheDelegate.h"
 #import "ImageCache.h"
+#import "EGORefreshTableHeaderView.h"
 
-@interface CardTableViewController : CardViewController <UITableViewDelegate, UITableViewDataSource, ImageCacheDelegate> {
+@interface CardTableViewController : CardViewController <UITableViewDelegate, UITableViewDataSource, ImageCacheDelegate, EGORefreshTableHeaderDelegate> {
   UITableView *_tableView;
   
   NSMutableArray *_sections;
   NSMutableArray *_items;
   
   ImageCache *_imageCache;
+  
+  EGORefreshTableHeaderView *_refreshHeaderView;
 }
 
 @property (nonatomic, retain) UITableView *tableView;
