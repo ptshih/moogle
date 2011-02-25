@@ -13,4 +13,6 @@
     
 }
 
++ (void)fillCell:(PlaceHeaderCell *)cell withDictionary:(NSDictionary *)dictionary;
+
 @end

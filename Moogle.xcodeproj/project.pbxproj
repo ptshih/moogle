@@ -59,6 +59,7 @@
 		25433F0C12FA3B770066A191 /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25433F0A12FA3B770066A191 /* MeViewController.m */; };
 		25606A9812FA465200481E43 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25606A9712FA465200481E43 /* MainWindow.xib */; };
 		25606B1612FA48F500481E43 /* PlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25606B1412FA48F500481E43 /* PlaceViewController.m */; };
+		2560A65C13186B09000BE27D /* PlaceHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2560A65B13186B09000BE27D /* PlaceHeaderCell.m */; };
 		25B464D412F7BA3200C71FA9 /* NSData+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B464D312F7BA3200C71FA9 /* NSData+Compression.m */; };
 		25B464DA12F7BA4600C71FA9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B464D912F7BA4600C71FA9 /* SystemConfiguration.framework */; };
 		25B464DE12F7BA5000C71FA9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B464DD12F7BA5000C71FA9 /* QuartzCore.framework */; };
@@ -190,6 +191,8 @@
 		25606A9712FA465200481E43 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = SOURCE_ROOT; };
 		25606B1312FA48F500481E43 /* PlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceViewController.h; sourceTree = "<group>"; };
 		25606B1412FA48F500481E43 /* PlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceViewController.m; sourceTree = "<group>"; };
+		2560A65A13186B09000BE27D /* PlaceHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceHeaderCell.h; sourceTree = "<group>"; };
+		2560A65B13186B09000BE27D /* PlaceHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceHeaderCell.m; sourceTree = "<group>"; };
 		25B464D212F7BA3200C71FA9 /* NSData+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Compression.h"; sourceTree = "<group>"; };
 		25B464D312F7BA3200C71FA9 /* NSData+Compression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Compression.m"; sourceTree = "<group>"; };
 		25B464D912F7BA4600C71FA9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -497,6 +500,8 @@
 				25C6C2B41317C08A0092E598 /* FeedCell.m */,
 				25C6C2B01317BE9C0092E598 /* MoogleCell.h */,
 				25C6C2B11317BE9C0092E598 /* MoogleCell.m */,
+				2560A65A13186B09000BE27D /* PlaceHeaderCell.h */,
+				2560A65B13186B09000BE27D /* PlaceHeaderCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -795,6 +800,7 @@
 				25C6C2B51317C08B0092E598 /* FeedCell.m in Sources */,
 				25C6C2B81317C7CA0092E598 /* EGORefreshTableHeaderView.m in Sources */,
 				25C6C2F81317CD1F0092E598 /* Reachability.m in Sources */,
+				2560A65C13186B09000BE27D /* PlaceHeaderCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

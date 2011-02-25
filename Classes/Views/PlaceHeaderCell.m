@@ -11,25 +11,33 @@
 
 @implementation PlaceHeaderCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+  self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+  if (self) {
+    // Initialization code
+  }
+  return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)prepareForReuse {
+  [super prepareForReuse];
 }
 
-- (void)dealloc
-{
-    [super dealloc];
+- (void)layoutSubviews {
+  [super layoutSubviews];
+
+}
+
++ (void)fillCell:(PlaceHeaderCell *)cell withDictionary:(NSDictionary *)dictionary {
+  
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+  [super setSelected:selected animated:animated];
+}
+
+- (void)dealloc {
+  [super dealloc];
 }
 
 @end
