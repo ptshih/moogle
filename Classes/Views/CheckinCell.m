@@ -105,8 +105,8 @@
   self.timestampLabel.left = self.contentView.bounds.size.width - self.timestampLabel.width - SPACING_X;
 }
 
-+ (void)fillCell:(CheckinCell *)cell withDictionary:(NSDictionary *)dictionary {
-  cell.placeImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [dictionary objectForKey:@"place_id"]]]]];
++ (void)fillCell:(CheckinCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
+  cell.placeImageView.image = image;
   
   NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"checkin_timestamp"] integerValue]];
   

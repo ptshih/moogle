@@ -222,9 +222,33 @@
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:20]];
   }
   
-  [CheckinCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+  NSDictionary *checkin = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  
+  UIImage *placeImage = [self.imageCache getImageForIndexPath:indexPath];
+  if (!placeImage) {
+    if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
+      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [checkin objectForKey:@"place_id"]]] forIndexPath:indexPath];
+    }
+    placeImage = nil;
+  }
+  
+  [CheckinCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] withImage:placeImage];
   
   return cell;
+}
+
+#pragma mark ImageCacheDelegate
+- (void)loadImagesForOnScreenRows {
+  NSArray *visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
+  
+  for (NSIndexPath *indexPath in visibleIndexPaths) {
+    NSDictionary *checkin = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+//    if ([checkin objectForKey:@""]) {
+//    }
+    if (![self.imageCache getImageForIndexPath:indexPath]) {
+      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [checkin objectForKey:@"place_id"]]] forIndexPath:indexPath];
+    }
+  }
 }
 
 - (void)dealloc {

@@ -23,6 +23,6 @@
 @property (nonatomic, retain) UILabel *timestampLabel;
 @property (nonatomic, retain) UILabel *countLabel;
 
-+ (void)fillCell:(CheckinCell *)cell withDictionary:(NSDictionary *)dictionary;
++ (void)fillCell:(CheckinCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image;
 
 @end

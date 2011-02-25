@@ -87,6 +87,7 @@
 		25F209561315072200178E09 /* CheckinHereViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25F209541315072200178E09 /* CheckinHereViewController.xib */; };
 		25F29A99130BA96700B0077F /* InitialDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25F29A98130BA96700B0077F /* InitialDefaults.plist */; };
 		25F29B1A130BAE7500B0077F /* CheckinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F29B19130BAE7500B0077F /* CheckinsViewController.m */; };
+		25F91ACC1317AC2500B77388 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F91ACA1317AC2500B77388 /* ImageCache.m */; };
 		25FC2D09130E5E8A0077C9A7 /* moogle.png in Resources */ = {isa = PBXBuildFile; fileRef = 25FC2D08130E5E8A0077C9A7 /* moogle.png */; };
 		25FC2D2B130E644B0077C9A7 /* WhoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25FC2D2A130E644B0077C9A7 /* WhoViewController.m */; };
 		25FC2E69130E7C1B0077C9A7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 25FC2E66130E7C1B0077C9A7 /* Default.png */; };
@@ -228,6 +229,9 @@
 		25F29A98130BA96700B0077F /* InitialDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InitialDefaults.plist; sourceTree = "<group>"; };
 		25F29B18130BAE7500B0077F /* CheckinsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinsViewController.h; sourceTree = "<group>"; };
 		25F29B19130BAE7500B0077F /* CheckinsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinsViewController.m; sourceTree = "<group>"; };
+		25F91AC91317AC2500B77388 /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageCache.h; path = ../../../../LinkedIn/linkedin/LinkedIn/Vendor/ImageCache.h; sourceTree = "<group>"; };
+		25F91ACA1317AC2500B77388 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageCache.m; path = ../../../../LinkedIn/linkedin/LinkedIn/Vendor/ImageCache.m; sourceTree = "<group>"; };
+		25F91ACB1317AC2500B77388 /* ImageCacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageCacheDelegate.h; path = ../../../../LinkedIn/linkedin/LinkedIn/Vendor/ImageCacheDelegate.h; sourceTree = "<group>"; };
 		25FC2D08130E5E8A0077C9A7 /* moogle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moogle.png; sourceTree = "<group>"; };
 		25FC2D29130E644B0077C9A7 /* WhoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoViewController.h; sourceTree = "<group>"; };
 		25FC2D2A130E644B0077C9A7 /* WhoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoViewController.m; sourceTree = "<group>"; };
@@ -444,6 +448,9 @@
 				25B464D512F7BA3800C71FA9 /* Reachability */,
 				2529FC4B130140B70041DA95 /* LocationManager.h */,
 				2529FC4C130140B70041DA95 /* LocationManager.m */,
+				25F91AC91317AC2500B77388 /* ImageCache.h */,
+				25F91ACA1317AC2500B77388 /* ImageCache.m */,
+				25F91ACB1317AC2500B77388 /* ImageCacheDelegate.h */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -723,6 +730,7 @@
 				25F208531314EE3300178E09 /* CheckinsDataCenter.m in Sources */,
 				25F208C81314F7A800178E09 /* CheckinCell.m in Sources */,
 				25F209551315072200178E09 /* CheckinHereViewController.m in Sources */,
+				25F91ACC1317AC2500B77388 /* ImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -738,7 +746,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Moogle_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Moogle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Moogle;
@@ -752,7 +760,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Moogle_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Moogle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Moogle;
