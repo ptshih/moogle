@@ -19,6 +19,7 @@
   
   // Params
   NSNumber *_placeId;
+  NSString *_placeName;
   BOOL _shouldShowCheckinHere;
   
   ASIHTTPRequest *_placeRequest;
@@ -29,6 +30,7 @@
 }
 
 @property (nonatomic, retain) NSNumber *placeId;
+@property (nonatomic, retain) NSString *placeName;
 @property (nonatomic, assign) BOOL shouldShowCheckinHere;
 
 @property (nonatomic, retain) ASIHTTPRequest *placeRequest;

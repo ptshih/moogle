@@ -16,6 +16,8 @@
   #include "TargetConditionals.h"
 #endif
 
+#define CLEAR_ALL_CACHED_DATA_ON_WARNING
+
 #define USER_LANGUAGE [[NSLocale preferredLanguages] objectAtIndex:0]
 #define USER_LOCALE [[NSLocale autoupdatingCurrentLocale] localeIdentifier]
 

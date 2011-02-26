@@ -24,6 +24,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil] autorelease];
   self.view.frame = CGRectMake(0, 0, kCardWidth, kCardHeight - 44.0);
   self.view.clipsToBounds = YES;
 }

@@ -28,7 +28,7 @@
 - (void)animateShowFilter;
 - (void)animateHideFilter;
 
-- (void)showPlaceWithId:(NSNumber *)placeId;
+- (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName;
 @end
 
 @implementation CheckinsViewController
@@ -186,9 +186,10 @@
 	[UIView commitAnimations];
 }
 
-- (void)showPlaceWithId:(NSNumber *)placeId {
+- (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName {
   PlaceViewController *pvc = [[PlaceViewController alloc] init];
   pvc.placeId = placeId;
+  pvc.placeName = placeName;
   pvc.shouldShowCheckinHere = NO;
   [self.navigationController pushViewController:pvc animated:YES];
   [pvc release];  
@@ -217,7 +218,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
-  [self showPlaceWithId:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"place_id"]];
+  [self showPlaceWithId:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"place_id"] andName:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"name"]];
 }
 
 

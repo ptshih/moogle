@@ -21,6 +21,8 @@
 
 #import "CJSONDeserializer.h"
 
+#import "PlaceHeaderCell.h"
+
 @interface PlaceViewController (Private)
 
 - (void)getPlace;
@@ -35,6 +37,7 @@
 @implementation PlaceViewController
 
 @synthesize placeId = _placeId;
+@synthesize placeName = _placeName;
 @synthesize shouldShowCheckinHere = _shouldShowCheckinHere;
 @synthesize placeRequest = _placeRequest;
 @synthesize dataCenter = _dataCenter;
@@ -53,6 +56,8 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.view.backgroundColor = [UIColor whiteColor];
+  
+  self.title = self.placeName;
   
   CGRect tableFrame = CGRectZero;
   
@@ -113,17 +118,36 @@
 
 #pragma mark UITableViewDelegate
 #pragma mark UITableViewDataSource
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell", [self class]];
-  UITableViewCell *cell = nil;
-  cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-  if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  // NOTE: temporary hard coded heights
+  if (indexPath.section == 0) {
+    return 88.0;
+  } else {
+    return 44.0;
   }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  UITableViewCell *cell = nil;
+  NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell_%d", [self class], indexPath.section];
   
-  NSString *distance = [NSString stringWithFormat:@"%.2fmi", [[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"distance"] floatValue]];
-  cell.textLabel.text = @"Distance";
-  cell.detailTextLabel.text = distance;
+  // NOTE: temporary hard coded sections
+  // Should eventually change this to be a cellTypeForIndexPath call
+  if (indexPath.section == 0) {
+    cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    if (cell == nil) {
+      cell = [[[PlaceHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
+      [PlaceHeaderCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+    }
+  } else {
+    cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    if (cell == nil) {
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
+    }
+    NSString *distance = [NSString stringWithFormat:@"%.2fmi", [[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"distance"] floatValue]];
+    cell.textLabel.text = @"Distance";
+    cell.detailTextLabel.text = distance;
+  }
   return cell;
 }
 
@@ -135,11 +159,16 @@
 
   // Update Table Cells
   [self.sections removeAllObjects];
-  [self.sections addObject:@"HeaderCell"];
+  [self.items removeAllObjects];
   
+  // Header
+  [self.sections addObject:@"HeaderCell"];
+  [self.items addObject:[NSArray arrayWithObject:responseDict]];
+  
+  // Details
+  [self.sections addObject:@"DetailsCell"];
   NSArray *items = [NSArray arrayWithObject:[NSDictionary dictionaryWithObject:[responseDict objectForKey:@"distance"] forKey:@"distance"]];
   
-  [self.items removeAllObjects];
   [self.items addObject:items];
   [self.tableView reloadData];
 }
@@ -151,9 +180,8 @@
   }
   
   RELEASE_SAFELY(_checkinHereViewController);
-  
   RELEASE_SAFELY (_dataCenter);
-  
+  RELEASE_SAFELY(_placeName);
   RELEASE_SAFELY (_placeId);
   
   // UI

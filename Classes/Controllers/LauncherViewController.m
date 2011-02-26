@@ -154,13 +154,6 @@
   CGFloat pageWidth = self.scrollView.frame.size.width;
   int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
   self.pageControl.currentPage = page;
-  
-  if (lastPage == 0 && page != 0) {
-    id visibleViewController = [self.cards objectAtIndex:lastPage];
-    if ([[visibleViewController topViewController] respondsToSelector:@selector(hideSearchKeyboard)]) {
-      [[visibleViewController topViewController] performSelector:@selector(hideSearchKeyboard)];
-    }    
-  }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {  
@@ -210,7 +203,6 @@
 }
 
 - (void)updateCards {
-  
   // Tell the previous controller to unload any data if it responds to it
   id previousViewController = [self.cards objectAtIndex:_previousPage];
   if ([[previousViewController topViewController] respondsToSelector:@selector(unloadCardController)]) {
@@ -232,6 +224,9 @@
   [super didReceiveMemoryWarning];
   
   // Release any cached data, images, etc. that aren't in use.
+#ifdef CLEAR_ALL_CACHED_DATA_ON_WARNING
+  [self clearAllCachedData];
+#endif
 }
 
 - (void)viewDidUnload {
