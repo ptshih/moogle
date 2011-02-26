@@ -27,6 +27,7 @@
 
 @synthesize headersArray = _headersArray;
 @synthesize detailsArray = _detailsArray;
+@synthesize activityArray = _activityArray;
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
   DLog(@"Request Finished with Status Code: %d, : %@", [request responseStatusCode], request);
@@ -61,29 +62,37 @@
 - (void)placeInfoRequestDidFinish:(ASIHTTPRequest *)request {
   DLog(@"Successfully got place with response: %@", [request responseString]);
   
-  NSDictionary *responseDict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
+  NSDictionary *jsonDict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
   
   // Create the items and the sections for the controller to display
   
   // Header
-  _headersArray = [[NSMutableArray array] retain];
+  if (!_headersArray) {
+    _headersArray = [[NSMutableArray array] retain];
+  } else {
+    [_headersArray removeAllObjects];
+  }
   NSArray *headerKeys = [NSArray arrayWithObjects:@"place_id", @"name", @"checkins_count", @"checkins_friend_count", @"like_count", nil];
   NSMutableDictionary *headerDict = [NSMutableDictionary dictionary];
   for (NSString *key in headerKeys) {
-    [headerDict setObject:[responseDict objectForKey:key] forKey:key];
+    [headerDict setObject:[jsonDict objectForKey:key] forKey:key];
   }
   [self.headersArray addObject:headerDict];
   
   // Details
-  _detailsArray = [[NSMutableArray array] retain];
+  if (!_detailsArray) {
+    _detailsArray = [[NSMutableArray array] retain];
+  } else {
+    [_detailsArray removeAllObjects];
+  }
   NSArray *detailsKeys = [NSArray arrayWithObjects:@"distance", @"phone", nil];
   for (NSString *key in detailsKeys) {
     NSString *value = nil;
     // Check for distance and transform
     if ([key isEqualToString:@"distance"]) {
-      value = [NSString stringWithFormat:@"%.2fmi", [[responseDict valueForKey:key] floatValue]];
+      value = [NSString stringWithFormat:@"%.2fmi", [[jsonDict valueForKey:key] floatValue]];
     } else {
-      value = [responseDict valueForKey:key];
+      value = [jsonDict valueForKey:key];
     }
     
     // Check for nulls
@@ -96,6 +105,34 @@
 }
 
 - (void)placeActivityRequestDidFinish:(ASIHTTPRequest *)request {
+//  [{"facebook_id":100002020589088,"message":null,"name":"Mosix Moog","timestamp":1298357098},{"facebook_id":100002030219173,"message":null,"name":"Moseven Moog","timestamp":1298357098},{"facebook_id":100002031089048,"message":null,"name":"Mothree Moog","timestamp":1298357098},{"facebook_id":100002039668743,"message":null,"name":"Motwo Moog","timestamp":1298357098},{"facebook_id":100002020589088,"message":null,"name":"Mosix Moog","timestamp":1298357098},{"facebook_id":100002030219173,"message":null,"name":"Moseven Moog","timestamp":1298357098},{"facebook_id":100002031089048,"message":null,"name":"Mothree Moog","timestamp":1298357098},{"facebook_id":100002039668743,"message":null,"name":"Motwo Moog","timestamp":1298357098},{"facebook_id":100002020589088,"message":null,"name":"Mosix Moog","timestamp":1298357098},{"facebook_id":100002030219173,"message":null,"name":"Moseven Moog","timestamp":1298357098}]
+  
+  NSArray *jsonArray = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
+  
+  if (!_activityArray) {
+    _activityArray = [[NSMutableArray array] retain];
+  } else {
+    [_activityArray removeAllObjects];
+  }
+  
+  NSArray *activityKeys = [NSArray arrayWithObjects:@"facebook_id", @"name", @"message", @"timestamp", nil];
+  
+  for (NSDictionary *item in jsonArray) {
+    NSMutableDictionary *responseDict = [NSMutableDictionary dictionary];
+    for (NSString *key in activityKeys) {
+      NSString *value = nil;
+      value = [item valueForKey:key];
+      
+      if (![value notNil]) {
+        // Check for not nil object
+        [responseDict setObject:[NSNumber numberWithInteger:0] forKey:key];
+      } else {
+        [responseDict setObject:value forKey:key];
+      }
+    }
+    [self.activityArray addObject:responseDict];
+  }
+  
   [self dataCenterFinishedWithRequest:request];
 }
 
@@ -106,6 +143,7 @@
 - (void)dealloc {
   RELEASE_SAFELY(_headersArray);
   RELEASE_SAFELY(_detailsArray);
+  RELEASE_SAFELY(_activityArray);
   [super dealloc];
 }
 

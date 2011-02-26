@@ -17,6 +17,8 @@
   
   NSMutableArray *_headersArray;
   NSMutableArray *_detailsArray;
+  
+  NSMutableArray *_activityArray;
 }
 
 @property (nonatomic, assign) ASIHTTPRequest *checkinHereRequest;
@@ -26,5 +28,6 @@
 
 @property (nonatomic, retain) NSMutableArray *headersArray;
 @property (nonatomic, retain) NSMutableArray *detailsArray;
+@property (nonatomic, retain) NSMutableArray *activityArray;
 
 @end

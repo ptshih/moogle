@@ -82,18 +82,21 @@
 
 - (void)setupPlaceInfo {
   _placeInfoViewController.placeId = self.placeId;
+  _placeInfoViewController.viewport = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
   _placeInfoViewController.view.frame = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
   [_placeScrollView addSubview:_placeInfoViewController.view];
 }
 
 - (void)setupPlaceActivity {
   _placeActivityViewController.placeId = self.placeId;
+  _placeActivityViewController.viewport = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
   _placeActivityViewController.view.frame = CGRectMake(320, 0, _placeScrollView.width, _placeScrollView.height);
   [_placeScrollView addSubview:_placeActivityViewController.view];
 }
 
 - (void)setupPlaceReviews {
   _placeReviewsViewController.placeId = self.placeId;
+  _placeReviewsViewController.viewport = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
   _placeReviewsViewController.view.frame = CGRectMake(640, 0, _placeScrollView.width, _placeScrollView.height);
   [_placeScrollView addSubview:_placeReviewsViewController.view];
 }

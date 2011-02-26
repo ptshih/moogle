@@ -25,7 +25,7 @@
   
   // Table
   //  CGRect tableFrame = self.view.frame;
-  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+  [self setupTableViewWithFrame:self.viewport andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
   [self reloadDataSource];
 }
 
@@ -53,7 +53,6 @@
 }
 
 - (void)dataCenterDidFail:(ASIHTTPRequest *)request {
-  [self dataSourceDidLoad];
 }
 
 - (void)dealloc {

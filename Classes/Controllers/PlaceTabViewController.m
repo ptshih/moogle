@@ -12,6 +12,7 @@
 
 @synthesize dataCenter = _dataCenter;
 @synthesize placeId = _placeId;
+@synthesize viewport = _viewport;
 
 - (id)init {
   self = [super init];

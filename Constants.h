@@ -9,6 +9,7 @@
 
 #import "MoogleAppDelegate.h"
 #import "UIView+Additions.h"
+#import "NSDate+HumanInterval.h"
 
 #define USE_ROUNDED_CORNERS
 
