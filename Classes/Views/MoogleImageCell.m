@@ -8,6 +8,9 @@
 
 #import "MoogleImageCell.h"
 
+#define IMAGE_WIDTH 50.0
+#define IMAGE_HEIGHT 50.0
+
 @implementation MoogleImageCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -22,10 +25,15 @@
 
 - (void)prepareForReuse {
   [super prepareForReuse];
+  self.imageView.image = nil;
 }
 
 - (void)layoutSubviews {
   [super layoutSubviews];
+  
+  self.imageView.width = IMAGE_WIDTH;
+  self.imageView.height = IMAGE_HEIGHT;
+  
   _imageLoadingIndicator.frame = CGRectMake(7 + 15, 20, 20, 20);
 }
 
