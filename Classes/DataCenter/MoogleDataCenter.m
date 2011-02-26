@@ -39,6 +39,10 @@
 - (void)moogleRequestDidFinish:(ASIHTTPRequest *)request {
   DLog(@"Data center Finished with response: %@", [request responseString]);
   
+  if (_parsedResponse) {
+    [_parsedResponse release];
+    _parsedResponse = nil;
+  }
   _parsedResponse = [[[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil] retain];
   
   [self dataCenterFinishedWithRequest:request];

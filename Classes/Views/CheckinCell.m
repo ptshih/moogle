@@ -8,9 +8,13 @@
 
 #import "CheckinCell.h"
 
+#define CELL_FONT_SIZE 14.0
+#define SPACING_X 4.0
+#define SPACING_Y 4.0
+#define LABEL_HEIGHT 18.0
+
 @implementation CheckinCell
 
-@synthesize placeImageView = _placeImageView;
 @synthesize nameLabel = _nameLabel;
 @synthesize placeNameLabel = _placeNameLabel;
 @synthesize timestampLabel = _timestampLabel;
@@ -19,27 +23,31 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
-    _placeImageView = [[UIImageView alloc] init];
     _nameLabel = [[UILabel alloc] init];
     _placeNameLabel = [[UILabel alloc] init];
     _timestampLabel = [[UILabel alloc] init];
     _countLabel = [[UILabel alloc] init];
     
-    self.placeImageView.backgroundColor = [UIColor clearColor];
     self.nameLabel.backgroundColor = [UIColor clearColor];
     self.placeNameLabel.backgroundColor = [UIColor clearColor];
-    self.countLabel.backgroundColor = [UIColor clearColor];
     self.timestampLabel.backgroundColor = [UIColor clearColor];
+    self.countLabel.backgroundColor = [UIColor clearColor];
+    
+    self.nameLabel.font = [UIFont boldSystemFontOfSize:CELL_FONT_SIZE];
+    self.placeNameLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
+    self.timestampLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
+    self.countLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
     
     self.nameLabel.textAlignment = UITextAlignmentLeft;
     self.placeNameLabel.textAlignment = UITextAlignmentLeft;
-    self.countLabel.textAlignment = UITextAlignmentRight;
+    self.countLabel.textAlignment = UITextAlignmentLeft;
     self.timestampLabel.textAlignment = UITextAlignmentRight;
     
     self.nameLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     self.placeNameLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+    self.countLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+//    self.timestampLabel.autoresizingMask = 
     
-    [self.contentView addSubview:self.placeImageView];
     [self.contentView addSubview:self.nameLabel];
     [self.contentView addSubview:self.placeNameLabel];
     [self.contentView addSubview:self.countLabel];
@@ -50,7 +58,6 @@
 
 - (void)prepareForReuse {
   [super prepareForReuse];
-  self.placeImageView.image = nil;
   self.nameLabel.text = nil;
   self.placeNameLabel.text = nil;
   self.countLabel.text = nil;
@@ -61,55 +68,68 @@
   [super layoutSubviews];
   
   CGFloat left = SPACING_X;
-  
-  self.placeImageView.left = left;
-  self.placeImageView.top = 5.0;
-  self.placeImageView.width = 50.0;
-  self.placeImageView.height = 50.0;
-  
-  left = self.placeImageView.right + SPACING_X;
-  
-  self.nameLabel.top = 8.0;
-  self.placeNameLabel.top = 30.0;
-  self.countLabel.top = 30.0;
-  self.timestampLabel.top = 8.0;
-  
-  CGFloat textWidth = self.contentView.width - self.placeImageView.width - 3 * SPACING_X;
+  CGFloat textWidth = self.contentView.width;
   CGSize textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  CGSize labelSize = CGSizeZero;
   
-  // Name
-  CGSize nameSize = [self.nameLabel.text sizeWithFont:self.nameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
-  self.nameLabel.width = nameSize.width;
-  self.nameLabel.height = nameSize.height;
-  self.nameLabel.left = left;
+  // Dynamically Space for Image
+//  if (self.imageView.image) {
+//    left = self.imageView.right + SPACING_X;
+//  }
   
-  // Place Name
-  CGSize placeNameSize = [self.placeNameLabel.text sizeWithFont:self.placeNameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
-  self.placeNameLabel.width = placeNameSize.width;
-  self.placeNameLabel.height = placeNameSize.height;
-  self.placeNameLabel.left = left;
+  // Always leave space for image
+  left = left + 50 + SPACING_X;
   
-  // Checkin Count
-  CGSize countSize = [self.countLabel.text sizeWithFont:self.countLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
-  self.countLabel.width = countSize.width;
-  self.countLabel.height = countSize.height;
-  self.countLabel.left =  self.contentView.bounds.size.width - self.countLabel.width - SPACING_X;
+  self.nameLabel.top = SPACING_Y;
+  self.placeNameLabel.top = SPACING_Y + LABEL_HEIGHT;
+  self.countLabel.top = SPACING_Y + LABEL_HEIGHT * 2;
+  self.timestampLabel.top = SPACING_Y;
+  
+  textWidth = self.contentView.width - left;
+  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
   
   // Timestamp
-  CGSize timestampSize = [self.timestampLabel.text sizeWithFont:self.timestampLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
-  self.timestampLabel.width = timestampSize.width;
-  self.timestampLabel.height = timestampSize.height;
-  self.timestampLabel.left = self.contentView.bounds.size.width - self.timestampLabel.width - SPACING_X;
+  labelSize = [self.timestampLabel.text sizeWithFont:self.timestampLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
+  self.timestampLabel.width = labelSize.width;
+  self.timestampLabel.height = labelSize.height;
+  self.timestampLabel.left = self.contentView.width - self.timestampLabel.width - SPACING_X;
+  
+  textWidth = self.contentView.width - left - self.timestampLabel.width - SPACING_X;
+  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  
+  // Name
+  labelSize = [self.nameLabel.text sizeWithFont:self.nameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
+  self.nameLabel.width = labelSize.width;
+  self.nameLabel.height = labelSize.height;
+  self.nameLabel.left = left;
+  
+  textWidth = self.contentView.width - left;
+  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  
+  // Place Name
+  labelSize = [self.placeNameLabel.text sizeWithFont:self.placeNameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
+  self.placeNameLabel.width = labelSize.width;
+  self.placeNameLabel.height = labelSize.height;
+  self.placeNameLabel.left = left;
+  
+  textWidth = self.contentView.width - left;
+  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  
+  // Checkin Count
+  labelSize = [self.countLabel.text sizeWithFont:self.countLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
+  self.countLabel.width = labelSize.width;
+  self.countLabel.height = labelSize.height;
+  self.countLabel.left =  left;
 }
 
 + (void)fillCell:(CheckinCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
-  cell.placeImageView.image = image;
+  cell.imageView.image = image;
   
   NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"checkin_timestamp"] integerValue]];
   
   cell.nameLabel.text = [dictionary objectForKey:@"name"];
   cell.placeNameLabel.text = [dictionary objectForKey:@"place_name"];
-  cell.countLabel.text = @"5";
+  cell.countLabel.text = @"5 friends also checked in here";
   cell.timestampLabel.text = [date humanIntervalSinceNow];
 }
 
@@ -118,7 +138,6 @@
 }
 
 - (void)dealloc {
-  RELEASE_SAFELY (_placeImageView);
   RELEASE_SAFELY (_nameLabel);
   RELEASE_SAFELY (_placeNameLabel);
   RELEASE_SAFELY (_timestampLabel);

@@ -27,6 +27,7 @@
 // Session
 - (void)startRegister;
 - (void)startSession;
+- (void)sessionReady;
 
 // Requests
 - (void)postStartSessionRequest;
@@ -318,8 +319,9 @@
       [_networkErrorAlert show];
       [_networkErrorAlert autorelease];
     } else {
-      // Success, do nothing
+      // Success
       _isSessionReady = YES;
+      [self sessionReady];
     }
   } else if ([request isEqual:self.progressRequest]) {
     if (statusCode > 200) {
@@ -330,6 +332,7 @@
       if (progress == 1.0) {
         // Ready the session
         _isSessionReady = YES;
+        [self sessionReady];
         
         // dismiss the login view
         [self dismissLoginView:YES];
@@ -349,6 +352,10 @@
 
 - (void)requestFailed:(ASIHTTPRequest *)request {
   DLog(@"Request Failed with Error: %@", [request error]);
+}
+
+- (void)sessionReady {
+  [self.launcherViewController reloadVisibleCard];
 }
 
 #pragma mark -

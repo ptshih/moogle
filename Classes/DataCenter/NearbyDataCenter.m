@@ -34,7 +34,11 @@
 - (void)nearbyRequestDidFinish:(ASIHTTPRequest *)request {
   DLog(@"Successfully got a list of nearby places with response: %@", [request responseString]);
 
-  _responseArray = [[NSMutableArray array] retain];
+  if (!_responseArray) {
+    _responseArray = [[NSMutableArray array] retain];
+  } else {
+    [_responseArray removeAllObjects];
+  }
   
   NSArray *jsonArray = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
   

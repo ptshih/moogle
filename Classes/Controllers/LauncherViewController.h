@@ -38,6 +38,7 @@
 
 @property (nonatomic, retain) NSArray *cards;
 
+- (void)reloadVisibleCard;
 - (void)clearAllCachedData;
 
 @end

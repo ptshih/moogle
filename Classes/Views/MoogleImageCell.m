@@ -8,7 +8,6 @@
 
 #import "MoogleImageCell.h"
 
-
 @implementation MoogleImageCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -27,7 +26,7 @@
 
 - (void)layoutSubviews {
   [super layoutSubviews];
-  _imageLoadingIndicator.frame = CGRectMake(SPACING_X + 15, 20, 20, 20);
+  _imageLoadingIndicator.frame = CGRectMake(7 + 15, 20, 20, 20);
 }
 
 + (CGFloat)rowHeight {

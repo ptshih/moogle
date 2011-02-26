@@ -33,6 +33,14 @@
 - (void)kupoRequestDidFinish:(ASIHTTPRequest *)request {
   DLog(@"Me request finished with response: %@", [request responseString])
   
+  if (!_responseArray) {
+    _responseArray = [[NSMutableArray array] retain];
+  } else {
+    [_responseArray removeAllObjects];
+  }
+  
+  NSArray *jsonArray = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
+  
   [self dataCenterFinishedWithRequest:request];
 }
 

@@ -200,6 +200,14 @@
   }
 }
 
+- (void)reloadVisibleCard {
+  // Tell the new visible controller to reload it's data if it responds to it
+  id visibleViewController = [self.cards objectAtIndex:self.pageControl.currentPage];
+  if ([[visibleViewController topViewController] respondsToSelector:@selector(reloadCardController)]) {
+    [[visibleViewController topViewController] performSelector:@selector(reloadCardController)];
+  }
+}
+
 - (void)updateCards {
   // Tell the previous controller to unload any data if it responds to it
   id previousViewController = [self.cards objectAtIndex:_previousPage];

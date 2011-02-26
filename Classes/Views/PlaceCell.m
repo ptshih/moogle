@@ -8,95 +8,126 @@
 
 #import "PlaceCell.h"
 
+#define CELL_FONT_SIZE 14.0
+#define SPACING_X 7.0
+#define SPACING_Y 5.0
+#define LABEL_HEIGHT 16.0
+
 @implementation PlaceCell
 
-@synthesize placeImageView = _placeImageView;
 @synthesize nameLabel = _nameLabel;
 @synthesize distanceLabel = _distanceLabel;
 @synthesize countLabel = _countLabel;
+@synthesize statsLabel = _statsLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
-    _placeImageView = [[UIImageView alloc] init];
     _nameLabel = [[UILabel alloc] init];
     _distanceLabel = [[UILabel alloc] init];
     _countLabel = [[UILabel alloc] init];
+    _statsLabel = [[UILabel alloc] init];
     
     self.nameLabel.backgroundColor = [UIColor clearColor];
     self.distanceLabel.backgroundColor = [UIColor clearColor];
     self.countLabel.backgroundColor = [UIColor clearColor];
+    self.statsLabel.backgroundColor = [UIColor clearColor];
+    
+    self.nameLabel.font = [UIFont boldSystemFontOfSize:CELL_FONT_SIZE];
+    self.distanceLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
+    self.countLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
+    self.statsLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
     
     self.nameLabel.textAlignment = UITextAlignmentLeft;
-    self.distanceLabel.textAlignment = UITextAlignmentLeft;
-    self.countLabel.textAlignment = UITextAlignmentRight;
+    self.distanceLabel.textAlignment = UITextAlignmentRight;
+    self.countLabel.textAlignment = UITextAlignmentLeft;
+    self.statsLabel.textAlignment = UITextAlignmentLeft;
     
     self.nameLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     self.countLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+    self.statsLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     
-    self.nameLabel.numberOfLines = 1;
-    
-    [self.contentView addSubview:self.placeImageView];
     [self.contentView addSubview:self.nameLabel];
     [self.contentView addSubview:self.distanceLabel];
     [self.contentView addSubview:self.countLabel];
+    [self.contentView addSubview:self.statsLabel];
   }
   return self;
 }
 
 - (void)prepareForReuse {
   [super prepareForReuse];
-  self.placeImageView.image = nil;
   self.nameLabel.text = nil;
   self.distanceLabel.text = nil;
   self.countLabel.text = nil;
+  self.statsLabel.text = nil;
 }
 
 - (void)layoutSubviews {
   [super layoutSubviews];
   
   CGFloat left = SPACING_X;
-  
-  self.placeImageView.left = left;
-  self.placeImageView.top = 5.0;
-  self.placeImageView.width = 50.0;
-  self.placeImageView.height = 50.0;
-  
-  left = self.placeImageView.right + SPACING_X;
-  
-  self.nameLabel.top = 8.0;
-  self.distanceLabel.top = 30.0;
-  self.countLabel.top = 30.0;
-  
-  CGFloat textWidth = self.contentView.width - self.placeImageView.width - 3 * SPACING_X;
+  CGFloat textWidth = self.contentView.width;
   CGSize textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  CGSize labelSize = CGSizeZero;
   
-  // Name
-  CGSize nameSize = [self.nameLabel.text sizeWithFont:self.nameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
-  self.nameLabel.width = nameSize.width;
-  self.nameLabel.height = nameSize.height;
-  self.nameLabel.left = left;
+  // Dynamically Space for Image
+//  if (self.imageView.image) {
+//    left = self.imageView.right + SPACING_X;
+//  }
+  
+  // Always leave space for image
+  left = left + 50 + SPACING_X;
+  
+  self.nameLabel.top = SPACING_Y;
+  self.distanceLabel.top = SPACING_Y;
+  self.statsLabel.top = SPACING_Y  + LABEL_HEIGHT;
+  self.countLabel.top = SPACING_Y  + LABEL_HEIGHT * 2;
+  
+  textWidth = self.contentView.width - left;
+  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
   
   // Distance
-  CGSize distanceSize = [self.distanceLabel.text sizeWithFont:self.distanceLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
-  self.distanceLabel.width = distanceSize.width;
-  self.distanceLabel.height = distanceSize.height;
-  self.distanceLabel.left =  self.contentView.bounds.size.width - self.distanceLabel.width - SPACING_X;
+  labelSize = [self.distanceLabel.text sizeWithFont:self.distanceLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
+  self.distanceLabel.width = labelSize.width;
+  self.distanceLabel.height = labelSize.height;
+  self.distanceLabel.left =  self.contentView.width - self.distanceLabel.width - SPACING_X;
   
-  // Timestamp
-  CGSize countSize = [self.countLabel.text sizeWithFont:self.countLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
-  self.countLabel.width = countSize.width;
-  self.countLabel.height = countSize.height;
+  textWidth = self.contentView.width - left - self.distanceLabel.width - SPACING_X;
+  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  
+  // Name
+  labelSize = [self.nameLabel.text sizeWithFont:self.nameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
+  self.nameLabel.width = labelSize.width;
+  self.nameLabel.height = labelSize.height;
+  self.nameLabel.left = left;
+  
+  textWidth = self.contentView.width - left;
+  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  
+  // Stats
+  labelSize = [self.statsLabel.text sizeWithFont:self.statsLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
+  self.statsLabel.width = labelSize.width;
+  self.statsLabel.height = labelSize.height;
+  self.statsLabel.left = left;
+  
+  textWidth = self.contentView.width - left;
+  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  
+  labelSize = [self.countLabel.text sizeWithFont:self.countLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
+  self.countLabel.width = labelSize.width;
+  self.countLabel.height = labelSize.height;
   self.countLabel.left = left;
 }
 
 + (void)fillCell:(PlaceCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
-  cell.placeImageView.image = image;
+  cell.imageView.image = image;
   
   // NOTE: make sure not <null>
   cell.nameLabel.text = [dictionary valueForKey:@"name"];
   cell.distanceLabel.text = [NSString stringWithFormat:@"%.2fmi", [[dictionary valueForKey:@"distance"] floatValue]];
-  cell.countLabel.text = [NSString stringWithFormat:@"A: %@, F: %@, L: %@", [dictionary valueForKey:@"checkins_count"], [dictionary valueForKey:@"checkins_friend_count"], [dictionary valueForKey:@"like_count"]];
+  cell.statsLabel.text = [NSString stringWithFormat:@"A: %@, F: %@, L: %@", [dictionary valueForKey:@"checkins_count"], [dictionary valueForKey:@"checkins_friend_count"], [dictionary valueForKey:@"like_count"]];
+  cell.countLabel.text = @"5 of your friends checked in here";
 }
 
 + (CGFloat)rowHeight {
@@ -104,10 +135,10 @@
 }
 
 - (void)dealloc {
-  RELEASE_SAFELY (_placeImageView);
   RELEASE_SAFELY (_nameLabel);
   RELEASE_SAFELY (_distanceLabel);
   RELEASE_SAFELY (_countLabel);
+  RELEASE_SAFELY(_statsLabel);
   [super dealloc];
 }
 

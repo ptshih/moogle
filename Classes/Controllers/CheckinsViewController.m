@@ -244,15 +244,15 @@
   
   NSDictionary *checkin = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
   
-  UIImage *placeImage = [self.imageCache getImageForIndexPath:indexPath];
-  if (!placeImage) {
+  UIImage *checkinImage = [self.imageCache getImageForIndexPath:indexPath];
+  if (!checkinImage) {
     if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
-      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [checkin objectForKey:@"place_id"]]] forIndexPath:indexPath];
+      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [checkin objectForKey:@"facebook_id"]]] forIndexPath:indexPath];
     }
-    placeImage = nil;
+    checkinImage = nil;
   }
   
-  [CheckinCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] withImage:placeImage];
+  [CheckinCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] withImage:checkinImage];
   
   return cell;
 }
@@ -271,7 +271,7 @@
 //    if ([checkin objectForKey:@""]) {
 //    }
     if (![self.imageCache getImageForIndexPath:indexPath]) {
-      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [checkin objectForKey:@"place_id"]]] forIndexPath:indexPath];
+      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [checkin objectForKey:@"facebook_id"]]] forIndexPath:indexPath];
     }
   }
 }

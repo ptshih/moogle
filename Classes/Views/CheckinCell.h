@@ -10,14 +10,12 @@
 #import "MoogleImageCell.h"
 
 @interface CheckinCell : MoogleImageCell {
-  UIImageView *_placeImageView;
   UILabel *_nameLabel;
   UILabel *_placeNameLabel;
   UILabel *_timestampLabel;
   UILabel *_countLabel;
 }
 
-@property (nonatomic, retain) UIImageView *placeImageView;
 @property (nonatomic, retain) UILabel *nameLabel;
 @property (nonatomic, retain) UILabel *placeNameLabel;
 @property (nonatomic, retain) UILabel *timestampLabel;

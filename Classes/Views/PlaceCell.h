@@ -10,16 +10,16 @@
 #import "MoogleImageCell.h"
 
 @interface PlaceCell : MoogleImageCell {
-  UIImageView *_placeImageView;
   UILabel *_nameLabel;
   UILabel *_distanceLabel;
   UILabel *_countLabel;
+  UILabel *_statsLabel;
 }
 
-@property (nonatomic, retain) UIImageView *placeImageView;
 @property (nonatomic, retain) UILabel *nameLabel;
 @property (nonatomic, retain) UILabel *distanceLabel;
 @property (nonatomic, retain) UILabel *countLabel;
+@property (nonatomic, retain) UILabel *statsLabel;
 
 + (void)fillCell:(PlaceCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image;
 

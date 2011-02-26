@@ -9,6 +9,8 @@
 #import "MeViewController.h"
 #import "Constants.h"
 
+#import "PlaceViewController.h"
+
 #import "ASIHTTPRequest.h"
 #import "RemoteRequest.h"
 #import "RemoteOperation.h"
@@ -18,6 +20,7 @@
 @interface MeViewController (Private)
 
 - (void)setupButtons;
+- (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName;
 
 @end
 
@@ -67,6 +70,41 @@
   
   self.kupoRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   [[RemoteOperation sharedInstance] addRequestToQueue:self.kupoRequest];
+}
+
+- (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName {
+  PlaceViewController *pvc = [[PlaceViewController alloc] init];
+  pvc.placeId = placeId;
+  pvc.placeName = placeName;
+  pvc.shouldShowCheckinHere = YES;
+  [self.navigationController pushViewController:pvc animated:YES];
+  [pvc release];  
+}
+
+#pragma mark UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  
+  [self showPlaceWithId:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"place_id"] andName:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"name"]];
+}
+
+#pragma mark UITableView Stuff
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  UITableViewCell *cell = nil;
+  NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell_%d", [self class], indexPath.section];
+  
+  cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  if (cell == nil) {
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
+  }
+  
+//  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  
+//  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[item objectForKey:@"timestamp"] integerValue]];
+  cell.textLabel.text = @"Key";
+  cell.detailTextLabel.text = @"Value";
+  
+  return cell;
 }
 
 #pragma mark MoogleDataCenterDelegate
