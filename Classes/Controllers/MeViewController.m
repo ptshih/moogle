@@ -13,7 +13,7 @@
 #import "RemoteRequest.h"
 #import "RemoteOperation.h"
 
-#import "NSDate+HumanInterval.h"
+#import "MeDataCenter.h"
 
 @interface MeViewController (Private)
 
@@ -23,9 +23,14 @@
 
 @implementation MeViewController
 
+@synthesize dataCenter = _dataCenter;
+@synthesize kupoRequest = _kupoRequest;
+
 - (id)init {
   self = [super init];
   if (self) {
+    _dataCenter = [[MeDataCenter alloc ]init];
+    _dataCenter.delegate = self;
   }
   return self;
 }
@@ -38,27 +43,45 @@
   
   [self setupButtons];
   
-  self.view.backgroundColor = [UIColor whiteColor];
+  // Table
+  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  [self setupPullRefresh];
 }
 
 #pragma mark CardViewController
 - (void)reloadCardController {
   [super reloadCardController];
-}
-
-- (void)setupButtons {
-//  UIBarButtonItem *logoutButton = [[[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease];
-//  self.navigationItem.leftBarButtonItem = logoutButton;
   
-  // Setup Checkin button
-  UIBarButtonItem *checkinButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease];
-  self.navigationItem.leftBarButtonItem = checkinButton;
+  [self getKupos];
 }
 
-- (void)logout {
-  _logoutAlert = [[UIAlertView alloc] initWithTitle:@"Logout of Moogle?" message:MOOGLE_LOGOUT_ALERT delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-  [_logoutAlert show];
-  [_logoutAlert autorelease];
+- (void)setupButtons {  
+  // Setup Logout button
+  UIBarButtonItem *logoutButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease];
+  self.navigationItem.leftBarButtonItem = logoutButton;
+}
+
+- (void)getKupos {
+  NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/moogle/kupo", MOOGLE_BASE_URL, API_VERSION];
+  
+  self.kupoRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
+  [[RemoteOperation sharedInstance] addRequestToQueue:self.kupoRequest];
+}
+
+#pragma mark MoogleDataCenterDelegate
+- (void)dataCenterDidFinish:(ASIHTTPRequest *)request {
+  [self.sections removeAllObjects];
+  [self.sections addObject:@"Checkins"];
+  
+  [self.items removeAllObjects];
+  [self.items addObject:self.dataCenter.responseArray];
+  [self.tableView reloadData];
+  [self dataSourceDidLoad];
+}
+
+- (void)dataCenterDidFail:(ASIHTTPRequest *)request {
+  [self dataSourceDidLoad];
 }
 
 #pragma mark UIAlertViewDelegate
@@ -73,7 +96,15 @@
   }
 }
 
+- (void)logout {
+  _logoutAlert = [[UIAlertView alloc] initWithTitle:@"Logout of Moogle?" message:MOOGLE_LOGOUT_ALERT delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+  [_logoutAlert show];
+  [_logoutAlert autorelease];
+}
+
 - (void)dealloc {  
+  RELEASE_SAFELY(_dataCenter);
+  RELEASE_SAFELY(_kupoRequest);
   [super dealloc];
 }
 

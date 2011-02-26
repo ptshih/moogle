@@ -53,8 +53,7 @@
     }
     [self.responseArray addObject:responseDict];
   }
-  
-  
+    
   [self dataCenterFinishedWithRequest:request];
 }
 

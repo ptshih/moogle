@@ -85,7 +85,7 @@
   } else {
     [_detailsArray removeAllObjects];
   }
-  NSArray *detailsKeys = [NSArray arrayWithObjects:@"distance", @"phone", nil];
+  NSArray *detailsKeys = [NSArray arrayWithObjects:@"distance", @"phone", @"website", @"price", @"attire", nil];
   for (NSString *key in detailsKeys) {
     NSString *value = nil;
     // Check for distance and transform

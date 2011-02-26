@@ -83,6 +83,7 @@
 		25B4651C12F7BAC700C71FA9 /* NSObject+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B4651712F7BAC700C71FA9 /* NSObject+ConvenienceMethods.m */; };
 		25B4651D12F7BAC700C71FA9 /* NSString+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B4651912F7BAC700C71FA9 /* NSString+ConvenienceMethods.m */; };
 		25BB16A41318E3720068A10B /* PlaceReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BB16A31318E3720068A10B /* PlaceReviewsViewController.m */; };
+		25BB16A71318FDBA0068A10B /* MeDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BB16A61318FDB90068A10B /* MeDataCenter.m */; };
 		25BE34751318CEB900291B33 /* PlaceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE34741318CEB700291B33 /* PlaceInfoViewController.m */; };
 		25BE34781318D48900291B33 /* PlaceActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE34771318D48400291B33 /* PlaceActivityViewController.m */; };
 		25BE347C1318D50200291B33 /* PlaceTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE347B1318D50100291B33 /* PlaceTabViewController.m */; };
@@ -242,6 +243,8 @@
 		25B4654F12F7BAF200C71FA9 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		25BB16A21318E3720068A10B /* PlaceReviewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceReviewsViewController.h; sourceTree = "<group>"; };
 		25BB16A31318E3720068A10B /* PlaceReviewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceReviewsViewController.m; sourceTree = "<group>"; };
+		25BB16A51318FDB90068A10B /* MeDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeDataCenter.h; sourceTree = "<group>"; };
+		25BB16A61318FDB90068A10B /* MeDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeDataCenter.m; sourceTree = "<group>"; };
 		25BE34731318CEB600291B33 /* PlaceInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceInfoViewController.h; sourceTree = "<group>"; };
 		25BE34741318CEB700291B33 /* PlaceInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceInfoViewController.m; sourceTree = "<group>"; };
 		25BE34761318D48200291B33 /* PlaceActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceActivityViewController.h; sourceTree = "<group>"; };
@@ -638,13 +641,15 @@
 		25F207891314E6CC00178E09 /* DataCenter */ = {
 			isa = PBXGroup;
 			children = (
+				25F207991314E72400178E09 /* MoogleDataCenter.h */,
+				25F2079A1314E72400178E09 /* MoogleDataCenter.m */,
+				25F2079C1314E73C00178E09 /* MoogleDataCenterDelegate.h */,
+				25BB16A51318FDB90068A10B /* MeDataCenter.h */,
+				25BB16A61318FDB90068A10B /* MeDataCenter.m */,
 				25F208511314EE3300178E09 /* CheckinsDataCenter.h */,
 				25F208521314EE3300178E09 /* CheckinsDataCenter.m */,
 				25F207961314E6FE00178E09 /* PlacesDataCenter.h */,
 				25F207971314E6FE00178E09 /* PlacesDataCenter.m */,
-				25F207991314E72400178E09 /* MoogleDataCenter.h */,
-				25F2079A1314E72400178E09 /* MoogleDataCenter.m */,
-				25F2079C1314E73C00178E09 /* MoogleDataCenterDelegate.h */,
 				25EC95C91318B57D009E44DE /* NearbyDataCenter.h */,
 				25EC95CA1318B57E009E44DE /* NearbyDataCenter.m */,
 			);
@@ -853,6 +858,7 @@
 				25BE34781318D48900291B33 /* PlaceActivityViewController.m in Sources */,
 				25BE347C1318D50200291B33 /* PlaceTabViewController.m in Sources */,
 				25BB16A41318E3720068A10B /* PlaceReviewsViewController.m in Sources */,
+				25BB16A71318FDBA0068A10B /* MeDataCenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,12 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CardViewController.h"
+#import "CardTableViewController.h"
+#import "MoogleDataCenterDelegate.h"
 
 @class ASIHTTPRequest;
+@class MeDataCenter;
 
-@interface MeViewController : CardViewController {
+@interface MeViewController : CardTableViewController <MoogleDataCenterDelegate> {
+  MeDataCenter *_dataCenter;
   UIAlertView *_logoutAlert;
+  
+  ASIHTTPRequest *_kupoRequest;
 }
+
+@property (nonatomic, retain) MeDataCenter *dataCenter;
+@property (nonatomic, retain) ASIHTTPRequest *kupoRequest;
+
+- (void)getKupos;
 
 @end

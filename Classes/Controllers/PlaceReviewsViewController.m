@@ -45,6 +45,7 @@
 
 #pragma mark MoogleDataCenterDelegate
 - (void)dataCenterDidFinish:(ASIHTTPRequest *)request {
+  DLog(@"Reviews: %@", [request responseString]);
   // Update Table Cells
   [self.sections removeAllObjects];
   [self.items removeAllObjects];
