@@ -1,20 +1,21 @@
 //
-//  CheckinsDataCenter.m
+//  NearbyDataCenter.m
 //  Moogle
 //
-//  Created by Peter Shih on 2/22/11.
+//  Created by Peter Shih on 2/25/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "CheckinsDataCenter.h"
+#import "NearbyDataCenter.h"
 
-@interface CheckinsDataCenter (Private)
+@interface NearbyDataCenter (Private)
 
-- (void)checkinsRequestDidFinish:(ASIHTTPRequest *)request;
+- (void)nearbyRequestDidFinish:(ASIHTTPRequest *)request;
 
 @end
 
-@implementation CheckinsDataCenter
+
+@implementation NearbyDataCenter
 
 @synthesize responseArray = _responseArray;
 
@@ -25,7 +26,7 @@
   if(statusCode > 200) {
   } else {
     // Successful request
-    [self checkinsRequestDidFinish:request];
+    [self nearbyRequestDidFinish:request];
   }
 }
 
@@ -33,14 +34,14 @@
   DLog(@"Request Failed with Error: %@", [request error]);
 }
 
-- (void)checkinsRequestDidFinish:(ASIHTTPRequest *)request {
-  DLog(@"Successfully got a list of checkins with response: %@", [request responseString]);
+- (void)nearbyRequestDidFinish:(ASIHTTPRequest *)request {
+  DLog(@"Successfully got a list of nearby places with response: %@", [request responseString]);
+
   _responseArray = [[NSMutableArray array] retain];
   
   NSArray *jsonArray = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
   
-  NSArray *keys = [NSArray arrayWithObjects:@"checkin_id", @"facebook_id", @"name", @"place_id", @"place_name", @"message", @"checkin_timestamp", nil];
-  
+  NSArray *keys = [NSArray arrayWithObjects:@"place_id", @"name", @"checkins_count", @"checkins_friend_count", @"like_count", @"distance", nil];  
   for (NSDictionary *item in jsonArray) {
     NSMutableDictionary *responseDict = [NSMutableDictionary dictionary];
     for (NSString *key in keys) {
@@ -57,11 +58,10 @@
     [self.responseArray addObject:responseDict];
   }
   
-  
   [self dataCenterFinishedWithRequest:request];
 }
 
-//{"checkin_id":108918675852472,"facebook_id":100002030219173,"name":"Moseven Moog","message":null,"place_id":109339952438834,"place_name":"Sono Sushi","app_id":6628568379,"app_name":"Facebook for iPhone","checkin_timestamp":1297216182}
+//{"place_id":136712346393617,"name":"Subway","street":"790 Montague Expressway","city":"San Jose","state":"California","country":null,"zip":"95131","phone":null,"checkins_count":5,"distance":0.6116674739209772,"checkins_friend_count":0,"like_count":null,"attire":null,"website":null,"price":null}
 
 - (void)dealloc {
   RELEASE_SAFELY(_responseArray);

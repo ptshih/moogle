@@ -11,6 +11,8 @@
 #import "ASIHTTPRequest.h"
 #import "Constants.h"
 #import "CJSONDeserializer.h"
+#import "NSObject+ConvenienceMethods.h"
+#import "NSString+ConvenienceMethods.h"
 
 @interface MoogleDataCenter : NSObject {
   id <MoogleDataCenterDelegate> _delegate;

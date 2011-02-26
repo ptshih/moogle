@@ -15,7 +15,7 @@
 
 #import "LocationManager.h"
 
-#import "MoogleDataCenter.h"
+#import "PlacesDataCenter.h"
 
 #import "CheckinHereViewController.h"
 
@@ -45,7 +45,7 @@
 - (id)init {
   self = [super init];
   if (self) {
-    _dataCenter = [[MoogleDataCenter alloc] init];
+    _dataCenter = [[PlacesDataCenter alloc] init];
     _dataCenter.delegate = self;
     
     _shouldShowCheckinHere = NO;
@@ -113,6 +113,7 @@
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/place/%@", MOOGLE_BASE_URL, API_VERSION, self.placeId];
   
   self.placeRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
+  self.dataCenter.placeRequest = self.placeRequest;
   [[RemoteOperation sharedInstance] addRequestToQueue:self.placeRequest];
 }
 
@@ -137,39 +138,34 @@
     cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
       cell = [[[PlaceHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
-      [PlaceHeaderCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
     }
+    [PlaceHeaderCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
   } else {
     cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
       cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
     }
-    NSString *distance = [NSString stringWithFormat:@"%.2fmi", [[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"distance"] floatValue]];
-    cell.textLabel.text = @"Distance";
-    cell.detailTextLabel.text = distance;
+    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    cell.textLabel.text = [[item allKeys] objectAtIndex:0];
+    cell.detailTextLabel.text = [[item allValues] objectAtIndex:0];
   }
   return cell;
 }
 
 #pragma mark MoogleDataCenterDelegate
 - (void)dataCenterDidFinish:(ASIHTTPRequest *)request {
-  NSDictionary *responseDict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
-  
-  DLog(@"Successfully got place with response: %@", responseDict);
-
   // Update Table Cells
   [self.sections removeAllObjects];
   [self.items removeAllObjects];
   
   // Header
   [self.sections addObject:@"HeaderCell"];
-  [self.items addObject:[NSArray arrayWithObject:responseDict]];
+  [self.items addObject:self.dataCenter.headersArray];
   
   // Details
   [self.sections addObject:@"DetailsCell"];
-  NSArray *items = [NSArray arrayWithObject:[NSDictionary dictionaryWithObject:[responseDict objectForKey:@"distance"] forKey:@"distance"]];
-  
-  [self.items addObject:items];
+  [self.items addObject:self.dataCenter.detailsArray];
+
   [self.tableView reloadData];
 }
 

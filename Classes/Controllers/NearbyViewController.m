@@ -16,7 +16,7 @@
 #import "RemoteOperation.h"
 
 #import "PlaceViewController.h"
-#import "MoogleDataCenter.h"
+#import "NearbyDataCenter.h"
 
 @interface NearbyViewController (Private)
 - (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName;
@@ -30,7 +30,7 @@
 - (id)init {
   self = [super init];
   if (self) {
-    _dataCenter = [[MoogleDataCenter alloc] init];
+    _dataCenter = [[NearbyDataCenter alloc] init];
     _dataCenter.delegate = self;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNearbyPlaces) name:kLocationAcquired object:nil];
@@ -94,7 +94,7 @@
   [self.sections addObject:@"Nearby Places"];
   
   [self.items removeAllObjects];
-  [self.items addObject:self.dataCenter.parsedResponse];
+  [self.items addObject:self.dataCenter.responseArray];
   [self.tableView reloadData];
   [self dataSourceDidLoad];
 }

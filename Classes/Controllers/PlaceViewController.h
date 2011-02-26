@@ -11,7 +11,7 @@
 #import "MoogleDataCenterDelegate.h"
 
 @class ASIHTTPRequest;
-@class MoogleDataCenter;
+@class PlacesDataCenter;
 @class CheckinHereViewController;
 
 @interface PlaceViewController : CardTableViewController <MoogleDataCenterDelegate> {
@@ -23,7 +23,7 @@
   BOOL _shouldShowCheckinHere;
   
   ASIHTTPRequest *_placeRequest;
-  MoogleDataCenter *_dataCenter;
+  PlacesDataCenter *_dataCenter;
   
   // UI
   UIButton *_checkinHereButton;
@@ -34,6 +34,6 @@
 @property (nonatomic, assign) BOOL shouldShowCheckinHere;
 
 @property (nonatomic, retain) ASIHTTPRequest *placeRequest;
-@property (nonatomic, retain) MoogleDataCenter *dataCenter;
+@property (nonatomic, retain) PlacesDataCenter *dataCenter;
 
 @end

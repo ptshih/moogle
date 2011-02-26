@@ -17,7 +17,7 @@
 
 #import "WhoViewController.h"
 #import "PlaceViewController.h"
-#import "MoogleDataCenter.h"
+#import "CheckinsDataCenter.h"
 
 #import "CheckinCell.h"
 
@@ -40,7 +40,7 @@
 - (id)init {
   self = [super init];
   if (self) {
-    _dataCenter = [[MoogleDataCenter alloc ]init];
+    _dataCenter = [[CheckinsDataCenter alloc ]init];
     _dataCenter.delegate = self;
     
     _filterView = [[UIView alloc] init];
@@ -201,7 +201,7 @@
   [self.sections addObject:@"Checkins"];
   
   [self.items removeAllObjects];
-  [self.items addObject:self.dataCenter.parsedResponse];
+  [self.items addObject:self.dataCenter.responseArray];
   [self.tableView reloadData];
   [self dataSourceDidLoad];
 }
