@@ -38,9 +38,6 @@
 @synthesize shouldShowCheckinHere = _shouldShowCheckinHere;
 @synthesize placeRequest = _placeRequest;
 @synthesize dataCenter = _dataCenter;
-@synthesize tableView = _tableView;
-@synthesize sections = _sections;
-@synthesize items = _items;
 
 - (id)init {
   self = [super init];
@@ -49,9 +46,6 @@
     _dataCenter.delegate = self;
     
     _shouldShowCheckinHere = NO;
-    
-    _sections = [[NSMutableArray alloc] initWithCapacity:1];
-    _items = [[NSMutableArray alloc] initWithCapacity:1];
   }
   return self;
 }
@@ -70,43 +64,9 @@
   }
   
   // Table
-  _tableView = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStyleGrouped];
-  self.tableView.delegate = self;
-  self.tableView.dataSource = self;
-  self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-  [self.view addSubview:self.tableView];
+  [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
   
   [self getPlace];
-}
-
-- (void)setupHeaderView {
-  _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
-  UIImageView *placeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(210, 0, 100, 100)];
-  _totalLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 27)];
-  _friendsLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 27, 200, 27)];
-  _likesLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 54, 200, 27)];
-  
-  _headerView.backgroundColor = FB_COLOR_VERY_LIGHT_BLUE;
-  placeImageView.backgroundColor = [UIColor clearColor];
-  _totalLabel.backgroundColor = [UIColor clearColor];
-  _friendsLabel.backgroundColor = [UIColor clearColor];
-  _likesLabel.backgroundColor = [UIColor clearColor];
-  
-  placeImageView.contentMode = UIViewContentModeScaleAspectFit;
-  placeImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large", self.placeId]]]];
-  
-  _totalLabel.text = @"Total: Loading...";
-  _friendsLabel.text = @"Friends: Loading...";
-  _likesLabel.text = @"Likes: Loading...";
-  
-  [placeImageView release];
-}
-
-- (void)updateHeaderView {
-  //  {"name":"LinkedIn HQ","street":null,"city":null,"state":null,"country":null,"zip":null,"phone":null,"checkins_count":null,"distance":0.03135450056826266,"checkins_friend_count":0,"like_count":null,"attire":null,"website":null,"price":null}
-  _totalLabel.text = [NSString stringWithFormat:@"Total: %@", [self.dataCenter.parsedResponse objectForKey:@"checkins_count"]];
-  _friendsLabel.text = [NSString stringWithFormat:@"Friends: %@", [self.dataCenter.parsedResponse objectForKey:@"checkins_friend_count"]];
-  _likesLabel.text = [NSString stringWithFormat:@"Likes: %@", [self.dataCenter.parsedResponse objectForKey:@"like_count"]];
 }
 
 - (void)setupCheckinHereButton {
@@ -152,23 +112,7 @@
 }
 
 #pragma mark UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
 #pragma mark UITableViewDataSource
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return 44.0;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return [self.sections count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return [[self.items objectAtIndex:section] count];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell", [self class]];
   UITableViewCell *cell = nil;
@@ -188,11 +132,10 @@
   NSDictionary *responseDict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
   
   DLog(@"Successfully got place with response: %@", responseDict);
-  [self updateHeaderView];
-  
+
   // Update Table Cells
   [self.sections removeAllObjects];
-  [self.sections addObject:[responseDict objectForKey:@"name"]];
+  [self.sections addObject:@"HeaderCell"];
   
   NSArray *items = [NSArray arrayWithObject:[NSDictionary dictionaryWithObject:[responseDict objectForKey:@"distance"] forKey:@"distance"]];
   
@@ -215,14 +158,6 @@
   
   // UI
   RELEASE_SAFELY(_checkinHereButton);
-  RELEASE_SAFELY (_totalLabel);
-  RELEASE_SAFELY (_friendsLabel);
-  RELEASE_SAFELY (_likesLabel);
-  
-  // Table
-  RELEASE_SAFELY(_tableView);
-  RELEASE_SAFELY(_sections);
-  RELEASE_SAFELY(_items);
   [super dealloc];
 }
 

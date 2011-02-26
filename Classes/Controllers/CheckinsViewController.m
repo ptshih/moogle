@@ -56,6 +56,10 @@
   self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
   self.title = @"Moogle Checkins";
   
+  // Table
+  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  [self setupPullRefresh];
+  
   // Setup Filter View
   self.filterView.frame = CGRectMake(0, -44.0, 320.0, 44.0);
   self.filterView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"filter_gradient.png"]];
@@ -218,10 +222,6 @@
 
 
 #pragma mark UITableViewDataSource
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return 60.0;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   CheckinCell *cell = nil;
   cell = (CheckinCell *)[tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
@@ -246,6 +246,11 @@
   [CheckinCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] withImage:placeImage];
   
   return cell;
+}
+
+#pragma mark TableView Stuff Subclass
+- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath {
+  return [CheckinCell class];
 }
 
 #pragma mark ImageCacheDelegate

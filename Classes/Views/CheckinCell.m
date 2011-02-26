@@ -113,6 +113,10 @@
   cell.timestampLabel.text = [date humanIntervalSinceNow];
 }
 
++ (CGFloat)rowHeight {
+  return 60.0;
+}
+
 - (void)dealloc {
   RELEASE_SAFELY (_placeImageView);
   RELEASE_SAFELY (_nameLabel);

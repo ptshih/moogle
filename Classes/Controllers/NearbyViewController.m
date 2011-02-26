@@ -44,6 +44,10 @@
   self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
   self.title = @"Moogle Places";
   
+  // Table
+  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  [self setupPullRefresh];
+  
 //  self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
 //  self.title = @"Nearby Places";
   
@@ -102,10 +106,6 @@
 }
 
 #pragma mark UITableViewDataSource
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return 60.0;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   PlaceCell *cell = nil;
   cell = (PlaceCell *)[tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
@@ -130,6 +130,11 @@
   [PlaceCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] withImage:placeImage];
   
   return cell;
+}
+
+#pragma mark TableView Stuff Subclass
+- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath {
+  return [PlaceCell class];
 }
 
 #pragma mark ImageCacheDelegate

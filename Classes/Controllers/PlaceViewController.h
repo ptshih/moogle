@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CardViewController.h"
+#import "CardTableViewController.h"
 #import "MoogleDataCenterDelegate.h"
 
 @class ASIHTTPRequest;
 @class MoogleDataCenter;
 @class CheckinHereViewController;
 
-@interface PlaceViewController : CardViewController <UITableViewDelegate, UITableViewDataSource, MoogleDataCenterDelegate> {
+@interface PlaceViewController : CardTableViewController <MoogleDataCenterDelegate> {
   CheckinHereViewController *_checkinHereViewController;
   
   // Params
@@ -26,14 +26,6 @@
   
   // UI
   UIButton *_checkinHereButton;
-  UILabel *_totalLabel;
-  UILabel *_friendsLabel;
-  UILabel *_likesLabel;
-  
-  // Table
-  UITableView *_tableView;
-  NSMutableArray *_sections;
-  NSMutableArray *_items;
 }
 
 @property (nonatomic, retain) NSNumber *placeId;
@@ -41,9 +33,5 @@
 
 @property (nonatomic, retain) ASIHTTPRequest *placeRequest;
 @property (nonatomic, retain) MoogleDataCenter *dataCenter;
-
-@property (nonatomic, retain) UITableView *tableView;
-@property (nonatomic, retain) NSMutableArray *sections;
-@property (nonatomic, retain) NSMutableArray *items;
 
 @end

@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MoogleCell.h"
+#import "MoogleImageCell.h"
 
-@interface PlaceCell : MoogleCell {
+@interface PlaceCell : MoogleImageCell {
   UIImageView *_placeImageView;
   UILabel *_nameLabel;
   UILabel *_distanceLabel;

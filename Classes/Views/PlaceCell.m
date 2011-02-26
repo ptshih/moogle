@@ -99,6 +99,10 @@
   cell.countLabel.text = [NSString stringWithFormat:@"A: %@, F: %@, L: %@", [dictionary valueForKey:@"checkins_count"], [dictionary valueForKey:@"checkins_friend_count"], [dictionary valueForKey:@"like_count"]];
 }
 
++ (CGFloat)rowHeight {
+  return 60.0;
+}
+
 - (void)dealloc {
   RELEASE_SAFELY (_placeImageView);
   RELEASE_SAFELY (_nameLabel);

@@ -8,6 +8,7 @@
 
 #import "CardTableViewController.h"
 #import "Constants.h"
+#import "MoogleCell.h"
 
 @interface CardTableViewController (Private)
 
@@ -24,11 +25,7 @@
 
 - (id)init {
   self = [super init];
-  if (self) {
-    _tableView = [[UITableView alloc] init];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    
+  if (self) {    
     _sections = [[NSMutableArray alloc] initWithCapacity:1];
     _items = [[NSMutableArray alloc] initWithCapacity:1];
     
@@ -40,10 +37,19 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-  self.tableView.frame = self.view.frame;
+}
+
+// SUBCLASS MUST CALL
+- (void)setupTableViewWithFrame:(CGRect)frame andStyle:(UITableViewStyle)style andSeparatorStyle:(UITableViewCellSeparatorStyle)separatorStyle {
+  _tableView = [[UITableView alloc] initWithFrame:frame style:style];
+  _tableView.separatorStyle = separatorStyle;
+  _tableView.delegate = self;
+  _tableView.dataSource = self;
   [self.view addSubview:self.tableView];
-  
+}
+
+// SUBCLASS CAN OPTIONALLY CALL
+- (void)setupPullRefresh {
   if (_refreshHeaderView == nil) {
     _refreshHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
     _refreshHeaderView.delegate = self;
@@ -79,7 +85,7 @@
 
 #pragma mark UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return 60.0;
+  return [[self cellClassForIndexPath:indexPath] rowHeight];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -101,6 +107,12 @@
   cell.textLabel.text = @"Oops! Forgot to override this method?";
   cell.detailTextLabel.text = reuseIdentifier;
   return cell;
+}
+
+#pragma mark TableView Stuff Subclass
+// SUBCLASS SHOULD IMPLEMENT
+- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath {
+  return [MoogleCell class];
 }
 
 #pragma mark ImageCacheDelegate

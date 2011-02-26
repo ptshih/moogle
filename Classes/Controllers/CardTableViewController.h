@@ -29,4 +29,8 @@
 
 @property (nonatomic, retain) ImageCache *imageCache;
 
+- (void)setupTableViewWithFrame:(CGRect)frame andStyle:(UITableViewStyle)style andSeparatorStyle:(UITableViewCellSeparatorStyle)separatorStyle;
+- (void)setupPullRefresh;
+- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath;
+
 @end

@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MoogleCell.h"
 
-
-@interface PlaceHeaderCell : UITableViewCell {
-    
+@interface PlaceHeaderCell : MoogleCell {
+  UILabel *_totalLabel;
+  UILabel *_friendsLabel;
+  UILabel *_likesLabel;    
 }
 
 + (void)fillCell:(PlaceHeaderCell *)cell withDictionary:(NSDictionary *)dictionary;
