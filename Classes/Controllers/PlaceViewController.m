@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import "PlaceInfoViewController.h"
 #import "PlaceActivityViewController.h"
+#import "PlaceReviewsViewController.h"
 
 #import "LocationManager.h"
 #import "CheckinHereViewController.h"
@@ -24,6 +25,8 @@
 - (void)selectTab:(id)sender;
 
 - (void)setupPlaceInfo;
+- (void)setupPlaceActivity;
+- (void)setupPlaceReviews;
 
 @end
 
@@ -36,8 +39,10 @@
 - (id)init {
   self = [super init];
   if (self) {
+    _placeScrollView = [[UIScrollView alloc] init];
     _placeInfoViewController = [[PlaceInfoViewController alloc] init];
-    _placeView = [[UIView alloc] init];
+    _placeActivityViewController = [[PlaceActivityViewController alloc] init];
+    _placeReviewsViewController = [[PlaceReviewsViewController alloc] init];
     _tabView = [[UIView alloc] init];
     _shouldShowCheckinHere = NO;
   }
@@ -52,17 +57,23 @@
   
   [self setupTabView];
   
+  // Setup Place Scroll View
   if (_shouldShowCheckinHere) {
     [self setupCheckinHereButton];
-    _placeView.frame = CGRectMake(0, _tabView.height, self.view.width, self.view.height - _tabView.height - _checkinHereButton.height);
+    _placeScrollView.frame = CGRectMake(0, _tabView.height, self.view.width, self.view.height - _tabView.height - _checkinHereButton.height);
   } else {
-    _placeView.frame = CGRectMake(0, _tabView.height, self.view.width, self.view.height - _tabView.height);
+    _placeScrollView.frame = CGRectMake(0, _tabView.height, self.view.width, self.view.height - _tabView.height);
   }
   
-  [self.view addSubview:_placeView];
+  _placeScrollView.contentSize = CGSizeMake(960.0, _placeScrollView.height);
+  _placeScrollView.scrollEnabled = NO;
+  
+  [self.view addSubview:_placeScrollView];
   
   // Setup tab controllers
   [self setupPlaceInfo];
+  [self setupPlaceActivity];
+  [self setupPlaceReviews];
   
   // Default to PlaceInfo tab
   [_infoButton setSelected:YES];
@@ -71,9 +82,22 @@
 
 - (void)setupPlaceInfo {
   _placeInfoViewController.placeId = self.placeId;
-  _placeInfoViewController.view.frame = CGRectMake(0, 0, _placeView.width, _placeView.height);
-  [_placeView addSubview:_placeInfoViewController.view];
+  _placeInfoViewController.view.frame = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
+  [_placeScrollView addSubview:_placeInfoViewController.view];
 }
+
+- (void)setupPlaceActivity {
+  _placeActivityViewController.placeId = self.placeId;
+  _placeActivityViewController.view.frame = CGRectMake(320, 0, _placeScrollView.width, _placeScrollView.height);
+  [_placeScrollView addSubview:_placeActivityViewController.view];
+}
+
+- (void)setupPlaceReviews {
+  _placeReviewsViewController.placeId = self.placeId;
+  _placeReviewsViewController.view.frame = CGRectMake(640, 0, _placeScrollView.width, _placeScrollView.height);
+  [_placeScrollView addSubview:_placeReviewsViewController.view];
+}
+
 - (void)setupTabView {
   _tabView.frame = CGRectMake(0, 0, 320.0, 44.0);
   _tabView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"filter_gradient.png"]];
@@ -146,6 +170,19 @@
   [_activityButton setSelected:NO];
   [_reviewsButton setSelected:NO];
   [sender setSelected:YES];
+  
+  if ([sender isEqual:_infoButton]) {
+    [_placeScrollView scrollRectToVisible:_placeInfoViewController.view.frame animated:YES];
+    _visibleViewController = _placeInfoViewController;
+  } else if ([sender isEqual:_activityButton]) {
+    [_placeScrollView scrollRectToVisible:_placeActivityViewController.view.frame animated:YES];
+    _visibleViewController = _placeActivityViewController;
+  } else if ([sender isEqual:_reviewsButton]) {
+    [_placeScrollView scrollRectToVisible:_placeReviewsViewController.view.frame animated:YES];
+    _visibleViewController = _placeReviewsViewController;
+  }
+  
+  [_visibleViewController performSelector:@selector(reloadDataSource)];
 }
 
 // Called when this card controller leaves active view
@@ -164,10 +201,13 @@
 - (void)dealloc {  
   RELEASE_SAFELY(_checkinHereViewController);
   RELEASE_SAFELY(_placeInfoViewController);
+  RELEASE_SAFELY(_placeActivityViewController);
+  RELEASE_SAFELY(_placeReviewsViewController);
   RELEASE_SAFELY(_placeName);
   RELEASE_SAFELY (_placeId);
   
   // UI
+  RELEASE_SAFELY(_placeScrollView);
   RELEASE_SAFELY(_checkinHereButton);
   RELEASE_SAFELY(_tabView);
   RELEASE_SAFELY(_infoButton);

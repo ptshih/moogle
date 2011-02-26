@@ -41,7 +41,7 @@
   [params setObject:[[NSNumber numberWithFloat:lat] stringValue] forKey:@"lat"];
   [params setObject:[[NSNumber numberWithFloat:lng] stringValue] forKey:@"lng"];
   
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/place/%@", MOOGLE_BASE_URL, API_VERSION, self.placeId];
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/%@", MOOGLE_BASE_URL, API_VERSION, self.placeId];
   
   self.placeInfoRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   self.dataCenter.placeInfoRequest = self.placeInfoRequest;

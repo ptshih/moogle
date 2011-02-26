@@ -82,6 +82,7 @@
 		25B4651B12F7BAC700C71FA9 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B4651512F7BAC700C71FA9 /* UIView+Additions.m */; };
 		25B4651C12F7BAC700C71FA9 /* NSObject+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B4651712F7BAC700C71FA9 /* NSObject+ConvenienceMethods.m */; };
 		25B4651D12F7BAC700C71FA9 /* NSString+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B4651912F7BAC700C71FA9 /* NSString+ConvenienceMethods.m */; };
+		25BB16A41318E3720068A10B /* PlaceReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BB16A31318E3720068A10B /* PlaceReviewsViewController.m */; };
 		25BE34751318CEB900291B33 /* PlaceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE34741318CEB700291B33 /* PlaceInfoViewController.m */; };
 		25BE34781318D48900291B33 /* PlaceActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE34771318D48400291B33 /* PlaceActivityViewController.m */; };
 		25BE347C1318D50200291B33 /* PlaceTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE347B1318D50100291B33 /* PlaceTabViewController.m */; };
@@ -239,6 +240,8 @@
 		25B4651812F7BAC700C71FA9 /* NSString+ConvenienceMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ConvenienceMethods.h"; sourceTree = "<group>"; };
 		25B4651912F7BAC700C71FA9 /* NSString+ConvenienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ConvenienceMethods.m"; sourceTree = "<group>"; };
 		25B4654F12F7BAF200C71FA9 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		25BB16A21318E3720068A10B /* PlaceReviewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceReviewsViewController.h; sourceTree = "<group>"; };
+		25BB16A31318E3720068A10B /* PlaceReviewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceReviewsViewController.m; sourceTree = "<group>"; };
 		25BE34731318CEB600291B33 /* PlaceInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceInfoViewController.h; sourceTree = "<group>"; };
 		25BE34741318CEB700291B33 /* PlaceInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceInfoViewController.m; sourceTree = "<group>"; };
 		25BE34761318D48200291B33 /* PlaceActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceActivityViewController.h; sourceTree = "<group>"; };
@@ -600,6 +603,8 @@
 				25BE34741318CEB700291B33 /* PlaceInfoViewController.m */,
 				25BE34761318D48200291B33 /* PlaceActivityViewController.h */,
 				25BE34771318D48400291B33 /* PlaceActivityViewController.m */,
+				25BB16A21318E3720068A10B /* PlaceReviewsViewController.h */,
+				25BB16A31318E3720068A10B /* PlaceReviewsViewController.m */,
 				25BE347A1318D50100291B33 /* PlaceTabViewController.h */,
 				25BE347B1318D50100291B33 /* PlaceTabViewController.m */,
 			);
@@ -847,6 +852,7 @@
 				25BE34751318CEB900291B33 /* PlaceInfoViewController.m in Sources */,
 				25BE34781318D48900291B33 /* PlaceActivityViewController.m in Sources */,
 				25BE347C1318D50200291B33 /* PlaceTabViewController.m in Sources */,
+				25BB16A41318E3720068A10B /* PlaceReviewsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

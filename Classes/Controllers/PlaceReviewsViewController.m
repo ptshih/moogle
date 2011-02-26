@@ -1,17 +1,17 @@
 //
-//  PlaceActivityViewController.m
+//  PlaceReviewsViewController.m
 //  Moogle
 //
 //  Created by Peter Shih on 2/25/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "PlaceActivityViewController.h"
+#import "PlaceReviewsViewController.h"
 
 
-@implementation PlaceActivityViewController
+@implementation PlaceReviewsViewController
 
-@synthesize placeActivityRequest = _placeActivityRequest;
+@synthesize placeReviewsRequest = _placeReviewsRequest;
 
 - (id)init {
   self = [super init];
@@ -30,17 +30,17 @@
 }
 
 - (void)reloadDataSource {  
-  [self getPlaceActivity];
+  [self getPlaceReviews];
 }
 
-- (void)getPlaceActivity {
+- (void)getPlaceReviews {
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
   
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/%@/activity", MOOGLE_BASE_URL, API_VERSION, self.placeId];
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/%@/feed", MOOGLE_BASE_URL, API_VERSION, self.placeId];
   
-  self.placeActivityRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
-  self.dataCenter.placeActivityRequest = self.placeActivityRequest;
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.placeActivityRequest];
+  self.placeReviewsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
+  self.dataCenter.placeReviewsRequest = self.placeReviewsRequest;
+  [[RemoteOperation sharedInstance] addRequestToQueue:self.placeReviewsRequest];
 }
 
 #pragma mark MoogleDataCenterDelegate
@@ -57,9 +57,9 @@
 }
 
 - (void)dealloc {
-  if (_placeActivityRequest) {
-    [_placeActivityRequest clearDelegatesAndCancel];
-    [_placeActivityRequest release], _placeActivityRequest = nil;
+  if (_placeReviewsRequest) {
+    [_placeReviewsRequest clearDelegatesAndCancel];
+    [_placeReviewsRequest release], _placeReviewsRequest = nil;
   }
   
   [super dealloc];
