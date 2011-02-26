@@ -84,6 +84,7 @@
 		25B4651D12F7BAC700C71FA9 /* NSString+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B4651912F7BAC700C71FA9 /* NSString+ConvenienceMethods.m */; };
 		25BE34751318CEB900291B33 /* PlaceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE34741318CEB700291B33 /* PlaceInfoViewController.m */; };
 		25BE34781318D48900291B33 /* PlaceActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE34771318D48400291B33 /* PlaceActivityViewController.m */; };
+		25BE347C1318D50200291B33 /* PlaceTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE347B1318D50100291B33 /* PlaceTabViewController.m */; };
 		25C6C2B21317BE9D0092E598 /* MoogleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2B11317BE9C0092E598 /* MoogleCell.m */; };
 		25C6C2B51317C08B0092E598 /* FeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2B41317C08A0092E598 /* FeedCell.m */; };
 		25C6C2B81317C7CA0092E598 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2B71317C7CA0092E598 /* EGORefreshTableHeaderView.m */; };
@@ -242,6 +243,8 @@
 		25BE34741318CEB700291B33 /* PlaceInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceInfoViewController.m; sourceTree = "<group>"; };
 		25BE34761318D48200291B33 /* PlaceActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceActivityViewController.h; sourceTree = "<group>"; };
 		25BE34771318D48400291B33 /* PlaceActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceActivityViewController.m; sourceTree = "<group>"; };
+		25BE347A1318D50100291B33 /* PlaceTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceTabViewController.h; sourceTree = "<group>"; };
+		25BE347B1318D50100291B33 /* PlaceTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceTabViewController.m; sourceTree = "<group>"; };
 		25C6C2B01317BE9C0092E598 /* MoogleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoogleCell.h; sourceTree = "<group>"; };
 		25C6C2B11317BE9C0092E598 /* MoogleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoogleCell.m; sourceTree = "<group>"; };
 		25C6C2B31317C08A0092E598 /* FeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCell.h; sourceTree = "<group>"; };
@@ -451,6 +454,7 @@
 		25B464CD12F7BA2200C71FA9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				25BE34791318D4D000291B33 /* Place */,
 				251098C1130B9FF000065607 /* Shared */,
 				25290183130410660041DA95 /* LauncherViewController.h */,
 				25290184130410660041DA95 /* LauncherViewController.m */,
@@ -461,12 +465,6 @@
 				25F29B19130BAE7500B0077F /* CheckinsViewController.m */,
 				2529FD561301598D0041DA95 /* NearbyViewController.h */,
 				2529FD571301598D0041DA95 /* NearbyViewController.m */,
-				25606B1312FA48F500481E43 /* PlaceViewController.h */,
-				25606B1412FA48F500481E43 /* PlaceViewController.m */,
-				25BE34731318CEB600291B33 /* PlaceInfoViewController.h */,
-				25BE34741318CEB700291B33 /* PlaceInfoViewController.m */,
-				25BE34761318D48200291B33 /* PlaceActivityViewController.h */,
-				25BE34771318D48400291B33 /* PlaceActivityViewController.m */,
 				25433D7512FA241B0066A191 /* LoginViewController.h */,
 				25433D7612FA241B0066A191 /* LoginViewController.m */,
 				25433D8412FA24270066A191 /* LoginViewController.xib */,
@@ -591,6 +589,21 @@
 				25B4650712F7BABD00C71FA9 /* CSerializedJSONData.m */,
 			);
 			path = JSON;
+			sourceTree = "<group>";
+		};
+		25BE34791318D4D000291B33 /* Place */ = {
+			isa = PBXGroup;
+			children = (
+				25606B1312FA48F500481E43 /* PlaceViewController.h */,
+				25606B1412FA48F500481E43 /* PlaceViewController.m */,
+				25BE34731318CEB600291B33 /* PlaceInfoViewController.h */,
+				25BE34741318CEB700291B33 /* PlaceInfoViewController.m */,
+				25BE34761318D48200291B33 /* PlaceActivityViewController.h */,
+				25BE34771318D48400291B33 /* PlaceActivityViewController.m */,
+				25BE347A1318D50100291B33 /* PlaceTabViewController.h */,
+				25BE347B1318D50100291B33 /* PlaceTabViewController.m */,
+			);
+			name = Place;
 			sourceTree = "<group>";
 		};
 		25C6C2B91317C7D60092E598 /* PullRefresh */ = {
@@ -833,6 +846,7 @@
 				25EC95CB1318B57F009E44DE /* NearbyDataCenter.m in Sources */,
 				25BE34751318CEB900291B33 /* PlaceInfoViewController.m in Sources */,
 				25BE34781318D48900291B33 /* PlaceActivityViewController.m in Sources */,
+				25BE347C1318D50200291B33 /* PlaceTabViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

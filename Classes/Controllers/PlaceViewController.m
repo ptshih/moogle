@@ -9,6 +9,7 @@
 #import "PlaceViewController.h"
 #import "Constants.h"
 #import "PlaceInfoViewController.h"
+#import "PlaceActivityViewController.h"
 
 #import "LocationManager.h"
 #import "CheckinHereViewController.h"
@@ -157,8 +158,7 @@
 // Subclasses should override this method
 - (void)reloadCardController {
   DLog(@"Called by class: %@", [self class]);
-  
-//  [self getPlace];
+  [_visibleViewController performSelector:@selector(reloadDataSource)];
 }
 
 - (void)dealloc {  

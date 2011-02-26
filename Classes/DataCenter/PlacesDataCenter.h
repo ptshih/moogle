@@ -12,6 +12,7 @@
 @interface PlacesDataCenter : MoogleDataCenter {
   ASIHTTPRequest *_checkinHereRequest;
   ASIHTTPRequest *_placeInfoRequest;
+  ASIHTTPRequest *_placeActivityRequest;
   
   NSMutableArray *_headersArray;
   NSMutableArray *_detailsArray;
@@ -19,6 +20,7 @@
 
 @property (nonatomic, assign) ASIHTTPRequest *checkinHereRequest;
 @property (nonatomic, assign) ASIHTTPRequest *placeInfoRequest;
+@property (nonatomic, assign) ASIHTTPRequest *placeActivityRequest;
 
 @property (nonatomic, retain) NSMutableArray *headersArray;
 @property (nonatomic, retain) NSMutableArray *detailsArray;

@@ -7,10 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PlaceTabViewController.h"
 
+@class ASIHTTPRequest;
 
-@interface PlaceActivityViewController : UIViewController {
-    
+@interface PlaceActivityViewController : PlaceTabViewController {
+  ASIHTTPRequest *_placeActivityRequest;    
 }
+
+@property (nonatomic, retain) ASIHTTPRequest *placeActivityRequest;
+
+- (void)getPlaceActivity;
 
 @end

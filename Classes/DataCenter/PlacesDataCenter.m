@@ -13,6 +13,7 @@
 
 - (void)checkinHereRequestDidFinish:(ASIHTTPRequest *)request;
 - (void)placeInfoRequestDidFinish:(ASIHTTPRequest *)request;
+- (void)placeActivityRequestDidFinish:(ASIHTTPRequest *)request;
 
 @end
 
@@ -20,6 +21,7 @@
 
 @synthesize checkinHereRequest = _checkinHereRequest;
 @synthesize placeInfoRequest = _placeInfoRequest;
+@synthesize placeActivityRequest = _placeActivityRequest;
 
 @synthesize headersArray = _headersArray;
 @synthesize detailsArray = _detailsArray;
@@ -38,6 +40,9 @@
     } else if ([request isEqual:self.placeInfoRequest]) {
       // This is a get request from moogle for place info
       [self placeInfoRequestDidFinish:request];
+    } else if ([request isEqual:self.placeActivityRequest]) {
+      // This is a get request from moogle for place info
+      [self placeActivityRequestDidFinish:request];
     }
   }
 }
@@ -82,6 +87,10 @@
     }
   }
   
+  [self dataCenterFinishedWithRequest:request];
+}
+
+- (void)placeActivityRequestDidFinish:(ASIHTTPRequest *)request {
   [self dataCenterFinishedWithRequest:request];
 }
 

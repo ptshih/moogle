@@ -7,28 +7,15 @@
 //
 
 #import "PlaceInfoViewController.h"
-#import "Constants.h"
-#import "PlacesDataCenter.h"
-
-#import "ASIHTTPRequest.h"
-#import "RemoteRequest.h"
-#import "RemoteOperation.h"
-
-#import "LocationManager.h"
-
 #import "PlaceHeaderCell.h"
 
 @implementation PlaceInfoViewController
 
-@synthesize dataCenter = _dataCenter;
-@synthesize placeId = _placeId;
 @synthesize placeInfoRequest = _placeInfoRequest;
 
 - (id)init {
   self = [super init];
   if (self) {
-    _dataCenter = [[PlacesDataCenter alloc] init];
-    _dataCenter.delegate = self;
   }
   return self;
 }
@@ -39,10 +26,14 @@
   // Table
 //  CGRect tableFrame = self.view.frame;
   [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-  [self getPlace];
+  [self reloadDataSource];
 }
 
-- (void)getPlace {
+- (void)reloadDataSource {
+  [self getPlaceInfo];
+}
+
+- (void)getPlaceInfo {
   CGFloat lat = [APP_DELEGATE.locationManager latitude];
   CGFloat lng = [APP_DELEGATE.locationManager longitude];
   
@@ -118,8 +109,7 @@
     [_placeInfoRequest clearDelegatesAndCancel];
     [_placeInfoRequest release], _placeInfoRequest = nil;
   }
-  RELEASE_SAFELY(_dataCenter);
-  RELEASE_SAFELY(_placeId);
+
   [super dealloc];
 }
 

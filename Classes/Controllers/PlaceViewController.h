@@ -11,6 +11,7 @@
 
 @class CheckinHereViewController;
 @class PlaceInfoViewController;
+@class PlaceActivityViewController;
 
 @interface PlaceViewController : CardViewController {
   CheckinHereViewController *_checkinHereViewController;

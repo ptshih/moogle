@@ -7,22 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CardTableViewController.h"
-#import "MoogleDataCenterDelegate.h"
+#import "PlaceTabViewController.h"
 
-@class PlacesDataCenter;
 @class ASIHTTPRequest;
 
-@interface PlaceInfoViewController : CardTableViewController <MoogleDataCenterDelegate> {
-  PlacesDataCenter *_dataCenter;
-  NSNumber *_placeId;
+@interface PlaceInfoViewController : PlaceTabViewController {
   ASIHTTPRequest *_placeInfoRequest;
 }
 
-@property (nonatomic, retain) PlacesDataCenter *dataCenter;
-@property (nonatomic, retain) NSNumber *placeId;
 @property (nonatomic, retain) ASIHTTPRequest *placeInfoRequest;
 
-- (void)getPlace;
+- (void)getPlaceInfo;
 
 @end
