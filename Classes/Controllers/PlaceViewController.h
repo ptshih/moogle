@@ -7,33 +7,33 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CardTableViewController.h"
-#import "MoogleDataCenterDelegate.h"
+#import "CardViewController.h"
 
-@class ASIHTTPRequest;
-@class PlacesDataCenter;
 @class CheckinHereViewController;
+@class PlaceInfoViewController;
 
-@interface PlaceViewController : CardTableViewController <MoogleDataCenterDelegate> {
+@interface PlaceViewController : CardViewController {
   CheckinHereViewController *_checkinHereViewController;
+  PlaceInfoViewController *_placeInfoViewController;
+  
+  id _visibleViewController;
   
   // Params
   NSNumber *_placeId;
   NSString *_placeName;
   BOOL _shouldShowCheckinHere;
   
-  ASIHTTPRequest *_placeRequest;
-  PlacesDataCenter *_dataCenter;
-  
   // UI
   UIButton *_checkinHereButton;
+  UIView *_tabView;
+  UIButton *_infoButton;
+  UIButton *_activityButton;
+  UIButton *_reviewsButton;
+  UIView *_placeView;
 }
 
 @property (nonatomic, retain) NSNumber *placeId;
 @property (nonatomic, retain) NSString *placeName;
 @property (nonatomic, assign) BOOL shouldShowCheckinHere;
-
-@property (nonatomic, retain) ASIHTTPRequest *placeRequest;
-@property (nonatomic, retain) PlacesDataCenter *dataCenter;
 
 @end

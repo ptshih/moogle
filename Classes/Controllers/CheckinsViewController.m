@@ -89,6 +89,10 @@
   UIButton *distanceButton = [[UIButton alloc] initWithFrame:CGRectMake(110, 8, 100, 29)];
   UIButton *whoButton = [[UIButton alloc] initWithFrame:CGRectMake(215, 8, 100, 29)];
   
+  categoryButton.adjustsImageWhenHighlighted = NO;
+  distanceButton.adjustsImageWhenHighlighted = NO;
+  whoButton.adjustsImageWhenHighlighted = NO;
+  
   [whoButton addTarget:self action:@selector(filterWho) forControlEvents:UIControlEventTouchUpInside];
   
   [categoryButton setBackgroundImage:[UIImage imageNamed:@"btn_filter.png"] forState:UIControlStateNormal];

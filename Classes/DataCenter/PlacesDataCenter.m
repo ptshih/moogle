@@ -12,14 +12,14 @@
 @interface PlacesDataCenter (Private)
 
 - (void)checkinHereRequestDidFinish:(ASIHTTPRequest *)request;
-- (void)placeRequestDidFinish:(ASIHTTPRequest *)request;
+- (void)placeInfoRequestDidFinish:(ASIHTTPRequest *)request;
 
 @end
 
 @implementation PlacesDataCenter
 
 @synthesize checkinHereRequest = _checkinHereRequest;
-@synthesize placeRequest = _placeRequest;
+@synthesize placeInfoRequest = _placeInfoRequest;
 
 @synthesize headersArray = _headersArray;
 @synthesize detailsArray = _detailsArray;
@@ -35,9 +35,9 @@
     if ([request isEqual:self.checkinHereRequest]) {
       // This is a post to facebook checkin request
       [self checkinHereRequestDidFinish:request];
-    } else if ([request isEqual:self.placeRequest]) {
+    } else if ([request isEqual:self.placeInfoRequest]) {
       // This is a get request from moogle for place info
-      [self placeRequestDidFinish:request];
+      [self placeInfoRequestDidFinish:request];
     }
   }
 }
@@ -48,7 +48,7 @@
   [self dataCenterFinishedWithRequest:request];
 }
 
-- (void)placeRequestDidFinish:(ASIHTTPRequest *)request {
+- (void)placeInfoRequestDidFinish:(ASIHTTPRequest *)request {
   DLog(@"Successfully got place with response: %@", [request responseString]);
   
   NSDictionary *responseDict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
