@@ -25,6 +25,7 @@
   // This is on the main thread
   NSInteger statusCode = [request responseStatusCode];
   if(statusCode > 200) {
+    [self dataCenterFailedWithRequest:request];
   } else {
     [self moogleRequestDidFinish:request];
   }
@@ -32,6 +33,7 @@
 
 - (void)requestFailed:(ASIHTTPRequest *)request {
   DLog(@"Data center Failed with Error: %@", [request error]);
+  [self dataCenterFailedWithRequest:request];
 }
 
 - (void)moogleRequestDidFinish:(ASIHTTPRequest *)request {
@@ -48,6 +50,17 @@
     [self.delegate retain];
     if ([self.delegate respondsToSelector:@selector(dataCenterDidFinish:)]) {
       [self.delegate performSelector:@selector(dataCenterDidFinish:) withObject:request];
+    }
+    [self.delegate release];
+  }
+}
+
+- (void)dataCenterFailedWithRequest:(ASIHTTPRequest *)request {
+  // Inform delegate the operation Failed
+  if (self.delegate) {
+    [self.delegate retain];
+    if ([self.delegate respondsToSelector:@selector(dataCenterDidFail:)]) {
+      [self.delegate performSelector:@selector(dataCenterDidFail:) withObject:request];
     }
     [self.delegate release];
   }

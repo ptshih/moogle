@@ -14,5 +14,6 @@
 @optional
 - (void)dataCenterDidStart:(ASIHTTPRequest *)request;
 - (void)dataCenterDidFinish:(ASIHTTPRequest *)request;
+- (void)dataCenterDidFail:(ASIHTTPRequest *)request;
 
 @end

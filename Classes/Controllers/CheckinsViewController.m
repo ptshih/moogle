@@ -206,6 +206,10 @@
   [self dataSourceDidLoad];
 }
 
+- (void)dataCenterDidFail:(ASIHTTPRequest *)request {
+  [self dataSourceDidLoad];
+}
+
 #pragma mark UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
   // Assume this is a network error

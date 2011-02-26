@@ -29,6 +29,7 @@
   // This is on the main thread
   NSInteger statusCode = [request responseStatusCode];
   if(statusCode > 200) {
+    [self dataCenterFailedWithRequest:request];
   } else {
     // Successful request
     if ([request isEqual:self.checkinHereRequest]) {
@@ -39,10 +40,6 @@
       [self placeRequestDidFinish:request];
     }
   }
-}
-
-- (void)requestFailed:(ASIHTTPRequest *)request {
-  DLog(@"Request Failed with Error: %@", [request error]);
 }
 
 - (void)checkinHereRequestDidFinish:(ASIHTTPRequest *)request {

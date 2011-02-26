@@ -169,6 +169,10 @@
   [self.tableView reloadData];
 }
 
+- (void)dataCenterDidFail:(ASIHTTPRequest *)request {
+  [self dataSourceDidLoad];
+}
+
 - (void)dealloc {
   if (_placeRequest) {
     [_placeRequest clearDelegatesAndCancel];

@@ -148,8 +148,6 @@
   // which a scroll event generated from the user hitting the page control triggers updates from
   // the delegate method. We use a boolean to disable the delegate logic when the page control is used.
   
-  int lastPage = self.pageControl.currentPage;
-	
   // Switch the indicator when more than 50% of the previous/next page is visible
   CGFloat pageWidth = self.scrollView.frame.size.width;
   int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
