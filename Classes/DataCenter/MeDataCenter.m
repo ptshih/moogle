@@ -42,7 +42,7 @@
   
   NSArray *jsonArray = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
   
-  NSArray *kupoKeys = [NSArray arrayWithObjects:@"refer_checkin_id", @"refer_created_time", @"refer_facebook_id", @"refer_name", @"place", @"checkin_id", @"created_time", @"facebook_id", @"name", nil];
+  NSArray *kupoKeys = [NSArray arrayWithObjects:@"refer_checkin_id", @"refer_created_time", @"refer_facebook_id", @"refer_name", @"place_name", @"place_id", @"checkin_id", @"created_time", @"facebook_id", @"name", nil];
   
   for (NSDictionary *item in jsonArray) {
     NSMutableDictionary *responseDict = [NSMutableDictionary dictionary];

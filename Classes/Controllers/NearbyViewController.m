@@ -116,8 +116,6 @@
   cell = (PlaceCell *)[tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
   if(cell == nil) { 
     cell = [[[PlaceCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CheckinCell"] autorelease];
-    cell.textLabel.numberOfLines = 100;
-    cell.textLabel.font = [UIFont systemFontOfSize:14.0];
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_cell_bg.png"]];
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:20]];
   }

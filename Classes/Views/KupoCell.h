@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MoogleCell.h"
+#import "MoogleImageCell.h"
 
-@interface KupoCell : MoogleCell {
-    
+@interface KupoCell : MoogleImageCell {
+  UILabel *_kupoLabel;
 }
+
+@property (nonatomic, retain) UILabel *kupoLabel;
+
++ (void)fillCell:(KupoCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image;
 
 @end

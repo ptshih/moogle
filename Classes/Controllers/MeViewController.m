@@ -16,6 +16,7 @@
 #import "RemoteOperation.h"
 
 #import "MeDataCenter.h"
+#import "KupoCell.h"
 
 @interface MeViewController (Private)
 
@@ -89,20 +90,41 @@
 }
 
 #pragma mark UITableView Stuff
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  return [KupoCell variableRowHeightWithDictionary:item];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  UITableViewCell *cell = nil;
+  KupoCell *cell = nil;
   NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell_%d", [self class], indexPath.section];
   
-  cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  cell = (KupoCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
+    cell = [[[KupoCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_cell_bg.png"]];
+    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:20]];
   }
   
-//  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
   
-//  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[item objectForKey:@"timestamp"] integerValue]];
-  cell.textLabel.text = @"Key";
-  cell.detailTextLabel.text = @"Value";
+  NSNumber *kupoId = nil;
+  NSString *referName = [item objectForKey:@"refer_name"];
+  if ([referName isEqualToString:@"You"]) {
+    kupoId = [item objectForKey:@"facebook_id"];
+  } else {
+    kupoId = [item objectForKey:@"refer_facebook_id"];
+  }
+  
+  UIImage *image = [self.imageCache getImageForIndexPath:indexPath];
+  if (!image) {
+    if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
+      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", kupoId]] forIndexPath:indexPath];
+    }
+    image = nil;
+  }
+  
+  [KupoCell fillCell:cell withDictionary:item withImage:image];
   
   return cell;
 }
@@ -120,6 +142,27 @@
 
 - (void)dataCenterDidFail:(ASIHTTPRequest *)request {
   [self dataSourceDidLoad];
+}
+
+#pragma mark ImageCacheDelegate
+- (void)loadImagesForOnScreenRows {
+  NSArray *visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
+  
+  for (NSIndexPath *indexPath in visibleIndexPaths) {
+    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+
+    NSNumber *kupoId = nil;
+    NSString *referName = [item objectForKey:@"refer_name"];
+    if ([referName isEqualToString:@"You"]) {
+      kupoId = [item objectForKey:@"facebook_id"];
+    } else {
+      kupoId = [item objectForKey:@"refer_facebook_id"];
+    }
+    
+    if (![self.imageCache getImageForIndexPath:indexPath]) {
+      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", kupoId]] forIndexPath:indexPath];
+    }
+  }
 }
 
 #pragma mark UIAlertViewDelegate
