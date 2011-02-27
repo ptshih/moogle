@@ -8,6 +8,7 @@
 
 #import "CardViewController.h"
 #import "Constants.h"
+#import "PlaceTabViewController.h"
 
 @interface CardViewController (Private)
 
@@ -21,8 +22,6 @@
 - (id)init {
   self = [super init];
   if (self) {
-    _emptyView = [[UIView alloc] init];
-    _loadingView = [[UIView alloc] init];
   }
   return self;
 }
@@ -34,20 +33,16 @@
   self.view.clipsToBounds = YES;
   
   // Setup Empty and Loading View
-  self.emptyView.frame = self.view.frame;
-  self.loadingView.frame = self.loadingView.frame;
+  if ([self isKindOfClass:[PlaceTabViewController class]]) {
+    [[NSBundle mainBundle] loadNibNamed:@"EmptyPlaceView" owner:self options:nil];
+    [[NSBundle mainBundle] loadNibNamed:@"LoadingPlaceView" owner:self options:nil];
+  } else {
+    [[NSBundle mainBundle] loadNibNamed:@"EmptyView" owner:self options:nil];
+    [[NSBundle mainBundle] loadNibNamed:@"LoadingView" owner:self options:nil];
+  }
   
-  UILabel *emptyLabel = [[UILabel alloc] initWithFrame:self.emptyView.frame];
-  UILabel *loadingLabel = [[UILabel alloc] initWithFrame:self.loadingView.frame];
-  emptyLabel.text = @"No Data";
-  loadingLabel.text = @"Loading...";
-  [self.emptyView addSubview:emptyLabel];
-  [self.loadingView addSubview:loadingLabel];
   [self.view addSubview:self.emptyView];
   [self.view addSubview:self.loadingView];
-  
-  [emptyLabel release];
-  [loadingLabel release];
 }
 
 // Called when the user logs out and we need to clear all cached data
@@ -65,10 +60,12 @@
 // Subclasses should override this method
 - (void)reloadCardController {
   DLog(@"Called by class: %@", [self class]);
+  [self updateState];
 }
 
 // Subclass
 - (void)dataSourceDidLoad {
+  [self updateState];
 }
 
 #pragma mark CardStateMachine

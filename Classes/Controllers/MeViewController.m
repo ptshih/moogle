@@ -50,6 +50,7 @@
   // Table
   [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self setupPullRefresh];
+
 }
 
 #pragma mark CardViewController
@@ -129,6 +130,9 @@
   [self.items removeAllObjects];
   [self.items addObject:self.dataCenter.responseArray];
   [self.tableView reloadData];
+  
+  // Update State Machine
+  
   [self dataSourceDidLoad];
 }
 

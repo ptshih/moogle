@@ -10,8 +10,8 @@
 #import "CardStateMachine.h"
 
 @interface CardViewController : UIViewController <CardStateMachine> {
-  UIView *_emptyView;
-  UIView *_loadingView;
+  IBOutlet UIView *_emptyView;
+  IBOutlet UIView *_loadingView;
 }
 
 @property (nonatomic, retain) UIView *emptyView;

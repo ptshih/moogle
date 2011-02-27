@@ -45,7 +45,7 @@
   _tableView.separatorStyle = separatorStyle;
   _tableView.delegate = self;
   _tableView.dataSource = self;
-  [self.view addSubview:self.tableView];
+  [self.view insertSubview:self.tableView atIndex:0];
 }
 
 // SUBCLASS CAN OPTIONALLY CALL
@@ -78,6 +78,16 @@
   _reloading = NO;
 	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 }
+
+#pragma mark CardStateMachine
+- (BOOL)dataIsAvailable {
+  return ([[self.items objectAtIndex:0] count] > 0); // check section 0
+}
+
+- (BOOL)dataSourceIsReady {
+  return ([self.sections count] > 0);
+}
+
 
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

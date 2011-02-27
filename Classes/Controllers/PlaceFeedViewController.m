@@ -76,9 +76,12 @@
   [self.sections addObject:@"Feed"];
   [self.items addObject:self.dataCenter.feedArray];
   [self.tableView reloadData];
+  
+  [self dataSourceDidLoad];
 }
 
 - (void)dataCenterDidFail:(ASIHTTPRequest *)request {
+  [self dataSourceDidLoad];
 }
 
 - (void)dealloc {

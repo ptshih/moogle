@@ -64,6 +64,10 @@
 		2560A65C13186B09000BE27D /* PlaceHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2560A65B13186B09000BE27D /* PlaceHeaderCell.m */; };
 		2560A65F131878C4000BE27D /* MoogleImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2560A65E131878C0000BE27D /* MoogleImageCell.m */; };
 		25718C2C1319C72900FF6293 /* WhoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25718C2B1319C72300FF6293 /* WhoCell.m */; };
+		258CCC5C131A7E59009767B3 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 258CCC5B131A7E59009767B3 /* LoadingView.xib */; };
+		258CCC5E131A7E65009767B3 /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 258CCC5D131A7E65009767B3 /* EmptyView.xib */; };
+		259BA689131A90E0005BC9DA /* EmptyPlaceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 259BA688131A90E0005BC9DA /* EmptyPlaceView.xib */; };
+		259BA68B131A90ED005BC9DA /* LoadingPlaceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 259BA68A131A90ED005BC9DA /* LoadingPlaceView.xib */; };
 		25B464D412F7BA3200C71FA9 /* NSData+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B464D312F7BA3200C71FA9 /* NSData+Compression.m */; };
 		25B464DA12F7BA4600C71FA9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B464D912F7BA4600C71FA9 /* SystemConfiguration.framework */; };
 		25B464DE12F7BA5000C71FA9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B464DD12F7BA5000C71FA9 /* QuartzCore.framework */; };
@@ -212,6 +216,10 @@
 		25718C2A1319C72000FF6293 /* WhoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoCell.h; sourceTree = "<group>"; };
 		25718C2B1319C72300FF6293 /* WhoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoCell.m; sourceTree = "<group>"; };
 		258CCC59131A6F35009767B3 /* CardStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardStateMachine.h; sourceTree = "<group>"; };
+		258CCC5B131A7E59009767B3 /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
+		258CCC5D131A7E65009767B3 /* EmptyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyView.xib; sourceTree = "<group>"; };
+		259BA688131A90E0005BC9DA /* EmptyPlaceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyPlaceView.xib; sourceTree = "<group>"; };
+		259BA68A131A90ED005BC9DA /* LoadingPlaceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingPlaceView.xib; sourceTree = "<group>"; };
 		25B464D212F7BA3200C71FA9 /* NSData+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Compression.h"; sourceTree = "<group>"; };
 		25B464D312F7BA3200C71FA9 /* NSData+Compression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Compression.m"; sourceTree = "<group>"; };
 		25B464D912F7BA4600C71FA9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -462,6 +470,17 @@
 			name = BaseCells;
 			sourceTree = "<group>";
 		};
+		258CCC5A131A7E3D009767B3 /* Nibs */ = {
+			isa = PBXGroup;
+			children = (
+				258CCC5B131A7E59009767B3 /* LoadingView.xib */,
+				258CCC5D131A7E65009767B3 /* EmptyView.xib */,
+				259BA68A131A90ED005BC9DA /* LoadingPlaceView.xib */,
+				259BA688131A90E0005BC9DA /* EmptyPlaceView.xib */,
+			);
+			name = Nibs;
+			sourceTree = "<group>";
+		};
 		25B464CC12F7BA2200C71FA9 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -547,6 +566,7 @@
 		25B464D112F7BA2200C71FA9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				258CCC5A131A7E3D009767B3 /* Nibs */,
 				251467FF1319D01200DC1690 /* Place */,
 				2560A6601318791F000BE27D /* BaseCells */,
 				25F208C61314F7A800178E09 /* CheckinCell.h */,
@@ -814,6 +834,10 @@
 				25C6C2C71317C8030092E598 /* grayArrow@2x.png in Resources */,
 				25C6C2C81317C8030092E598 /* whiteArrow.png in Resources */,
 				25C6C2C91317C8030092E598 /* whiteArrow@2x.png in Resources */,
+				258CCC5C131A7E59009767B3 /* LoadingView.xib in Resources */,
+				258CCC5E131A7E65009767B3 /* EmptyView.xib in Resources */,
+				259BA689131A90E0005BC9DA /* EmptyPlaceView.xib in Resources */,
+				259BA68B131A90ED005BC9DA /* LoadingPlaceView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -902,7 +926,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Moogle_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Moogle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Moogle;
@@ -916,7 +940,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Moogle_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Moogle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Moogle;

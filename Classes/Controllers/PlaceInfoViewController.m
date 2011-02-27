@@ -97,9 +97,12 @@
   [self.items addObject:self.dataCenter.detailsArray];
   
   [self.tableView reloadData];
+  
+  [self dataSourceDidLoad];
 }
 
 - (void)dataCenterDidFail:(ASIHTTPRequest *)request {
+  [self dataSourceDidLoad];
 }
 
 - (void)dealloc {

@@ -23,6 +23,10 @@
   return self;
 }
 
+- (void)viewDidLoad {
+  [super viewDidLoad];
+}
+
 // SUBCLASS NEEDS TO IMPLEMENT
 - (void)reloadDataSource {
 }

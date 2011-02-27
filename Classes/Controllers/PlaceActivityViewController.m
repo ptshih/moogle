@@ -74,9 +74,12 @@
   [self.sections addObject:@"Activity"];
   [self.items addObject:self.dataCenter.activityArray];
   [self.tableView reloadData];
+  
+  [self dataSourceDidLoad];
 }
 
 - (void)dataCenterDidFail:(ASIHTTPRequest *)request {
+  [self dataSourceDidLoad];
 }
 
 - (void)dealloc {
