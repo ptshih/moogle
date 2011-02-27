@@ -259,7 +259,7 @@
 		25BE347B1318D50100291B33 /* PlaceTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceTabViewController.m; sourceTree = "<group>"; };
 		25C6C2B01317BE9C0092E598 /* MoogleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoogleCell.h; sourceTree = "<group>"; };
 		25C6C2B11317BE9C0092E598 /* MoogleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoogleCell.m; sourceTree = "<group>"; };
-		25C6C2B31317C08A0092E598 /* KupoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = KupoCell.h; sourceTree = "<group>"; };
+		25C6C2B31317C08A0092E598 /* KupoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KupoCell.h; sourceTree = "<group>"; };
 		25C6C2B41317C08A0092E598 /* KupoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KupoCell.m; sourceTree = "<group>"; };
 		25C6C2B61317C7CA0092E598 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		25C6C2B71317C7CA0092E598 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };

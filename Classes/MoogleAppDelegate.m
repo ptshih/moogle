@@ -130,6 +130,8 @@
       [self loginFacebook];
     }
   }
+  
+  [self.locationManager startStandardUpdates];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -484,20 +486,16 @@
   self.sessionKey = [NSString stringWithFormat:@"%d", currentTimestampInteger];
   
   [self postStartSessionRequest];
-  
-  [self.locationManager startStandardUpdates];
 }
 
 - (void)startRegister {
-  // This gets called if it is the first time logging in
+  // This gets called] if it is the first time logging in
   // Set Session Key
   NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
   NSInteger currentTimestampInteger = floor(currentTimestamp);
   self.sessionKey = [NSString stringWithFormat:@"%d", currentTimestampInteger];
   
   [self postRegisterRequest];
-  
-  [self.locationManager startStandardUpdates];
 }
 
 #pragma mark -
