@@ -11,7 +11,7 @@
 #define CELL_FONT_SIZE 14.0
 #define SPACING_X 4.0
 #define SPACING_Y 4.0
-#define LABEL_HEIGHT 18.0
+#define LABEL_HEIGHT 17.0
 
 @implementation CheckinCell
 
@@ -78,44 +78,36 @@
 //  }
   
   // Always leave space for image
-  left = left + IMAGE_WIDTH + SPACING_X;
+  left = left + IMAGE_WIDTH + SPACING_X * 2;
   
+  // Initial Y Positions
   self.nameLabel.top = SPACING_Y;
   self.placeNameLabel.top = SPACING_Y + LABEL_HEIGHT;
   self.countLabel.top = SPACING_Y + LABEL_HEIGHT * 2;
   self.timestampLabel.top = SPACING_Y;
   
-  textWidth = self.contentView.width - left;
-  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
-  
-  // Timestamp
-  labelSize = [self.timestampLabel.text sizeWithFont:self.timestampLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
-  self.timestampLabel.width = labelSize.width;
-  self.timestampLabel.height = labelSize.height;
-  self.timestampLabel.left = self.contentView.width - self.timestampLabel.width - SPACING_X;
-  
+  // Name
   textWidth = self.contentView.width - left - self.timestampLabel.width - SPACING_X;
   textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
   
-  // Name
   labelSize = [self.nameLabel.text sizeWithFont:self.nameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
   self.nameLabel.width = labelSize.width;
   self.nameLabel.height = labelSize.height;
   self.nameLabel.left = left;
   
+  // Place Name
   textWidth = self.contentView.width - left;
   textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
   
-  // Place Name
   labelSize = [self.placeNameLabel.text sizeWithFont:self.placeNameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
   self.placeNameLabel.width = labelSize.width;
   self.placeNameLabel.height = labelSize.height;
   self.placeNameLabel.left = left;
   
+  // Checkin Count
   textWidth = self.contentView.width - left;
   textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
   
-  // Checkin Count
   labelSize = [self.countLabel.text sizeWithFont:self.countLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
   self.countLabel.width = labelSize.width;
   self.countLabel.height = labelSize.height;

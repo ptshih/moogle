@@ -53,12 +53,11 @@
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
   NSString *selected = nil;
-  if([[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] isKindOfClass:[NSString class]]) {
+  if (indexPath.section < 2) {
     selected = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_name"];
   } else {
     selected = [[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_id"] stringValue];
   }
-
   
   if (self.delegate) {
     [self.delegate retain];

@@ -10,9 +10,12 @@
 #import "Constants.h"
 
 @interface MoogleCell : UITableViewCell {
-
+  CGFloat _desiredHeight;
 }
 
+@property (nonatomic, assign) CGFloat desiredHeight;
+
 + (CGFloat)rowHeight;
++ (CGFloat)variableRowHeightForCell:(id)cell;
 
 @end

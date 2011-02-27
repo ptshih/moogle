@@ -17,7 +17,6 @@
 
 @implementation PlaceHeaderCell
 
-@synthesize placeImageView = _placeImageView;
 @synthesize totalLabel = _totalLabel;
 @synthesize friendsLabel = _friendsLabel;
 @synthesize likesLabel = _likesLabel;
@@ -25,12 +24,10 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
-    _placeImageView = [[UIImageView alloc] init];
     _totalLabel = [[UILabel alloc] init];
     _friendsLabel = [[UILabel alloc] init];
     _likesLabel = [[UILabel alloc] init];
     
-    [self.contentView addSubview:self.placeImageView];
     [self.contentView addSubview:self.totalLabel];
     [self.contentView addSubview:self.friendsLabel];
     [self.contentView addSubview:self.likesLabel];
@@ -40,7 +37,7 @@
 
 - (void)prepareForReuse {
   [super prepareForReuse];
-  self.placeImageView.image = nil;
+  self.imageView.image = nil;
   self.totalLabel.text = nil;
   self.friendsLabel.text = nil;
   self.likesLabel.text = nil;
@@ -55,10 +52,10 @@
   CGSize labelSize = CGSizeZero;
   
   // Image View
-  self.placeImageView.left = self.contentView.width - SPACING_X - IMG_WIDTH;
-  self.placeImageView.top = SPACING_Y;
-  self.placeImageView.width = IMG_WIDTH;
-  self.placeImageView.height = IMG_HEIGHT;
+  self.imageView.left = self.contentView.width - SPACING_X - IMG_WIDTH;
+  self.imageView.top = SPACING_Y;
+  self.imageView.width = IMG_WIDTH;
+  self.imageView.height = IMG_HEIGHT;
   
   // Vertical
   self.totalLabel.top = SPACING_Y;
@@ -85,7 +82,7 @@
 }
 
 + (void)fillCell:(PlaceHeaderCell *)cell withDictionary:(NSDictionary *)dictionary {
-  cell.placeImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [dictionary objectForKey:@"place_id"]]]]];
+  cell.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [dictionary objectForKey:@"place_id"]]]]];
   cell.totalLabel.text = [NSString stringWithFormat:@"Total: %@", [dictionary objectForKey:@"checkins_count"]];
   cell.friendsLabel.text = [NSString stringWithFormat:@"Friends: %@", [dictionary objectForKey:@"checkins_friend_count"]];
   cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", [dictionary objectForKey:@"like_count"]];
@@ -97,7 +94,6 @@
 }
 
 - (void)dealloc {
-  RELEASE_SAFELY(_placeImageView);
   RELEASE_SAFELY (_totalLabel);
   RELEASE_SAFELY (_friendsLabel);
   RELEASE_SAFELY (_likesLabel);

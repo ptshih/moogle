@@ -7,7 +7,7 @@
 //
 
 #import "PlaceReviewsViewController.h"
-
+#import "PlaceFeedCell.h"
 
 @implementation PlaceReviewsViewController
 
@@ -41,6 +41,30 @@
   self.placeReviewsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   self.dataCenter.placeReviewsRequest = self.placeReviewsRequest;
   [[RemoteOperation sharedInstance] addRequestToQueue:self.placeReviewsRequest];
+}
+
+#pragma mark UITableView Stuff
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+  return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  UITableViewCell *cell = nil;
+  NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell_%d", [self class], indexPath.section];
+  
+  cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  if (cell == nil) {
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
+  }
+  
+  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  
+  cell.textLabel.text = [item objectForKey:@"name"];
+  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[item objectForKey:@"timestamp"] integerValue]];
+  cell.detailTextLabel.text = [date humanIntervalSinceNow];
+  
+  return cell;
 }
 
 #pragma mark MoogleDataCenterDelegate
