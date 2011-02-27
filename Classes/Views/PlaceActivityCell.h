@@ -7,10 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MoogleImageCell.h"
 
-
-@interface PlaceActivityCell : UITableViewCell {
-    
+@interface PlaceActivityCell : MoogleImageCell {
+  UILabel *_nameLabel;
+  UILabel *_timestampLabel;
 }
+
+@property (nonatomic, retain) UILabel *nameLabel;
+@property (nonatomic, retain) UILabel *timestampLabel;
+
++ (void)fillCell:(PlaceActivityCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image;
 
 @end

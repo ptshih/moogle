@@ -7,7 +7,7 @@
 //
 
 #import "PlaceActivityViewController.h"
-
+#import "PlaceActivityCell.h"
 
 @implementation PlaceActivityViewController
 
@@ -45,21 +45,24 @@
 
 #pragma mark UITableView Stuff
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  UITableViewCell *cell = nil;
+  PlaceActivityCell *cell = nil;
   NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell_%d", [self class], indexPath.section];
   
-  cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  cell = (PlaceActivityCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
+    cell = [[[PlaceActivityCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
   }
   
   NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
   
-  cell.textLabel.text = [item objectForKey:@"name"];
-  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[item objectForKey:@"timestamp"] integerValue]];
-  cell.detailTextLabel.text = [date humanIntervalSinceNow];
+  [PlaceActivityCell fillCell:cell withDictionary:item withImage:nil];
   
   return cell;
+}
+
+#pragma mark TableView Stuff Subclass
+- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath {
+  return [PlaceActivityCell class];
 }
 
 #pragma mark MoogleDataCenterDelegate
