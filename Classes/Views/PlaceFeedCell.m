@@ -60,15 +60,21 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   
+  // Image
+  self.imageView.left = SPACING_X;
+  self.imageView.top = SPACING_Y;
+  self.imageView.width = 50.0;
+  self.imageView.height = 50.0;
+  
   CGFloat left = SPACING_X;
   CGFloat textWidth = self.contentView.width;
   CGSize textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
   CGSize labelSize = CGSizeZero;
   
   // Dynamically Space for Image
-  if (self.imageView.image) {
-    left = self.imageView.right + SPACING_X;
-  }
+//  if (self.imageView.image) {
+//    left = self.imageView.right + SPACING_X;
+//  }
   
   // Always leave space for image
   left = left + IMAGE_WIDTH + SPACING_X * 2;

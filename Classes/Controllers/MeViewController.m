@@ -66,7 +66,7 @@
 
 - (void)getKupos {
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/moogle/kupo", MOOGLE_BASE_URL, API_VERSION];
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/moogle/kupos", MOOGLE_BASE_URL, API_VERSION];
   
   self.kupoRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   [[RemoteOperation sharedInstance] addRequestToQueue:self.kupoRequest];

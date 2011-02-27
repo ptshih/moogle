@@ -86,6 +86,16 @@
   self.countLabel.top = SPACING_Y + LABEL_HEIGHT * 2;
   self.timestampLabel.top = SPACING_Y;
   
+  
+  // Timestamp
+  textWidth = self.contentView.width - left;
+  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  
+  labelSize = [self.timestampLabel.text sizeWithFont:self.timestampLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
+  self.timestampLabel.width = labelSize.width;
+  self.timestampLabel.height = labelSize.height;
+  self.timestampLabel.left = self.contentView.width - self.timestampLabel.width - SPACING_X;
+  
   // Name
   textWidth = self.contentView.width - left - self.timestampLabel.width - SPACING_X;
   textSize = CGSizeMake(textWidth, LABEL_HEIGHT);

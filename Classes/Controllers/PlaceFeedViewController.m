@@ -60,7 +60,8 @@
   
   NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 
-  [PlaceFeedCell fillCell:cell withDictionary:item withImage:nil];
+  UIImage *feedImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"from_id"]]]]];
+  [PlaceFeedCell fillCell:cell withDictionary:item withImage:feedImage];
   
   return cell;
 }
