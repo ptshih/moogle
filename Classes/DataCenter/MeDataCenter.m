@@ -31,7 +31,6 @@
 }
 
 - (void)kupoRequestDidFinish:(ASIHTTPRequest *)request {
-//  {"refer_checkin_id":"10100112120611203","refer_created_time":1282358433,"refer_facebook_id":"1205313","refer_name":"Kenneth Lee","place":"EdgeSF","checkin_id":"10100112120611203","created_time":1282358433,"facebook_id":"1205313","name":"You"}
   DLog(@"Me request finished with response: %@", [request responseString])
   
   if (!_responseArray) {

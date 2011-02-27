@@ -116,6 +116,8 @@
   
   calculatedHeight = calculatedHeight + SPACING_Y * 2; // This is spacing*2 because its for top AND bottom
   
+  if (calculatedHeight < 60) calculatedHeight = 60;
+  
   return calculatedHeight;
 }
 
