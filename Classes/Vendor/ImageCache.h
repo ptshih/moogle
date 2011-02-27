@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "ImageCacheDelegate.h"
 
+@class ASIHTTPRequest;
+
 @interface ImageCache : NSObject {
   NSMutableDictionary *_imageCache;
   NSMutableDictionary *_pendingRequests;
@@ -21,7 +23,9 @@
 
 - (void)resetCache;
 - (void)cacheImageWithURL:(NSURL *)url forIndexPath:(NSIndexPath *)indexPath;
-- (UIImage *)getImageForIndexPath:(NSIndexPath *)indexPath;
+- (UIImage *)getImageWithURL:(NSURL *)url;
+- (void)imageLoadDidFinish:(ASIHTTPRequest *)request;
+- (void)imageLoadDidError:(ASIHTTPRequest *)request;
 
 /**
  These 2 methods are used to 

@@ -52,30 +52,36 @@
   [request setNumberOfTimesToRetryOnTimeout:2];
   [self.pendingRequests setObject:request forKey:[self encodeIndexPath:indexPath]];
   [[RemoteOperation sharedInstance] addRequestToQueue:request];
-  
 }
 
-- (UIImage *)getImageForIndexPath:(NSIndexPath *)indexPath {
-  return [self.imageCache objectForKey:[self encodeIndexPath:indexPath]];
+- (UIImage *)getImageWithURL:(NSURL *)url {
+  return [self.imageCache valueForKey:[url absoluteString]];
+}
+
+- (void)imageLoadDidFinish:(ASIHTTPRequest *)request {
+  if ([[self.pendingRequests allKeysForObject:request] count] > 0) {
+    NSString *encodedIndexPath = [[self.pendingRequests allKeysForObject:request] objectAtIndex:0];
+    [self.pendingRequests removeObjectForKey:encodedIndexPath];
+    [self.imageCache setObject:[UIImage imageWithData:[request responseData]] forKey:[[request originalURL] absoluteString]];
+    if([delegate respondsToSelector:@selector(imageDidLoad:)]) {
+      [delegate imageDidLoad:[self decodeIndexPath:encodedIndexPath]];
+    }
+  }
+}
+
+- (void)imageLoadDidError:(ASIHTTPRequest *)request {
+  DLog(@"Image Cache Did Error with Code: %d", [request responseStatusCode]);
 }
 
 #pragma mark ASIHTTPRequestDelegate
 - (void)requestFinished:(ASIHTTPRequest *)request {
   NSInteger statusCode = [request responseStatusCode];
   if (statusCode > 200) {
-    // Error
+    [self imageLoadDidError:request];
   } else {
-    if ([[self.pendingRequests allKeysForObject:request] count] > 0) {
-      NSString *encodedIndexPath = [[self.pendingRequests allKeysForObject:request] objectAtIndex:0];
-      [self.pendingRequests removeObjectForKey:encodedIndexPath];
-      [self.imageCache setObject:[UIImage imageWithData:[request responseData]] forKey:encodedIndexPath];
-      if([delegate respondsToSelector:@selector(imageDidLoad:)]) {
-        [delegate imageDidLoad:[self decodeIndexPath:encodedIndexPath]];
-      }
-    }
+    [self imageLoadDidFinish:request];
   }
 }
-
 
 - (void)dealloc {
   [self resetCache];
@@ -84,6 +90,5 @@
 
   [super dealloc];
 }
-
 
 @end

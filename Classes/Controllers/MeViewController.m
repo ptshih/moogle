@@ -108,11 +108,11 @@
   }
   
   NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-  
-  UIImage *image = [self.imageCache getImageForIndexPath:indexPath];
+  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item valueForKey:@"user_facebook_id"]]];
+  UIImage *image = [self.imageCache getImageWithURL:url];
   if (!image) {
     if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
-      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item valueForKey:@"user_facebook_id"]]] forIndexPath:indexPath];
+      [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
     }
     image = nil;
   }
@@ -146,9 +146,10 @@
   
   for (NSIndexPath *indexPath in visibleIndexPaths) {
     NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-
-    if (![self.imageCache getImageForIndexPath:indexPath]) {
-      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item valueForKey:@"user_facebook_id"]]] forIndexPath:indexPath];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item valueForKey:@"user_facebook_id"]]];
+    
+    if (![self.imageCache getImageWithURL:url]) {
+      [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
     }
   }
 }

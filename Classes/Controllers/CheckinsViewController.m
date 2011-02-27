@@ -240,17 +240,18 @@
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:20]];
   }
   
-  NSDictionary *checkin = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"facebook_id"]]];
   
-  UIImage *checkinImage = [self.imageCache getImageForIndexPath:indexPath];
-  if (!checkinImage) {
+  UIImage *image = [self.imageCache getImageWithURL:url];
+  if (!image) {
     if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
-      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [checkin objectForKey:@"facebook_id"]]] forIndexPath:indexPath];
+      [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
     }
-    checkinImage = nil;
+    image = nil;
   }
   
-  [CheckinCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] withImage:checkinImage];
+  [CheckinCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] withImage:image];
   
   return cell;
 }
@@ -265,11 +266,10 @@
   NSArray *visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
   
   for (NSIndexPath *indexPath in visibleIndexPaths) {
-    NSDictionary *checkin = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-//    if ([checkin objectForKey:@""]) {
-//    }
-    if (![self.imageCache getImageForIndexPath:indexPath]) {
-      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [checkin objectForKey:@"facebook_id"]]] forIndexPath:indexPath];
+    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"facebook_id"]]];
+    if (![self.imageCache getImageWithURL:url]) {
+      [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
     }
   }
 }
