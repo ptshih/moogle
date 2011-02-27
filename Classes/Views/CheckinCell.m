@@ -68,8 +68,8 @@
   [super layoutSubviews];
   
   CGFloat left = SPACING_X;
-  CGFloat textWidth = self.contentView.width;
-  CGSize textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  CGFloat textWidth = 0.0;
+  CGSize textSize = CGSizeZero;
   CGSize labelSize = CGSizeZero;
   
   // Dynamically Space for Image
