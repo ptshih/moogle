@@ -16,6 +16,6 @@
 @property (nonatomic, assign) CGFloat desiredHeight;
 
 + (CGFloat)rowHeight;
-+ (CGFloat)variableRowHeightForCell:(id)cell;
++ (CGFloat)variableRowHeightWithDictionary:(NSDictionary *)dictionary;
 
 @end

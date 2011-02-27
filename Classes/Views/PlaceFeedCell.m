@@ -66,9 +66,9 @@
   CGSize labelSize = CGSizeZero;
   
   // Dynamically Space for Image
-  //  if (self.imageView.image) {
-  //    left = self.imageView.right + SPACING_X;
-  //  }
+  if (self.imageView.image) {
+    left = self.imageView.right + SPACING_X;
+  }
   
   // Always leave space for image
   left = left + IMAGE_WIDTH + SPACING_X * 2;
@@ -79,7 +79,7 @@
   self.timestampLabel.top = SPACING_Y;
   
   // Timestamp
-  textWidth = self.contentView.width - left;
+  textWidth = self.contentView.width - left - SPACING_X;
   textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
   
   labelSize = [self.timestampLabel.text sizeWithFont:self.timestampLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
@@ -88,7 +88,7 @@
   self.timestampLabel.left = self.contentView.width - self.timestampLabel.width - SPACING_X;
   
   // Name
-  textWidth = self.contentView.width - left - self.timestampLabel.width - SPACING_X;
+  textWidth = self.contentView.width - left - self.timestampLabel.width - SPACING_X * 2;
   textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
   
   labelSize = [self.nameLabel.text sizeWithFont:self.nameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
@@ -97,10 +97,10 @@
   self.nameLabel.left = left;
   
   // Message
-  textWidth = self.contentView.width - left;
+  textWidth = self.contentView.width - left - SPACING_X;
   textSize = CGSizeMake(textWidth, INT_MAX);
   
-  labelSize = [self.messageLabel.text sizeWithFont:self.nameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
+  labelSize = [self.messageLabel.text sizeWithFont:self.messageLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
   self.messageLabel.width = labelSize.width;
   self.messageLabel.height = labelSize.height;
   self.messageLabel.left = left;
@@ -112,12 +112,43 @@
 + (void)fillCell:(PlaceFeedCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
   cell.imageView.image = image;
   
-  cell.nameLabel = [dictionary objectForKey:@"from"];
-  cell.messageLabel = [dictionary objectForKey:@"message"];
+  cell.nameLabel.text = [dictionary objectForKey:@"from"];
+  cell.messageLabel.text = [dictionary objectForKey:@"message"];
+  
+  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"timestamp"] integerValue]];
+  cell.timestampLabel.text = [date humanIntervalSinceNow];
 }
 
-+ (CGFloat)variableRowHeightForCell:(id)cell {
-  return [cell desiredHeight];
++ (CGFloat)variableRowHeightWithDictionary:(NSDictionary *)dictionary {
+  CGFloat calculatedHeight = 0.0;
+  
+  CGFloat left = SPACING_X;
+  CGFloat textWidth = 300;
+  CGSize textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  CGSize labelSize = CGSizeZero;
+  
+  // Dynamically Space for Image
+  //  if (self.imageView.image) {
+  //    left = self.imageView.right + SPACING_X;
+  //  }
+  
+  // Always leave space for image
+  left = left + IMAGE_WIDTH + SPACING_X * 2;
+  
+  // Name
+  calculatedHeight = calculatedHeight + LABEL_HEIGHT;
+  
+  // Message
+  textWidth = 300 - left - SPACING_X;
+  textSize = CGSizeMake(textWidth, INT_MAX);
+  
+  labelSize = [[dictionary objectForKey:@"message"] sizeWithFont:[UIFont systemFontOfSize:CELL_FONT_SIZE] constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
+  
+  calculatedHeight = calculatedHeight + labelSize.height;
+  
+  calculatedHeight = calculatedHeight + SPACING_Y * 2; // This is spacing*2 because its for top AND bottom
+  
+  return calculatedHeight;
 }
 
 - (void)dealloc {

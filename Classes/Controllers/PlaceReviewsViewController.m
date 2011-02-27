@@ -45,24 +45,22 @@
 
 #pragma mark UITableView Stuff
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-  return 0;
+  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  return [PlaceFeedCell variableRowHeightWithDictionary:item];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  UITableViewCell *cell = nil;
+  PlaceFeedCell *cell = nil;
   NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell_%d", [self class], indexPath.section];
   
-  cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  cell = (PlaceFeedCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
+    cell = [[[PlaceFeedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
   }
   
   NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-  
-  cell.textLabel.text = [item objectForKey:@"name"];
-  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[item objectForKey:@"timestamp"] integerValue]];
-  cell.detailTextLabel.text = [date humanIntervalSinceNow];
+
+  [PlaceFeedCell fillCell:cell withDictionary:item withImage:nil];
   
   return cell;
 }
@@ -74,6 +72,8 @@
   [self.sections removeAllObjects];
   [self.items removeAllObjects];
   
+  [self.sections addObject:@"Feed"];
+  [self.items addObject:self.dataCenter.feedArray];
   [self.tableView reloadData];
 }
 

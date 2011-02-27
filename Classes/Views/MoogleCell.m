@@ -34,8 +34,8 @@
   return 44.0;
 }
 
-+ (CGFloat)variableRowHeightForCell:(id)cell {
-  return [cell desiredHeight];
++ (CGFloat)variableRowHeightWithDictionary:(NSDictionary *)dictionary {
+  return 0.0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

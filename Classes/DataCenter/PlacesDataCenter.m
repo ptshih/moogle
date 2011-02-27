@@ -28,6 +28,7 @@
 @synthesize headersArray = _headersArray;
 @synthesize detailsArray = _detailsArray;
 @synthesize activityArray = _activityArray;
+@synthesize feedArray = _feedArray;
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
   DLog(@"Request Finished with Status Code: %d, : %@", [request responseStatusCode], request);
@@ -137,6 +138,34 @@
 }
 
 - (void)placeReviewsRequestDidFinish:(ASIHTTPRequest *)request {
+//  [{"from_id":127224597304655,"from":"Literary Mom","message":"Beautiful day to get lost driving around the Presidio of San Francisco trying to find the Golden Gate Bridge. Embarrassing for a local, so I'll just blame it on the amazing views of the bay distracting me. I couldn't get enough, though, because back on my"},{"from_id":1546276782,"from":"Elmer Hernandez","message":"Thank you Leslie Hernandez for taking me to the Golden Gate Bridge. It was awesome!!!! :) It was fun not knowing if we were taking the bart the right way! haha! :) and that old lady on the bus was evil! Haha."},{"from_id":1546276782,"from":"Elmer Hernandez","message":"The Golden Gate Bridge was amazing! Although my acrophobia almost got the best of me. lol :) Thnx Leslie Hernandez for taking me!"},{"from_id":142065249156896,"from":"DealPop SF Peninsula","message":"The Exploratorium in the Marina District has 20 outdoor interactive exhibits exploring wind, water, sound and light. View the Golden Gate Bridge through a calibrated telescope via The Bridge Thermometer and more (courtesy Flavorpill SF)"}]
+
+  NSArray *jsonArray = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
+  
+  if (!_feedArray) {
+    _feedArray = [[NSMutableArray array] retain];
+  } else {
+    [_feedArray removeAllObjects];
+  }
+  
+  NSArray *feedKeys = [NSArray arrayWithObjects:@"from_id", @"from", @"message", nil];
+  
+  for (NSDictionary *item in jsonArray) {
+    NSMutableDictionary *responseDict = [NSMutableDictionary dictionary];
+    for (NSString *key in feedKeys) {
+      NSString *value = nil;
+      value = [item valueForKey:key];
+      
+      if (![value notNil]) {
+        // Check for not nil object
+        [responseDict setObject:[NSNumber numberWithInteger:0] forKey:key];
+      } else {
+        [responseDict setObject:value forKey:key];
+      }
+    }
+    [self.feedArray addObject:responseDict];
+  }
+  
   [self dataCenterFinishedWithRequest:request];
 }
 
@@ -144,6 +173,7 @@
   RELEASE_SAFELY(_headersArray);
   RELEASE_SAFELY(_detailsArray);
   RELEASE_SAFELY(_activityArray);
+  RELEASE_SAFELY(_feedArray);
   [super dealloc];
 }
 
