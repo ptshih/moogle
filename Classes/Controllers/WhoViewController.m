@@ -8,6 +8,7 @@
 
 #import "WhoViewController.h"
 #import "Constants.h"
+#import "WhoCell.h"
 
 @interface WhoViewController (Private)
 
@@ -17,18 +18,11 @@
 
 @implementation WhoViewController
 
-@synthesize tableView = _tableView;
-
-@synthesize sections = _sections;
-@synthesize items = _items;
-
 @synthesize delegate = _delegate;
 
 - (id)init {
   self = [super init];
   if (self) {
-    _sections = [[NSMutableArray alloc] initWithCapacity:1];
-    _items = [[NSMutableArray alloc] initWithCapacity:1];
   }
   return self;
 }
@@ -36,11 +30,9 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.view.frame = CGRectMake(0, 0, 320, 460);
-  _tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
-  _tableView.delegate = self;
-  _tableView.dataSource = self;
-  self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-  [self.view addSubview:self.tableView];
+  
+  // Table
+  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
   
   [self getPeople];
 }
@@ -51,8 +43,8 @@
   [self.sections addObject:@"My Friends"];
   [self.sections addObject:@"Choose a Friend"];
   
-  [self.items addObject:[NSArray arrayWithObject:@"me"]];
-  [self.items addObject:[NSArray arrayWithObject:@"friends"]];
+  [self.items addObject:[NSArray arrayWithObject:[NSDictionary dictionaryWithObject:@"me" forKey:@"friend_name"]]];
+  [self.items addObject:[NSArray arrayWithObject:[NSDictionary dictionaryWithObject:@"friends" forKey:@"friend_name"]]];
   [self.items addObject:friends];
 }
 
@@ -62,7 +54,7 @@
   
   NSString *selected = nil;
   if([[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] isKindOfClass:[NSString class]]) {
-    selected = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    selected = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_name"];
   } else {
     selected = [[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_id"] stringValue];
   }
@@ -90,28 +82,40 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell", [self class]];
-  UITableViewCell *cell = nil;
-  cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  WhoCell *cell = nil;
+  cell = (WhoCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier] autorelease];
+    cell = [[[WhoCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier] autorelease];
   }
   
-  if (indexPath.section == 0) {
-    cell.textLabel.text = @"Me";
-  } else if (indexPath.section == 1) {
-    cell.textLabel.text = @"My Friends";
+  // Fill Cell
+  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  UIImage *whoImage = nil;
+  
+  if ([[item objectForKey:@"friend_name"] isEqualToString:@"me"]) {
+    
+  } else if ([[item objectForKey:@"friend_name"] isEqualToString:@"friends"]) {
+    
   } else {
-    // Friends array
-    cell.textLabel.text = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_name"];
-    cell.detailTextLabel.text = [[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_id"] stringValue]
-    ;
+    whoImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"friend_id"]]]]];
   }
+  
+  [WhoCell fillCell:cell withDictionary:item withImage:whoImage];
+  
+//  if (indexPath.section == 0) {
+//    cell.textLabel.text = @"Me";
+//  } else if (indexPath.section == 1) {
+//    cell.textLabel.text = @"My Friends";
+//  } else {
+//    // Friends array
+//    cell.textLabel.text = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_name"];
+//    cell.detailTextLabel.text = [[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_id"] stringValue];
+//  }
 
   return cell;
 }
 
 - (void)dealloc {
-  RELEASE_SAFELY(_tableView);
   [super dealloc];
 }
 

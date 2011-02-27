@@ -78,7 +78,7 @@
 //  }
   
   // Always leave space for image
-  left = left + 50 + SPACING_X;
+  left = left + IMAGE_WIDTH + SPACING_X;
   
   self.nameLabel.top = SPACING_Y;
   self.placeNameLabel.top = SPACING_Y + LABEL_HEIGHT;

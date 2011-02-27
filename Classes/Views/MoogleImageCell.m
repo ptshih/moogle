@@ -8,9 +8,6 @@
 
 #import "MoogleImageCell.h"
 
-#define IMAGE_WIDTH 50.0
-#define IMAGE_HEIGHT 50.0
-
 @implementation MoogleImageCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

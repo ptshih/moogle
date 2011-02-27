@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MoogleCell.h"
 
+#define IMAGE_WIDTH 50.0
+#define IMAGE_HEIGHT 50.0
+
 @interface MoogleImageCell : MoogleCell {
   UIActivityIndicatorView *_imageLoadingIndicator;
 }

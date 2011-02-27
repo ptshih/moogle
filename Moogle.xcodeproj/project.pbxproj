@@ -61,7 +61,7 @@
 		25606B1612FA48F500481E43 /* PlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25606B1412FA48F500481E43 /* PlaceViewController.m */; };
 		2560A65C13186B09000BE27D /* PlaceHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2560A65B13186B09000BE27D /* PlaceHeaderCell.m */; };
 		2560A65F131878C4000BE27D /* MoogleImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2560A65E131878C0000BE27D /* MoogleImageCell.m */; };
-		25718C2C1319C72900FF6293 /* PersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25718C2B1319C72300FF6293 /* PersonCell.m */; };
+		25718C2C1319C72900FF6293 /* WhoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25718C2B1319C72300FF6293 /* WhoCell.m */; };
 		25B464D412F7BA3200C71FA9 /* NSData+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B464D312F7BA3200C71FA9 /* NSData+Compression.m */; };
 		25B464DA12F7BA4600C71FA9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B464D912F7BA4600C71FA9 /* SystemConfiguration.framework */; };
 		25B464DE12F7BA5000C71FA9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B464DD12F7BA5000C71FA9 /* QuartzCore.framework */; };
@@ -203,8 +203,8 @@
 		2560A65B13186B09000BE27D /* PlaceHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceHeaderCell.m; sourceTree = "<group>"; };
 		2560A65D131878BE000BE27D /* MoogleImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoogleImageCell.h; sourceTree = "<group>"; };
 		2560A65E131878C0000BE27D /* MoogleImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoogleImageCell.m; sourceTree = "<group>"; };
-		25718C2A1319C72000FF6293 /* PersonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCell.h; sourceTree = "<group>"; };
-		25718C2B1319C72300FF6293 /* PersonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCell.m; sourceTree = "<group>"; };
+		25718C2A1319C72000FF6293 /* WhoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = WhoCell.h; sourceTree = "<group>"; };
+		25718C2B1319C72300FF6293 /* WhoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoCell.m; sourceTree = "<group>"; };
 		25B464D212F7BA3200C71FA9 /* NSData+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Compression.h"; sourceTree = "<group>"; };
 		25B464D312F7BA3200C71FA9 /* NSData+Compression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Compression.m"; sourceTree = "<group>"; };
 		25B464D912F7BA4600C71FA9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -535,8 +535,8 @@
 				25C6C2B41317C08A0092E598 /* FeedCell.m */,
 				2560A65A13186B09000BE27D /* PlaceHeaderCell.h */,
 				2560A65B13186B09000BE27D /* PlaceHeaderCell.m */,
-				25718C2A1319C72000FF6293 /* PersonCell.h */,
-				25718C2B1319C72300FF6293 /* PersonCell.m */,
+				25718C2A1319C72000FF6293 /* WhoCell.h */,
+				25718C2B1319C72300FF6293 /* WhoCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -864,7 +864,7 @@
 				25BE347C1318D50200291B33 /* PlaceTabViewController.m in Sources */,
 				25BB16A41318E3720068A10B /* PlaceReviewsViewController.m in Sources */,
 				25BB16A71318FDBA0068A10B /* MeDataCenter.m in Sources */,
-				25718C2C1319C72900FF6293 /* PersonCell.m in Sources */,
+				25718C2C1319C72900FF6293 /* WhoCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
