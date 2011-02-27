@@ -1,14 +1,14 @@
 //
-//  FeedCell.m
+//  KupoCell.m
 //  Moogle
 //
 //  Created by Peter Shih on 2/25/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "FeedCell.h"
+#import "KupoCell.h"
 
-@implementation FeedCell
+@implementation KupoCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -16,6 +16,17 @@
   // Initialization code
   }
   return self;
+}
+
+- (void)prepareForReuse {
+  [super prepareForReuse];
+}
+
+- (void)layoutSubviews {
+  [super layoutSubviews];
+}
+
++ (void)fillCell:(KupoCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
 }
 
 - (void)dealloc {

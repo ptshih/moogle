@@ -90,7 +90,7 @@
 		25BE34781318D48900291B33 /* PlaceActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE34771318D48400291B33 /* PlaceActivityViewController.m */; };
 		25BE347C1318D50200291B33 /* PlaceTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE347B1318D50100291B33 /* PlaceTabViewController.m */; };
 		25C6C2B21317BE9D0092E598 /* MoogleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2B11317BE9C0092E598 /* MoogleCell.m */; };
-		25C6C2B51317C08B0092E598 /* FeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2B41317C08A0092E598 /* FeedCell.m */; };
+		25C6C2B51317C08B0092E598 /* KupoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2B41317C08A0092E598 /* KupoCell.m */; };
 		25C6C2B81317C7CA0092E598 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2B71317C7CA0092E598 /* EGORefreshTableHeaderView.m */; };
 		25C6C2C21317C8030092E598 /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6C2BA1317C8030092E598 /* blackArrow.png */; };
 		25C6C2C31317C8030092E598 /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6C2BB1317C8030092E598 /* blackArrow@2x.png */; };
@@ -259,8 +259,8 @@
 		25BE347B1318D50100291B33 /* PlaceTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceTabViewController.m; sourceTree = "<group>"; };
 		25C6C2B01317BE9C0092E598 /* MoogleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoogleCell.h; sourceTree = "<group>"; };
 		25C6C2B11317BE9C0092E598 /* MoogleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoogleCell.m; sourceTree = "<group>"; };
-		25C6C2B31317C08A0092E598 /* FeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCell.h; sourceTree = "<group>"; };
-		25C6C2B41317C08A0092E598 /* FeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedCell.m; sourceTree = "<group>"; };
+		25C6C2B31317C08A0092E598 /* KupoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = KupoCell.h; sourceTree = "<group>"; };
+		25C6C2B41317C08A0092E598 /* KupoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KupoCell.m; sourceTree = "<group>"; };
 		25C6C2B61317C7CA0092E598 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		25C6C2B71317C7CA0092E598 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		25C6C2BA1317C8030092E598 /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
@@ -546,8 +546,8 @@
 				25F208C71314F7A800178E09 /* CheckinCell.m */,
 				253FED9F1317B86300871D79 /* PlaceCell.h */,
 				253FEDA01317B86300871D79 /* PlaceCell.m */,
-				25C6C2B31317C08A0092E598 /* FeedCell.h */,
-				25C6C2B41317C08A0092E598 /* FeedCell.m */,
+				25C6C2B31317C08A0092E598 /* KupoCell.h */,
+				25C6C2B41317C08A0092E598 /* KupoCell.m */,
 				25718C2A1319C72000FF6293 /* WhoCell.h */,
 				25718C2B1319C72300FF6293 /* WhoCell.m */,
 			);
@@ -866,7 +866,7 @@
 				253FED9E1317B79D00871D79 /* ImageCache.m in Sources */,
 				253FEDA11317B86300871D79 /* PlaceCell.m in Sources */,
 				25C6C2B21317BE9D0092E598 /* MoogleCell.m in Sources */,
-				25C6C2B51317C08B0092E598 /* FeedCell.m in Sources */,
+				25C6C2B51317C08B0092E598 /* KupoCell.m in Sources */,
 				25C6C2B81317C7CA0092E598 /* EGORefreshTableHeaderView.m in Sources */,
 				25C6C2F81317CD1F0092E598 /* Reachability.m in Sources */,
 				2560A65C13186B09000BE27D /* PlaceHeaderCell.m in Sources */,

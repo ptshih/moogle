@@ -31,6 +31,7 @@
 }
 
 - (void)kupoRequestDidFinish:(ASIHTTPRequest *)request {
+//  {"refer_checkin_id":"10100112120611203","refer_created_time":1282358433,"refer_facebook_id":"1205313","refer_name":"Kenneth Lee","place":"EdgeSF","checkin_id":"10100112120611203","created_time":1282358433,"facebook_id":"1205313","name":"You"}
   DLog(@"Me request finished with response: %@", [request responseString])
   
   if (!_responseArray) {
@@ -40,6 +41,24 @@
   }
   
   NSArray *jsonArray = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
+  
+  NSArray *kupoKeys = [NSArray arrayWithObjects:@"refer_checkin_id", @"refer_created_time", @"refer_facebook_id", @"refer_name", @"place", @"checkin_id", @"created_time", @"facebook_id", @"name", nil];
+  
+  for (NSDictionary *item in jsonArray) {
+    NSMutableDictionary *responseDict = [NSMutableDictionary dictionary];
+    for (NSString *key in kupoKeys) {
+      NSString *value = nil;
+      value = [item valueForKey:key];
+      
+      if (![value notNil]) {
+        // Check for not nil object
+        [responseDict setObject:[NSNumber numberWithInteger:0] forKey:key];
+      } else {
+        [responseDict setObject:value forKey:key];
+      }
+    }
+    [self.responseArray addObject:responseDict];
+  }
   
   [self dataCenterFinishedWithRequest:request];
 }

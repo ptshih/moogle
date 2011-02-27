@@ -1,5 +1,5 @@
 //
-//  FeedCell.h
+//  KupoCell.h
 //  Moogle
 //
 //  Created by Peter Shih on 2/25/11.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MoogleCell.h"
 
-@interface FeedCell : MoogleCell {
+@interface KupoCell : MoogleCell {
     
 }
 
