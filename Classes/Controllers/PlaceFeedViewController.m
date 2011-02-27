@@ -1,17 +1,17 @@
 //
-//  PlaceReviewsViewController.m
+//  PlaceFeedViewController.m
 //  Moogle
 //
 //  Created by Peter Shih on 2/25/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "PlaceReviewsViewController.h"
+#import "PlaceFeedViewController.h"
 #import "PlaceFeedCell.h"
 
-@implementation PlaceReviewsViewController
+@implementation PlaceFeedViewController
 
-@synthesize placeReviewsRequest = _placeReviewsRequest;
+@synthesize placeFeedRequest = _placeFeedRequest;
 
 - (id)init {
   self = [super init];
@@ -38,9 +38,9 @@
   
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/%@/feed", MOOGLE_BASE_URL, API_VERSION, self.placeId];
   
-  self.placeReviewsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
-  self.dataCenter.placeReviewsRequest = self.placeReviewsRequest;
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.placeReviewsRequest];
+  self.placeFeedRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
+  self.dataCenter.placeFeedRequest = self.placeFeedRequest;
+  [[RemoteOperation sharedInstance] addRequestToQueue:self.placeFeedRequest];
 }
 
 #pragma mark UITableView Stuff
@@ -81,9 +81,9 @@
 }
 
 - (void)dealloc {
-  if (_placeReviewsRequest) {
-    [_placeReviewsRequest clearDelegatesAndCancel];
-    [_placeReviewsRequest release], _placeReviewsRequest = nil;
+  if (_placeFeedRequest) {
+    [_placeFeedRequest clearDelegatesAndCancel];
+    [_placeFeedRequest release], _placeFeedRequest = nil;
   }
   
   [super dealloc];

@@ -1,5 +1,5 @@
 //
-//  PlaceReviewsViewController.h
+//  PlaceFeedViewController.h
 //  Moogle
 //
 //  Created by Peter Shih on 2/25/11.
@@ -11,11 +11,11 @@
 
 @class ASIHTTPRequest;
 
-@interface PlaceReviewsViewController : PlaceTabViewController {
-  ASIHTTPRequest *_placeReviewsRequest;    
+@interface PlaceFeedViewController : PlaceTabViewController {
+  ASIHTTPRequest *_placeFeedRequest;    
 }
 
-@property (nonatomic, retain) ASIHTTPRequest *placeReviewsRequest;
+@property (nonatomic, retain) ASIHTTPRequest *placeFeedRequest;
 
 - (void)getPlaceReviews;
 

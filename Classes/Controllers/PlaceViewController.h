@@ -12,13 +12,13 @@
 @class CheckinHereViewController;
 @class PlaceInfoViewController;
 @class PlaceActivityViewController;
-@class PlaceReviewsViewController;
+@class PlaceFeedViewController;
 
 @interface PlaceViewController : CardViewController {
   CheckinHereViewController *_checkinHereViewController;
   PlaceInfoViewController *_placeInfoViewController;
   PlaceActivityViewController *_placeActivityViewController;
-  PlaceReviewsViewController *_placeReviewsViewController;
+  PlaceFeedViewController *_placeFeedViewController;
   
   id _visibleViewController;
   
@@ -33,7 +33,7 @@
   UIView *_tabView;
   UIButton *_infoButton;
   UIButton *_activityButton;
-  UIButton *_reviewsButton;
+  UIButton *_feedButton;
 }
 
 @property (nonatomic, retain) NSNumber *placeId;

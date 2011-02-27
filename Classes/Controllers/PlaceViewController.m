@@ -10,7 +10,7 @@
 #import "Constants.h"
 #import "PlaceInfoViewController.h"
 #import "PlaceActivityViewController.h"
-#import "PlaceReviewsViewController.h"
+#import "PlaceFeedViewController.h"
 
 #import "LocationManager.h"
 #import "CheckinHereViewController.h"
@@ -26,7 +26,7 @@
 
 - (void)setupPlaceInfo;
 - (void)setupPlaceActivity;
-- (void)setupPlaceReviews;
+- (void)setupPlaceFeed;
 
 @end
 
@@ -42,7 +42,7 @@
     _placeScrollView = [[UIScrollView alloc] init];
     _placeInfoViewController = [[PlaceInfoViewController alloc] init];
     _placeActivityViewController = [[PlaceActivityViewController alloc] init];
-    _placeReviewsViewController = [[PlaceReviewsViewController alloc] init];
+    _placeFeedViewController = [[PlaceFeedViewController alloc] init];
     _tabView = [[UIView alloc] init];
     _shouldShowCheckinHere = NO;
   }
@@ -73,7 +73,7 @@
   // Setup tab controllers
   [self setupPlaceInfo];
   [self setupPlaceActivity];
-  [self setupPlaceReviews];
+  [self setupPlaceFeed];
   
   // Default to PlaceInfo tab
   [_infoButton setSelected:YES];
@@ -94,11 +94,11 @@
   [_placeScrollView addSubview:_placeActivityViewController.view];
 }
 
-- (void)setupPlaceReviews {
-  _placeReviewsViewController.placeId = self.placeId;
-  _placeReviewsViewController.viewport = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
-  _placeReviewsViewController.view.frame = CGRectMake(640, 0, _placeScrollView.width, _placeScrollView.height);
-  [_placeScrollView addSubview:_placeReviewsViewController.view];
+- (void)setupPlaceFeed {
+  _placeFeedViewController.placeId = self.placeId;
+  _placeFeedViewController.viewport = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
+  _placeFeedViewController.view.frame = CGRectMake(640, 0, _placeScrollView.width, _placeScrollView.height);
+  [_placeScrollView addSubview:_placeFeedViewController.view];
 }
 
 - (void)setupTabView {
@@ -113,15 +113,15 @@
 - (void)setupTabButtons {
   _infoButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 8, 100, 29)];
   _activityButton = [[UIButton alloc] initWithFrame:CGRectMake(110, 8, 100, 29)];
-  _reviewsButton = [[UIButton alloc] initWithFrame:CGRectMake(215, 8, 100, 29)];
+  _feedButton = [[UIButton alloc] initWithFrame:CGRectMake(215, 8, 100, 29)];
   
   _infoButton.adjustsImageWhenHighlighted = NO;
   _activityButton.adjustsImageWhenHighlighted = NO;
-  _reviewsButton.adjustsImageWhenHighlighted = NO;
+  _feedButton.adjustsImageWhenHighlighted = NO;
   
   [_infoButton addTarget:self action:@selector(selectTab:) forControlEvents:UIControlEventTouchUpInside];
   [_activityButton addTarget:self action:@selector(selectTab:) forControlEvents:UIControlEventTouchUpInside];
-  [_reviewsButton addTarget:self action:@selector(selectTab:) forControlEvents:UIControlEventTouchUpInside];
+  [_feedButton addTarget:self action:@selector(selectTab:) forControlEvents:UIControlEventTouchUpInside];
   
   [_infoButton setBackgroundImage:[UIImage imageNamed:@"btn_filter.png"] forState:UIControlStateNormal];
   [_infoButton setBackgroundImage:[UIImage imageNamed:@"btn_filter_selected.png"] forState:UIControlStateHighlighted];
@@ -129,9 +129,9 @@
   [_activityButton setBackgroundImage:[UIImage imageNamed:@"btn_filter.png"] forState:UIControlStateNormal];
   [_activityButton setBackgroundImage:[UIImage imageNamed:@"btn_filter_selected.png"] forState:UIControlStateHighlighted];
   [_activityButton setBackgroundImage:[UIImage imageNamed:@"btn_filter_selected.png"] forState:UIControlStateSelected];
-  [_reviewsButton setBackgroundImage:[UIImage imageNamed:@"btn_filter.png"] forState:UIControlStateNormal];
-  [_reviewsButton setBackgroundImage:[UIImage imageNamed:@"btn_filter_selected.png"] forState:UIControlStateHighlighted];
-  [_reviewsButton setBackgroundImage:[UIImage imageNamed:@"btn_filter_selected.png"] forState:UIControlStateSelected];
+  [_feedButton setBackgroundImage:[UIImage imageNamed:@"btn_filter.png"] forState:UIControlStateNormal];
+  [_feedButton setBackgroundImage:[UIImage imageNamed:@"btn_filter_selected.png"] forState:UIControlStateHighlighted];
+  [_feedButton setBackgroundImage:[UIImage imageNamed:@"btn_filter_selected.png"] forState:UIControlStateSelected];
   
   [_infoButton setTitle:@"Info" forState:UIControlStateNormal];
   [_infoButton setTitleColor:FILTER_COLOR_BLUE forState:UIControlStateNormal];
@@ -143,14 +143,14 @@
   _activityButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
   _activityButton.titleLabel.lineBreakMode = UILineBreakModeTailTruncation;
   
-  [_reviewsButton setTitle:@"Reviews" forState:UIControlStateNormal];
-  [_reviewsButton setTitleColor:FILTER_COLOR_BLUE forState:UIControlStateNormal];
-  _reviewsButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-  _reviewsButton.titleLabel.lineBreakMode = UILineBreakModeTailTruncation;
+  [_feedButton setTitle:@"Feed" forState:UIControlStateNormal];
+  [_feedButton setTitleColor:FILTER_COLOR_BLUE forState:UIControlStateNormal];
+  _feedButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+  _feedButton.titleLabel.lineBreakMode = UILineBreakModeTailTruncation;
   
   [_tabView addSubview:_infoButton];
   [_tabView addSubview:_activityButton];
-  [_tabView addSubview:_reviewsButton];
+  [_tabView addSubview:_feedButton];
 }
 
 - (void)setupCheckinHereButton {
@@ -171,7 +171,7 @@
   DLog(@"Button: %@", sender);
   [_infoButton setSelected:NO];
   [_activityButton setSelected:NO];
-  [_reviewsButton setSelected:NO];
+  [_feedButton setSelected:NO];
   [sender setSelected:YES];
   
   if ([sender isEqual:_infoButton]) {
@@ -180,9 +180,9 @@
   } else if ([sender isEqual:_activityButton]) {
     [_placeScrollView scrollRectToVisible:_placeActivityViewController.view.frame animated:YES];
     _visibleViewController = _placeActivityViewController;
-  } else if ([sender isEqual:_reviewsButton]) {
-    [_placeScrollView scrollRectToVisible:_placeReviewsViewController.view.frame animated:YES];
-    _visibleViewController = _placeReviewsViewController;
+  } else if ([sender isEqual:_feedButton]) {
+    [_placeScrollView scrollRectToVisible:_placeFeedViewController.view.frame animated:YES];
+    _visibleViewController = _placeFeedViewController;
   }
   
   [_visibleViewController performSelector:@selector(reloadDataSource)];
@@ -205,7 +205,7 @@
   RELEASE_SAFELY(_checkinHereViewController);
   RELEASE_SAFELY(_placeInfoViewController);
   RELEASE_SAFELY(_placeActivityViewController);
-  RELEASE_SAFELY(_placeReviewsViewController);
+  RELEASE_SAFELY(_placeFeedViewController);
   RELEASE_SAFELY(_placeName);
   RELEASE_SAFELY (_placeId);
   
@@ -215,7 +215,7 @@
   RELEASE_SAFELY(_tabView);
   RELEASE_SAFELY(_infoButton);
   RELEASE_SAFELY(_activityButton);
-  RELEASE_SAFELY(_reviewsButton);
+  RELEASE_SAFELY(_feedButton);
   [super dealloc];
 }
 

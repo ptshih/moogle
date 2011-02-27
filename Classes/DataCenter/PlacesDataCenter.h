@@ -13,7 +13,7 @@
   ASIHTTPRequest *_checkinHereRequest;
   ASIHTTPRequest *_placeInfoRequest;
   ASIHTTPRequest *_placeActivityRequest;
-  ASIHTTPRequest *_placeReviewsRequest;
+  ASIHTTPRequest *_placeFeedRequest;
   
   NSMutableArray *_headersArray;
   NSMutableArray *_detailsArray;
@@ -25,7 +25,7 @@
 @property (nonatomic, assign) ASIHTTPRequest *checkinHereRequest;
 @property (nonatomic, assign) ASIHTTPRequest *placeInfoRequest;
 @property (nonatomic, assign) ASIHTTPRequest *placeActivityRequest;
-@property (nonatomic, assign) ASIHTTPRequest *placeReviewsRequest;
+@property (nonatomic, assign) ASIHTTPRequest *placeFeedRequest;
 
 @property (nonatomic, retain) NSMutableArray *headersArray;
 @property (nonatomic, retain) NSMutableArray *detailsArray;
