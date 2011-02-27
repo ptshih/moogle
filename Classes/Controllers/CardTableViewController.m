@@ -74,6 +74,7 @@
 }
 
 - (void)dataSourceDidLoad {
+  [super dataSourceDidLoad];
   _reloading = NO;
 	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 }

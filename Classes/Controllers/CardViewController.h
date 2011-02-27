@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CardStateMachine.h"
 
-
-@interface CardViewController : UIViewController {
+@interface CardViewController : UIViewController <CardStateMachine> {
+  UIView *_emptyView;
+  UIView *_loadingView;
 }
+
+@property (nonatomic, retain) UIView *emptyView;
+@property (nonatomic, retain) UIView *loadingView;
 
 - (void)clearCachedData;
 - (void)unloadCardController;

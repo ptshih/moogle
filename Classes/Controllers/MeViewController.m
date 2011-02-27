@@ -108,18 +108,10 @@
   
   NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
   
-  NSNumber *kupoId = nil;
-  NSString *referName = [item objectForKey:@"refer_name"];
-  if ([referName isEqualToString:@"You"]) {
-    kupoId = [item objectForKey:@"facebook_id"];
-  } else {
-    kupoId = [item objectForKey:@"refer_facebook_id"];
-  }
-  
   UIImage *image = [self.imageCache getImageForIndexPath:indexPath];
   if (!image) {
     if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
-      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", kupoId]] forIndexPath:indexPath];
+      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item valueForKey:@"user_facebook_id"]]] forIndexPath:indexPath];
     }
     image = nil;
   }
@@ -151,16 +143,8 @@
   for (NSIndexPath *indexPath in visibleIndexPaths) {
     NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 
-    NSNumber *kupoId = nil;
-    NSString *referName = [item objectForKey:@"refer_name"];
-    if ([referName isEqualToString:@"You"]) {
-      kupoId = [item objectForKey:@"facebook_id"];
-    } else {
-      kupoId = [item objectForKey:@"refer_facebook_id"];
-    }
-    
     if (![self.imageCache getImageForIndexPath:indexPath]) {
-      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", kupoId]] forIndexPath:indexPath];
+      [self.imageCache cacheImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item valueForKey:@"user_facebook_id"]]] forIndexPath:indexPath];
     }
   }
 }

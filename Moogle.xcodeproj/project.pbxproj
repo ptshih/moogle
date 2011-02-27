@@ -211,6 +211,7 @@
 		2560A65E131878C0000BE27D /* MoogleImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoogleImageCell.m; sourceTree = "<group>"; };
 		25718C2A1319C72000FF6293 /* WhoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoCell.h; sourceTree = "<group>"; };
 		25718C2B1319C72300FF6293 /* WhoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoCell.m; sourceTree = "<group>"; };
+		258CCC59131A6F35009767B3 /* CardStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardStateMachine.h; sourceTree = "<group>"; };
 		25B464D212F7BA3200C71FA9 /* NSData+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Compression.h"; sourceTree = "<group>"; };
 		25B464D312F7BA3200C71FA9 /* NSData+Compression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Compression.m"; sourceTree = "<group>"; };
 		25B464D912F7BA4600C71FA9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -362,6 +363,7 @@
 				2529023813041E6D0041DA95 /* CardViewController.m */,
 				251098D1130BA09200065607 /* CardTableViewController.h */,
 				251098D2130BA09200065607 /* CardTableViewController.m */,
+				258CCC59131A6F35009767B3 /* CardStateMachine.h */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -900,7 +902,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Moogle_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = "Moogle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Moogle;
@@ -914,7 +916,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Moogle_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = "Moogle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Moogle;

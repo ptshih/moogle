@@ -80,9 +80,12 @@
 + (void)fillCell:(KupoCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
   cell.imageView.image = image;
   
-  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"created_time"] integerValue]];
+  NSDate *checkinDate = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"checkin_time"] integerValue]];
+  NSDate *lastDate = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"your_last_checkin_time"] integerValue]];
   
-  NSString *kupo = [NSString stringWithFormat:@"%@ referred %@ to %@ %@", [dictionary objectForKey:@"refer_name"], [dictionary objectForKey:@"name"], [dictionary objectForKey:@"place_name"], [date humanIntervalSinceNow]];
+//    NSArray *kupoKeys = [NSArray arrayWithObjects:@"place_id", @"place_name", @"checkin_time", @"user_facebook_id", @"user_name", @"your_last_checkin_time", @"your_facebook_id", nil];
+  
+  NSString *kupo = [NSString stringWithFormat:@"%@ checked in to %@ %@. You last checked in here %@.", [dictionary objectForKey:@"user_name"], [dictionary objectForKey:@"place_name"], [checkinDate humanIntervalSinceNow], [lastDate humanIntervalSinceNow]];
   
   cell.kupoLabel.text = kupo;
 }
