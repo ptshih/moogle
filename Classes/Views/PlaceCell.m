@@ -8,17 +8,35 @@
 
 #import "PlaceCell.h"
 
+#define NAME_FONT_SIZE 14.0
 #define CELL_FONT_SIZE 14.0
-#define SPACING_X 4.0
-#define SPACING_Y 4.0
-#define LABEL_HEIGHT 17.0
+#define SPACING_X 5.0
+#define SPACING_Y 5.0
+#define LABEL_HEIGHT 20.0
+#define CELL_WIDTH 320.0
+#define ICON_WIDTH 18.0
+#define ICON_HEIGHT 18.0
+#define ICON_SPACING 2.0
+
+static UIImage *_likesIcon = nil;
+static UIImage *_countIcon = nil;
+static UIImage *_totalIcon = nil;
+static UIImage *_distanceIcon = nil;
 
 @implementation PlaceCell
 
 @synthesize nameLabel = _nameLabel;
 @synthesize distanceLabel = _distanceLabel;
 @synthesize countLabel = _countLabel;
-@synthesize statsLabel = _statsLabel;
+@synthesize totalLabel = _totalLabel;
+@synthesize likesLabel = _likesLabel;
+
++ (void)initialize {
+  _likesIcon = [[UIImage imageNamed:@"cell_place_icon.png"] retain];
+  _countIcon = [[UIImage imageNamed:@"cell_place_icon.png"] retain];
+  _totalIcon = [[UIImage imageNamed:@"cell_place_icon.png"] retain];
+  _distanceIcon = [[UIImage imageNamed:@"cell_place_icon.png"] retain];
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -26,31 +44,54 @@
     _nameLabel = [[UILabel alloc] init];
     _distanceLabel = [[UILabel alloc] init];
     _countLabel = [[UILabel alloc] init];
-    _statsLabel = [[UILabel alloc] init];
+    _totalLabel = [[UILabel alloc] init];
+    _likesLabel = [[UILabel alloc] init];
     
     self.nameLabel.backgroundColor = [UIColor clearColor];
     self.distanceLabel.backgroundColor = [UIColor clearColor];
     self.countLabel.backgroundColor = [UIColor clearColor];
-    self.statsLabel.backgroundColor = [UIColor clearColor];
+    self.totalLabel.backgroundColor = [UIColor clearColor];
+    self.likesLabel.backgroundColor = [UIColor clearColor];
     
-    self.nameLabel.font = [UIFont boldSystemFontOfSize:CELL_FONT_SIZE];
+    self.nameLabel.font = [UIFont boldSystemFontOfSize:NAME_FONT_SIZE];
     self.distanceLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
     self.countLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
-    self.statsLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
+    self.totalLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
+    self.likesLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
     
     self.nameLabel.textAlignment = UITextAlignmentLeft;
-    self.distanceLabel.textAlignment = UITextAlignmentRight;
+    self.distanceLabel.textAlignment = UITextAlignmentLeft;
     self.countLabel.textAlignment = UITextAlignmentLeft;
-    self.statsLabel.textAlignment = UITextAlignmentLeft;
+    self.totalLabel.textAlignment = UITextAlignmentLeft;
+    self.likesLabel.textAlignment = UITextAlignmentLeft;
     
-    self.nameLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
-    self.countLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
-    self.statsLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+    self.nameLabel.lineBreakMode = UILineBreakModeTailTruncation;
+    self.distanceLabel.lineBreakMode = UILineBreakModeTailTruncation;
+    self.countLabel.lineBreakMode = UILineBreakModeTailTruncation;
+    self.totalLabel.lineBreakMode = UILineBreakModeTailTruncation;
+    self.likesLabel.lineBreakMode = UILineBreakModeTailTruncation;
+    
+    self.nameLabel.numberOfLines = 1;
+    self.distanceLabel.numberOfLines = 1;
+    self.countLabel.numberOfLines = 1;
+    self.totalLabel.numberOfLines = 1;
+    self.likesLabel.numberOfLines = 1;
     
     [self.contentView addSubview:self.nameLabel];
     [self.contentView addSubview:self.distanceLabel];
     [self.contentView addSubview:self.countLabel];
-    [self.contentView addSubview:self.statsLabel];
+    [self.contentView addSubview:self.totalLabel];
+    [self.contentView addSubview:self.likesLabel];
+    
+    _likesIconView = [[UIImageView alloc] initWithImage:_likesIcon];
+    _countIconView = [[UIImageView alloc] initWithImage:_countIcon];
+    _totalIconView = [[UIImageView alloc] initWithImage:_totalIcon];
+    _distanceIconView = [[UIImageView alloc] initWithImage:_distanceIcon];
+    
+    [self.contentView addSubview:_likesIconView];
+    [self.contentView addSubview:_countIconView];
+    [self.contentView addSubview:_totalIconView];
+    [self.contentView addSubview:_distanceIconView];
   }
   return self;
 }
@@ -60,40 +101,46 @@
   self.nameLabel.text = nil;
   self.distanceLabel.text = nil;
   self.countLabel.text = nil;
-  self.statsLabel.text = nil;
+  self.totalLabel.text = nil;
+  self.likesLabel.text = nil;
 }
 
 - (void)layoutSubviews {
   [super layoutSubviews];
   
-  CGFloat left = SPACING_X;
-  CGFloat textWidth = 0.0;
+  CGFloat top = SPACING_Y;
+  CGFloat left = IMAGE_WIDTH + SPACING_X * 3; // spacers: left of img, right of img, left of txt
+  CGFloat textWidth = self.contentView.width - left - SPACING_X;
   CGSize textSize = CGSizeZero;
   CGSize labelSize = CGSizeZero;
   
-  // Dynamically Space for Image
-//  if (self.imageView.image) {
-//    left = self.imageView.right + SPACING_X;
-//  }
+  // Configure ImageView
+  self.imageView.top = top;
+  self.imageView.left = SPACING_X;
   
-  // Always leave space for image
-  left = left + IMAGE_WIDTH + SPACING_X * 2;
+  // Configure Icons
+  _distanceIconView.top = top + LABEL_HEIGHT + SPACING_Y;
+  _likesIconView.top = top + LABEL_HEIGHT + SPACING_Y;
+  _totalIconView.top = _distanceIconView.bottom + ICON_SPACING;
+  _countIconView.top = _likesIconView.bottom + ICON_SPACING;
   
-  self.nameLabel.top = SPACING_Y;
-  self.distanceLabel.top = SPACING_Y;
-  self.statsLabel.top = SPACING_Y  + LABEL_HEIGHT;
-  self.countLabel.top = SPACING_Y  + LABEL_HEIGHT * 2;
+  _distanceIconView.left = left;
+  _totalIconView.left = left;
+  _likesIconView.left = _distanceIconView.right + ((self.contentView.width - SPACING_X - _distanceIconView.right) / 2);
+  _countIconView.left = _totalIconView.right + ((self.contentView.width - SPACING_X - _totalIconView.right) / 2);
   
-  textWidth = self.contentView.width - left;
-  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  // Initial Label Y Positions
+  self.nameLabel.top = top + 1.0;
+  self.distanceLabel.top = _distanceIconView.top;
+  self.likesLabel.top = _likesIconView.top;
+  self.totalLabel.top = _totalIconView.top;
+  self.countLabel.top = _countIconView.top;
   
-  // Distance
-  labelSize = [self.distanceLabel.text sizeWithFont:self.distanceLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
-  self.distanceLabel.width = labelSize.width;
-  self.distanceLabel.height = labelSize.height;
-  self.distanceLabel.left =  self.contentView.width - self.distanceLabel.width - SPACING_X;
+  /**
+   Setup all the labels
+   */
   
-  textWidth = self.contentView.width - left - self.distanceLabel.width - SPACING_X;
+  // Text size for all labels except taggedLabel (which is variable height)
   textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
   
   // Name
@@ -102,22 +149,29 @@
   self.nameLabel.height = labelSize.height;
   self.nameLabel.left = left;
   
-  textWidth = self.contentView.width - left;
-  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  // Distance
+  labelSize = [self.distanceLabel.text sizeWithFont:self.distanceLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
+  self.distanceLabel.width = labelSize.width;
+  self.distanceLabel.height = labelSize.height;
+  self.distanceLabel.left = _distanceIconView.right + SPACING_X;
   
-  // Stats
-  labelSize = [self.statsLabel.text sizeWithFont:self.statsLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
-  self.statsLabel.width = labelSize.width;
-  self.statsLabel.height = labelSize.height;
-  self.statsLabel.left = left;
+  // Likes
+  labelSize = [self.likesLabel.text sizeWithFont:self.likesLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
+  self.likesLabel.width = labelSize.width;
+  self.likesLabel.height = labelSize.height;
+  self.likesLabel.left = _likesIconView.right + SPACING_X;
   
-  textWidth = self.contentView.width - left;
-  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  // Total
+  labelSize = [self.totalLabel.text sizeWithFont:self.totalLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
+  self.totalLabel.width = labelSize.width;
+  self.totalLabel.height = labelSize.height;
+  self.totalLabel.left = _totalIconView.right + SPACING_X;
   
+  // Count
   labelSize = [self.countLabel.text sizeWithFont:self.countLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
   self.countLabel.width = labelSize.width;
   self.countLabel.height = labelSize.height;
-  self.countLabel.left = left;
+  self.countLabel.left = _countIconView.right + SPACING_X;
 }
 
 + (void)fillCell:(PlaceCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
@@ -125,20 +179,27 @@
   
   // NOTE: make sure not <null>
   cell.nameLabel.text = [dictionary valueForKey:@"name"];
-  cell.distanceLabel.text = [NSString stringWithFormat:@"%.2fmi", [[dictionary valueForKey:@"distance"] floatValue]];
-  cell.statsLabel.text = [NSString stringWithFormat:@"A: %@, F: %@, L: %@", [dictionary valueForKey:@"checkins_count"], [dictionary valueForKey:@"checkins_friend_count"], [dictionary valueForKey:@"like_count"]];
-  cell.countLabel.text = @"5 of your friends checked in here";
+  cell.distanceLabel.text = [NSString stringWithFormat:@"%.2f miles", [[dictionary valueForKey:@"distance"] floatValue]];
+  cell.likesLabel.text = [NSString stringWithFormat:@"%@ likes", [dictionary valueForKey:@"like_count"]];
+  cell.totalLabel.text = [NSString stringWithFormat:@"%@ people", [dictionary valueForKey:@"checkins_count"]];
+  cell.countLabel.text = [NSString stringWithFormat:@"%@ friends", [dictionary valueForKey:@"checkins_friend_count"]];
 }
 
 + (CGFloat)rowHeight {
-  return 60.0;
+  return 75.0 + ICON_SPACING * 2;
 }
 
 - (void)dealloc {
   RELEASE_SAFELY (_nameLabel);
   RELEASE_SAFELY (_distanceLabel);
   RELEASE_SAFELY (_countLabel);
-  RELEASE_SAFELY(_statsLabel);
+  RELEASE_SAFELY(_likesLabel);
+  RELEASE_SAFELY(_totalLabel)
+
+  RELEASE_SAFELY(_likesIconView);
+  RELEASE_SAFELY(_countIconView);
+  RELEASE_SAFELY(_totalIconView);
+  RELEASE_SAFELY(_distanceIconView);
   [super dealloc];
 }
 

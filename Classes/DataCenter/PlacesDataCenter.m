@@ -76,7 +76,15 @@
   NSArray *headerKeys = [NSArray arrayWithObjects:@"place_id", @"name", @"checkins_count", @"checkins_friend_count", @"like_count", nil];
   NSMutableDictionary *headerDict = [NSMutableDictionary dictionary];
   for (NSString *key in headerKeys) {
-    [headerDict setObject:[jsonDict objectForKey:key] forKey:key];
+    NSString *value = nil;
+    value = [jsonDict valueForKey:key];
+    
+    if (![value notNil]) {
+      // Check for not nil object
+      [headerDict setObject:[NSNumber numberWithInteger:0] forKey:key];
+    } else {
+      [headerDict setObject:value forKey:key];
+    }
   }
   [self.headersArray addObject:headerDict];
   

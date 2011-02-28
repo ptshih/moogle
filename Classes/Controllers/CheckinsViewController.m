@@ -57,7 +57,7 @@
   self.title = @"Moogle Checkins";
   
   // Table
-  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
   [self setupPullRefresh];
   
   // Setup Filter View
@@ -231,13 +231,16 @@
 
 
 #pragma mark UITableViewDataSource
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  return [CheckinCell variableRowHeightWithDictionary:item];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   CheckinCell *cell = nil;
   cell = (CheckinCell *)[tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
   if(cell == nil) { 
-    cell = [[[CheckinCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CheckinCell"] autorelease];
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_cell_bg.png"]];
-    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:20]];
+    cell = [[[CheckinCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CheckinCell"] autorelease];
   }
   
   NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
@@ -254,11 +257,6 @@
   [CheckinCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] withImage:image];
   
   return cell;
-}
-
-#pragma mark TableView Stuff Subclass
-- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath {
-  return [CheckinCell class];
 }
 
 #pragma mark ImageCacheDelegate

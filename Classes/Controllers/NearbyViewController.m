@@ -45,7 +45,7 @@
   self.title = @"Moogle Places";
   
   // Table
-  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
   [self setupPullRefresh];
   
 //  self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
@@ -111,13 +111,14 @@
 }
 
 #pragma mark UITableViewDataSource
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return [PlaceCell rowHeight];
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   PlaceCell *cell = nil;
   cell = (PlaceCell *)[tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
   if(cell == nil) { 
     cell = [[[PlaceCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CheckinCell"] autorelease];
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_cell_bg.png"]];
-    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:20]];
   }
   
   NSDictionary *place = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
@@ -134,11 +135,6 @@
   [PlaceCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] withImage:placeImage];
   
   return cell;
-}
-
-#pragma mark TableView Stuff Subclass
-- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath {
-  return [PlaceCell class];
 }
 
 #pragma mark ImageCacheDelegate

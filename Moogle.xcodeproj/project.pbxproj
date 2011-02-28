@@ -14,6 +14,8 @@
 		25094745131A68BB00356DF8 /* PlaceActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25094744131A68BB00356DF8 /* PlaceActivityCell.m */; };
 		251098D3130BA09200065607 /* CardTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 251098D2130BA09200065607 /* CardTableViewController.m */; };
 		251468021319D04700DC1690 /* PlaceFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 251468011319D04700DC1690 /* PlaceFeedCell.m */; };
+		25178A6C131BA6770086EB9F /* cell_place_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 25178A6A131BA6770086EB9F /* cell_place_icon.png */; };
+		25178A6D131BA6770086EB9F /* cell_place_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25178A6B131BA6770086EB9F /* cell_place_icon@2x.png */; };
 		25290186130410660041DA95 /* LauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25290184130410660041DA95 /* LauncherViewController.m */; };
 		25290187130410660041DA95 /* LauncherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25290185130410660041DA95 /* LauncherViewController.xib */; };
 		2529023913041E6D0041DA95 /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2529023813041E6D0041DA95 /* CardViewController.m */; };
@@ -135,6 +137,8 @@
 		251098D2130BA09200065607 /* CardTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardTableViewController.m; sourceTree = "<group>"; };
 		251468001319D04700DC1690 /* PlaceFeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceFeedCell.h; sourceTree = "<group>"; };
 		251468011319D04700DC1690 /* PlaceFeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceFeedCell.m; sourceTree = "<group>"; };
+		25178A6A131BA6770086EB9F /* cell_place_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell_place_icon.png; sourceTree = "<group>"; };
+		25178A6B131BA6770086EB9F /* cell_place_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell_place_icon@2x.png"; sourceTree = "<group>"; };
 		25290183130410660041DA95 /* LauncherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherViewController.h; sourceTree = "<group>"; };
 		25290184130410660041DA95 /* LauncherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherViewController.m; sourceTree = "<group>"; };
 		25290185130410660041DA95 /* LauncherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LauncherViewController.xib; sourceTree = "<group>"; };
@@ -389,6 +393,15 @@
 			name = Place;
 			sourceTree = "<group>";
 		};
+		25178A69131BA6480086EB9F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				25178A6A131BA6770086EB9F /* cell_place_icon.png */,
+				25178A6B131BA6770086EB9F /* cell_place_icon@2x.png */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		25433D9012FA24760066A191 /* Client */ = {
 			isa = PBXGroup;
 			children = (
@@ -431,6 +444,7 @@
 		25433E2612FA2E000066A191 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				25178A69131BA6480086EB9F /* Cell */,
 				25C6C2B91317C7D60092E598 /* PullRefresh */,
 				25FC2D08130E5E8A0077C9A7 /* moogle.png */,
 				25FC2E68130E7C1B0077C9A7 /* moogle@2x.png */,
@@ -838,6 +852,8 @@
 				258CCC5E131A7E65009767B3 /* EmptyView.xib in Resources */,
 				259BA689131A90E0005BC9DA /* EmptyPlaceView.xib in Resources */,
 				259BA68B131A90ED005BC9DA /* LoadingPlaceView.xib in Resources */,
+				25178A6C131BA6770086EB9F /* cell_place_icon.png in Resources */,
+				25178A6D131BA6770086EB9F /* cell_place_icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

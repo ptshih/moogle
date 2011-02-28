@@ -30,8 +30,10 @@
   
   self.imageView.width = IMAGE_WIDTH;
   self.imageView.height = IMAGE_HEIGHT;
+  self.imageView.layer.masksToBounds = YES;
+  self.imageView.layer.cornerRadius = 4.0;
   
-  _imageLoadingIndicator.frame = CGRectMake(7 + 15, 20, 20, 20);
+  _imageLoadingIndicator.frame = CGRectMake(10, 10, 20, 20);
 }
 
 + (CGFloat)rowHeight {

@@ -11,12 +11,9 @@
 
 @implementation MoogleCell
 
-@synthesize desiredHeight = _desiredHeight;
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
-    _desiredHeight = 0.0;
   }
   return self;
 }

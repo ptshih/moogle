@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "MoogleCell.h"
 
-#define IMAGE_WIDTH 50.0
-#define IMAGE_HEIGHT 50.0
+#define IMAGE_WIDTH 40.0
+#define IMAGE_HEIGHT 40.0
 
 @interface MoogleImageCell : MoogleCell {
   UIActivityIndicatorView *_imageLoadingIndicator;

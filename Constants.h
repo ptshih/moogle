@@ -75,8 +75,6 @@
 
 #define RADIANS(degrees) ((degrees * M_PI) / 180.0)
 
-#define FM_RANKINGS_COUNT 99
-
 // ERROR STRINGS
 #define MOOGLE_LOGOUT_ALERT @"Are you sure you want to logout?"
 #define FM_NETWORK_ERROR @"Moogle has encountered a network error. Please check your network connection and try again."
@@ -90,6 +88,9 @@
 #define FB_COLOR_DARK_BLUE RGBCOLOR(51.0,78.0,141.0)
 #define LIGHT_GRAY RGBCOLOR(247.0,247.0,247.0)
 #define FILTER_COLOR_BLUE RGBCOLOR(79.0,92.0,117.0)
+#define VERY_LIGHT_GRAY RGBCOLOR(226.0,231.0,237.0)
+#define GRAY_COLOR RGBCOLOR(87.0,108.0,137.0)
+#define SEPARATOR_COLOR RGBCOLOR(200.0,200.0,200.0)
 
 #define RGBCOLOR(R,G,B) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0]
 #define RGBACOLOR(R,G,B,A) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]

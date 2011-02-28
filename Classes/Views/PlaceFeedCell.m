@@ -110,9 +110,6 @@
   self.messageLabel.width = labelSize.width;
   self.messageLabel.height = labelSize.height;
   self.messageLabel.left = left;
-  
-  // Set desired variable height
-  _desiredHeight = self.messageLabel.bottom + SPACING_Y;
 }
 
 + (void)fillCell:(PlaceFeedCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {

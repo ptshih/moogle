@@ -45,6 +45,10 @@
   _tableView.separatorStyle = separatorStyle;
   _tableView.delegate = self;
   _tableView.dataSource = self;
+  if (style == UITableViewStylePlain) {
+    _tableView.backgroundColor = VERY_LIGHT_GRAY;
+    _tableView.separatorColor = SEPARATOR_COLOR;
+  }
   [self.view insertSubview:self.tableView atIndex:0];
 }
 
@@ -99,7 +103,7 @@
 
 #pragma mark UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return [[self cellClassForIndexPath:indexPath] rowHeight];
+  return [MoogleCell rowHeight];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -121,12 +125,6 @@
   cell.textLabel.text = @"Oops! Forgot to override this method?";
   cell.detailTextLabel.text = reuseIdentifier;
   return cell;
-}
-
-#pragma mark TableView Stuff Subclass
-// SUBCLASS SHOULD IMPLEMENT
-- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath {
-  return [MoogleCell class];
 }
 
 #pragma mark ImageCacheDelegate
