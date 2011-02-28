@@ -100,7 +100,7 @@
   self.loginViewController.delegate = self;
   
   // Reachability
-  _reachabilityAlertView = [[UIAlertView alloc] initWithTitle:@"No Network Connection" message:@"An active network connection is required to use Moogle." delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
+  _reachabilityAlertView = [[UIAlertView alloc] initWithTitle:@"No Network Connection" message:@"An active network connection is required to use Moogle." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
   
 	_hostReach = [[Reachability reachabilityWithHostName: @"www.apple.com"] retain];
   _netStatus = 0; // default netstatus to 0
@@ -466,16 +466,16 @@
 	}
 }
 
-- (void)didPresentAlertView:(UIAlertView *)alertView {
-  static BOOL busyAlertHasIndicator = NO;
-  if (alertView != self.reachabilityAlertView || busyAlertHasIndicator) return;
-  UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-  indicator.center = CGPointMake(self.reachabilityAlertView.bounds.size.width / 2, self.reachabilityAlertView.bounds.size.height - 45);
-  [indicator startAnimating];
-  [self.reachabilityAlertView addSubview:indicator];
-  [indicator release];
-  busyAlertHasIndicator = YES;
-}
+//- (void)didPresentAlertView:(UIAlertView *)alertView {
+//  static BOOL busyAlertHasIndicator = NO;
+//  if (alertView != self.reachabilityAlertView || busyAlertHasIndicator) return;
+//  UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//  indicator.center = CGPointMake(self.reachabilityAlertView.bounds.size.width / 2, self.reachabilityAlertView.bounds.size.height - 45);
+//  [indicator startAnimating];
+//  [self.reachabilityAlertView addSubview:indicator];
+//  [indicator release];
+//  busyAlertHasIndicator = YES;
+//}
 
 #pragma mark Session
 - (void)startSession {
