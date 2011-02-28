@@ -23,7 +23,6 @@
 @synthesize loginView = _loginView;
 @synthesize splashView = _splashView;
 @synthesize splashLabel = _splashLabel;
-@synthesize progressView = _progressView;
 
 @synthesize authorizeURL = _authorizeURL;
 @synthesize delegate = _delegate;
@@ -49,7 +48,6 @@
 - (void)resetLoginState {
   [self.view sendSubviewToBack:self.fbWebView];
   self.splashLabel.text = @"Welcome to Moogle!";
-  self.progressView.progress = 0.01;
   self.splashView.hidden = YES;
 }
 
@@ -233,7 +231,6 @@
   RELEASE_SAFELY (_loginView);
   RELEASE_SAFELY(_splashView);
   RELEASE_SAFELY(_splashLabel);
-  RELEASE_SAFELY (_progressView);
   
   // IVARS
   if(_authorizeURL) [_authorizeURL release];

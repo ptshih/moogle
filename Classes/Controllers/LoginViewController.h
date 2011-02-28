@@ -19,7 +19,6 @@
   IBOutlet UIView *_loginView;
   IBOutlet UIView *_splashView;
   IBOutlet UILabel *_splashLabel;
-  IBOutlet UIProgressView *_progressView;
   NSURL *_authorizeURL;
   id <FacebookLoginDelegate> _delegate;
 }
@@ -28,7 +27,6 @@
 @property (nonatomic, retain) UIView *loginView;
 @property (nonatomic, retain) UIView *splashView;
 @property (nonatomic, retain) UILabel *splashLabel;
-@property (nonatomic, retain) UIProgressView *progressView;
 
 @property (nonatomic, retain) NSURL *authorizeURL;
 @property (nonatomic, assign) id <FacebookLoginDelegate> delegate;

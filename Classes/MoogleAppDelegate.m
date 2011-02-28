@@ -49,7 +49,6 @@
 // Requests
 @synthesize registerRequest = _registerRequest;
 @synthesize sessionRequest = _sessionRequest;
-@synthesize progressRequest = _progressRequest;
 
 // Reachability
 @synthesize hostReach = _hostReach;
@@ -279,16 +278,6 @@
   [[RemoteOperation sharedInstance] addRequestToQueue:self.sessionRequest];
 }
 
-- (void)pollProgressRequest {
-  DLog(@"starting progress request to moogle");
-  
-  NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/moogle/progress", MOOGLE_BASE_URL, API_VERSION];
-  self.progressRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self];
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.progressRequest];
-}
-
 #pragma mark -
 #pragma mark ASIHTTPRequestDelegate
 - (void)requestFinished:(ASIHTTPRequest *)request {
@@ -309,9 +298,11 @@
       [[NSUserDefaults standardUserDefaults] setObject:[[[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:nil] objectForKey:@"friends"] forKey:@"friends"];
       [[NSUserDefaults standardUserDefaults] synchronize];
       
-      // Initiate polling
-      [self pollProgressRequest];
-      self.loginViewController.splashLabel.text = @"Downloading Your Checkins";
+      _isSessionReady = YES;
+      [self sessionReady];
+      
+      // dismiss the login view
+      [self dismissLoginView:YES];
     }
   } else if([request isEqual:self.sessionRequest]) {
     // Starting a new session
@@ -324,30 +315,6 @@
       // Success
       _isSessionReady = YES;
       [self sessionReady];
-    }
-  } else if ([request isEqual:self.progressRequest]) {
-    if (statusCode > 200) {
-    } else {
-      CGFloat progress = [[[[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:nil] objectForKey:@"progress"] floatValue];
-      DLog(@"got progress: %f", progress);
-      
-      if (progress == 1.0) {
-        // Ready the session
-        _isSessionReady = YES;
-        [self sessionReady];
-        
-        // dismiss the login view
-        [self dismissLoginView:YES];
-        
-      } else {
-        if (progress >= 0.25 && progress < 0.75) {
-          self.loginViewController.splashLabel.text = @"Downloading Checkins For Your Friends";
-        } else if (progress >= 0.75) {
-          self.loginViewController.splashLabel.text = @"Downloading Places For Your Friends";
-        }
-        self.loginViewController.progressView.progress = progress;
-        [self performSelector:@selector(pollProgressRequest) withObject:nil afterDelay:3];
-      }
     }
   }
 }
@@ -514,11 +481,6 @@
   if (_sessionRequest) {
     [_sessionRequest clearDelegatesAndCancel];
     [_sessionRequest release], _sessionRequest = nil;
-  }
-  
-  if (_progressRequest) {
-    [_progressRequest clearDelegatesAndCancel];
-    [_progressRequest release], _progressRequest = nil;
   }
   
   RELEASE_SAFELY(_loginViewController);
