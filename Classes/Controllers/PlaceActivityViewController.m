@@ -44,6 +44,10 @@
 }
 
 #pragma mark UITableView Stuff
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return [PlaceActivityCell rowHeight];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   PlaceActivityCell *cell = nil;
   NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell_%d", [self class], indexPath.section];
@@ -55,14 +59,33 @@
   
   NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
   
-  [PlaceActivityCell fillCell:cell withDictionary:item withImage:nil];
+  // Image Cache
+  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"facebook_id"]]];
+  
+  UIImage *image = [self.imageCache getImageWithURL:url];
+  if (!image) {
+    if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
+      [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
+    }
+    image = nil;
+  }
+  
+  [PlaceActivityCell fillCell:cell withDictionary:item withImage:image];
   
   return cell;
 }
 
-#pragma mark TableView Stuff Subclass
-- (Class)cellClassForIndexPath:(NSIndexPath *)indexPath {
-  return [PlaceActivityCell class];
+#pragma mark ImageCacheDelegate
+- (void)loadImagesForOnScreenRows {
+  NSArray *visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
+  
+  for (NSIndexPath *indexPath in visibleIndexPaths) {
+    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"facebook_id"]]];
+    if (![self.imageCache getImageWithURL:url]) {
+      [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
+    }
+  }
 }
 
 #pragma mark MoogleDataCenterDelegate

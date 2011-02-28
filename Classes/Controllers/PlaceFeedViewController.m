@@ -60,10 +60,33 @@
   
   NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 
-  UIImage *feedImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"from_id"]]]]];
-  [PlaceFeedCell fillCell:cell withDictionary:item withImage:feedImage];
+  // Image Cache
+  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"from_id"]]];
+  
+  UIImage *image = [self.imageCache getImageWithURL:url];
+  if (!image) {
+    if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
+      [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
+    }
+    image = nil;
+  }
+  
+  [PlaceFeedCell fillCell:cell withDictionary:item withImage:image];
   
   return cell;
+}
+
+#pragma mark ImageCacheDelegate
+- (void)loadImagesForOnScreenRows {
+  NSArray *visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
+  
+  for (NSIndexPath *indexPath in visibleIndexPaths) {
+    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"from_id"]]];
+    if (![self.imageCache getImageWithURL:url]) {
+      [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
+    }
+  }
 }
 
 #pragma mark MoogleDataCenterDelegate

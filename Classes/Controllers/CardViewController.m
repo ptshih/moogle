@@ -121,6 +121,7 @@
 }
 
 - (void)showLoadingView {
+  [self.view bringSubviewToFront:self.loadingView];
   [UIView beginAnimations:nil context:NULL];
   [UIView setAnimationDuration:0.3];
   self.loadingView.frame = CGRectMake(0, 0, self.loadingView.width, self.loadingView.height);

@@ -153,7 +153,11 @@
 - (void)whoPickedWithString:(NSString *)whoString {
   _who = [whoString retain];
   [_wvc release];
-  [self getCheckins];
+
+  [self.sections removeAllObjects];
+  [self.items removeAllObjects];
+  [self.tableView reloadData];
+  [self reloadCardController];
 }
 
 

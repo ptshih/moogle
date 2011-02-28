@@ -9,9 +9,9 @@
 #import "PlaceFeedCell.h"
 
 #define CELL_FONT_SIZE 14.0
-#define SPACING_X 4.0
-#define SPACING_Y 4.0
-#define LABEL_HEIGHT 17.0
+#define SPACING_X 5.0
+#define SPACING_Y 5.0
+#define LABEL_HEIGHT 20.0
 
 @implementation PlaceFeedCell
 
@@ -63,8 +63,8 @@
   // Image
   self.imageView.left = SPACING_X;
   self.imageView.top = SPACING_Y;
-  self.imageView.width = 50.0;
-  self.imageView.height = 50.0;
+  self.imageView.width = 40.0;
+  self.imageView.height = 40.0;
   
   CGFloat left = SPACING_X;
   CGFloat textWidth = 0.0;
