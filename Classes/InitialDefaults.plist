@@ -2,11 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>isLoggedIn</key>
-	<false/>
 	<key>isFirstLogin</key>
 	<true/>
+	<key>isLoggedIn</key>
+	<false/>
 	<key>lastSelectedCard</key>
 	<integer>1</integer>
+	<key>lastExitDate</key>
+	<date>1970-01-01T08:00:00Z</date>
 </dict>
 </plist>

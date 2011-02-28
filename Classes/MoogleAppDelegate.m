@@ -134,12 +134,16 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
+  [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"lastExitDate"];
+  [[NSUserDefaults standardUserDefaults] synchronize];
   [[RemoteOperation sharedInstance] cancelAllRequests];
   [self.locationManager stopStandardUpdates];
 }
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+  [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"lastExitDate"];
+  [[NSUserDefaults standardUserDefaults] synchronize];
   [[RemoteOperation sharedInstance] cancelAllRequests];
   [self.locationManager stopStandardUpdates];
 }
@@ -149,7 +153,10 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+  [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"lastExitDate"];
+  [[NSUserDefaults standardUserDefaults] synchronize];
   [[RemoteOperation sharedInstance] cancelAllRequests];
+  [self.locationManager stopStandardUpdates];
 }
 
 #pragma mark -
@@ -165,7 +172,15 @@
 - (void)restoreFacebookCredentials {
   self.fbAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"fbAccessToken"];
   
-  [self startSession];
+  // Only start a new session if it has been more than 10 minutes
+  NSTimeInterval timeDiff = [[NSDate date] timeIntervalSinceDate:[[NSUserDefaults standardUserDefaults] valueForKey:@"lastExitDate"]];
+  NSInteger timeDiffInt = floor(timeDiff);
+  DLog(@"Attempting to start a new session with lastExitDiff: %d", timeDiffInt);
+  if (timeDiffInt > 600) {
+    [self startSession];
+  } else {
+    [self.launcherViewController reloadVisibleCard];
+  }
 }
 
 - (void)loginFacebook {
@@ -217,6 +232,7 @@
   self.fbAccessToken = nil;
   self.sessionKey = nil;
   
+  [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastExitDate"];
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbAccessToken"];
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"facebookId"];
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"friends"];

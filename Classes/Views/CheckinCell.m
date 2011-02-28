@@ -107,7 +107,7 @@ static UIImage *_taggedIcon = nil;
   [super layoutSubviews];
   
   CGFloat top = SPACING_Y;
-  CGFloat left = IMAGE_WIDTH + SPACING_X * 2; // spacers: left of img, right of img
+  CGFloat left = IMAGE_WIDTH + SPACING_X * 3; // spacers: left of img, right of img, left of txt
   CGFloat textWidth = self.contentView.width - left - SPACING_X;
   CGSize textSize = CGSizeZero;
   CGSize labelSize = CGSizeZero;
@@ -151,8 +151,8 @@ static UIImage *_taggedIcon = nil;
   self.timestampLabel.left = left;
   
   // Shift over right
-  left += ICON_HEIGHT + SPACING_X *2;
-  textWidth = textWidth - ICON_WIDTH - SPACING_X *2;
+  left += ICON_WIDTH + SPACING_X;
+  textWidth = textWidth - ICON_WIDTH - SPACING_X;
   textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
   
   // Place Name

@@ -14,6 +14,9 @@
 
 @interface CardViewController (Private)
 
+- (void)showLoadingView;
+- (void)hideLoadingView;
+
 @end
 
 @implementation CardViewController
@@ -44,6 +47,8 @@
     [[NSBundle mainBundle] loadNibNamed:@"LoadingView" owner:self options:nil];
   }
   
+  self.emptyView.hidden = YES;
+  self.loadingView.frame = CGRectMake(0, 0, self.loadingView.width, self.loadingView.height);
   [self.view addSubview:self.emptyView];
   [self.view addSubview:self.loadingView];
 }
@@ -101,17 +106,32 @@
     // We should never be in a loading state here
     if ([self dataIsAvailable]) {
       // We have real data to display
-      [self.view sendSubviewToBack:self.emptyView];
-      [self.view sendSubviewToBack:self.loadingView];
+      self.emptyView.hidden = YES;
+      [self hideLoadingView];
     } else {
       // We have no data to display, show the empty screen
-      [self.view bringSubviewToFront:self.emptyView];
+      self.emptyView.hidden = NO;
+      [self hideLoadingView];
     }
   } else {
     // Data source isn't done loading from remote
     // For now we will just always show a loading screen in this case
-    [self.view bringSubviewToFront:self.loadingView];
+    [self showLoadingView];
   }
+}
+
+- (void)showLoadingView {
+  [UIView beginAnimations:nil context:NULL];
+  [UIView setAnimationDuration:0.3];
+  self.loadingView.frame = CGRectMake(0, 0, self.loadingView.width, self.loadingView.height);
+  [UIView commitAnimations];
+}
+
+- (void)hideLoadingView {
+  [UIView beginAnimations:nil context:NULL];
+  [UIView setAnimationDuration:0.3];
+  self.loadingView.frame = CGRectMake(0, self.view.height, self.loadingView.width, self.loadingView.height);
+  [UIView commitAnimations];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
