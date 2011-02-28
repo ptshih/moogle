@@ -15,7 +15,7 @@
   UILabel *_likesLabel;    
 }
 
-+ (void)fillCell:(PlaceHeaderCell *)cell withDictionary:(NSDictionary *)dictionary;
++ (void)fillCell:(PlaceHeaderCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image;
 
 @property (nonatomic, retain) UILabel *totalLabel;
 @property (nonatomic, retain) UILabel *friendsLabel;

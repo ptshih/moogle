@@ -69,7 +69,13 @@
     if (cell == nil) {
       cell = [[[PlaceHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
     }
-    [PlaceHeaderCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
+    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    
+    if (!_placeImage) {
+      _placeImage = [[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"place_id"]]]]] retain];
+    }
+    
+    [PlaceHeaderCell fillCell:cell withDictionary:item withImage:_placeImage];
   } else {
     cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
@@ -110,6 +116,8 @@
     [_placeInfoRequest clearDelegatesAndCancel];
     [_placeInfoRequest release], _placeInfoRequest = nil;
   }
+  
+  RELEASE_SAFELY(_placeImage);
 
   [super dealloc];
 }

@@ -81,8 +81,8 @@
   self.likesLabel.left = left;
 }
 
-+ (void)fillCell:(PlaceHeaderCell *)cell withDictionary:(NSDictionary *)dictionary {
-  cell.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [dictionary objectForKey:@"place_id"]]]]];
++ (void)fillCell:(PlaceHeaderCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
+  cell.imageView.image = image;
   cell.totalLabel.text = [NSString stringWithFormat:@"Total: %@", [dictionary objectForKey:@"checkins_count"]];
   cell.friendsLabel.text = [NSString stringWithFormat:@"Friends: %@", [dictionary objectForKey:@"checkins_friend_count"]];
   cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", [dictionary objectForKey:@"like_count"]];

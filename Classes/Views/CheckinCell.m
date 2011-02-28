@@ -129,9 +129,9 @@
   
   NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"checkin_timestamp"] integerValue]];
   
-  cell.nameLabel.text = [dictionary objectForKey:@"name"];
-  cell.placeNameLabel.text = [dictionary objectForKey:@"place_name"];
-  cell.countLabel.text = @"5 friends also checked in here";
+  cell.nameLabel.text = [dictionary valueForKey:@"name"];
+  cell.placeNameLabel.text = [dictionary valueForKey:@"place_name"];
+  cell.countLabel.text = [NSString stringWithFormat:@"%d friends also checked in here", [[dictionary valueForKey:@"tagged_count"] integerValue]];
   cell.timestampLabel.text = [date humanIntervalSinceNow];
 }
 

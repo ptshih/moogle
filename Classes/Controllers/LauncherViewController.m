@@ -89,6 +89,7 @@
 
 - (void)clearAllCachedData {
   for (UINavigationController *card in self.cards) {
+    [card popToRootViewControllerAnimated:NO];
     if ([[card topViewController] respondsToSelector:@selector(clearCachedData)]) {
       [[card topViewController] performSelector:@selector(clearCachedData)];
     }

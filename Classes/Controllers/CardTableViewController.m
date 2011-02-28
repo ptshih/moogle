@@ -65,6 +65,9 @@
 - (void)clearCachedData {
   [self.sections removeAllObjects];
   [self.items removeAllObjects];
+  [self.imageCache resetCache];
+  [self.tableView reloadData];
+  [self dataSourceDidLoad];
 }
 
 - (void)reloadCardController {

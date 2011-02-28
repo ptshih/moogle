@@ -89,29 +89,50 @@
   
   // Fill Cell
   NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-  UIImage *whoImage = nil;
+  
+  UIImage *image = nil;
+  NSURL *url = nil;
   
   if ([[item objectForKey:@"friend_name"] isEqualToString:@"me"]) {
-    
+
   } else if ([[item objectForKey:@"friend_name"] isEqualToString:@"friends"]) {
     
   } else {
-    whoImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"friend_id"]]]]];
+    url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"friend_id"]]];
+    image = [self.imageCache getImageWithURL:url];
+    if (!image) {
+      if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
+        [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
+      }
+      image = nil;
+    }
   }
   
-  [WhoCell fillCell:cell withDictionary:item withImage:whoImage];
-  
-//  if (indexPath.section == 0) {
-//    cell.textLabel.text = @"Me";
-//  } else if (indexPath.section == 1) {
-//    cell.textLabel.text = @"My Friends";
-//  } else {
-//    // Friends array
-//    cell.textLabel.text = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_name"];
-//    cell.detailTextLabel.text = [[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_id"] stringValue];
-//  }
+  [WhoCell fillCell:cell withDictionary:item withImage:image];
 
   return cell;
+}
+
+#pragma mark ImageCacheDelegate
+- (void)loadImagesForOnScreenRows {
+  NSArray *visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
+  
+  for (NSIndexPath *indexPath in visibleIndexPaths) {
+    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    
+    NSURL *url = nil;
+    
+    if ([[item objectForKey:@"friend_name"] isEqualToString:@"me"]) {
+      
+    } else if ([[item objectForKey:@"friend_name"] isEqualToString:@"friends"]) {
+      
+    } else {
+      url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"friend_id"]]];
+      if (![self.imageCache getImageWithURL:url]) {
+        [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
+      }
+    }
+  }
 }
 
 - (void)dealloc {

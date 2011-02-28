@@ -8,7 +8,9 @@
 
 #import "CardViewController.h"
 #import "Constants.h"
+
 #import "PlaceTabViewController.h"
+#import "WhoViewController.h"
 
 @interface CardViewController (Private)
 
@@ -36,6 +38,7 @@
   if ([self isKindOfClass:[PlaceTabViewController class]]) {
     [[NSBundle mainBundle] loadNibNamed:@"EmptyPlaceView" owner:self options:nil];
     [[NSBundle mainBundle] loadNibNamed:@"LoadingPlaceView" owner:self options:nil];
+  } else if ([self isKindOfClass:[WhoViewController class]]) {
   } else {
     [[NSBundle mainBundle] loadNibNamed:@"EmptyView" owner:self options:nil];
     [[NSBundle mainBundle] loadNibNamed:@"LoadingView" owner:self options:nil];
