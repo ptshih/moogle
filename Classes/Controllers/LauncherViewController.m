@@ -13,7 +13,7 @@
 #import "TrendsViewController.h"
 #import "Constants.h"
 
-#define kNumberOfPages 4
+#define kNumberOfPages 3
 
 @interface LauncherViewController (Private)
 
@@ -36,7 +36,6 @@
 @synthesize meViewController = _meViewController;
 @synthesize placesViewController = _placesViewController;
 @synthesize checkinsViewController = _checkinsViewController;
-@synthesize trendsViewController = _trendsViewController;
 
 @synthesize cards = _cards;
 
@@ -46,7 +45,6 @@
     _meViewController = [[MeViewController alloc] init];
     _placesViewController = [[PlacesViewController alloc] init];
     _checkinsViewController = [[CheckinsViewController alloc] init];
-    _trendsViewController = [[TrendsViewController alloc] init];
     _previousPage = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastSelectedCard"]; // Start at last selected card
     _isZoomed = NO;
   }
@@ -69,35 +67,29 @@
   
   // Configure the three cards
   UINavigationController *meNavController = [[UINavigationController alloc] initWithRootViewController:self.meViewController];
-  meNavController.view.frame = CGRectMake(kCardWidth * 0, 0, self.scrollView.width, self.scrollView.height);
+  meNavController.view.frame = CGRectMake(kCardWidth * 1, 0, self.scrollView.width, self.scrollView.height);
   
   UINavigationController *placesNavController = [[UINavigationController alloc] initWithRootViewController:self.placesViewController];
-  placesNavController.view.frame = CGRectMake(kCardWidth * 1, 0, self.scrollView.width, self.scrollView.height);
+  placesNavController.view.frame = CGRectMake(kCardWidth * 0, 0, self.scrollView.width, self.scrollView.height);
   
   UINavigationController *checkinsNavController = [[UINavigationController alloc] initWithRootViewController:self.checkinsViewController];
   checkinsNavController.view.frame = CGRectMake(kCardWidth * 2, 0, self.scrollView.width, self.scrollView.height);
   
-  UINavigationController *trendsNavController = [[UINavigationController alloc] initWithRootViewController:self.trendsViewController];
-  trendsNavController.view.frame = CGRectMake(kCardWidth * 3, 0, self.scrollView.width, self.scrollView.height);
-  
   meNavController.delegate = self.meViewController;
   placesNavController.delegate = self.placesViewController;
   checkinsNavController.delegate = self.checkinsViewController;
-  trendsNavController.delegate = self.trendsViewController;
   
   
   // Add the three cards
   [self.scrollView addSubview:meNavController.view];
   [self.scrollView addSubview:placesNavController.view];
   [self.scrollView addSubview:checkinsNavController.view];
-  [self.scrollView addSubview:trendsNavController.view];
   
-  self.cards = [NSArray arrayWithObjects:meNavController, placesNavController, checkinsNavController, trendsNavController, nil];
+  self.cards = [NSArray arrayWithObjects:placesNavController, meNavController, checkinsNavController, nil];
   
   [meNavController release];
   [placesNavController release];
   [checkinsNavController release];
-  [trendsNavController release];
   
   // Gestures
   [self addGestures];
@@ -279,7 +271,6 @@
   RELEASE_SAFELY (_meViewController);
   RELEASE_SAFELY (_placesViewController);
   RELEASE_SAFELY (_checkinsViewController);
-  RELEASE_SAFELY(_trendsViewController);
   RELEASE_SAFELY (_cards);
   [super dealloc];
 }

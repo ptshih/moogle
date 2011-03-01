@@ -12,7 +12,6 @@
 @class MeViewController;
 @class PlacesViewController;
 @class CheckinsViewController;
-@class TrendsViewController;
 
 @interface LauncherViewController : UIViewController {
   IBOutlet UIScrollView *_scrollView;
@@ -23,7 +22,6 @@
   MeViewController *_meViewController;
   PlacesViewController *_placesViewController;;
   CheckinsViewController *_checkinsViewController;
-  TrendsViewController *_trendsViewController;
   
   NSArray *_cards;
   
@@ -39,7 +37,6 @@
 @property (nonatomic, retain) MeViewController *meViewController;
 @property (nonatomic, retain) PlacesViewController *placesViewController;
 @property (nonatomic, retain) CheckinsViewController *checkinsViewController;
-@property (nonatomic, retain) TrendsViewController *trendsViewController;
 
 @property (nonatomic, retain) NSArray *cards;
 

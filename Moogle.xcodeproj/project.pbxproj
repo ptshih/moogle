@@ -115,7 +115,6 @@
 		25C6C2C81317C8030092E598 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6C2C01317C8030092E598 /* whiteArrow.png */; };
 		25C6C2C91317C8030092E598 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6C2C11317C8030092E598 /* whiteArrow@2x.png */; };
 		25C6C2F81317CD1F0092E598 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2F71317CD1F0092E598 /* Reachability.m */; };
-		25C896B6131CBF220072FF08 /* TrendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C896B5131CBF220072FF08 /* TrendsViewController.m */; };
 		25C896B9131CC1430072FF08 /* TrendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C896B8131CC1430072FF08 /* TrendCell.m */; };
 		25EC95CB1318B57F009E44DE /* PlacesDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25EC95CA1318B57E009E44DE /* PlacesDataCenter.m */; };
 		25F207981314E6FE00178E09 /* PlaceDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F207971314E6FE00178E09 /* PlaceDataCenter.m */; };
@@ -183,7 +182,7 @@
 		2529FD4C130158800041DA95 /* bubble_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble_arrow@2x.png"; sourceTree = "<group>"; };
 		2529FD4D130158800041DA95 /* bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubble.png; sourceTree = "<group>"; };
 		2529FD4E130158800041DA95 /* bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble@2x.png"; sourceTree = "<group>"; };
-		2529FD561301598D0041DA95 /* PlacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PlacesViewController.h; sourceTree = "<group>"; };
+		2529FD561301598D0041DA95 /* PlacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacesViewController.h; sourceTree = "<group>"; };
 		2529FD571301598D0041DA95 /* PlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacesViewController.m; sourceTree = "<group>"; };
 		2530F89B131CB64300EC8C3A /* TrendsDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendsDataCenter.h; sourceTree = "<group>"; };
 		2530F89C131CB64300EC8C3A /* TrendsDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendsDataCenter.m; sourceTree = "<group>"; };
@@ -308,13 +307,11 @@
 		25C6C2C11317C8030092E598 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
 		25C6C2F61317CD1F0092E598 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		25C6C2F71317CD1F0092E598 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		25C896B4131CBF220072FF08 /* TrendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendsViewController.h; sourceTree = "<group>"; };
-		25C896B5131CBF220072FF08 /* TrendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendsViewController.m; sourceTree = "<group>"; };
 		25C896B7131CC1430072FF08 /* TrendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendCell.h; sourceTree = "<group>"; };
 		25C896B8131CC1430072FF08 /* TrendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendCell.m; sourceTree = "<group>"; };
-		25EC95C91318B57D009E44DE /* PlacesDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PlacesDataCenter.h; sourceTree = "<group>"; };
+		25EC95C91318B57D009E44DE /* PlacesDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacesDataCenter.h; sourceTree = "<group>"; };
 		25EC95CA1318B57E009E44DE /* PlacesDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacesDataCenter.m; sourceTree = "<group>"; };
-		25F207961314E6FE00178E09 /* PlaceDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PlaceDataCenter.h; sourceTree = "<group>"; };
+		25F207961314E6FE00178E09 /* PlaceDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceDataCenter.h; sourceTree = "<group>"; };
 		25F207971314E6FE00178E09 /* PlaceDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceDataCenter.m; sourceTree = "<group>"; };
 		25F207991314E72400178E09 /* MoogleDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoogleDataCenter.h; sourceTree = "<group>"; };
 		25F2079A1314E72400178E09 /* MoogleDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoogleDataCenter.m; sourceTree = "<group>"; };
@@ -557,8 +554,6 @@
 				25433F0A12FA3B770066A191 /* MeViewController.m */,
 				25F29B18130BAE7500B0077F /* CheckinsViewController.h */,
 				25F29B19130BAE7500B0077F /* CheckinsViewController.m */,
-				25C896B4131CBF220072FF08 /* TrendsViewController.h */,
-				25C896B5131CBF220072FF08 /* TrendsViewController.m */,
 				2529FD561301598D0041DA95 /* PlacesViewController.h */,
 				2529FD571301598D0041DA95 /* PlacesViewController.m */,
 				25433D7512FA241B0066A191 /* LoginViewController.h */,
@@ -971,7 +966,6 @@
 				2516A4ED131C762E00D11686 /* UINavigationBar+Custom.m in Sources */,
 				2516A4F8131C8A9A00D11686 /* CardModalViewController.m in Sources */,
 				2530F89D131CB64400EC8C3A /* TrendsDataCenter.m in Sources */,
-				25C896B6131CBF220072FF08 /* TrendsViewController.m in Sources */,
 				25C896B9131CC1430072FF08 /* TrendCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

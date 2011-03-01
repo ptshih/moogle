@@ -17,21 +17,33 @@
 
 #import "PlaceViewController.h"
 #import "PlacesDataCenter.h"
+#import "TrendsDataCenter.h"
 
 @interface PlacesViewController (Private)
+
+- (void)setupButtons;
+- (void)toggleMode;
+- (void)resetStateAndReload;
 - (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName;
+
 @end
 
 @implementation PlacesViewController
 
 @synthesize dataCenter = _dataCenter;
+@synthesize trendsDataCenter = _trendsDataCenter;
 @synthesize nearbyRequest = _nearbyRequest;
+@synthesize trendsRequest = _trendsRequest;
 
 - (id)init {
   self = [super init];
   if (self) {
     _dataCenter = [[PlacesDataCenter alloc] init];
     _dataCenter.delegate = self;
+    _trendsDataCenter = [[TrendsDataCenter alloc] init];
+    _trendsDataCenter.delegate = self;
+    
+    _placesMode = PlacesTypeNearby;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNearbyPlaces) name:kLocationAcquired object:nil];
   }
@@ -52,6 +64,35 @@
   
 //  [self getNearbyPlaces];
   
+  [self setupButtons];
+}
+
+- (void)setupButtons {  
+  UIBarButtonItem *modeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleMode)];
+  self.navigationItem.leftBarButtonItem = modeButton;
+  [modeButton release];
+}
+
+- (void)toggleMode {
+  if (_placesMode == PlacesTypeNearby) {
+    _placesMode = PlacesTypeTrends;
+  } else {
+    _placesMode = PlacesTypeNearby;
+  }
+  [self resetStateAndReload];
+}
+
+- (void)resetStateAndReload {
+  [self.sections removeAllObjects];
+  [self.items removeAllObjects];
+  [self.tableView reloadData];
+  [self updateState];
+  
+  if (_placesMode == PlacesTypeNearby) {
+    [self getNearbyPlaces];
+  } else {
+    [self getTrends];
+  }
 }
 
 #pragma mark CardViewController
@@ -81,6 +122,21 @@
   [[RemoteOperation sharedInstance] addRequestToQueue:self.nearbyRequest];
 }
 
+- (void)getTrends {
+  // Trends Mode
+  CGFloat lat = [APP_DELEGATE.locationManager latitude];
+  CGFloat lng = [APP_DELEGATE.locationManager longitude];
+  
+  NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  [params setObject:[NSString stringWithFormat:@"%f", lat] forKey:@"lat"];
+  [params setObject:[NSString stringWithFormat:@"%f", lng] forKey:@"lng"];
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins/trends", MOOGLE_BASE_URL, API_VERSION];
+  self.trendsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
+  
+  [[RemoteOperation sharedInstance] addRequestToQueue:self.trendsRequest];
+}
+
+#pragma mark Show Place
 - (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName {
   PlaceViewController *pvc = [[PlaceViewController alloc] init];
   pvc.placeId = placeId;
@@ -158,7 +214,13 @@
     [_nearbyRequest release], _nearbyRequest = nil;
   }
   
+  if(_trendsRequest) {
+    [_trendsRequest clearDelegatesAndCancel];
+    [_trendsRequest release], _trendsRequest = nil;
+  }
+  
   RELEASE_SAFELY (_dataCenter);
+  RELEASE_SAFELY(_trendsDataCenter);
   
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationAcquired object:nil];
   
