@@ -81,7 +81,7 @@
   self.reviewLabel.left = left;
 }
 
-+ (void)fillCell:(PlaceReviewCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
++ (void)fillCell:(PlaceReviewCell *)cell withDictionary:(NSDictionary *)dictionary {
   cell.ratingLabel.text = [dictionary valueForKey:@"rating"];
   cell.reviewLabel.text = [dictionary valueForKey:@"review"];
 }

@@ -30,10 +30,10 @@
 }
 
 - (void)reloadDataSource {  
-  [self getPlaceReviews];
+  [self getPlaceFeed];
 }
 
-- (void)getPlaceReviews {
+- (void)getPlaceFeed {
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
   
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/%@/feed", MOOGLE_BASE_URL, API_VERSION, self.placeId];

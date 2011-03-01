@@ -24,6 +24,7 @@
 		25178A6C131BA6770086EB9F /* cell_place_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 25178A6A131BA6770086EB9F /* cell_place_icon.png */; };
 		25178A6D131BA6770086EB9F /* cell_place_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25178A6B131BA6770086EB9F /* cell_place_icon@2x.png */; };
 		251D496A131D4DC2003D988A /* PlaceReviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 251D4969131D4DC2003D988A /* PlaceReviewCell.m */; };
+		251D496D131D511C003D988A /* PlaceReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 251D496C131D5115003D988A /* PlaceReviewsViewController.m */; };
 		25290186130410660041DA95 /* LauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25290184130410660041DA95 /* LauncherViewController.m */; };
 		25290187130410660041DA95 /* LauncherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25290185130410660041DA95 /* LauncherViewController.xib */; };
 		2529023913041E6D0041DA95 /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2529023813041E6D0041DA95 /* CardViewController.m */; };
@@ -158,6 +159,8 @@
 		25178A6B131BA6770086EB9F /* cell_place_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell_place_icon@2x.png"; sourceTree = "<group>"; };
 		251D4968131D4DC1003D988A /* PlaceReviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceReviewCell.h; sourceTree = "<group>"; };
 		251D4969131D4DC2003D988A /* PlaceReviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceReviewCell.m; sourceTree = "<group>"; };
+		251D496B131D5112003D988A /* PlaceReviewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceReviewsViewController.h; sourceTree = "<group>"; };
+		251D496C131D5115003D988A /* PlaceReviewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceReviewsViewController.m; sourceTree = "<group>"; };
 		25290183130410660041DA95 /* LauncherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherViewController.h; sourceTree = "<group>"; };
 		25290184130410660041DA95 /* LauncherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherViewController.m; sourceTree = "<group>"; };
 		25290185130410660041DA95 /* LauncherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LauncherViewController.xib; sourceTree = "<group>"; };
@@ -697,6 +700,8 @@
 				25BE34771318D48400291B33 /* PlaceActivityViewController.m */,
 				25BB16A21318E3720068A10B /* PlaceFeedViewController.h */,
 				25BB16A31318E3720068A10B /* PlaceFeedViewController.m */,
+				251D496B131D5112003D988A /* PlaceReviewsViewController.h */,
+				251D496C131D5115003D988A /* PlaceReviewsViewController.m */,
 				25BE347A1318D50100291B33 /* PlaceTabViewController.h */,
 				25BE347B1318D50100291B33 /* PlaceTabViewController.m */,
 			);
@@ -967,6 +972,7 @@
 				2516A4F8131C8A9A00D11686 /* CardModalViewController.m in Sources */,
 				2530F89D131CB64400EC8C3A /* TrendsDataCenter.m in Sources */,
 				251D496A131D4DC2003D988A /* PlaceReviewCell.m in Sources */,
+				251D496D131D511C003D988A /* PlaceReviewsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -982,7 +988,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Moogle_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Moogle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Moogle;
@@ -996,7 +1002,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Moogle_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Moogle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Moogle;

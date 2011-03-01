@@ -15,6 +15,7 @@
 - (void)placeInfoRequestDidFinish:(ASIHTTPRequest *)request;
 - (void)placeActivityRequestDidFinish:(ASIHTTPRequest *)request;
 - (void)placeFeedRequestDidFinish:(ASIHTTPRequest *)request;
+- (void)placeReviewsRequestDidFinish:(ASIHTTPRequest *)request;
 
 @end
 
@@ -24,11 +25,13 @@
 @synthesize placeInfoRequest = _placeInfoRequest;
 @synthesize placeActivityRequest = _placeActivityRequest;
 @synthesize placeFeedRequest = _placeFeedRequest;
+@synthesize placeReviewsRequest = _placeReviewsRequest;
 
 @synthesize headersArray = _headersArray;
 @synthesize detailsArray = _detailsArray;
 @synthesize activityArray = _activityArray;
 @synthesize feedArray = _feedArray;
+@synthesize reviewArray = _reviewArray;
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
   DLog(@"Request Finished with Status Code: %d, : %@", [request responseStatusCode], request);
@@ -48,8 +51,11 @@
       // This is a get request from moogle for place activity
       [self placeActivityRequestDidFinish:request];
     } else if ([request isEqual:self.placeFeedRequest]) {
-      // This is a get request from moogle for place reviews
+      // This is a get request from moogle for place feed
       [self placeFeedRequestDidFinish:request];
+    } else if ([request isEqual:self.placeReviewsRequest]) {
+      // This is a get request from moogle for place reviews
+      [self placeReviewsRequestDidFinish:request];
     }
   }
 }
@@ -177,11 +183,42 @@
   [self dataCenterFinishedWithRequest:request];
 }
 
+- (void)placeReviewsRequestDidFinish:(ASIHTTPRequest *)request {
+  NSArray *jsonArray = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
+  
+  if (!_reviewArray) {
+    _reviewArray = [[NSMutableArray array] retain];
+  } else {
+    [_reviewArray removeAllObjects];
+  }
+  
+  NSArray *feedKeys = [NSArray arrayWithObjects:@"yelp_pid", @"rating", @"review", nil];
+  
+  for (NSDictionary *item in jsonArray) {
+    NSMutableDictionary *responseDict = [NSMutableDictionary dictionary];
+    for (NSString *key in feedKeys) {
+      NSString *value = nil;
+      value = [item valueForKey:key];
+      
+      if (![value notNil]) {
+        // Check for not nil object
+        [responseDict setObject:[NSNumber numberWithInteger:0] forKey:key];
+      } else {
+        [responseDict setObject:value forKey:key];
+      }
+    }
+    [self.reviewArray addObject:responseDict];
+  }
+  
+  [self dataCenterFinishedWithRequest:request];
+}
+
 - (void)dealloc {
   RELEASE_SAFELY(_headersArray);
   RELEASE_SAFELY(_detailsArray);
   RELEASE_SAFELY(_activityArray);
   RELEASE_SAFELY(_feedArray);
+  RELEASE_SAFELY(_reviewArray);
   [super dealloc];
 }
 

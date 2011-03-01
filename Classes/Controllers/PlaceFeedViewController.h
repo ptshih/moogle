@@ -17,6 +17,6 @@
 
 @property (nonatomic, retain) ASIHTTPRequest *placeFeedRequest;
 
-- (void)getPlaceReviews;
+- (void)getPlaceFeed;
 
 @end

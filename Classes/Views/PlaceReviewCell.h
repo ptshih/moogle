@@ -17,6 +17,6 @@
 @property (nonatomic, retain) UILabel *ratingLabel;
 @property (nonatomic, retain) UILabel *reviewLabel;
 
-+ (void)fillCell:(PlaceReviewCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image;
++ (void)fillCell:(PlaceReviewCell *)cell withDictionary:(NSDictionary *)dictionary;
 
 @end
