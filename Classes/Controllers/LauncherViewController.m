@@ -8,11 +8,12 @@
 
 #import "LauncherViewController.h"
 #import "MeViewController.h"
-#import "NearbyViewController.h"
+#import "PlacesViewController.h"
 #import "CheckinsViewController.h"
+#import "TrendsViewController.h"
 #import "Constants.h"
 
-#define kNumberOfPages 3 // We have 3 cards for now: Timeline | Me | Trends
+#define kNumberOfPages 4
 
 @interface LauncherViewController (Private)
 
@@ -33,8 +34,9 @@
 
 // Cards
 @synthesize meViewController = _meViewController;
-@synthesize nearbyViewController = _nearbyViewController;
+@synthesize placesViewController = _placesViewController;
 @synthesize checkinsViewController = _checkinsViewController;
+@synthesize trendsViewController = _trendsViewController;
 
 @synthesize cards = _cards;
 
@@ -42,8 +44,9 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     _meViewController = [[MeViewController alloc] init];
-    _nearbyViewController = [[NearbyViewController alloc] init];
+    _placesViewController = [[PlacesViewController alloc] init];
     _checkinsViewController = [[CheckinsViewController alloc] init];
+    _trendsViewController = [[TrendsViewController alloc] init];
     _previousPage = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastSelectedCard"]; // Start at last selected card
     _isZoomed = NO;
   }
@@ -65,29 +68,35 @@
   self.scrollView.scrollsToTop = NO;
   
   // Configure the three cards
-  UINavigationController *nearbyNavController = [[UINavigationController alloc] initWithRootViewController:self.nearbyViewController];
-  nearbyNavController.view.frame = CGRectMake(kCardWidth * 0, 0, self.scrollView.width, self.scrollView.height);
-  
   UINavigationController *meNavController = [[UINavigationController alloc] initWithRootViewController:self.meViewController];
-  meNavController.view.frame = CGRectMake(kCardWidth * 1, 0, self.scrollView.width, self.scrollView.height);
+  meNavController.view.frame = CGRectMake(kCardWidth * 0, 0, self.scrollView.width, self.scrollView.height);
   
-  UINavigationController *trendsNavController = [[UINavigationController alloc] initWithRootViewController:self.checkinsViewController];
-  trendsNavController.view.frame = CGRectMake(kCardWidth * 2, 0, self.scrollView.width, self.scrollView.height);
+  UINavigationController *placesNavController = [[UINavigationController alloc] initWithRootViewController:self.placesViewController];
+  placesNavController.view.frame = CGRectMake(kCardWidth * 1, 0, self.scrollView.width, self.scrollView.height);
   
-  nearbyNavController.delegate = self.nearbyViewController;
+  UINavigationController *checkinsNavController = [[UINavigationController alloc] initWithRootViewController:self.checkinsViewController];
+  checkinsNavController.view.frame = CGRectMake(kCardWidth * 2, 0, self.scrollView.width, self.scrollView.height);
+  
+  UINavigationController *trendsNavController = [[UINavigationController alloc] initWithRootViewController:self.trendsViewController];
+  trendsNavController.view.frame = CGRectMake(kCardWidth * 3, 0, self.scrollView.width, self.scrollView.height);
+  
   meNavController.delegate = self.meViewController;
-  trendsNavController.delegate = self.checkinsViewController;
+  placesNavController.delegate = self.placesViewController;
+  checkinsNavController.delegate = self.checkinsViewController;
+  trendsNavController.delegate = self.trendsViewController;
   
   
   // Add the three cards
   [self.scrollView addSubview:meNavController.view];
-  [self.scrollView addSubview:nearbyNavController.view];
+  [self.scrollView addSubview:placesNavController.view];
+  [self.scrollView addSubview:checkinsNavController.view];
   [self.scrollView addSubview:trendsNavController.view];
   
-  self.cards = [NSArray arrayWithObjects:nearbyNavController, meNavController, trendsNavController, nil];
+  self.cards = [NSArray arrayWithObjects:meNavController, placesNavController, checkinsNavController, trendsNavController, nil];
   
   [meNavController release];
-  [nearbyNavController release];
+  [placesNavController release];
+  [checkinsNavController release];
   [trendsNavController release];
   
   // Gestures
@@ -268,8 +277,9 @@
   RELEASE_SAFELY (_pageControl);
   RELEASE_SAFELY(_placeLabel);
   RELEASE_SAFELY (_meViewController);
-  RELEASE_SAFELY (_nearbyViewController);
+  RELEASE_SAFELY (_placesViewController);
   RELEASE_SAFELY (_checkinsViewController);
+  RELEASE_SAFELY(_trendsViewController);
   RELEASE_SAFELY (_cards);
   [super dealloc];
 }

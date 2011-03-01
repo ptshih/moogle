@@ -10,8 +10,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 @class MeViewController;
-@class NearbyViewController;
+@class PlacesViewController;
 @class CheckinsViewController;
+@class TrendsViewController;
 
 @interface LauncherViewController : UIViewController {
   IBOutlet UIScrollView *_scrollView;
@@ -20,8 +21,9 @@
   
   // Cards
   MeViewController *_meViewController;
-  NearbyViewController *_nearbyViewController;
+  PlacesViewController *_placesViewController;;
   CheckinsViewController *_checkinsViewController;
+  TrendsViewController *_trendsViewController;
   
   NSArray *_cards;
   
@@ -35,8 +37,9 @@
 
 // Cards
 @property (nonatomic, retain) MeViewController *meViewController;
-@property (nonatomic, retain) NearbyViewController *nearbyViewController;
+@property (nonatomic, retain) PlacesViewController *placesViewController;
 @property (nonatomic, retain) CheckinsViewController *checkinsViewController;
+@property (nonatomic, retain) TrendsViewController *trendsViewController;
 
 @property (nonatomic, retain) NSArray *cards;
 

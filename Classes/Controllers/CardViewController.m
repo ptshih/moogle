@@ -13,7 +13,7 @@
 #import "PlaceViewController.h"
 #import "PlaceTabViewController.h"
 #import "WhoViewController.h"
-#import "NearbyViewController.h"
+#import "PlacesViewController.h"
 
 @interface CardViewController (Private)
 
@@ -47,7 +47,7 @@
     [[NSBundle mainBundle] loadNibNamed:@"EmptyPlaceView" owner:self options:nil];
     [[NSBundle mainBundle] loadNibNamed:@"LoadingPlaceView" owner:self options:nil];
   } else if ([self isKindOfClass:[WhoViewController class]]) {
-  } else if ([self isKindOfClass:[NearbyViewController class]]) {
+  } else if ([self isKindOfClass:[PlacesViewController class]]) {
     [[NSBundle mainBundle] loadNibNamed:@"EmptyView" owner:self options:nil];
     [[NSBundle mainBundle] loadNibNamed:@"LocationLoadingView" owner:self options:nil];
     self.emptyView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];

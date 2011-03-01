@@ -9,13 +9,14 @@
 #import "TrendsViewController.h"
 #import "Constants.h"
 
+#import "TrendsDataCenter.h"
+
 #import "ASIHTTPRequest.h"
 #import "RemoteRequest.h"
 #import "RemoteOperation.h"
 
 #import "WhoViewController.h"
 #import "PlaceViewController.h"
-#import "TrendsDataCenter.h"
 
 #import "TrendCell.h"
 

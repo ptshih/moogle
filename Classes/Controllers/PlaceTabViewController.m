@@ -17,7 +17,7 @@
 - (id)init {
   self = [super init];
   if (self) {
-    _dataCenter = [[PlacesDataCenter alloc] init];
+    _dataCenter = [[PlaceDataCenter alloc] init];
     _dataCenter.delegate = self;
   }
   return self;

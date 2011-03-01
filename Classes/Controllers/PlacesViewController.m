@@ -1,12 +1,12 @@
 //
-//  NearbyViewController.m
+//  PlacesViewController.h.m
 //  Moogle
 //
 //  Created by Peter Shih on 2/8/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "NearbyViewController.h"
+#import "PlacesViewController.h"
 #import "Constants.h"
 #import "PlaceCell.h"
 #import "LocationManager.h"
@@ -16,13 +16,13 @@
 #import "RemoteOperation.h"
 
 #import "PlaceViewController.h"
-#import "NearbyDataCenter.h"
+#import "PlacesDataCenter.h"
 
-@interface NearbyViewController (Private)
+@interface PlacesViewController (Private)
 - (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName;
 @end
 
-@implementation NearbyViewController
+@implementation PlacesViewController
 
 @synthesize dataCenter = _dataCenter;
 @synthesize nearbyRequest = _nearbyRequest;
@@ -30,7 +30,7 @@
 - (id)init {
   self = [super init];
   if (self) {
-    _dataCenter = [[NearbyDataCenter alloc] init];
+    _dataCenter = [[PlacesDataCenter alloc] init];
     _dataCenter.delegate = self;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNearbyPlaces) name:kLocationAcquired object:nil];

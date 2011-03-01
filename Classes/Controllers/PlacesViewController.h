@@ -1,5 +1,5 @@
 //
-//  NearbyViewController.h
+//  PlacesViewController.h
 //  Moogle
 //
 //  Created by Peter Shih on 2/8/11.
@@ -10,15 +10,15 @@
 #import "CardTableViewController.h"
 #import "MoogleDataCenterDelegate.h"
 
-@class NearbyDataCenter;
+@class PlacesDataCenter;
 @class ASIHTTPRequest;
 
-@interface NearbyViewController : CardTableViewController <MoogleDataCenterDelegate> {
-  NearbyDataCenter *_dataCenter;
+@interface PlacesViewController : CardTableViewController <MoogleDataCenterDelegate> {
+  PlacesDataCenter *_dataCenter;
   ASIHTTPRequest *_nearbyRequest;
 }
 
-@property (nonatomic, retain) NearbyDataCenter *dataCenter;
+@property (nonatomic, retain) PlacesDataCenter *dataCenter;
 @property (nonatomic, retain) ASIHTTPRequest *nearbyRequest;
 
 - (void)getNearbyPlaces;
