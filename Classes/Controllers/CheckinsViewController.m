@@ -100,10 +100,12 @@
 
 - (void)getCheckins {
   // Timeline Mode
+  CGFloat distance = 1.0;
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
   [params setObject:_who forKey:@"who"];
 //  [params setObject:@"1291192051" forKey:@"until"];
 //  [params setObject:@"2" forKey:@"count"];
+  [params setObject:[NSString stringWithFormat:@"%.2f", distance] forKey:@"distance"];
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins", MOOGLE_BASE_URL, API_VERSION];
   self.checkinsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   

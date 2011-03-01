@@ -129,9 +129,12 @@
   CGFloat lat = [APP_DELEGATE.locationManager latitude];
   CGFloat lng = [APP_DELEGATE.locationManager longitude];
   
+//  CGFloat distance = 1.0;
+  
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
   [params setObject:[NSString stringWithFormat:@"%f", lat] forKey:@"lat"];
   [params setObject:[NSString stringWithFormat:@"%f", lng] forKey:@"lng"];
+//  [params setObject:[NSString stringWithFormat:@"%.2f", distance] forKey:@"distance"];
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins/trends", MOOGLE_BASE_URL, API_VERSION];
   self.trendsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   
