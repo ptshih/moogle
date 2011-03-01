@@ -53,7 +53,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  self.title = @"Moogle Places";
+  self.title = @"Nearby Places";
   
   // Table
   [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -89,8 +89,10 @@
   [self updateState];
   
   if (_placesMode == PlacesTypeNearby) {
+    self.title = @"Nearby Places";
     [self getNearbyPlaces];
   } else {
+    self.title = @"Trending Places";
     [self getTrends];
   }
 }
