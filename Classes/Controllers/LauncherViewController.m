@@ -10,7 +10,6 @@
 #import "MeViewController.h"
 #import "PlacesViewController.h"
 #import "CheckinsViewController.h"
-#import "TrendsViewController.h"
 #import "Constants.h"
 
 #define kNumberOfPages 3
