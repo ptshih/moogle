@@ -17,7 +17,7 @@
   MoogleDataCenter *_dataCenter;
   ASIHTTPRequest *_checkinHereRequest;
   
-  NSNumber *_placeId;
+  NSString *_placeId;
   NSString *_message;
   NSArray *_tagsArray; // Tagged friend IDs
 }
@@ -25,7 +25,7 @@
 @property (nonatomic, retain) MoogleDataCenter *dataCenter;
 @property (nonatomic, retain) ASIHTTPRequest *checkinHereRequest;
 
-@property (nonatomic, retain) NSNumber *placeId;
+@property (nonatomic, retain) NSString *placeId;
 @property (nonatomic, retain) NSString *message;
 @property (nonatomic, retain) NSArray *tagsArray;
 

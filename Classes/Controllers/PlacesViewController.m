@@ -24,7 +24,7 @@
 - (void)setupButtons;
 - (void)toggleMode;
 - (void)resetStateAndReload;
-- (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName;
+- (void)showPlaceWithId:(NSString *)placeId andName:(NSString *)placeName;
 
 @end
 
@@ -142,7 +142,7 @@
 }
 
 #pragma mark Show Place
-- (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName {
+- (void)showPlaceWithId:(NSString *)placeId andName:(NSString *)placeName {
   PlaceViewController *pvc = [[PlaceViewController alloc] init];
   pvc.placeId = placeId;
   pvc.placeName = placeName;

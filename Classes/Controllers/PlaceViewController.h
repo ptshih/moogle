@@ -23,7 +23,7 @@
   id _visibleViewController;
   
   // Params
-  NSNumber *_placeId;
+  NSString *_placeId;
   NSString *_placeName;
   BOOL _shouldShowCheckinHere;
   
@@ -36,7 +36,7 @@
   UIButton *_feedButton;
 }
 
-@property (nonatomic, retain) NSNumber *placeId;
+@property (nonatomic, retain) NSString *placeId;
 @property (nonatomic, retain) NSString *placeName;
 @property (nonatomic, assign) BOOL shouldShowCheckinHere;
 

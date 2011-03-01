@@ -21,12 +21,12 @@
 
 @interface PlaceTabViewController : CardTableViewController <MoogleDataCenterDelegate> {
   PlaceDataCenter *_dataCenter;
-  NSNumber *_placeId;
+  NSString *_placeId;
   CGRect viewport; // NOTE: this is totally a hack around the view init hierarchy
 }
 
 @property (nonatomic, retain) PlaceDataCenter *dataCenter;
-@property (nonatomic, retain) NSNumber *placeId;
+@property (nonatomic, retain) NSString *placeId;
 @property (nonatomic, assign) CGRect viewport;
 
 - (void)reloadDataSource;

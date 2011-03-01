@@ -26,7 +26,7 @@
 - (void)toggleWho;
 - (void)toggleDistance;
 
-- (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName;
+- (void)showPlaceWithId:(NSString *)placeId andName:(NSString *)placeName;
 @end
 
 @implementation CheckinsViewController
@@ -112,7 +112,7 @@
   [[RemoteOperation sharedInstance] addRequestToQueue:self.checkinsRequest];
 }
 
-- (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName {
+- (void)showPlaceWithId:(NSString *)placeId andName:(NSString *)placeName {
   PlaceViewController *pvc = [[PlaceViewController alloc] init];
   pvc.placeId = placeId;
   pvc.placeName = placeName;
