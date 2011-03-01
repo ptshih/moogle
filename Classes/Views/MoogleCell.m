@@ -14,6 +14,10 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
+    if ([[self class] cellType] == MoogleCellTypePlain) {
+      self.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:30]] autorelease];
+      self.selectedBackgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:30]] autorelease];
+    }
   }
   return self;
 }
@@ -24,6 +28,10 @@
 
 - (void)layoutSubviews {
   [super layoutSubviews];
+}
+
++ (MoogleCellType)cellType {
+  return MoogleCellTypePlain;
 }
 
 + (CGFloat)rowHeight {

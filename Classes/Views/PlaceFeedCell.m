@@ -122,6 +122,10 @@
   cell.timestampLabel.text = [date humanIntervalSinceNow];
 }
 
++ (MoogleCellType)cellType {
+  return MoogleCellTypeGrouped;
+}
+
 + (CGFloat)variableRowHeightWithDictionary:(NSDictionary *)dictionary {
   CGFloat calculatedHeight = 0.0;
   

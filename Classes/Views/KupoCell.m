@@ -164,6 +164,10 @@ static UIImage *_referIcon = nil;
   cell.referLabel.text = [NSString stringWithFormat:@"You last checked in %@", [lastDate humanIntervalSinceNow]];
 }
 
++ (MoogleCellType)cellType {
+  return MoogleCellTypePlain;
+}
+
 + (CGFloat)rowHeight {
   return 95 + ICON_SPACING;
 }

@@ -347,7 +347,12 @@
 #pragma mark UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
   if([alertView isEqual:_networkErrorAlert]) {
-    // get current user failed
+    // Session or Register request failed
+    // Make sure to reset state and try again
+    // NOTE
+    
+    
+    
   } else if([alertView isEqual:_loginFailedAlert]) {
     [self loginFacebook];
   }

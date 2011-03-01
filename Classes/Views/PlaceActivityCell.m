@@ -96,6 +96,10 @@
   self.timestampLabel.left = left;
 }
 
++ (MoogleCellType)cellType {
+  return MoogleCellTypeGrouped;
+}
+
 + (void)fillCell:(PlaceActivityCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
   cell.imageView.image = image;
   

@@ -88,6 +88,10 @@
   cell.likesLabel.text = [NSString stringWithFormat:@"Likes: %@", [dictionary objectForKey:@"like_count"]];
 }
 
++ (MoogleCellType)cellType {
+  return MoogleCellTypeGrouped;
+}
+
 + (CGFloat)rowHeight {
   // Subclasses should override
   return 88.0;

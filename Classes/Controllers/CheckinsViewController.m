@@ -57,7 +57,7 @@
   self.title = @"Moogle Checkins";
   
   // Table
-  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self setupPullRefresh];
   
   // Setup Filter View
@@ -157,7 +157,8 @@
   [self.sections removeAllObjects];
   [self.items removeAllObjects];
   [self.tableView reloadData];
-  [self reloadCardController];
+  [self updateState];
+  [self getCheckins];
 }
 
 

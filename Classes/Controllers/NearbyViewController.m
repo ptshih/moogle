@@ -45,7 +45,7 @@
   self.title = @"Moogle Places";
   
   // Table
-  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self setupPullRefresh];
   
 //  self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
@@ -59,10 +59,13 @@
 - (void)reloadCardController {
   [super reloadCardController];
   
-  [APP_DELEGATE.locationManager startStandardUpdates];
-  
-  if ([APP_DELEGATE.locationManager hasAcquiredLocation]) {
+  if ([APP_DELEGATE.locationManager hasAcquiredLocation] && [[NSUserDefaults standardUserDefaults] boolForKey:@"isLoggedIn"]) {
     [self getNearbyPlaces];
+  } else {
+    [self.sections removeAllObjects];
+    [self.items removeAllObjects];
+    [self.tableView reloadData];
+    [self updateState];
   }
 }
 

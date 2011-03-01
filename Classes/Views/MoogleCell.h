@@ -9,9 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "Constants.h"
 
+enum {
+  MoogleCellTypePlain = 0,
+  MoogleCellTypeGrouped = 1
+};
+typedef uint32_t MoogleCellType;
+
+
 @interface MoogleCell : UITableViewCell {
 }
 
++ (MoogleCellType)cellType;
 + (CGFloat)rowHeight;
 + (CGFloat)variableRowHeightWithDictionary:(NSDictionary *)dictionary;
 

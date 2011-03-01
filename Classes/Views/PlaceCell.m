@@ -185,6 +185,10 @@ static UIImage *_distanceIcon = nil;
   cell.countLabel.text = [NSString stringWithFormat:@"%@ friends", [dictionary valueForKey:@"checkins_friend_count"]];
 }
 
++ (MoogleCellType)cellType {
+  return MoogleCellTypePlain;
+}
+
 + (CGFloat)rowHeight {
   return 75.0 + ICON_SPACING * 2;
 }

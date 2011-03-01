@@ -82,6 +82,10 @@
   cell.nameLabel.text = [dictionary valueForKey:@"friend_name"];
 }
 
++ (MoogleCellType)cellType {
+  return MoogleCellTypeGrouped;
+}
+
 + (CGFloat)rowHeight {
   return 60.0;
 }

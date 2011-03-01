@@ -187,6 +187,10 @@ static UIImage *_taggedIcon = nil;
   cell.taggedLabel.text = @"Peter Shih, James Liu, Thomas Liou, Gene Tsai, Nathan Bohannon";
 }
 
++ (MoogleCellType)cellType {
+  return MoogleCellTypePlain;
+}
+
 + (CGFloat)variableRowHeightWithDictionary:(NSDictionary *)dictionary {
   CGFloat calculatedHeight = SPACING_Y; // Top Spacer
   CGFloat left = IMAGE_WIDTH + ICON_WIDTH + SPACING_X * 3;

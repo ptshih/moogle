@@ -16,6 +16,7 @@
 
 @interface LauncherViewController (Private)
 
+- (void)addGestures;
 - (void)zoomIn:(UINavigationController *)card;
 - (void)zoomOut:(UINavigationController *)card;
 - (void)zoomOutBeforeScrolling;
@@ -53,9 +54,6 @@
   
   self.view.frame = CGRectMake(0, 20, self.view.width, self.view.height);
   
-  // Gestures
-//  [self addGestures];
-  
   // Setup Page Control
   self.pageControl.numberOfPages = kNumberOfPages;
   self.pageControl.currentPage = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastSelectedCard"]; // Start at last selected card
@@ -85,6 +83,9 @@
   [meNavController release];
   [nearbyNavController release];
   [trendsNavController release];
+  
+  // Gestures
+  [self addGestures];
 }
 
 - (void)clearAllCachedData {
@@ -96,11 +97,23 @@
   }
 }
 
-//- (void)addGestures {
-//  UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleZoom:)];
-//  doubleTapGestureRecognizer.numberOfTapsRequired = 2;
-//  
-//}
+- (void)addGestures {
+  UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollToTop)];
+  tapGestureRecognizer.numberOfTapsRequired = 2;
+  UIView *statusView = [[UIView alloc] initWithFrame:CGRectMake(80, 0, 160, 44)];
+  statusView.backgroundColor = [UIColor clearColor];
+  [statusView addGestureRecognizer:tapGestureRecognizer];
+  [self.view addSubview:statusView];
+  [statusView release];
+  [tapGestureRecognizer release];
+}
+
+- (void)scrollToTop {
+  id visibleViewController = [self.cards objectAtIndex:self.pageControl.currentPage];
+  if ([[visibleViewController topViewController] respondsToSelector:@selector(tableView)]) {
+    [[(UITableViewController *)[visibleViewController topViewController] tableView] scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+  }
+}
 
 - (void)zoomIn:(UINavigationController *)card {
   [UIView beginAnimations:nil context:NULL];
@@ -144,6 +157,10 @@
 }
 
 #pragma mark UIScrollViewDelegate
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+  return NO;
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
   // We don't want a "feedback loop" between the UIPageControl and the scroll delegate in
   // which a scroll event generated from the user hitting the page control triggers updates from
