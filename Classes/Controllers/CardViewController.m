@@ -9,6 +9,8 @@
 #import "CardViewController.h"
 #import "Constants.h"
 
+#import "LauncherViewController.h"
+#import "PlaceViewController.h"
 #import "PlaceTabViewController.h"
 #import "WhoViewController.h"
 #import "NearbyViewController.h"
@@ -144,6 +146,16 @@
   [UIView setAnimationDuration:0.3];
   self.loadingView.frame = CGRectMake(0, self.view.height, self.loadingView.width, self.loadingView.height);
   [UIView commitAnimations];
+}
+
+#pragma mark UINavigationControllerDelegate
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+  DLog(@"nav will show controller: %@", [viewController class]);
+  if ([viewController isKindOfClass:[PlaceViewController class]]) {
+    APP_DELEGATE.launcherViewController.scrollView.scrollEnabled = NO;
+  } else {
+    APP_DELEGATE.launcherViewController.scrollView.scrollEnabled = YES;
+  }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

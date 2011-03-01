@@ -10,7 +10,7 @@
 #import "CardStateMachine.h"
 #import "UINavigationBar+Custom.h"
 
-@interface CardViewController : UIViewController <CardStateMachine> {
+@interface CardViewController : UIViewController <CardStateMachine, UINavigationControllerDelegate> {
   IBOutlet UIView *_emptyView;
   IBOutlet UIView *_loadingView;
 }

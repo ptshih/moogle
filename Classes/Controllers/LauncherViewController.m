@@ -73,6 +73,11 @@
   UINavigationController *trendsNavController = [[UINavigationController alloc] initWithRootViewController:self.checkinsViewController];
   trendsNavController.view.frame = CGRectMake(kCardWidth * 2, 0, self.scrollView.width, self.scrollView.height);
   
+  nearbyNavController.delegate = self.nearbyViewController;
+  meNavController.delegate = self.meViewController;
+  trendsNavController.delegate = self.checkinsViewController;
+  
+  
   // Add the three cards
   [self.scrollView addSubview:meNavController.view];
   [self.scrollView addSubview:nearbyNavController.view];
@@ -157,10 +162,6 @@
 }
 
 #pragma mark UIScrollViewDelegate
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-  return NO;
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
   // We don't want a "feedback loop" between the UIPageControl and the scroll delegate in
   // which a scroll event generated from the user hitting the page control triggers updates from

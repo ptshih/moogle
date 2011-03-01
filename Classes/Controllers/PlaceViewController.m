@@ -7,6 +7,7 @@
 //
 
 #import "PlaceViewController.h"
+#import "LauncherViewController.h"
 #import "Constants.h"
 #import "PlaceInfoViewController.h"
 #import "PlaceActivityViewController.h"
@@ -23,6 +24,7 @@
 - (void)setupTabView;
 - (void)setupTabButtons;
 - (void)selectTab:(id)sender;
+- (void)scrolledToTabAtIndex:(NSInteger)index;
 
 - (void)setupPlaceInfo;
 - (void)setupPlaceActivity;
@@ -65,7 +67,11 @@
   }
   
   _placeScrollView.contentSize = CGSizeMake(960.0, _placeScrollView.height);
-  _placeScrollView.scrollEnabled = NO;
+  _placeScrollView.showsVerticalScrollIndicator = NO;
+  _placeScrollView.showsHorizontalScrollIndicator = NO;
+  _placeScrollView.scrollEnabled = YES;
+  _placeScrollView.pagingEnabled = YES;
+  _placeScrollView.delegate = self;
   
   [self.view addSubview:_placeScrollView];
   
@@ -183,8 +189,45 @@
     [_placeScrollView scrollRectToVisible:_placeFeedViewController.view.frame animated:YES];
     _visibleViewController = _placeFeedViewController;
   }
+}
+
+#pragma mark UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)sender {
+  // We don't want a "feedback loop" between the UIPageControl and the scroll delegate in
+  // which a scroll event generated from the user hitting the page control triggers updates from
+  // the delegate method. We use a boolean to disable the delegate logic when the page control is used.
   
-  [_visibleViewController performSelector:@selector(reloadDataSource)];
+  // Switch the indicator when more than 50% of the previous/next page is visible
+  CGFloat pageWidth = _placeScrollView.frame.size.width;
+  int page = floor((_placeScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+  if (_placeScrollView.dragging) {
+    [self scrolledToTabAtIndex:page];
+  }
+}
+
+- (void)scrolledToTabAtIndex:(NSInteger)index {
+  switch (index) {
+    case 0:
+      [_infoButton setSelected:YES];
+      [_activityButton setSelected:NO];
+      [_feedButton setSelected:NO];
+      break;
+    case 1:
+      [_activityButton setSelected:YES];
+      [_infoButton setSelected:NO];
+      [_feedButton setSelected:NO];
+      break;
+    case 2:
+      [_feedButton setSelected:YES];
+      [_infoButton setSelected:NO];
+      [_activityButton setSelected:NO];
+      break;
+    default:
+      [_infoButton setSelected:YES];
+      [_activityButton setSelected:NO];
+      [_feedButton setSelected:NO];
+      break;
+  }
 }
 
 // Called when this card controller leaves active view
@@ -197,7 +240,6 @@
 // Subclasses should override this method
 - (void)reloadCardController {
   DLog(@"Called by class: %@", [self class]);
-  [_visibleViewController performSelector:@selector(reloadDataSource)];
 }
 
 - (void)dealloc {  
