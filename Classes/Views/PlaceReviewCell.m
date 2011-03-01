@@ -83,7 +83,7 @@
 
 + (void)fillCell:(PlaceReviewCell *)cell withDictionary:(NSDictionary *)dictionary {
   cell.ratingLabel.text = [dictionary valueForKey:@"rating"];
-  cell.reviewLabel.text = [dictionary valueForKey:@"review"];
+  cell.reviewLabel.text = [dictionary valueForKey:@"text"];
 }
 
 + (MoogleCellType)cellType {
@@ -105,7 +105,7 @@
   textWidth = 300 - left - SPACING_X;
   textSize = CGSizeMake(textWidth, INT_MAX);
   
-  labelSize = [[dictionary objectForKey:@"review"] sizeWithFont:[UIFont systemFontOfSize:CELL_FONT_SIZE] constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
+  labelSize = [[dictionary objectForKey:@"text"] sizeWithFont:[UIFont systemFontOfSize:CELL_FONT_SIZE] constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
   
   calculatedHeight = calculatedHeight + labelSize.height;
   

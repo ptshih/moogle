@@ -100,12 +100,14 @@
   } else {
     [_detailsArray removeAllObjects];
   }
-  NSArray *detailsKeys = [NSArray arrayWithObjects:@"distance", @"phone", @"website", @"price", @"attire", nil];
+  NSArray *detailsKeys = [NSArray arrayWithObjects:@"distance", @"phone", @"website", @"price", @"attire", @"review_count", @"rating", nil];
   for (NSString *key in detailsKeys) {
     NSString *value = nil;
     // Check for distance and transform
     if ([key isEqualToString:@"distance"]) {
       value = [NSString stringWithFormat:@"%.2fmi", [[jsonDict valueForKey:key] floatValue]];
+    } else if ([key isEqualToString:@"review_count"]) {
+      value = [[jsonDict valueForKey:key] stringValue];
     } else {
       value = [jsonDict valueForKey:key];
     }
@@ -172,7 +174,11 @@
       
       if (![value notNil]) {
         // Check for not nil object
-        [responseDict setObject:[NSNumber numberWithInteger:0] forKey:key];
+        if ([key isEqualToString:@"message"]) {
+          [responseDict setObject:@"" forKey:key];
+        } else {
+          [responseDict setObject:[NSNumber numberWithInteger:0] forKey:key];
+        }
       } else {
         [responseDict setObject:value forKey:key];
       }
@@ -192,17 +198,21 @@
     [_reviewArray removeAllObjects];
   }
   
-  NSArray *feedKeys = [NSArray arrayWithObjects:@"yelp_pid", @"rating", @"review", nil];
+  NSArray *reviewKeys = [NSArray arrayWithObjects:@"yelp_pid", @"rating", @"text", nil];
   
   for (NSDictionary *item in jsonArray) {
     NSMutableDictionary *responseDict = [NSMutableDictionary dictionary];
-    for (NSString *key in feedKeys) {
+    for (NSString *key in reviewKeys) {
       NSString *value = nil;
       value = [item valueForKey:key];
       
       if (![value notNil]) {
         // Check for not nil object
-        [responseDict setObject:[NSNumber numberWithInteger:0] forKey:key];
+        if ([key isEqualToString:@"text"]) {
+          [responseDict setObject:@"" forKey:key];
+        } else {
+          [responseDict setObject:[NSNumber numberWithInteger:0] forKey:key];
+        }
       } else {
         [responseDict setObject:value forKey:key];
       }

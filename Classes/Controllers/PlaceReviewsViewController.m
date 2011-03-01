@@ -72,7 +72,7 @@
   [self.sections removeAllObjects];
   [self.items removeAllObjects];
   
-  [self.sections addObject:@"Feed"];
+  [self.sections addObject:@"Reviews"];
   [self.items addObject:self.dataCenter.reviewArray];
   [self.tableView reloadData];
   

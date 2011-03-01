@@ -13,12 +13,14 @@
 @class PlaceInfoViewController;
 @class PlaceActivityViewController;
 @class PlaceFeedViewController;
+@class PlaceReviewsViewController;
 
 @interface PlaceViewController : CardViewController <UIScrollViewDelegate> {
   CheckinHereViewController *_checkinHereViewController;
   PlaceInfoViewController *_placeInfoViewController;
   PlaceActivityViewController *_placeActivityViewController;
   PlaceFeedViewController *_placeFeedViewController;
+  PlaceReviewsViewController *_placeReviewsViewController;
   
   id _visibleViewController;
   
@@ -34,6 +36,7 @@
   UIButton *_infoButton;
   UIButton *_activityButton;
   UIButton *_feedButton;
+  UIButton *_reviewsButton;
 }
 
 @property (nonatomic, retain) NSString *placeId;
