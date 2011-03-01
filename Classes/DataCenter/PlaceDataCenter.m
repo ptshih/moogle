@@ -73,7 +73,7 @@
   } else {
     [_headersArray removeAllObjects];
   }
-  NSArray *headerKeys = [NSArray arrayWithObjects:@"place_id", @"name", @"checkins_count", @"checkins_friend_count", @"like_count", nil];
+  NSArray *headerKeys = [NSArray arrayWithObjects:@"place_id", @"place_name", @"checkins_count", @"checkins_friend_count", @"like_count", nil];
   NSMutableDictionary *headerDict = [NSMutableDictionary dictionary];
   for (NSString *key in headerKeys) {
     NSString *value = nil;
@@ -124,7 +124,7 @@
     [_activityArray removeAllObjects];
   }
   
-  NSArray *activityKeys = [NSArray arrayWithObjects:@"facebook_id", @"name", @"message", @"timestamp", nil];
+  NSArray *activityKeys = [NSArray arrayWithObjects:@"facebook_id", @"place_name", @"message", @"timestamp", nil];
   
   for (NSDictionary *item in jsonArray) {
     NSMutableDictionary *responseDict = [NSMutableDictionary dictionary];

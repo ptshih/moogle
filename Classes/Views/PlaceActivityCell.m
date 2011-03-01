@@ -103,7 +103,7 @@
 + (void)fillCell:(PlaceActivityCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
   cell.imageView.image = image;
   
-  cell.nameLabel.text = [dictionary valueForKey:@"name"];
+  cell.nameLabel.text = [dictionary valueForKey:@"place_name"];
   
   NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[dictionary valueForKey:@"timestamp"] integerValue]];
   

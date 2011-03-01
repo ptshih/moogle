@@ -40,7 +40,7 @@
   
   NSArray *jsonArray = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
   
-  NSArray *keys = [NSArray arrayWithObjects:@"checkin_id", @"facebook_id", @"name", @"place_id", @"place_name", @"message", @"checkin_timestamp", @"tagged_count", nil];
+  NSArray *keys = [NSArray arrayWithObjects:@"checkin_id", @"facebook_id", @"name", @"place_id", @"place_name", @"message", @"checkin_timestamp", @"tagged_count", @"tagged_user_array", nil];
   
   for (NSDictionary *item in jsonArray) {
     NSMutableDictionary *responseDict = [NSMutableDictionary dictionary];
@@ -50,7 +50,11 @@
       
       if (![value notNil]) {
         // Check for not nil object
-        [responseDict setObject:[NSNumber numberWithInteger:0] forKey:key];
+        if ([key isEqualToString:@"message"]) {
+          [responseDict setObject:@"" forKey:key];
+        } else {
+          [responseDict setObject:[NSNumber numberWithInteger:0] forKey:key];
+        }
       } else {
         [responseDict setObject:value forKey:key];
       }

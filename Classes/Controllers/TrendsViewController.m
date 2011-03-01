@@ -9,6 +9,8 @@
 #import "TrendsViewController.h"
 #import "Constants.h"
 
+#import "LocationManager.h"
+
 #import "TrendsDataCenter.h"
 
 #import "ASIHTTPRequest.h"
@@ -18,7 +20,7 @@
 #import "WhoViewController.h"
 #import "PlaceViewController.h"
 
-#import "TrendCell.h"
+#import "PlaceCell.h"
 
 @interface TrendsViewController (Private)
 
@@ -71,8 +73,13 @@
 }
 
 - (void)getTrends {
-  // Timeline Mode
+  // Trends Mode
+  CGFloat lat = [APP_DELEGATE.locationManager latitude];
+  CGFloat lng = [APP_DELEGATE.locationManager longitude];
+  
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  [params setObject:[NSString stringWithFormat:@"%f", lat] forKey:@"lat"];
+  [params setObject:[NSString stringWithFormat:@"%f", lng] forKey:@"lng"];
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins/trends", MOOGLE_BASE_URL, API_VERSION];
   self.trendsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   
@@ -105,16 +112,16 @@
 
 #pragma mark UITableView Stuff
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return [TrendCell rowHeight];
+  return [PlaceCell rowHeight];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  TrendCell *cell = nil;
+  PlaceCell *cell = nil;
   NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell_%d", [self class], indexPath.section];
   
-  cell = (TrendCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  cell = (PlaceCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   if (cell == nil) {
-    cell = [[[TrendCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
+    cell = [[[PlaceCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
   }
   
   NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
@@ -127,7 +134,7 @@
     image = nil;
   }
   
-  [TrendCell fillCell:cell withDictionary:item withImage:image];
+  [PlaceCell fillCell:cell withDictionary:item withImage:image];
   
   return cell;
 }

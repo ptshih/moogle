@@ -42,7 +42,7 @@
   
   NSArray *jsonArray = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
   
-  NSArray *keys = [NSArray arrayWithObjects:@"place_id", @"name", @"checkins_count", @"checkins_friend_count", @"like_count", @"distance", nil];  
+  NSArray *keys = [NSArray arrayWithObjects:@"place_id", @"place_name", @"checkins_count", @"checkins_friend_count", @"like_count", @"distance", nil];  
   for (NSDictionary *item in jsonArray) {
     NSMutableDictionary *responseDict = [NSMutableDictionary dictionary];
     for (NSString *key in keys) {

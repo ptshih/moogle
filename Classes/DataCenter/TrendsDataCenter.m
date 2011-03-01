@@ -46,7 +46,7 @@
 //  :like_count => mysqlresult['like_count'],
 //  :friend_checkins => mysqlresult['friend_checkins']
   
-  NSArray *keys = [NSArray arrayWithObjects:@"place_id", @"place_name", @"checkins_count", @"like_count", @"friend_checkins", nil];
+  NSArray *keys = [NSArray arrayWithObjects:@"place_id", @"place_name", @"checkins_count", @"like_count", @"checkins_friend_count", @"distance", nil];
   
   for (NSDictionary *item in jsonArray) {
     NSMutableDictionary *responseDict = [NSMutableDictionary dictionary];

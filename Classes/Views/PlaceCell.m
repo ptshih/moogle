@@ -178,7 +178,7 @@ static UIImage *_distanceIcon = nil;
   cell.imageView.image = image;
   
   // NOTE: make sure not <null>
-  cell.nameLabel.text = [dictionary valueForKey:@"name"];
+  cell.nameLabel.text = [dictionary valueForKey:@"place_name"];
   cell.distanceLabel.text = [NSString stringWithFormat:@"%.2f miles", [[dictionary valueForKey:@"distance"] floatValue]];
   cell.likesLabel.text = [NSString stringWithFormat:@"%@ likes", [dictionary valueForKey:@"like_count"]];
   cell.totalLabel.text = [NSString stringWithFormat:@"%@ people", [dictionary valueForKey:@"checkins_count"]];
