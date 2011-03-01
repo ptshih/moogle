@@ -29,6 +29,7 @@
 
 @synthesize scrollView = _scrollView;
 @synthesize pageControl = _pageControl;
+@synthesize placeLabel = _placeLabel;
 
 // Cards
 @synthesize meViewController = _meViewController;
@@ -255,6 +256,8 @@
 }
 
 - (void)viewDidUnload {
+    [_placeLabel release];
+    [self setPlaceLabel:nil];
   [super viewDidUnload];
   // Release any retained subviews of the main view.
   // e.g. self.myOutlet = nil;
@@ -263,6 +266,7 @@
 - (void)dealloc {
   RELEASE_SAFELY (_scrollView);
   RELEASE_SAFELY (_pageControl);
+  RELEASE_SAFELY(_placeLabel);
   RELEASE_SAFELY (_meViewController);
   RELEASE_SAFELY (_nearbyViewController);
   RELEASE_SAFELY (_checkinsViewController);

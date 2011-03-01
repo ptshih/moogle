@@ -69,6 +69,7 @@
   _placeScrollView.contentSize = CGSizeMake(960.0, _placeScrollView.height);
   _placeScrollView.showsVerticalScrollIndicator = NO;
   _placeScrollView.showsHorizontalScrollIndicator = NO;
+  _placeScrollView.bounces = NO;
   _placeScrollView.scrollEnabled = YES;
   _placeScrollView.pagingEnabled = YES;
   _placeScrollView.delegate = self;

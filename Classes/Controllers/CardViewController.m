@@ -153,9 +153,17 @@
   DLog(@"nav will show controller: %@", [viewController class]);
   if ([viewController isKindOfClass:[PlaceViewController class]]) {
     APP_DELEGATE.launcherViewController.scrollView.scrollEnabled = NO;
+    APP_DELEGATE.launcherViewController.pageControl.hidden = YES;
+    APP_DELEGATE.launcherViewController.placeLabel.text = viewController.title;
   } else {
     APP_DELEGATE.launcherViewController.scrollView.scrollEnabled = YES;
+    APP_DELEGATE.launcherViewController.pageControl.hidden = NO;
+    APP_DELEGATE.launcherViewController.placeLabel.text = nil;
   }
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+  DLog(@"nav did show controller: %@", [viewController class]);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

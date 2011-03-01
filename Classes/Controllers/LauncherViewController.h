@@ -16,6 +16,7 @@
 @interface LauncherViewController : UIViewController {
   IBOutlet UIScrollView *_scrollView;
   IBOutlet UIPageControl *_pageControl;
+  IBOutlet UILabel *_placeLabel;
   
   // Cards
   MeViewController *_meViewController;
@@ -30,6 +31,7 @@
 
 @property (nonatomic, retain) UIScrollView *scrollView;
 @property (nonatomic, retain) UIPageControl *pageControl;
+@property (nonatomic, retain) UILabel *placeLabel;
 
 // Cards
 @property (nonatomic, retain) MeViewController *meViewController;

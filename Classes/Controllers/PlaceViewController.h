@@ -14,7 +14,7 @@
 @class PlaceActivityViewController;
 @class PlaceFeedViewController;
 
-@interface PlaceViewController : CardViewController {
+@interface PlaceViewController : CardViewController <UIScrollViewDelegate> {
   CheckinHereViewController *_checkinHereViewController;
   PlaceInfoViewController *_placeInfoViewController;
   PlaceActivityViewController *_placeActivityViewController;
