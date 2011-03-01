@@ -83,7 +83,9 @@ static NSInteger _distance = 1000;
           newLocation.coordinate.longitude);
 
     if (!self.oldLocation) {
-      [[NSNotificationCenter defaultCenter] postNotificationName:kLocationAcquired object:nil];
+      if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isLoggedIn"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLocationAcquired object:nil];
+      }
     }
   }
   // else skip the event and process the next one.

@@ -59,11 +59,11 @@
   [self setupTabView];
   
   // Setup Place Scroll View
+  _placeScrollView.frame = CGRectMake(0, _tabView.height, self.view.width, self.view.height - _tabView.height);
+  
+  // Show check in here button
   if (_shouldShowCheckinHere) {
     [self setupCheckinHereButton];
-    _placeScrollView.frame = CGRectMake(0, _tabView.height, self.view.width, self.view.height - _tabView.height - _checkinHereButton.height);
-  } else {
-    _placeScrollView.frame = CGRectMake(0, _tabView.height, self.view.width, self.view.height - _tabView.height);
   }
   
   _placeScrollView.contentSize = CGSizeMake(960.0, _placeScrollView.height);
@@ -160,11 +160,8 @@
 }
 
 - (void)setupCheckinHereButton {
-  _checkinHereButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.height - 37, 320, 37)];
-  [_checkinHereButton setBackgroundImage:[UIImage imageNamed:@"bg_navigation.png"] forState:UIControlStateNormal];
-  [_checkinHereButton addTarget:self action:@selector(showCheckinHereModal) forControlEvents:UIControlEventTouchUpInside];
-  [_checkinHereButton setTitle:@"Checkin Here" forState:UIControlStateNormal];
-  [self.view addSubview:_checkinHereButton];
+  _checkinHereButton= [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showCheckinHereModal)];
+  self.navigationItem.rightBarButtonItem = _checkinHereButton;
 }
 
 - (void)showCheckinHereModal {

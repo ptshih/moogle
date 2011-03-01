@@ -28,8 +28,8 @@
   BOOL _shouldShowCheckinHere;
   
   // UI
+  UIBarButtonItem *_checkinHereButton;
   UIScrollView *_placeScrollView;
-  UIButton *_checkinHereButton;
   UIView *_tabView;
   UIButton *_infoButton;
   UIButton *_activityButton;
