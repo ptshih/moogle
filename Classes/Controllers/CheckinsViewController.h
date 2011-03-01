@@ -11,34 +11,21 @@
 #import "WhoFilterDelegate.h"
 #import "MoogleDataCenterDelegate.h"
 
-enum {
-  CheckinsModeTimeline = 0,
-  CheckinsModeTrending = 1
-};
-typedef uint32_t CheckinsMode;
-
 @class CheckinsDataCenter;
-@class TrendsDataCenter;
 @class ASIHTTPRequest;
 @class WhoViewController;
 
 @interface CheckinsViewController : CardTableViewController <WhoFilterDelegate, MoogleDataCenterDelegate> {
-  CheckinsDataCenter *_timelineDataCenter;
-  TrendsDataCenter *_trendsDataCenter;
+  CheckinsDataCenter *_dataCenter;
   
   ASIHTTPRequest *_checkinsRequest;
-  ASIHTTPRequest *_trendsRequest;
   
   WhoViewController *_wvc;
   NSString *_who;
-  
-  CheckinsMode _mode;
 }
 
-@property (nonatomic, retain) CheckinsDataCenter *timelineDataCenter;
-@property (nonatomic, retain) TrendsDataCenter *trendsDataCenter;
+@property (nonatomic, retain) CheckinsDataCenter *dataCenter;
 @property (nonatomic, retain) ASIHTTPRequest *checkinsRequest;
-@property (nonatomic, retain) ASIHTTPRequest *trendsRequest;
 
 - (void)getCheckins;
 

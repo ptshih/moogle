@@ -30,7 +30,7 @@
   }
 }
 
-- (void)checkinsRequestDidFinish:(ASIHTTPRequest *)request {
+- (void)trendsRequestDidFinish:(ASIHTTPRequest *)request {
   DLog(@"Successfully got a list of checkins with response: %@", [request responseString]);
   if (!_responseArray) {
     _responseArray = [[NSMutableArray array] retain];
@@ -40,7 +40,13 @@
   
   NSArray *jsonArray = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
   
-  NSArray *keys = [NSArray arrayWithObjects:@"checkin_id", @"facebook_id", @"name", @"place_id", @"place_name", @"message", @"checkin_timestamp", @"tagged_count", nil];
+//  :place_id => mysqlresult['place_id'],
+//  :place_name => mysqlresult['place_name'],
+//  :checkins_count => mysqlresult['checkins_count'],
+//  :like_count => mysqlresult['like_count'],
+//  :friend_checkins => mysqlresult['friend_checkins']
+  
+  NSArray *keys = [NSArray arrayWithObjects:@"place_id", @"place_name", @"checkins_count", @"like_count", @"friend_checkins", nil];
   
   for (NSDictionary *item in jsonArray) {
     NSMutableDictionary *responseDict = [NSMutableDictionary dictionary];

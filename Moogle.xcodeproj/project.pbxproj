@@ -115,6 +115,8 @@
 		25C6C2C81317C8030092E598 /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6C2C01317C8030092E598 /* whiteArrow.png */; };
 		25C6C2C91317C8030092E598 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6C2C11317C8030092E598 /* whiteArrow@2x.png */; };
 		25C6C2F81317CD1F0092E598 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2F71317CD1F0092E598 /* Reachability.m */; };
+		25C896B6131CBF220072FF08 /* TrendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C896B5131CBF220072FF08 /* TrendsViewController.m */; };
+		25C896B9131CC1430072FF08 /* TrendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C896B8131CC1430072FF08 /* TrendCell.m */; };
 		25EC95CB1318B57F009E44DE /* NearbyDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25EC95CA1318B57E009E44DE /* NearbyDataCenter.m */; };
 		25F207981314E6FE00178E09 /* PlacesDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F207971314E6FE00178E09 /* PlacesDataCenter.m */; };
 		25F2079B1314E72400178E09 /* MoogleDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F2079A1314E72400178E09 /* MoogleDataCenter.m */; };
@@ -306,6 +308,10 @@
 		25C6C2C11317C8030092E598 /* whiteArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "whiteArrow@2x.png"; sourceTree = "<group>"; };
 		25C6C2F61317CD1F0092E598 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		25C6C2F71317CD1F0092E598 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		25C896B4131CBF220072FF08 /* TrendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendsViewController.h; sourceTree = "<group>"; };
+		25C896B5131CBF220072FF08 /* TrendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendsViewController.m; sourceTree = "<group>"; };
+		25C896B7131CC1430072FF08 /* TrendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendCell.h; sourceTree = "<group>"; };
+		25C896B8131CC1430072FF08 /* TrendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendCell.m; sourceTree = "<group>"; };
 		25EC95C91318B57D009E44DE /* NearbyDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyDataCenter.h; sourceTree = "<group>"; };
 		25EC95CA1318B57E009E44DE /* NearbyDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyDataCenter.m; sourceTree = "<group>"; };
 		25F207961314E6FE00178E09 /* PlacesDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacesDataCenter.h; sourceTree = "<group>"; };
@@ -551,6 +557,8 @@
 				25433F0A12FA3B770066A191 /* MeViewController.m */,
 				25F29B18130BAE7500B0077F /* CheckinsViewController.h */,
 				25F29B19130BAE7500B0077F /* CheckinsViewController.m */,
+				25C896B4131CBF220072FF08 /* TrendsViewController.h */,
+				25C896B5131CBF220072FF08 /* TrendsViewController.m */,
 				2529FD561301598D0041DA95 /* NearbyViewController.h */,
 				2529FD571301598D0041DA95 /* NearbyViewController.m */,
 				25433D7512FA241B0066A191 /* LoginViewController.h */,
@@ -610,6 +618,8 @@
 				2560A6601318791F000BE27D /* BaseCells */,
 				25F208C61314F7A800178E09 /* CheckinCell.h */,
 				25F208C71314F7A800178E09 /* CheckinCell.m */,
+				25C896B7131CC1430072FF08 /* TrendCell.h */,
+				25C896B8131CC1430072FF08 /* TrendCell.m */,
 				253FED9F1317B86300871D79 /* PlaceCell.h */,
 				253FEDA01317B86300871D79 /* PlaceCell.m */,
 				25C6C2B31317C08A0092E598 /* KupoCell.h */,
@@ -961,6 +971,8 @@
 				2516A4ED131C762E00D11686 /* UINavigationBar+Custom.m in Sources */,
 				2516A4F8131C8A9A00D11686 /* CardModalViewController.m in Sources */,
 				2530F89D131CB64400EC8C3A /* TrendsDataCenter.m in Sources */,
+				25C896B6131CBF220072FF08 /* TrendsViewController.m in Sources */,
+				25C896B9131CC1430072FF08 /* TrendCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

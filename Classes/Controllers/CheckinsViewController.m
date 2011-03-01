@@ -13,12 +13,9 @@
 #import "RemoteRequest.h"
 #import "RemoteOperation.h"
 
-#import "NSDate+HumanInterval.h"
-
 #import "WhoViewController.h"
 #import "PlaceViewController.h"
 #import "CheckinsDataCenter.h"
-#import "TrendsDataCenter.h"
 
 #import "CheckinCell.h"
 
@@ -27,29 +24,24 @@
 - (void)setupButtons;
 
 - (void)toggleWho;
-- (void)toggleMode;
-- (void)swapMode;
+- (void)toggleDistance;
 
 - (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName;
 @end
 
 @implementation CheckinsViewController
 
-@synthesize timelineDataCenter = _timelineDataCenter;
-@synthesize trendsDataCenter = _trendsDataCenter;
+@synthesize dataCenter = _dataCenter;
 @synthesize checkinsRequest = _checkinsRequest;
-@synthesize trendsRequest = _trendsRequest;
+
 
 - (id)init {
   self = [super init];
   if (self) {
-    _timelineDataCenter = [[CheckinsDataCenter alloc ]init];
-    _timelineDataCenter.delegate = self;
-    _trendsDataCenter = [[TrendsDataCenter alloc] init];
-    _trendsDataCenter.delegate = self;
+    _dataCenter = [[CheckinsDataCenter alloc ]init];
+    _dataCenter.delegate = self;
     
     _who = [[NSString alloc] initWithString:@"friends"]; // Default timeline mode to friends
-    _mode = CheckinsModeTimeline;
   }
   return self;
 }
@@ -89,23 +81,8 @@
   [[APP_DELEGATE launcherViewController] presentModalViewController:_wvc animated:YES];
 }
 
-- (void)toggleMode {
-  if (_mode == CheckinsModeTimeline) {
-    _mode = CheckinsModeTrending;
-  } else {
-    _mode = CheckinsModeTimeline;
-  }
-  
-  // Swap the table view
-  [self swapMode];
-}
+- (void)toggleDistance {
 
-- (void)swapMode {
-  [self.sections removeAllObjects];
-  [self.items removeAllObjects];
-  [self.tableView reloadData];
-  [self updateState];
-  [self getCheckins];  
 }
 
 #pragma mark WhoFilterDelegate
@@ -122,27 +99,13 @@
 
 
 - (void)getCheckins {
-  NSMutableDictionary *params = nil;
-  NSString *baseURLString = nil;
+  // Timeline Mode
+  NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  [params setObject:_who forKey:@"who"];
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins", MOOGLE_BASE_URL, API_VERSION];
+  self.checkinsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   
-  // Mode selection
-  if (_mode == CheckinsModeTimeline) {  
-    // Timeline Mode
-    params = [NSMutableDictionary dictionary];
-    [params setObject:_who forKey:@"who"];
-    baseURLString = [NSString stringWithFormat:@"%@/%@/checkins", MOOGLE_BASE_URL, API_VERSION];
-    self.checkinsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.timelineDataCenter];
-    
-    [[RemoteOperation sharedInstance] addRequestToQueue:self.checkinsRequest];
-  } else {
-    // Trending Mode
-    params = [NSMutableDictionary dictionary];
-    baseURLString = [NSString stringWithFormat:@"%@/%@/checkins/trends", MOOGLE_BASE_URL, API_VERSION];
-    
-    self.trendsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.trendsDataCenter];
-    
-    [[RemoteOperation sharedInstance] addRequestToQueue:self.trendsRequest];
-  }
+  [[RemoteOperation sharedInstance] addRequestToQueue:self.checkinsRequest];
 }
 
 - (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName {
@@ -160,25 +123,13 @@
   [self.sections addObject:@"Checkins"];
   
   [self.items removeAllObjects];
-  if (_mode == CheckinsModeTimeline) {
-    [self.items addObject:self.timelineDataCenter.responseArray];
-  } else {
-    [self.items addObject:self.trendsDataCenter.responseArray];
-  }
+  [self.items addObject:self.dataCenter.responseArray];
   [self.tableView reloadData];
   [self dataSourceDidLoad];
 }
 
 - (void)dataCenterDidFail:(ASIHTTPRequest *)request {
   [self dataSourceDidLoad];
-}
-
-#pragma mark UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-  // Assume this is a network error
-  if (buttonIndex != alertView.cancelButtonIndex) {
-    [self getCheckins];
-  }
 }
 
 #pragma mark UITableViewDelegate
@@ -237,13 +188,7 @@
     [_checkinsRequest release], _checkinsRequest = nil;
   }
   
-  if(_trendsRequest) {
-    [_trendsRequest clearDelegatesAndCancel];
-    [_trendsRequest release], _trendsRequest = nil;
-  }
-  
-  RELEASE_SAFELY (_timelineDataCenter);
-  RELEASE_SAFELY(_trendsDataCenter);
+  RELEASE_SAFELY(_dataCenter);
   [super dealloc];
 }
 
