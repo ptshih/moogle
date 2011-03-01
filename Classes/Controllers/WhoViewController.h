@@ -11,9 +11,17 @@
 #import "WhoFilterDelegate.h"
 
 @interface WhoViewController : CardTableViewController {
+  UINavigationBar *_navigationBar;
+  NSString *_dismissButtonTitle;
+
   id <WhoFilterDelegate> _delegate;
 }
 
+@property (nonatomic, retain) UINavigationBar *navigationBar;
+@property (nonatomic, retain) NSString *dismissButtonTitle;
+
 @property (nonatomic, assign) id <WhoFilterDelegate> delegate;
+
+- (void)dismiss;
 
 @end

@@ -18,23 +18,45 @@
 
 @implementation WhoViewController
 
+@synthesize navigationBar = _navigationBar;
+@synthesize dismissButtonTitle = _dismissButtonTitle;
+
 @synthesize delegate = _delegate;
 
 - (id)init {
   self = [super init];
   if (self) {
+    _navigationBar = [[UINavigationBar alloc] init];
+    _dismissButtonTitle = @"Cancel";
+    self.title = @"Moogle";
   }
   return self;
 }
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.view.frame = CGRectMake(0, 0, 320, 460);
+  self.navigationBar.frame = CGRectMake(0, 0, 320, 44);
+  
+  // Setup Nav Items and Done button
+  UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:self.title];
+  UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:self.dismissButtonTitle style:UIBarButtonItemStyleBordered target:self action:@selector(dismiss)];
+  navItem.rightBarButtonItem = dismissButton;
+  [dismissButton release];
+  [self.navigationBar setItems:[NSArray arrayWithObject:navItem]];
+  [navItem release];
+  
+  [self.view addSubview:self.navigationBar];
+  
+  self.navigationBar.tintColor = MOOGLE_BLUE_COLOR;
   
   // Table
-  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+  [self setupTableViewWithFrame:CGRectMake(0, 44, 320, 416) andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
   
   [self getPeople];
+}
+
+- (void)dismiss {
+  [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)getPeople {
@@ -136,6 +158,8 @@
 }
 
 - (void)dealloc {
+  RELEASE_SAFELY(_dismissButtonTitle);
+  RELEASE_SAFELY(_navigationBar);
   [super dealloc];
 }
 

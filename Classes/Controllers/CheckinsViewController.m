@@ -18,34 +18,38 @@
 #import "WhoViewController.h"
 #import "PlaceViewController.h"
 #import "CheckinsDataCenter.h"
+#import "TrendsDataCenter.h"
 
 #import "CheckinCell.h"
 
 @interface CheckinsViewController (Private)
 
 - (void)setupButtons;
-- (void)setupFilterButtons;
-- (void)animateShowFilter;
-- (void)animateHideFilter;
+
+- (void)toggleWho;
+- (void)toggleMode;
+- (void)swapMode;
 
 - (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName;
 @end
 
 @implementation CheckinsViewController
 
-@synthesize dataCenter = _dataCenter;
+@synthesize timelineDataCenter = _timelineDataCenter;
+@synthesize trendsDataCenter = _trendsDataCenter;
 @synthesize checkinsRequest = _checkinsRequest;
-@synthesize filterView = _filterView;
+@synthesize trendsRequest = _trendsRequest;
 
 - (id)init {
   self = [super init];
   if (self) {
-    _dataCenter = [[CheckinsDataCenter alloc ]init];
-    _dataCenter.delegate = self;
+    _timelineDataCenter = [[CheckinsDataCenter alloc ]init];
+    _timelineDataCenter.delegate = self;
+    _trendsDataCenter = [[TrendsDataCenter alloc] init];
+    _trendsDataCenter.delegate = self;
     
-    _filterView = [[UIView alloc] init];
-    _isFiltering = NO;
-    _who = [[NSString alloc] initWithString:@"friends"];
+    _who = [[NSString alloc] initWithString:@"friends"]; // Default timeline mode to friends
+    _mode = CheckinsModeTimeline;
   }
   return self;
 }
@@ -58,14 +62,7 @@
   // Table
   [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self setupPullRefresh];
-  
-  // Setup Filter View
-  self.filterView.frame = CGRectMake(0, -44.0, 320.0, 44.0);
-  self.filterView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"filter_gradient.png"]];
-  
-  [self.view addSubview:self.filterView];
-  
-  [self setupFilterButtons];
+
   [self setupButtons];
 }
 
@@ -76,76 +73,39 @@
   [self getCheckins];
 }
 
-- (void)setupButtons {    
-  // Setup Filter button
-  _filterButton = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStyleBordered target:self action:@selector(filter)];
-  self.navigationItem.rightBarButtonItem = _filterButton;
-}
-
-#pragma mark Filters
-- (void)setupFilterButtons {
-  UIButton *categoryButton = [[UIButton alloc] initWithFrame:CGRectMake(5, 8, 100, 29)];
-  UIButton *distanceButton = [[UIButton alloc] initWithFrame:CGRectMake(110, 8, 100, 29)];
-  UIButton *whoButton = [[UIButton alloc] initWithFrame:CGRectMake(215, 8, 100, 29)];
-  
-  categoryButton.adjustsImageWhenHighlighted = NO;
-  distanceButton.adjustsImageWhenHighlighted = NO;
-  whoButton.adjustsImageWhenHighlighted = NO;
-  
-  [whoButton addTarget:self action:@selector(filterWho) forControlEvents:UIControlEventTouchUpInside];
-  
-  [categoryButton setBackgroundImage:[UIImage imageNamed:@"btn_filter.png"] forState:UIControlStateNormal];
-  [categoryButton setBackgroundImage:[UIImage imageNamed:@"btn_filter_selected.png"] forState:UIControlStateHighlighted];
-  [distanceButton setBackgroundImage:[UIImage imageNamed:@"btn_filter.png"] forState:UIControlStateNormal];
-  [distanceButton setBackgroundImage:[UIImage imageNamed:@"btn_filter_selected.png"] forState:UIControlStateHighlighted];
-  [whoButton setBackgroundImage:[UIImage imageNamed:@"btn_filter.png"] forState:UIControlStateNormal];
-  [whoButton setBackgroundImage:[UIImage imageNamed:@"btn_filter_selected.png"] forState:UIControlStateHighlighted];
-  
-  [categoryButton setTitle:@"Category" forState:UIControlStateNormal];
-  [categoryButton setTitleColor:FILTER_COLOR_BLUE forState:UIControlStateNormal];
-  categoryButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-  categoryButton.titleLabel.lineBreakMode = UILineBreakModeTailTruncation;
-  
-  [distanceButton setTitle:@"Distance" forState:UIControlStateNormal];
-  [distanceButton setTitleColor:FILTER_COLOR_BLUE forState:UIControlStateNormal];
-  distanceButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-  distanceButton.titleLabel.lineBreakMode = UILineBreakModeTailTruncation;
-  
-  [whoButton setTitle:@"Who" forState:UIControlStateNormal];
-  [whoButton setTitleColor:FILTER_COLOR_BLUE forState:UIControlStateNormal];
-  whoButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-  whoButton.titleLabel.lineBreakMode = UILineBreakModeTailTruncation;
-  
-  [self.filterView addSubview:categoryButton];
-  [self.filterView addSubview:distanceButton];
-  [self.filterView addSubview:whoButton];
-  
-  [categoryButton release];
-  [distanceButton release];
+- (void)setupButtons {  
+  UIBarButtonItem *modeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleMode)];
+  UIBarButtonItem *whoButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleWho)];
+  self.navigationItem.leftBarButtonItem = modeButton;
+  self.navigationItem.rightBarButtonItem = whoButton;
+  [modeButton release];
   [whoButton release];
 }
 
-- (void)filter {
-  if (_isFiltering) {
-    // Hide filter drop-down
-    [_filterButton setStyle:UIBarButtonItemStyleBordered];
-    [_filterButton setTitle:@"Filter"];
-    _isFiltering = NO;
-    [self animateHideFilter];
-  } else {
-    // Show filter drop-down
-    [_filterButton setStyle:UIBarButtonItemStyleDone];
-    [_filterButton setTitle:@"Done"];
-    _isFiltering = YES;
-    [self animateShowFilter];
-  }
-}
-
-#pragma mark Filter Button Actions
-- (void)filterWho {
+#pragma mark Button Actions
+- (void)toggleWho {
   _wvc = [[WhoViewController alloc] init];
   _wvc.delegate = self;
   [[APP_DELEGATE launcherViewController] presentModalViewController:_wvc animated:YES];
+}
+
+- (void)toggleMode {
+  if (_mode == CheckinsModeTimeline) {
+    _mode = CheckinsModeTrending;
+  } else {
+    _mode = CheckinsModeTimeline;
+  }
+  
+  // Swap the table view
+  [self swapMode];
+}
+
+- (void)swapMode {
+  [self.sections removeAllObjects];
+  [self.items removeAllObjects];
+  [self.tableView reloadData];
+  [self updateState];
+  [self getCheckins];  
 }
 
 #pragma mark WhoFilterDelegate
@@ -162,36 +122,27 @@
 
 
 - (void)getCheckins {
-  // Mode selection
-  NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  [params setObject:_who forKey:@"who"];
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins", MOOGLE_BASE_URL, API_VERSION];
+  NSMutableDictionary *params = nil;
+  NSString *baseURLString = nil;
   
-  self.checkinsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.checkinsRequest];
-}
-
-- (void)animateShowFilter {
-  [UIView beginAnimations:@"ShowFilter" context:nil];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationBeginsFromCurrentState:YES];
-	[UIView setAnimationCurve:UIViewAnimationCurveLinear];  
-	[UIView setAnimationDuration:0.3]; // Fade out is configurable in seconds (FLOAT)
-  self.filterView.top = 0.0;
-  self.tableView.frame = CGRectMake(0, 44.0, self.tableView.width, self.tableView.height - 44.0);
-  //  self.tableView.contentInset = UIEdgeInsetsMake(44.0, 0.0, 0.0, 0.0);
-	[UIView commitAnimations];
-}
-
-- (void)animateHideFilter {
-  [UIView beginAnimations:@"HideFilter" context:nil];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationBeginsFromCurrentState:YES];
-	[UIView setAnimationCurve:UIViewAnimationCurveLinear];  
-	[UIView setAnimationDuration:0.3]; // Fade out is configurable in seconds (FLOAT)
-  self.filterView.top = -44.0;
-  self.tableView.frame = CGRectMake(0, 0, self.tableView.width, self.tableView.height + 44.0);
-	[UIView commitAnimations];
+  // Mode selection
+  if (_mode == CheckinsModeTimeline) {  
+    // Timeline Mode
+    params = [NSMutableDictionary dictionary];
+    [params setObject:_who forKey:@"who"];
+    baseURLString = [NSString stringWithFormat:@"%@/%@/checkins", MOOGLE_BASE_URL, API_VERSION];
+    self.checkinsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.timelineDataCenter];
+    
+    [[RemoteOperation sharedInstance] addRequestToQueue:self.checkinsRequest];
+  } else {
+    // Trending Mode
+    params = [NSMutableDictionary dictionary];
+    baseURLString = [NSString stringWithFormat:@"%@/%@/checkins/trends", MOOGLE_BASE_URL, API_VERSION];
+    
+    self.trendsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.trendsDataCenter];
+    
+    [[RemoteOperation sharedInstance] addRequestToQueue:self.trendsRequest];
+  }
 }
 
 - (void)showPlaceWithId:(NSNumber *)placeId andName:(NSString *)placeName {
@@ -209,7 +160,11 @@
   [self.sections addObject:@"Checkins"];
   
   [self.items removeAllObjects];
-  [self.items addObject:self.dataCenter.responseArray];
+  if (_mode == CheckinsModeTimeline) {
+    [self.items addObject:self.timelineDataCenter.responseArray];
+  } else {
+    [self.items addObject:self.trendsDataCenter.responseArray];
+  }
   [self.tableView reloadData];
   [self dataSourceDidLoad];
 }
@@ -282,9 +237,13 @@
     [_checkinsRequest release], _checkinsRequest = nil;
   }
   
-  RELEASE_SAFELY (_dataCenter);
-  RELEASE_SAFELY (_filterButton);
-  RELEASE_SAFELY (_filterView);
+  if(_trendsRequest) {
+    [_trendsRequest clearDelegatesAndCancel];
+    [_trendsRequest release], _trendsRequest = nil;
+  }
+  
+  RELEASE_SAFELY (_timelineDataCenter);
+  RELEASE_SAFELY(_trendsDataCenter);
   [super dealloc];
 }
 
