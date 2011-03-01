@@ -91,6 +91,7 @@
 #define VERY_LIGHT_GRAY RGBCOLOR(226.0,231.0,237.0)
 #define GRAY_COLOR RGBCOLOR(87.0,108.0,137.0)
 #define SEPARATOR_COLOR RGBCOLOR(200.0,200.0,200.0)
+#define MOOGLE_BLUE_COLOR RGBCOLOR(45.0,147.0,204.0)
 
 #define RGBCOLOR(R,G,B) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1.0]
 #define RGBACOLOR(R,G,B,A) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]

@@ -53,7 +53,6 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
   self.title = @"Moogle Checkins";
   
   // Table

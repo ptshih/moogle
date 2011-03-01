@@ -30,8 +30,8 @@
 @synthesize message = _message;
 @synthesize tagsArray = _tagsArray;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id)init {
+  self = [super init];
   if (self) {
     _dataCenter = [[MoogleDataCenter alloc] init];
     _dataCenter.delegate = self;

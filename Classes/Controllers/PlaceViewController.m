@@ -154,14 +154,14 @@
 
 - (void)setupCheckinHereButton {
   _checkinHereButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.height - 37, 320, 37)];
-  [_checkinHereButton setBackgroundColor:FB_COLOR_DARK_BLUE];
+  [_checkinHereButton setBackgroundImage:[UIImage imageNamed:@"bg_navigation.png"] forState:UIControlStateNormal];
   [_checkinHereButton addTarget:self action:@selector(showCheckinHereModal) forControlEvents:UIControlEventTouchUpInside];
   [_checkinHereButton setTitle:@"Checkin Here" forState:UIControlStateNormal];
   [self.view addSubview:_checkinHereButton];
 }
 
 - (void)showCheckinHereModal {
-  _checkinHereViewController = [[CheckinHereViewController alloc] initWithNibName:@"CheckinHereViewController" bundle:nil];
+  _checkinHereViewController = [[CheckinHereViewController alloc] init];
   _checkinHereViewController.placeId = self.placeId;
   [APP_DELEGATE.launcherViewController presentModalViewController:_checkinHereViewController animated:YES];
 }

@@ -38,6 +38,8 @@
   self.view.frame = CGRectMake(0, 0, kCardWidth, kCardHeight - 44.0);
   self.view.clipsToBounds = YES;
   
+  self.navigationController.navigationBar.tintColor = MOOGLE_BLUE_COLOR;
+  
   // Setup Empty and Loading View
   if ([self isKindOfClass:[PlaceTabViewController class]]) {
     [[NSBundle mainBundle] loadNibNamed:@"EmptyPlaceView" owner:self options:nil];
@@ -46,9 +48,14 @@
   } else if ([self isKindOfClass:[NearbyViewController class]]) {
     [[NSBundle mainBundle] loadNibNamed:@"EmptyView" owner:self options:nil];
     [[NSBundle mainBundle] loadNibNamed:@"LocationLoadingView" owner:self options:nil];
+    self.emptyView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
+    self.loadingView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
   } else {
     [[NSBundle mainBundle] loadNibNamed:@"EmptyView" owner:self options:nil];
     [[NSBundle mainBundle] loadNibNamed:@"LoadingView" owner:self options:nil];
+    
+    self.emptyView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
+    self.loadingView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
   }
   
   self.emptyView.hidden = YES;

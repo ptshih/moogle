@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CardStateMachine.h"
+#import "UINavigationBar+Custom.h"
 
 @interface CardViewController : UIViewController <CardStateMachine> {
   IBOutlet UIView *_emptyView;

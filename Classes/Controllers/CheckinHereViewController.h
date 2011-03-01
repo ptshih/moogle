@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CardModalViewController.h"
 #import "MoogleDataCenterDelegate.h"
 
 @class ASIHTTPRequest;
 @class MoogleDataCenter;
 
-@interface CheckinHereViewController : UIViewController <MoogleDataCenterDelegate> {
+@interface CheckinHereViewController : CardModalViewController <MoogleDataCenterDelegate> {
   MoogleDataCenter *_dataCenter;
   ASIHTTPRequest *_checkinHereRequest;
   
