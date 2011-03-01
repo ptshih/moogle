@@ -12,13 +12,13 @@
 
 @interface WhoViewController : CardTableViewController {
   UINavigationBar *_navigationBar;
-  NSString *_dismissButtonTitle;
+  NSMutableDictionary *_selectedDict;
 
   id <WhoFilterDelegate> _delegate;
 }
 
 @property (nonatomic, retain) UINavigationBar *navigationBar;
-@property (nonatomic, retain) NSString *dismissButtonTitle;
+@property (nonatomic, retain) NSMutableDictionary *selectedDict;
 
 @property (nonatomic, assign) id <WhoFilterDelegate> delegate;
 

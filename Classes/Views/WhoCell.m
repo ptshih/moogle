@@ -16,10 +16,13 @@
 @implementation WhoCell
 
 @synthesize nameLabel = _nameLabel;
+@synthesize isSelected = _isSelected;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
+    _isSelected = NO;
+    
     _nameLabel = [[UILabel alloc] init];
     
     self.nameLabel.backgroundColor = [UIColor clearColor];
@@ -88,6 +91,19 @@
 
 + (CGFloat)rowHeight {
   return 60.0;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+  [super setSelected:selected animated:animated];
+  if (selected) {
+    if (_isSelected) {
+      _isSelected = NO;
+      self.accessoryType = UITableViewCellAccessoryNone;
+    } else {
+      _isSelected = YES;
+      self.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+  }
 }
 
 - (void)dealloc {

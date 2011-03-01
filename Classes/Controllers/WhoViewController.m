@@ -19,7 +19,7 @@
 @implementation WhoViewController
 
 @synthesize navigationBar = _navigationBar;
-@synthesize dismissButtonTitle = _dismissButtonTitle;
+@synthesize selectedDict = _selectedDict;
 
 @synthesize delegate = _delegate;
 
@@ -27,7 +27,7 @@
   self = [super init];
   if (self) {
     _navigationBar = [[UINavigationBar alloc] init];
-    _dismissButtonTitle = @"Cancel";
+    _selectedDict = [[NSMutableDictionary alloc] init];
     self.title = @"Moogle";
   }
   return self;
@@ -39,9 +39,12 @@
   
   // Setup Nav Items and Done button
   UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:self.title];
-  UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:self.dismissButtonTitle style:UIBarButtonItemStyleBordered target:self action:@selector(dismiss)];
-  navItem.rightBarButtonItem = dismissButton;
+  UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(dismiss)];
+  UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(done)];
+  navItem.leftBarButtonItem = dismissButton;
+  navItem.rightBarButtonItem = doneButton;
   [dismissButton release];
+  [doneButton release];
   [self.navigationBar setItems:[NSArray arrayWithObject:navItem]];
   [navItem release];
   
@@ -59,26 +62,16 @@
   [self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)getPeople {
-  NSArray *friends = [[NSUserDefaults standardUserDefaults] objectForKey:@"friends"];
-  [self.sections addObject:@"Me"];
-  [self.sections addObject:@"My Friends"];
-  [self.sections addObject:@"Choose a Friend"];
-  
-  [self.items addObject:[NSArray arrayWithObject:[NSDictionary dictionaryWithObject:@"me" forKey:@"friend_name"]]];
-  [self.items addObject:[NSArray arrayWithObject:[NSDictionary dictionaryWithObject:@"friends" forKey:@"friend_name"]]];
-  [self.items addObject:friends];
-}
-
-#pragma mark UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  [tableView deselectRowAtIndexPath:indexPath animated:YES];
-  
+- (void)done {
   NSString *selected = nil;
-  if (indexPath.section < 2) {
-    selected = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_name"];
+  NSArray *selectedArray = [self.selectedDict allValues];
+  if ([selectedArray count] > 1) {
+    selected = [selectedArray componentsJoinedByString:@","];
+  } else if ([selectedArray count] > 0) {
+    selected = [selectedArray objectAtIndex:0];
   } else {
-    selected = [[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_id"] stringValue];
+    // EPIC FAIL, NEED TO SELECT AT LEAST ONE
+    return;
   }
   
   if (self.delegate) {
@@ -89,7 +82,39 @@
     [self.delegate release];
   }
   
-  [self dismissModalViewControllerAnimated:YES];
+  [self dismiss];
+}
+
+- (void)getPeople {
+  NSArray *friends = [[NSUserDefaults standardUserDefaults] objectForKey:@"friends"];
+  [self.sections addObject:@"Me/Friends"];
+  [self.sections addObject:@"Choose a Friend"];
+  
+  [self.items addObject:[NSArray arrayWithObjects:[NSDictionary dictionaryWithObject:@"me" forKey:@"friend_name"], [NSDictionary dictionaryWithObject:@"friends" forKey:@"friend_name"], nil]];
+  [self.items addObject:friends];
+}
+
+#pragma mark UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  
+  if (indexPath.section == 0) {
+    if (self.delegate) {
+      [self.delegate retain];
+      if ([self.delegate respondsToSelector:@selector(whoPickedWithString:)]) {
+        [self.delegate performSelector:@selector(whoPickedWithString:) withObject:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_name"]];
+      }
+      [self.delegate release];
+    }
+    
+    [self dismiss];
+  } else {
+    if ([self.selectedDict objectForKey:indexPath]) {
+      [self.selectedDict removeObjectForKey:indexPath];
+    } else {
+      [self.selectedDict setObject:[[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_id"] stringValue] forKey:indexPath];
+    }
+  }
 }
 
 #pragma mark UITableViewDataSource
@@ -158,8 +183,8 @@
 }
 
 - (void)dealloc {
-  RELEASE_SAFELY(_dismissButtonTitle);
   RELEASE_SAFELY(_navigationBar);
+  RELEASE_SAFELY(_selectedDict);
   [super dealloc];
 }
 

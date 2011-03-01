@@ -66,11 +66,11 @@
 }
 
 - (void)setupButtons {  
-  UIBarButtonItem *modeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleMode)];
+  UIBarButtonItem *distanceButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleDistance)];
   UIBarButtonItem *whoButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleWho)];
-  self.navigationItem.leftBarButtonItem = modeButton;
+  self.navigationItem.leftBarButtonItem = distanceButton;
   self.navigationItem.rightBarButtonItem = whoButton;
-  [modeButton release];
+  [distanceButton release];
   [whoButton release];
 }
 
@@ -102,6 +102,8 @@
   // Timeline Mode
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
   [params setObject:_who forKey:@"who"];
+//  [params setObject:@"1291192051" forKey:@"until"];
+//  [params setObject:@"2" forKey:@"count"];
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins", MOOGLE_BASE_URL, API_VERSION];
   self.checkinsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   

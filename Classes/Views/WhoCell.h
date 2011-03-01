@@ -11,9 +11,12 @@
 
 @interface WhoCell : MoogleImageCell {
   UILabel *_nameLabel;
+  
+  BOOL _isSelected;
 }
 
 @property (nonatomic, retain) UILabel *nameLabel;
+@property (nonatomic, assign) BOOL isSelected;
 
 + (void)fillCell:(WhoCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image;
 
