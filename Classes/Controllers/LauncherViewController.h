@@ -10,36 +10,39 @@
 #import <QuartzCore/QuartzCore.h>
 
 @class CardTabBar;
-@class MeViewController;
-@class PlacesViewController;
 @class CheckinsViewController;
-@class MapViewController;
+@class PlacesViewController;
+@class DiscoverViewController;
+@class MeViewController;
 
 @interface LauncherViewController : UIViewController <UITabBarDelegate> {
   IBOutlet UIScrollView *_scrollView;
   IBOutlet CardTabBar *_cardTabBar;
   
   // Cards
-  MeViewController *_meViewController;
-  PlacesViewController *_placesViewController;;
   CheckinsViewController *_checkinsViewController;
-  MapViewController *_mapViewController;
+  PlacesViewController *_placesViewController;
+  DiscoverViewController *_discoverViewController;
+  MeViewController *_meViewController;
+
   
   NSArray *_cards;
   
-  BOOL _isZoomed;
   NSInteger _currentPage;
   NSInteger _previousPage;
+  
+  BOOL _isQuickScroll;
 }
 
 @property (nonatomic, retain) UIScrollView *scrollView;
 @property (nonatomic, retain) CardTabBar *cardTabBar;
 
 // Cards
-@property (nonatomic, retain) MeViewController *meViewController;
-@property (nonatomic, retain) PlacesViewController *placesViewController;
+
 @property (nonatomic, retain) CheckinsViewController *checkinsViewController;
-@property (nonatomic, retain) MapViewController *mapViewController;
+@property (nonatomic, retain) PlacesViewController *placesViewController;
+@property (nonatomic, retain) DiscoverViewController *discoverViewController;
+@property (nonatomic, retain) MeViewController *meViewController;
 
 @property (nonatomic, retain) NSArray *cards;
 

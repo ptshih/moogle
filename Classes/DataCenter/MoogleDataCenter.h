@@ -16,12 +16,16 @@
 
 @interface MoogleDataCenter : NSObject {
   id <MoogleDataCenterDelegate> _delegate;
-  id _parsedResponse;
+  id _response;
+  NSArray *_responseKeys;
 }
 
 @property (nonatomic, retain) id <MoogleDataCenterDelegate> delegate;
-@property (nonatomic, retain) id parsedResponse;
+@property (nonatomic, retain) id response;
+@property (nonatomic, retain) NSArray *responseKeys;
 
+
+// Subclass should Implement AND call super's implementation
 - (void)dataCenterFinishedWithRequest:(ASIHTTPRequest *)request;
 - (void)dataCenterFailedWithRequest:(ASIHTTPRequest *)request;
 

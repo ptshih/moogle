@@ -11,5 +11,14 @@
 
 @implementation MapViewController
 
+#pragma mark CardStateMachine
+- (BOOL)dataIsAvailable {
+  return YES;
+}
+
+- (BOOL)dataSourceIsReady {
+  return YES;
+}
+
 
 @end

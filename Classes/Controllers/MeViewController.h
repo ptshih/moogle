@@ -10,7 +10,6 @@
 #import "CardTableViewController.h"
 #import "MoogleDataCenterDelegate.h"
 
-@class ASIHTTPRequest;
 @class MeDataCenter;
 
 @interface MeViewController : CardTableViewController <MoogleDataCenterDelegate> {

@@ -9,13 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "CardTableViewController.h"
 #import "MoogleDataCenterDelegate.h"
-#import "Constants.h"
+
 #import "LocationManager.h"
 #import "PlaceDataCenter.h"
-
-#import "ASIHTTPRequest.h"
-#import "RemoteRequest.h"
-#import "RemoteOperation.h"
 
 @class PlaceDataCenter;
 

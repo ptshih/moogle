@@ -12,7 +12,6 @@
 #import "MoogleDataCenterDelegate.h"
 
 @class CheckinsDataCenter;
-@class ASIHTTPRequest;
 @class WhoViewController;
 
 @interface CheckinsViewController : CardTableViewController <WhoFilterDelegate, MoogleDataCenterDelegate> {

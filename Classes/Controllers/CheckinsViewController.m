@@ -7,11 +7,6 @@
 //
 
 #import "CheckinsViewController.h"
-#import "Constants.h"
-
-#import "ASIHTTPRequest.h"
-#import "RemoteRequest.h"
-#import "RemoteOperation.h"
 
 #import "WhoViewController.h"
 #import "PlaceViewController.h"
@@ -49,10 +44,9 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  self.title = @"Moogle Checkins";
-  
   // Table
-  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  CGRect tableFrame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV);
+  [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self setupPullRefresh];
 
   [self setupButtons];

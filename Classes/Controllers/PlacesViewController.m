@@ -7,13 +7,9 @@
 //
 
 #import "PlacesViewController.h"
-#import "Constants.h"
+
 #import "PlaceCell.h"
 #import "LocationManager.h"
-
-#import "ASIHTTPRequest.h"
-#import "RemoteRequest.h"
-#import "RemoteOperation.h"
 
 #import "PlaceViewController.h"
 #import "PlacesDataCenter.h"
@@ -56,7 +52,8 @@
   self.title = @"Nearby Places";
   
   // Table
-  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  CGRect tableFrame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV);
+  [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self setupPullRefresh];
   
 //  self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;

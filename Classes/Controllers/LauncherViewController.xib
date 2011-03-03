@@ -73,19 +73,19 @@
 						<object class="NSMutableArray" key="IBUIItems">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUITabBarItem" id="678401450">
-								<string key="IBUITitle">Me</string>
+								<string key="IBUITitle">Feed</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">tab_profile.png</string>
+									<string key="NSResourceName">tab_feed.png</string>
 								</object>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<reference key="IBUITabBar" ref="51335393"/>
 							</object>
 							<object class="IBUITabBarItem" id="799320455">
-								<string key="IBUITitle">Friends</string>
+								<string key="IBUITitle">Places</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">tab_friends.png</string>
+									<string key="NSResourceName">tab_places.png</string>
 								</object>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<reference key="IBUITabBar" ref="51335393"/>
@@ -96,19 +96,19 @@
 								<reference key="IBUITabBar" ref="51335393"/>
 							</object>
 							<object class="IBUITabBarItem" id="261261174">
-								<string key="IBUITitle">Maps</string>
+								<string key="IBUITitle">Discover</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">tab_map_pin.png</string>
+									<string key="NSResourceName">tab_discover.png</string>
 								</object>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<reference key="IBUITabBar" ref="51335393"/>
 							</object>
 							<object class="IBUITabBarItem" id="1003685572">
-								<string key="IBUITitle">Places</string>
+								<string key="IBUITitle">Me</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">tab_map_marker.png</string>
+									<string key="NSResourceName">tab_profile.png</string>
 								</object>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<reference key="IBUITabBar" ref="51335393"/>
@@ -364,16 +364,16 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>tab_friends.png</string>
-				<string>tab_map_marker.png</string>
-				<string>tab_map_pin.png</string>
+				<string>tab_discover.png</string>
+				<string>tab_feed.png</string>
+				<string>tab_places.png</string>
 				<string>tab_profile.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{32, 21}</string>
+				<string>{24, 22}</string>
+				<string>{28, 23}</string>
 				<string>{16, 26}</string>
-				<string>{10, 20}</string>
 				<string>{24, 21}</string>
 			</object>
 		</object>

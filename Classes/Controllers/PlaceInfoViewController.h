@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "PlaceTabViewController.h"
 
-@class ASIHTTPRequest;
-
 @interface PlaceInfoViewController : PlaceTabViewController {
   ASIHTTPRequest *_placeInfoRequest;
   UIImage *_placeImage;

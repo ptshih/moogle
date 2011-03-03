@@ -28,9 +28,10 @@
 // API Version
 #define API_VERSION @"v1"
 
-#define kCardWidth 320.0
-#define kCardHeight 440.0
-#define kPageControlHeight 20.0
+#define NUMBER_OF_CARDS 4
+#define CARD_WIDTH 320.0
+#define CARD_HEIGHT 411.0
+#define CARD_HEIGHT_WITH_NAV 367.0
 
 // If this is defined, we will hit the staging server instead of prod
 // #define STAGING

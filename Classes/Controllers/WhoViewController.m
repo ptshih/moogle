@@ -1,4 +1,4 @@
-    //
+//
 //  WhoViewController.m
 //  Moogle
 //
@@ -7,7 +7,6 @@
 //
 
 #import "WhoViewController.h"
-#import "Constants.h"
 #import "WhoCell.h"
 
 @interface WhoViewController (Private)

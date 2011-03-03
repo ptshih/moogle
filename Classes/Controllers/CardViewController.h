@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constants.h"
 #import "CardStateMachine.h"
 #import "UINavigationBar+Custom.h"
+#import "ASIHTTPRequest.h"
+#import "RemoteRequest.h"
+#import "RemoteOperation.h"
 
 @interface CardViewController : UIViewController <CardStateMachine, UINavigationControllerDelegate> {
   IBOutlet UIView *_emptyView;

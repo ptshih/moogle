@@ -18,7 +18,6 @@ typedef uint32_t PlacesType;
 
 @class PlacesDataCenter;
 @class TrendsDataCenter;
-@class ASIHTTPRequest;
 
 @interface PlacesViewController : CardTableViewController <MoogleDataCenterDelegate> {
   PlacesDataCenter *_dataCenter;

@@ -7,13 +7,8 @@
 //
 
 #import "MeViewController.h"
-#import "Constants.h"
 
 #import "PlaceViewController.h"
-
-#import "ASIHTTPRequest.h"
-#import "RemoteRequest.h"
-#import "RemoteOperation.h"
 
 #import "MeDataCenter.h"
 #import "KupoCell.h"
@@ -47,7 +42,8 @@
   [self setupButtons];
   
   // Table
-  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  CGRect tableFrame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV);
+  [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self setupPullRefresh];
 
 }

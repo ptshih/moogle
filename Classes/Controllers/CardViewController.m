@@ -37,10 +37,11 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil] autorelease];
-  self.view.frame = CGRectMake(0, 0, kCardWidth, kCardHeight - 44.0);
+  self.view.frame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT);
   self.view.clipsToBounds = YES;
   
   self.navigationController.navigationBar.tintColor = MOOGLE_BLUE_COLOR;
+  self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"moogle_logo.png"]] autorelease];
   
   // Setup Empty and Loading View
   if ([self isKindOfClass:[PlaceTabViewController class]]) {

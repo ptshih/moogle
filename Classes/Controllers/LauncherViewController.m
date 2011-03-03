@@ -7,14 +7,12 @@
 //
 
 #import "LauncherViewController.h"
-#import "MeViewController.h"
-#import "PlacesViewController.h"
 #import "CheckinsViewController.h"
-#import "MapViewController.h"
+#import "PlacesViewController.h"
+#import "DiscoverViewController.h"
+#import "MeViewController.h"
 #import "Constants.h"
 #import "CardTabBar.h"
-
-#define kNumberOfPages 4
 
 @interface LauncherViewController (Private)
 
@@ -35,22 +33,23 @@
 @synthesize cardTabBar = _cardTabBar;
 
 // Cards
-@synthesize meViewController = _meViewController;
-@synthesize placesViewController = _placesViewController;
 @synthesize checkinsViewController = _checkinsViewController;
-@synthesize mapViewController = _mapViewController;
+@synthesize placesViewController = _placesViewController;
+@synthesize discoverViewController = _discoverViewController;
+@synthesize meViewController = _meViewController;
 
 @synthesize cards = _cards;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
-    _meViewController = [[MeViewController alloc] init];
-    _placesViewController = [[PlacesViewController alloc] init];
     _checkinsViewController = [[CheckinsViewController alloc] init];
-    _mapViewController = [[MapViewController alloc] init];
+    _placesViewController = [[PlacesViewController alloc] init];
+    _discoverViewController = [[DiscoverViewController alloc] init];
+    _meViewController = [[MeViewController alloc] init];
     _previousPage = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastSelectedCard"]; // Start at last selected card
-    _isZoomed = NO;
+    
+    _isQuickScroll = NO;
   }
   return self;
 }
@@ -66,41 +65,41 @@
   [self setActiveCardTab];
   
   // Setup Scroll/Paging View
-  self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * kNumberOfPages, self.scrollView.frame.size.height);
-  self.scrollView.contentOffset = CGPointMake(kCardWidth * _currentPage, 0); // start at page 1
+  self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * NUMBER_OF_CARDS, self.scrollView.frame.size.height);
+  self.scrollView.contentOffset = CGPointMake(CARD_WIDTH * _currentPage, 0); // start at page 1
   self.scrollView.scrollsToTop = NO;
   
-  // Configure the three cards (CHECK ORDERING)
-  UINavigationController *meNavController = [[UINavigationController alloc] initWithRootViewController:self.meViewController];
-  meNavController.view.frame = CGRectMake(kCardWidth * 0, 0, self.scrollView.width, self.scrollView.height);
+  // Configure the cards (CHECK ORDERING)
+  UINavigationController *checkinsNavController = [[UINavigationController alloc] initWithRootViewController:self.checkinsViewController];
+  checkinsNavController.view.frame = CGRectMake(CARD_WIDTH * 0, 0, self.scrollView.width, self.scrollView.height);
   
   UINavigationController *placesNavController = [[UINavigationController alloc] initWithRootViewController:self.placesViewController];
-  placesNavController.view.frame = CGRectMake(kCardWidth * 3, 0, self.scrollView.width, self.scrollView.height);
+  placesNavController.view.frame = CGRectMake(CARD_WIDTH * 1, 0, self.scrollView.width, self.scrollView.height);
   
-  UINavigationController *checkinsNavController = [[UINavigationController alloc] initWithRootViewController:self.checkinsViewController];
-  checkinsNavController.view.frame = CGRectMake(kCardWidth * 1, 0, self.scrollView.width, self.scrollView.height);
+  UINavigationController *discoverNavController = [[UINavigationController alloc] initWithRootViewController:self.discoverViewController];
+  discoverNavController.view.frame = CGRectMake(CARD_WIDTH * 2, 0, self.scrollView.width, self.scrollView.height);
   
-  UINavigationController *mapNavController = [[UINavigationController alloc] initWithRootViewController:self.mapViewController];
-  mapNavController.view.frame = CGRectMake(kCardWidth * 2, 0, self.scrollView.width, self.scrollView.height);
+  UINavigationController *meNavController = [[UINavigationController alloc] initWithRootViewController:self.meViewController];
+  meNavController.view.frame = CGRectMake(CARD_WIDTH * 3, 0, self.scrollView.width, self.scrollView.height);
   
-  meNavController.delegate = self.meViewController;
-  placesNavController.delegate = self.placesViewController;
   checkinsNavController.delegate = self.checkinsViewController;
-  mapNavController.delegate = self.mapViewController;
+  placesNavController.delegate = self.placesViewController;
+  discoverNavController.delegate = self.discoverViewController;
+  meNavController.delegate = self.meViewController;
   
   
   // Add the three cards
-  [self.scrollView addSubview:meNavController.view];
-  [self.scrollView addSubview:placesNavController.view];
   [self.scrollView addSubview:checkinsNavController.view];
-  [self.scrollView addSubview:mapNavController.view];
+  [self.scrollView addSubview:placesNavController.view];
+  [self.scrollView addSubview:discoverNavController.view];
+  [self.scrollView addSubview:meNavController.view];
   
-  self.cards = [NSArray arrayWithObjects:meNavController, checkinsNavController, mapNavController, placesNavController, nil];
+  self.cards = [NSArray arrayWithObjects:checkinsNavController, placesNavController, discoverNavController, meNavController, nil];
   
-  [meNavController release];
-  [placesNavController release];
   [checkinsNavController release];
-  [mapNavController release];
+  [placesNavController release];
+  [discoverNavController release];
+  [meNavController release];
   
   // Gestures
   [self addGestures];
@@ -176,6 +175,8 @@
 
 #pragma mark Card Tab Bar
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+  _isQuickScroll = YES;
+  
   NSUInteger translatedIndex = ([tabBar.items indexOfObject:item] > 1) ? [tabBar.items indexOfObject:item] - 1 : [tabBar.items indexOfObject:item];
   [self scrollToCardAtIndex:translatedIndex];
 }
@@ -203,7 +204,9 @@
   CGFloat pageWidth = self.scrollView.frame.size.width;
   int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
   _currentPage = page;
-  [self setActiveCardTab];
+  if (!_isQuickScroll) {
+    [self setActiveCardTab];
+  }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {  
@@ -241,6 +244,10 @@
 }
 
 - (void)zoomInAfterScrolling {
+  if (_isQuickScroll) {
+    _isQuickScroll = NO;
+    [self setActiveCardTab];
+  }
   // When the card is finished paging, zoom it out to take the full screen
   for (UINavigationController *card in self.cards) {
     [self zoomIn:card];
@@ -299,7 +306,7 @@
   RELEASE_SAFELY (_meViewController);
   RELEASE_SAFELY (_placesViewController);
   RELEASE_SAFELY (_checkinsViewController);
-  RELEASE_SAFELY(_mapViewController);
+  RELEASE_SAFELY(_discoverViewController);
   RELEASE_SAFELY (_cards);
   [super dealloc];
 }

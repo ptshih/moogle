@@ -7,7 +7,6 @@
 //
 
 #import "CardTableViewController.h"
-#import "Constants.h"
 #import "MoogleCell.h"
 
 @interface CardTableViewController (Private)
