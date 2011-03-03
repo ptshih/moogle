@@ -153,12 +153,8 @@
   DLog(@"nav will show controller: %@", [viewController class]);
   if ([viewController isKindOfClass:[PlaceViewController class]]) {
     APP_DELEGATE.launcherViewController.scrollView.scrollEnabled = NO;
-    APP_DELEGATE.launcherViewController.pageControl.hidden = YES;
-    APP_DELEGATE.launcherViewController.placeLabel.text = viewController.title;
   } else {
     APP_DELEGATE.launcherViewController.scrollView.scrollEnabled = YES;
-    APP_DELEGATE.launcherViewController.pageControl.hidden = NO;
-    APP_DELEGATE.launcherViewController.placeLabel.text = nil;
   }
 }
 

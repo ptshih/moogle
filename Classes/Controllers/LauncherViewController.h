@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+@class CardTabBar;
 @class MeViewController;
 @class PlacesViewController;
 @class CheckinsViewController;
 
 @interface LauncherViewController : UIViewController {
   IBOutlet UIScrollView *_scrollView;
-  IBOutlet UIPageControl *_pageControl;
-  IBOutlet UILabel *_placeLabel;
+  IBOutlet CardTabBar *_cardTabBar;
   
   // Cards
   MeViewController *_meViewController;
@@ -26,12 +26,12 @@
   NSArray *_cards;
   
   BOOL _isZoomed;
+  NSInteger _currentPage;
   NSInteger _previousPage;
 }
 
 @property (nonatomic, retain) UIScrollView *scrollView;
-@property (nonatomic, retain) UIPageControl *pageControl;
-@property (nonatomic, retain) UILabel *placeLabel;
+@property (nonatomic, retain) CardTabBar *cardTabBar;
 
 // Cards
 @property (nonatomic, retain) MeViewController *meViewController;

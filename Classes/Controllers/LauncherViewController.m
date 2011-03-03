@@ -11,6 +11,7 @@
 #import "PlacesViewController.h"
 #import "CheckinsViewController.h"
 #import "Constants.h"
+#import "CardTabBar.h"
 
 #define kNumberOfPages 3
 
@@ -28,8 +29,7 @@
 @implementation LauncherViewController
 
 @synthesize scrollView = _scrollView;
-@synthesize pageControl = _pageControl;
-@synthesize placeLabel = _placeLabel;
+@synthesize cardTabBar = _cardTabBar;
 
 // Cards
 @synthesize meViewController = _meViewController;
@@ -55,13 +55,13 @@
   
   self.view.frame = CGRectMake(0, 20, self.view.width, self.view.height);
   
-  // Setup Page Control
-  self.pageControl.numberOfPages = kNumberOfPages;
-  self.pageControl.currentPage = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastSelectedCard"]; // Start at last selected card
+  // Setup Current Page
+  _currentPage = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastSelectedCard"]; // Start at last selected card
+  self.cardTabBar.selectedItem = [self.cardTabBar.items objectAtIndex:_currentPage];
   
   // Setup Scroll/Paging View
   self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * kNumberOfPages, self.scrollView.frame.size.height);
-  self.scrollView.contentOffset = CGPointMake(kCardWidth * self.pageControl.currentPage, 0); // start at page 1
+  self.scrollView.contentOffset = CGPointMake(kCardWidth * _currentPage, 0); // start at page 1
   self.scrollView.scrollsToTop = NO;
   
   // Configure the three cards
@@ -115,7 +115,7 @@
 }
 
 - (void)scrollToTop {
-  id visibleViewController = [self.cards objectAtIndex:self.pageControl.currentPage];
+  id visibleViewController = [self.cards objectAtIndex:_currentPage];
   if ([[visibleViewController topViewController] respondsToSelector:@selector(tableView)]) {
     [[(UITableViewController *)[visibleViewController topViewController] tableView] scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
   }
@@ -171,7 +171,7 @@
   // Switch the indicator when more than 50% of the previous/next page is visible
   CGFloat pageWidth = self.scrollView.frame.size.width;
   int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-  self.pageControl.currentPage = page;
+  _currentPage = page;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {  
@@ -200,7 +200,7 @@
 }
 
 - (void)zoomOutBeforeScrolling {
-  _previousPage = self.pageControl.currentPage;
+  _previousPage = _currentPage;
   
   // When the user begins scrolling, zoom into card view
   for (UINavigationController *card in self.cards) {
@@ -215,14 +215,14 @@
   }
   
   // Only perform unload/reload if the card page actually changed
-  if (self.pageControl.currentPage != _previousPage) {    
+  if (_currentPage != _previousPage) {    
     [self updateCards];
   }
 }
 
 - (void)reloadVisibleCard {
   // Tell the new visible controller to reload it's data if it responds to it
-  id visibleViewController = [self.cards objectAtIndex:self.pageControl.currentPage];
+  id visibleViewController = [self.cards objectAtIndex:_currentPage];
   if ([[visibleViewController topViewController] respondsToSelector:@selector(reloadCardController)]) {
     [[visibleViewController topViewController] performSelector:@selector(reloadCardController)];
   }
@@ -236,7 +236,7 @@
   }
   
   // Tell the new visible controller to reload it's data if it responds to it
-  id visibleViewController = [self.cards objectAtIndex:self.pageControl.currentPage];
+  id visibleViewController = [self.cards objectAtIndex:_currentPage];
   if ([[visibleViewController topViewController] respondsToSelector:@selector(reloadCardController)]) {
     [[visibleViewController topViewController] performSelector:@selector(reloadCardController)];
   }
@@ -256,8 +256,6 @@
 }
 
 - (void)viewDidUnload {
-    [_placeLabel release];
-    [self setPlaceLabel:nil];
   [super viewDidUnload];
   // Release any retained subviews of the main view.
   // e.g. self.myOutlet = nil;
@@ -265,8 +263,7 @@
 
 - (void)dealloc {
   RELEASE_SAFELY (_scrollView);
-  RELEASE_SAFELY (_pageControl);
-  RELEASE_SAFELY(_placeLabel);
+  RELEASE_SAFELY(_cardTabBar);
   RELEASE_SAFELY (_meViewController);
   RELEASE_SAFELY (_placesViewController);
   RELEASE_SAFELY (_checkinsViewController);

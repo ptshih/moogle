@@ -105,6 +105,17 @@
 		25BE34751318CEB900291B33 /* PlaceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE34741318CEB700291B33 /* PlaceInfoViewController.m */; };
 		25BE34781318D48900291B33 /* PlaceActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE34771318D48400291B33 /* PlaceActivityViewController.m */; };
 		25BE347C1318D50200291B33 /* PlaceTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BE347B1318D50100291B33 /* PlaceTabViewController.m */; };
+		25BF9B3C131F936D00469ECE /* tab_map_marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 25BF9B3A131F936D00469ECE /* tab_map_marker.png */; };
+		25BF9B3D131F936D00469ECE /* tab_map_marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25BF9B3B131F936D00469ECE /* tab_map_marker@2x.png */; };
+		25BF9B42131F93DB00469ECE /* tab_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 25BF9B3E131F93DB00469ECE /* tab_profile.png */; };
+		25BF9B43131F93DB00469ECE /* tab_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25BF9B3F131F93DB00469ECE /* tab_profile@2x.png */; };
+		25BF9B44131F93DB00469ECE /* tab_friends.png in Resources */ = {isa = PBXBuildFile; fileRef = 25BF9B40131F93DB00469ECE /* tab_friends.png */; };
+		25BF9B45131F93DB00469ECE /* tab_friends@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25BF9B41131F93DB00469ECE /* tab_friends@2x.png */; };
+		25BF9B48131F947A00469ECE /* tab_map_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 25BF9B46131F947A00469ECE /* tab_map_pin.png */; };
+		25BF9B49131F947A00469ECE /* tab_map_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25BF9B47131F947A00469ECE /* tab_map_pin@2x.png */; };
+		25BF9B4C131F971B00469ECE /* tab_checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 25BF9B4A131F971A00469ECE /* tab_checkin.png */; };
+		25BF9B4D131F971B00469ECE /* tab_checkin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25BF9B4B131F971A00469ECE /* tab_checkin@2x.png */; };
+		25BF9B50131F97F400469ECE /* CardTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BF9B4F131F97F400469ECE /* CardTabBar.m */; };
 		25C6C2B21317BE9D0092E598 /* MoogleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2B11317BE9C0092E598 /* MoogleCell.m */; };
 		25C6C2B51317C08B0092E598 /* KupoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2B41317C08A0092E598 /* KupoCell.m */; };
 		25C6C2B81317C7CA0092E598 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2B71317C7CA0092E598 /* EGORefreshTableHeaderView.m */; };
@@ -296,6 +307,18 @@
 		25BE34771318D48400291B33 /* PlaceActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceActivityViewController.m; sourceTree = "<group>"; };
 		25BE347A1318D50100291B33 /* PlaceTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceTabViewController.h; sourceTree = "<group>"; };
 		25BE347B1318D50100291B33 /* PlaceTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceTabViewController.m; sourceTree = "<group>"; };
+		25BF9B3A131F936D00469ECE /* tab_map_marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_map_marker.png; sourceTree = "<group>"; };
+		25BF9B3B131F936D00469ECE /* tab_map_marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_map_marker@2x.png"; sourceTree = "<group>"; };
+		25BF9B3E131F93DB00469ECE /* tab_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_profile.png; sourceTree = "<group>"; };
+		25BF9B3F131F93DB00469ECE /* tab_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_profile@2x.png"; sourceTree = "<group>"; };
+		25BF9B40131F93DB00469ECE /* tab_friends.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_friends.png; sourceTree = "<group>"; };
+		25BF9B41131F93DB00469ECE /* tab_friends@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_friends@2x.png"; sourceTree = "<group>"; };
+		25BF9B46131F947A00469ECE /* tab_map_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_map_pin.png; sourceTree = "<group>"; };
+		25BF9B47131F947A00469ECE /* tab_map_pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_map_pin@2x.png"; sourceTree = "<group>"; };
+		25BF9B4A131F971A00469ECE /* tab_checkin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_checkin.png; sourceTree = "<group>"; };
+		25BF9B4B131F971A00469ECE /* tab_checkin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_checkin@2x.png"; sourceTree = "<group>"; };
+		25BF9B4E131F97F400469ECE /* CardTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardTabBar.h; sourceTree = "<group>"; };
+		25BF9B4F131F97F400469ECE /* CardTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardTabBar.m; sourceTree = "<group>"; };
 		25C6C2B01317BE9C0092E598 /* MoogleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoogleCell.h; sourceTree = "<group>"; };
 		25C6C2B11317BE9C0092E598 /* MoogleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoogleCell.m; sourceTree = "<group>"; };
 		25C6C2B31317C08A0092E598 /* KupoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KupoCell.h; sourceTree = "<group>"; };
@@ -471,6 +494,16 @@
 		25433E2612FA2E000066A191 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				25BF9B4A131F971A00469ECE /* tab_checkin.png */,
+				25BF9B4B131F971A00469ECE /* tab_checkin@2x.png */,
+				25BF9B3A131F936D00469ECE /* tab_map_marker.png */,
+				25BF9B3B131F936D00469ECE /* tab_map_marker@2x.png */,
+				25BF9B46131F947A00469ECE /* tab_map_pin.png */,
+				25BF9B47131F947A00469ECE /* tab_map_pin@2x.png */,
+				25BF9B3E131F93DB00469ECE /* tab_profile.png */,
+				25BF9B3F131F93DB00469ECE /* tab_profile@2x.png */,
+				25BF9B40131F93DB00469ECE /* tab_friends.png */,
+				25BF9B41131F93DB00469ECE /* tab_friends@2x.png */,
 				25178A69131BA6480086EB9F /* Cell */,
 				25C6C2B91317C7D60092E598 /* PullRefresh */,
 				25FC2D08130E5E8A0077C9A7 /* moogle.png */,
@@ -624,6 +657,8 @@
 				25C6C2B41317C08A0092E598 /* KupoCell.m */,
 				25718C2A1319C72000FF6293 /* WhoCell.h */,
 				25718C2B1319C72300FF6293 /* WhoCell.m */,
+				25BF9B4E131F97F400469ECE /* CardTabBar.h */,
+				25BF9B4F131F97F400469ECE /* CardTabBar.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -895,6 +930,16 @@
 				2516A4F1131C82D800D11686 /* bg_navigation@2x.png in Resources */,
 				2516A4F4131C87BB00D11686 /* grad_loading.png in Resources */,
 				2516A4F5131C87BB00D11686 /* grad_loading@2x.png in Resources */,
+				25BF9B3C131F936D00469ECE /* tab_map_marker.png in Resources */,
+				25BF9B3D131F936D00469ECE /* tab_map_marker@2x.png in Resources */,
+				25BF9B42131F93DB00469ECE /* tab_profile.png in Resources */,
+				25BF9B43131F93DB00469ECE /* tab_profile@2x.png in Resources */,
+				25BF9B44131F93DB00469ECE /* tab_friends.png in Resources */,
+				25BF9B45131F93DB00469ECE /* tab_friends@2x.png in Resources */,
+				25BF9B48131F947A00469ECE /* tab_map_pin.png in Resources */,
+				25BF9B49131F947A00469ECE /* tab_map_pin@2x.png in Resources */,
+				25BF9B4C131F971B00469ECE /* tab_checkin.png in Resources */,
+				25BF9B4D131F971B00469ECE /* tab_checkin@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -973,6 +1018,7 @@
 				2530F89D131CB64400EC8C3A /* TrendsDataCenter.m in Sources */,
 				251D496A131D4DC2003D988A /* PlaceReviewCell.m in Sources */,
 				251D496D131D511C003D988A /* PlaceReviewsViewController.m in Sources */,
+				25BF9B50131F97F400469ECE /* CardTabBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -988,7 +1034,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Moogle_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Moogle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Moogle;
@@ -1002,7 +1048,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Moogle_Prefix.pch;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Moogle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Moogle;
