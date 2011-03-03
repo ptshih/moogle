@@ -13,8 +13,9 @@
 @class MeViewController;
 @class PlacesViewController;
 @class CheckinsViewController;
+@class MapViewController;
 
-@interface LauncherViewController : UIViewController {
+@interface LauncherViewController : UIViewController <UITabBarDelegate> {
   IBOutlet UIScrollView *_scrollView;
   IBOutlet CardTabBar *_cardTabBar;
   
@@ -22,6 +23,7 @@
   MeViewController *_meViewController;
   PlacesViewController *_placesViewController;;
   CheckinsViewController *_checkinsViewController;
+  MapViewController *_mapViewController;
   
   NSArray *_cards;
   
@@ -37,6 +39,7 @@
 @property (nonatomic, retain) MeViewController *meViewController;
 @property (nonatomic, retain) PlacesViewController *placesViewController;
 @property (nonatomic, retain) CheckinsViewController *checkinsViewController;
+@property (nonatomic, retain) MapViewController *mapViewController;
 
 @property (nonatomic, retain) NSArray *cards;
 

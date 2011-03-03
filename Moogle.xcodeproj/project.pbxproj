@@ -25,6 +25,7 @@
 		25178A6D131BA6770086EB9F /* cell_place_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25178A6B131BA6770086EB9F /* cell_place_icon@2x.png */; };
 		251D496A131D4DC2003D988A /* PlaceReviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 251D4969131D4DC2003D988A /* PlaceReviewCell.m */; };
 		251D496D131D511C003D988A /* PlaceReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 251D496C131D5115003D988A /* PlaceReviewsViewController.m */; };
+		2526111F131FA21C005FF48C /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2526111E131FA21B005FF48C /* MapViewController.m */; };
 		25290186130410660041DA95 /* LauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25290184130410660041DA95 /* LauncherViewController.m */; };
 		25290187130410660041DA95 /* LauncherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25290185130410660041DA95 /* LauncherViewController.xib */; };
 		2529023913041E6D0041DA95 /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2529023813041E6D0041DA95 /* CardViewController.m */; };
@@ -172,6 +173,8 @@
 		251D4969131D4DC2003D988A /* PlaceReviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceReviewCell.m; sourceTree = "<group>"; };
 		251D496B131D5112003D988A /* PlaceReviewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceReviewsViewController.h; sourceTree = "<group>"; };
 		251D496C131D5115003D988A /* PlaceReviewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceReviewsViewController.m; sourceTree = "<group>"; };
+		2526111D131FA21B005FF48C /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		2526111E131FA21B005FF48C /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		25290183130410660041DA95 /* LauncherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherViewController.h; sourceTree = "<group>"; };
 		25290184130410660041DA95 /* LauncherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherViewController.m; sourceTree = "<group>"; };
 		25290185130410660041DA95 /* LauncherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LauncherViewController.xib; sourceTree = "<group>"; };
@@ -594,6 +597,8 @@
 				25F29B19130BAE7500B0077F /* CheckinsViewController.m */,
 				2529FD561301598D0041DA95 /* PlacesViewController.h */,
 				2529FD571301598D0041DA95 /* PlacesViewController.m */,
+				2526111D131FA21B005FF48C /* MapViewController.h */,
+				2526111E131FA21B005FF48C /* MapViewController.m */,
 				25433D7512FA241B0066A191 /* LoginViewController.h */,
 				25433D7612FA241B0066A191 /* LoginViewController.m */,
 				25433D8412FA24270066A191 /* LoginViewController.xib */,
@@ -1019,6 +1024,7 @@
 				251D496A131D4DC2003D988A /* PlaceReviewCell.m in Sources */,
 				251D496D131D511C003D988A /* PlaceReviewsViewController.m in Sources */,
 				25BF9B50131F97F400469ECE /* CardTabBar.m in Sources */,
+				2526111F131FA21C005FF48C /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
