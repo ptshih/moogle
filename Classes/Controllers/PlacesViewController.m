@@ -15,6 +15,8 @@
 #import "PlacesDataCenter.h"
 #import "TrendsDataCenter.h"
 
+#import "HeaderTabView.h"
+
 @interface PlacesViewController (Private)
 
 - (void)setupButtons;
@@ -55,6 +57,9 @@
   CGRect tableFrame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV);
   [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self setupPullRefresh];
+  
+//  HeaderTabView *headerTabView = [HeaderTabView alloc]
+//  self.tableView.tableHeaderView = 
   
 //  self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
 //  self.title = @"Nearby Places";
@@ -163,36 +168,38 @@
   [self dataSourceDidLoad];
 }
 
-#pragma mark UITableViewDelegate
+
+#pragma mark UITableView Stuff
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return [PlaceCell rowHeight];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
   [self showPlaceWithId:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"place_id"] andName:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"place_name"]];
 }
 
-#pragma mark UITableViewDataSource
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return [PlaceCell rowHeight];
-}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   PlaceCell *cell = nil;
-  cell = (PlaceCell *)[tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
+  NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell_%d", [self class], indexPath.section];
+  
+  cell = (PlaceCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   if(cell == nil) { 
-    cell = [[[PlaceCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CheckinCell"] autorelease];
+    cell = [[[PlaceCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier] autorelease];
   }
   
-  NSDictionary *place = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [place objectForKey:@"place_id"]]];
-  
-  UIImage *placeImage = [self.imageCache getImageWithURL:url];
-  if (!placeImage) {
+  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item valueForKey:@"place_id"]]];
+  UIImage *image = [self.imageCache getImageWithURL:url];
+  if (!image) {
     if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
       [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
     }
-    placeImage = nil;
+    image = nil;
   }
   
-  [PlaceCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] withImage:placeImage];
+  [PlaceCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] withImage:image];
   
   return cell;
 }

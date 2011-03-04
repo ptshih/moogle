@@ -98,6 +98,7 @@
 		258CCC5C131A7E59009767B3 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 258CCC5B131A7E59009767B3 /* LoadingView.xib */; };
 		258CCC5E131A7E65009767B3 /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 258CCC5D131A7E65009767B3 /* EmptyView.xib */; };
 		2597550613205BDB009D4E7C /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2597550513205BDB009D4E7C /* DiscoverViewController.m */; };
+		2597550913206086009D4E7C /* HeaderTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2597550813206086009D4E7C /* HeaderTabView.m */; };
 		259BA689131A90E0005BC9DA /* EmptyPlaceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 259BA688131A90E0005BC9DA /* EmptyPlaceView.xib */; };
 		259BA68B131A90ED005BC9DA /* LoadingPlaceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 259BA68A131A90ED005BC9DA /* LoadingPlaceView.xib */; };
 		25B464D412F7BA3200C71FA9 /* NSData+Compression.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B464D312F7BA3200C71FA9 /* NSData+Compression.m */; };
@@ -292,6 +293,9 @@
 		258CCC5D131A7E65009767B3 /* EmptyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyView.xib; sourceTree = "<group>"; };
 		2597550413205BDB009D4E7C /* DiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
 		2597550513205BDB009D4E7C /* DiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
+		2597550713206085009D4E7C /* HeaderTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderTabView.h; sourceTree = "<group>"; };
+		2597550813206086009D4E7C /* HeaderTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderTabView.m; sourceTree = "<group>"; };
+		2597550A13206213009D4E7C /* HeaderTabViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderTabViewDelegate.h; sourceTree = "<group>"; };
 		259BA688131A90E0005BC9DA /* EmptyPlaceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyPlaceView.xib; sourceTree = "<group>"; };
 		259BA68A131A90ED005BC9DA /* LoadingPlaceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingPlaceView.xib; sourceTree = "<group>"; };
 		25B464D212F7BA3200C71FA9 /* NSData+Compression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Compression.h"; sourceTree = "<group>"; };
@@ -722,6 +726,9 @@
 				25718C2B1319C72300FF6293 /* WhoCell.m */,
 				25BF9B4E131F97F400469ECE /* CardTabBar.h */,
 				25BF9B4F131F97F400469ECE /* CardTabBar.m */,
+				2597550713206085009D4E7C /* HeaderTabView.h */,
+				2597550813206086009D4E7C /* HeaderTabView.m */,
+				2597550A13206213009D4E7C /* HeaderTabViewDelegate.h */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1095,6 +1102,7 @@
 				2544EFAF13204B7A0080055B /* FeedViewController.m in Sources */,
 				2544EFB213204D140080055B /* FeedDataCenter.m in Sources */,
 				2597550613205BDB009D4E7C /* DiscoverViewController.m in Sources */,
+				2597550913206086009D4E7C /* HeaderTabView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
