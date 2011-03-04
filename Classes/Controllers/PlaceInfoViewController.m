@@ -73,6 +73,7 @@
     
     if (!_placeImage) {
       _placeImage = [[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"place_id"]]]]] retain];
+//      _placeImage = [[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[item objectForKey:@"picture"]]]] retain];
     }
     
     [PlaceHeaderCell fillCell:cell withDictionary:item withImage:_placeImage];

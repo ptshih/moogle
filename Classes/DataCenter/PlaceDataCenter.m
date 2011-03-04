@@ -79,7 +79,7 @@
   } else {
     [_headersArray removeAllObjects];
   }
-  NSArray *headerKeys = [NSArray arrayWithObjects:@"place_id", @"place_name", @"checkins_count", @"checkins_friend_count", @"like_count", nil];
+  NSArray *headerKeys = [NSArray arrayWithObjects:@"place_id", @"place_name", @"picture", @"checkins_count", @"checkins_friend_count", @"like_count", nil];
   NSMutableDictionary *headerDict = [NSMutableDictionary dictionary];
   for (NSString *key in headerKeys) {
     NSString *value = nil;

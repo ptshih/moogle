@@ -112,29 +112,29 @@
   CGFloat lat = [APP_DELEGATE.locationManager latitude];
   CGFloat lng = [APP_DELEGATE.locationManager longitude];
   NSInteger distance = [APP_DELEGATE.locationManager distance];
-  NSString *query = @"";
   
-  DLog(@"requesting nearby facebook places at lat: %f, lng: %f, distance: %d", lat, lng, distance);
-  NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%f", lat], @"lat", [NSString stringWithFormat:@"%f", lng], @"lng", [NSString stringWithFormat:@"%d", distance], @"distance", query, @"query", nil];
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins/nearby", MOOGLE_BASE_URL, API_VERSION];
-  self.nearbyRequest = [RemoteRequest postRequestWithBaseURLString:baseURLString andParams:params isGzip:NO withDelegate:self.dataCenter];
+  NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  [params setObject:[NSString stringWithFormat:@"%f", lat] forKey:@"lat"];
+  [params setObject:[NSString stringWithFormat:@"%f", lng] forKey:@"lng"];
+  [params setObject:[NSString stringWithFormat:@"%d", distance] forKey:@"distance"];
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/nearby", MOOGLE_BASE_URL, API_VERSION];  
+  self.nearbyRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   [[RemoteOperation sharedInstance] addRequestToQueue:self.nearbyRequest];
+
 }
 
 - (void)getTrends {
   // Trends Mode
   CGFloat lat = [APP_DELEGATE.locationManager latitude];
   CGFloat lng = [APP_DELEGATE.locationManager longitude];
-  
-//  CGFloat distance = 1.0;
+  NSInteger distance = [APP_DELEGATE.locationManager distance];
   
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
   [params setObject:[NSString stringWithFormat:@"%f", lat] forKey:@"lat"];
   [params setObject:[NSString stringWithFormat:@"%f", lng] forKey:@"lng"];
-//  [params setObject:[NSString stringWithFormat:@"%.2f", distance] forKey:@"distance"];
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins/trends", MOOGLE_BASE_URL, API_VERSION];
+  [params setObject:[NSString stringWithFormat:@"%d", distance] forKey:@"distance"];
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/popular", MOOGLE_BASE_URL, API_VERSION];
   self.trendsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
-  
   [[RemoteOperation sharedInstance] addRequestToQueue:self.trendsRequest];
 }
 
@@ -185,6 +185,7 @@
   
   NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
   NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item valueForKey:@"place_id"]]];
+//  NSURL *url = [NSURL URLWithString:[item valueForKey:@"picture"]];
   UIImage *image = [self.imageCache getImageWithURL:url];
   if (!image) {
     if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
@@ -205,6 +206,7 @@
   for (NSIndexPath *indexPath in visibleIndexPaths) {
     NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"place_id"]]];
+//    NSURL *url = [NSURL URLWithString:[item valueForKey:@"picture"]];
     if (![self.imageCache getImageWithURL:url]) {
       [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
     }
