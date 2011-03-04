@@ -32,6 +32,9 @@ static UIImage *_btnSelected;
 - (void)setupPlaceFeed;
 - (void)setupPlaceReviews;
 
+- (void)share;
+- (void)postShareRequest;
+
 @end
 
 @implementation PlaceViewController
@@ -85,6 +88,10 @@ static UIImage *_btnSelected;
   [self setupPlaceActivity];
   [self setupPlaceFeed];
   [self setupPlaceReviews];
+  
+  UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
+  self.navigationItem.rightBarButtonItem = shareButton;
+  [shareButton release];
   
   // Default to PlaceInfo tab
   [_infoButton setSelected:YES];
@@ -204,6 +211,22 @@ static UIImage *_btnSelected;
     [_placeScrollView scrollRectToVisible:_placeReviewsViewController.view.frame animated:YES];
     _visibleViewController = _placeReviewsViewController;
   }
+}
+
+- (void)share {
+  [self postShareRequest];
+}
+
+- (void)postShareRequest {
+  DLog(@"starting post share request to moogle");
+  
+  NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  [params setObject:self.placeId forKey:@"place_id"];
+  [params setObject:@"Check this place out!" forKey:@"message"];
+  
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/share", MOOGLE_BASE_URL, API_VERSION];
+  ASIHTTPRequest *shareRequest = [RemoteRequest postRequestWithBaseURLString:baseURLString andParams:params isGzip:NO withDelegate:nil];
+  [[RemoteOperation sharedInstance] addRequestToQueue:shareRequest];
 }
 
 #pragma mark UIScrollViewDelegate

@@ -21,6 +21,7 @@
 @interface CheckinHereViewController (Private)
 
 - (void)postCheckin;
+- (void)postMoogleCheckin:(NSString *)checkinId;
 
 @end
 
@@ -78,9 +79,21 @@
   [[RemoteOperation sharedInstance] addRequestToQueue:self.checkinHereRequest];
 }
 
+- (void)postMoogleCheckin:(NSString *)checkinId {
+  DLog(@"starting post share request to moogle");
+  
+  NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  [params setObject:checkinId forKey:@"checkin_id"];
+  
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins/checkin", MOOGLE_BASE_URL, API_VERSION];
+  ASIHTTPRequest *moogleCheckinRequest = [RemoteRequest postRequestWithBaseURLString:baseURLString andParams:params isGzip:NO withDelegate:nil];
+  [[RemoteOperation sharedInstance] addRequestToQueue:moogleCheckinRequest];
+}
+
 #pragma mark MoogleDataCenterDelegate
 - (void)dataCenterDidFinish:(ASIHTTPRequest *)request {
   DLog(@"Successfully checked in with response: %@", [request responseString]);
+  [self postMoogleCheckin:[self.dataCenter.rawResponse valueForKey:@"id"]];
   [self dismissModalViewControllerAnimated:YES];
 }
 
