@@ -27,8 +27,13 @@ static UIImage *_checkinImage = nil;
   UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
   button.frame = CGRectMake(130.0, 3.0, _checkinImage.size.width, _checkinImage.size.height);
   [button setBackgroundImage:_checkinImage forState:UIControlStateNormal];
+  [button addTarget:self action:@selector(selectActionButton) forControlEvents:UIControlEventTouchUpInside];
   
   [self addSubview:button];
+}
+
+- (void)selectActionButton {
+  [self.delegate tabBar:self didSelectItem:nil];
 }
 
 /*

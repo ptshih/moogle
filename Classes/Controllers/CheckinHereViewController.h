@@ -12,12 +12,13 @@
 
 @class ASIHTTPRequest;
 @class MoogleDataCenter;
+@class PlaceViewController;
 
 @interface CheckinHereViewController : CardModalViewController <MoogleDataCenterDelegate> {
   MoogleDataCenter *_dataCenter;
   ASIHTTPRequest *_checkinHereRequest;
   
-  NSString *_placeId;
+  PlaceViewController *_place;
   NSString *_message;
   NSArray *_tagsArray; // Tagged friend IDs
 }
@@ -25,7 +26,7 @@
 @property (nonatomic, retain) MoogleDataCenter *dataCenter;
 @property (nonatomic, retain) ASIHTTPRequest *checkinHereRequest;
 
-@property (nonatomic, retain) NSString *placeId;
+@property (nonatomic, assign) PlaceViewController *place;
 @property (nonatomic, retain) NSString *message;
 @property (nonatomic, retain) NSArray *tagsArray;
 

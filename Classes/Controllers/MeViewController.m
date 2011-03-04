@@ -73,7 +73,6 @@
   PlaceViewController *pvc = [[PlaceViewController alloc] init];
   pvc.placeId = placeId;
   pvc.placeName = placeName;
-  pvc.shouldShowCheckinHere = YES;
   [self.navigationController pushViewController:pvc animated:YES];
   [pvc release];  
 }

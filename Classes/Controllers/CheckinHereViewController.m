@@ -16,6 +16,8 @@
 
 #import "LocationManager.h"
 
+#import "PlaceViewController.h"
+
 @interface CheckinHereViewController (Private)
 
 - (void)postCheckin;
@@ -26,7 +28,7 @@
 
 @synthesize dataCenter = _dataCenter;
 @synthesize checkinHereRequest = _checkinHereRequest;
-@synthesize placeId = _placeId;
+@synthesize place = _place;
 @synthesize message = _message;
 @synthesize tagsArray = _tagsArray;
 
@@ -39,12 +41,14 @@
   return self;
 }
 
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
-    [super viewDidLoad];
+  [super viewDidLoad];
 }
-*/
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  self.navItem.title = self.place.placeName;
+}
 
 - (IBAction)checkinHere {
   [self postCheckin];
@@ -61,7 +65,7 @@
   NSString *coordinates = [NSString stringWithFormat:@"{\"latitude\":\"%f\", \"longitude\":\"%f\"}", lat, lng];
   
   NSMutableDictionary *postDict = [NSMutableDictionary dictionary];
-  [postDict setObject:self.placeId forKey:@"place"];
+  [postDict setObject:self.place.placeId forKey:@"place"];
   [postDict setObject:coordinates forKey:@"coordinates"];
   if (self.message) [postDict setObject:self.message forKey:@"message"];
   if (self.tagsArray) {
@@ -104,7 +108,6 @@
   }
   
   RELEASE_SAFELY (_dataCenter);
-  RELEASE_SAFELY (_placeId);
   RELEASE_SAFELY (_message);
   RELEASE_SAFELY (_tagsArray);
   [super dealloc];

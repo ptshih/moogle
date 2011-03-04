@@ -9,14 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "CardViewController.h"
 
-@class CheckinHereViewController;
 @class PlaceInfoViewController;
 @class PlaceActivityViewController;
 @class PlaceFeedViewController;
 @class PlaceReviewsViewController;
 
 @interface PlaceViewController : CardViewController <UIScrollViewDelegate> {
-  CheckinHereViewController *_checkinHereViewController;
   PlaceInfoViewController *_placeInfoViewController;
   PlaceActivityViewController *_placeActivityViewController;
   PlaceFeedViewController *_placeFeedViewController;
@@ -27,7 +25,6 @@
   // Params
   NSString *_placeId;
   NSString *_placeName;
-  BOOL _shouldShowCheckinHere;
   
   // UI
   UIBarButtonItem *_checkinHereButton;
@@ -41,6 +38,5 @@
 
 @property (nonatomic, retain) NSString *placeId;
 @property (nonatomic, retain) NSString *placeName;
-@property (nonatomic, assign) BOOL shouldShowCheckinHere;
 
 @end

@@ -13,6 +13,9 @@
 #import "MeViewController.h"
 #import "Constants.h"
 #import "CardTabBar.h"
+#import "CheckinHereViewController.h"
+#import "NearbyModalViewController.h"
+#import "PlaceViewController.h"
 
 @interface LauncherViewController (Private)
 
@@ -24,6 +27,9 @@
 - (void)updateCards;
 - (void)scrollToCardAtIndex:(NSInteger)index;
 - (void)setActiveCardTab;
+
+- (void)showCheckinHereModalForPlace:(PlaceViewController *)place;
+- (void)showNearbyModal;
 
 @end
 
@@ -38,6 +44,7 @@
 @synthesize discoverViewController = _discoverViewController;
 @synthesize meViewController = _meViewController;
 
+@synthesize activePlace = _activePlace;
 @synthesize cards = _cards;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -50,6 +57,11 @@
     _previousPage = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastSelectedCard"]; // Start at last selected card
     
     _isQuickScroll = NO;
+    
+    _activePlace = nil;
+    
+    _nearbyModalViewController = nil;
+    _checkinHereViewController = nil;
   }
   return self;
 }
@@ -103,6 +115,23 @@
   
   // Gestures
   [self addGestures];
+}
+
+- (void)showCheckinHereModalForPlace:(PlaceViewController *)place {
+  if (!place) return;
+  
+  if (!_checkinHereViewController) {
+    _checkinHereViewController = [[CheckinHereViewController alloc] init];
+  }
+  _checkinHereViewController.place = place;
+  [self presentModalViewController:_checkinHereViewController animated:YES];
+}
+
+- (void)showNearbyModal {
+  if (!_nearbyModalViewController) {
+    _nearbyModalViewController = [[NearbyModalViewController alloc] init];
+  }
+  [self presentModalViewController:_nearbyModalViewController animated:YES];
 }
 
 - (void)clearAllCachedData {
@@ -175,6 +204,19 @@
 
 #pragma mark Card Tab Bar
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+  if (!item) {
+    // This is the center action button
+    // If there is an activePlace, show checkinHere
+    // Otherwise show nearby places modal
+    id visibleViewController = [[self.cards objectAtIndex:_currentPage] topViewController];
+    if ([visibleViewController isKindOfClass:[PlaceViewController class]]) {
+      [self showCheckinHereModalForPlace:self.activePlace];
+    } else {
+      [self showNearbyModal];
+    }
+    return;
+  }
+  
   _isQuickScroll = YES;
   
   NSUInteger translatedIndex = ([tabBar.items indexOfObject:item] > 1) ? [tabBar.items indexOfObject:item] - 1 : [tabBar.items indexOfObject:item];
@@ -301,6 +343,8 @@
 }
 
 - (void)dealloc {
+  RELEASE_SAFELY(_checkinHereViewController);
+  RELEASE_SAFELY(_nearbyModalViewController);
   RELEASE_SAFELY (_scrollView);
   RELEASE_SAFELY(_cardTabBar);
   RELEASE_SAFELY (_meViewController);

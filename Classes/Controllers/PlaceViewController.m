@@ -15,14 +15,11 @@
 #import "PlaceReviewsViewController.h"
 
 #import "LocationManager.h"
-#import "CheckinHereViewController.h"
 
 static UIImage *_btnNormal;
 static UIImage *_btnSelected;
 
 @interface PlaceViewController (Private)
-
-- (void)showCheckinHereModal;
 
 - (void)setupCheckinHereButton;
 - (void)setupTabView;
@@ -41,7 +38,6 @@ static UIImage *_btnSelected;
 
 @synthesize placeId = _placeId;
 @synthesize placeName = _placeName;
-@synthesize shouldShowCheckinHere = _shouldShowCheckinHere;
 
 + (void)initialize {
   _btnNormal = [[[UIImage imageNamed:@"btn_filter.png"] stretchableImageWithLeftCapWidth:37 topCapHeight:14] retain];
@@ -57,7 +53,6 @@ static UIImage *_btnSelected;
     _placeFeedViewController = [[PlaceFeedViewController alloc] init];
     _placeReviewsViewController = [[PlaceReviewsViewController alloc] init];
     _tabView = [[UIView alloc] init];
-    _shouldShowCheckinHere = NO;
   }
   return self;
 }
@@ -67,15 +62,13 @@ static UIImage *_btnSelected;
   
   self.title = self.placeName;
   
+  // Tell Launcher about our activePlaceId
+  APP_DELEGATE.launcherViewController.activePlace = self;
+  
   [self setupTabView];
   
   // Setup Place Scroll View
   _placeScrollView.frame = CGRectMake(0, _tabView.height, self.view.width, self.view.height - _tabView.height);
-  
-  // Show check in here button
-  if (_shouldShowCheckinHere) {
-    [self setupCheckinHereButton];
-  }
   
   _placeScrollView.contentSize = CGSizeMake(1280.0, _placeScrollView.height);
   _placeScrollView.showsVerticalScrollIndicator = NO;
@@ -190,17 +183,6 @@ static UIImage *_btnSelected;
   [_tabView addSubview:_reviewsButton];
 }
 
-- (void)setupCheckinHereButton {
-  _checkinHereButton= [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showCheckinHereModal)];
-  self.navigationItem.rightBarButtonItem = _checkinHereButton;
-}
-
-- (void)showCheckinHereModal {
-  _checkinHereViewController = [[CheckinHereViewController alloc] init];
-  _checkinHereViewController.placeId = self.placeId;
-  [APP_DELEGATE.launcherViewController presentModalViewController:_checkinHereViewController animated:YES];
-}
-
 - (void)selectTab:(id)sender {
   DLog(@"Button: %@", sender);
   [_infoButton setSelected:NO];
@@ -276,7 +258,6 @@ static UIImage *_btnSelected;
 }
 
 - (void)dealloc {  
-  RELEASE_SAFELY(_checkinHereViewController);
   RELEASE_SAFELY(_placeInfoViewController);
   RELEASE_SAFELY(_placeActivityViewController);
   RELEASE_SAFELY(_placeFeedViewController);

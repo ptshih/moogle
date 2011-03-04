@@ -1,45 +1,36 @@
 //
-//  PlacesViewController.h.m
+//  NearbyModalViewController.m
 //  Moogle
 //
-//  Created by Peter Shih on 2/8/11.
+//  Created by Peter Shih on 3/3/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "PlacesViewController.h"
-
+#import "NearbyModalViewController.h"
 #import "PlaceCell.h"
 #import "LocationManager.h"
 
 #import "PlaceViewController.h"
 #import "PlacesDataCenter.h"
-#import "TrendsDataCenter.h"
 
-@interface PlacesViewController (Private)
+@interface NearbyModalViewController (Private)
 
+- (void)setupNavigationBar;
 - (void)setupButtons;
-- (void)toggleMode;
-- (void)resetStateAndReload;
 - (void)showPlaceWithId:(NSString *)placeId andName:(NSString *)placeName;
 
 @end
 
-@implementation PlacesViewController
+@implementation NearbyModalViewController
 
 @synthesize dataCenter = _dataCenter;
-@synthesize trendsDataCenter = _trendsDataCenter;
 @synthesize nearbyRequest = _nearbyRequest;
-@synthesize trendsRequest = _trendsRequest;
 
 - (id)init {
   self = [super init];
   if (self) {
     _dataCenter = [[PlacesDataCenter alloc] init];
     _dataCenter.delegate = self;
-    _trendsDataCenter = [[TrendsDataCenter alloc] init];
-    _trendsDataCenter.delegate = self;
-    
-    _placesMode = PlacesTypeNearby;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNearbyPlaces) name:kLocationAcquired object:nil];
   }
@@ -49,63 +40,42 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  self.view.frame = CGRectMake(0, 0, 320, 460);
   self.title = @"Nearby Places";
   
+  [self setupNavigationBar];
+  
   // Table
-  CGRect tableFrame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV);
+  CGRect tableFrame = CGRectMake(0, 44, CARD_WIDTH, 416);
   [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self setupPullRefresh];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  [self reloadCardController];
+}
+
+- (void)setupNavigationBar {
+  UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+  UINavigationItem *navigationItem = [[UINavigationItem alloc] initWithTitle:self.title];
+  UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(dismiss)];
+  navigationItem.leftBarButtonItem = dismissButton;
+  [dismissButton release];
+  [navigationBar setItems:[NSArray arrayWithObject:navigationItem]];
   
-  [self setupHeaderTabView];
-  [self.headerTabView setSelectedForTabAtIndex:0];
+  navigationBar.tintColor = MOOGLE_BLUE_COLOR;
+  [self.view addSubview:navigationBar];
   
-  [self setupButtons];
+  [navigationItem release];
+  [navigationBar release];
 }
 
 - (void)setupButtons {
 }
 
-#pragma mark HeaderTabViewDelegate
-- (void)tabSelectedAtIndex:(NSNumber *)index {
-  switch ([index intValue]) {
-    case PlacesTypeNearby:
-      _placesMode = PlacesTypeNearby;
-      break;
-    case PlacesTypePopular:
-      _placesMode = PlacesTypePopular;
-      break;
-    default:
-      _placesMode = PlacesTypeNearby;
-      break;
-  }
-  [self resetStateAndReload];
-}
-
-- (void)resetStateAndReload {
-  [self.sections removeAllObjects];
-  [self.items removeAllObjects];
-  [self.tableView reloadData];
-  [self updateState];
-  
-  if (_placesMode == PlacesTypeNearby) {
-    [self getNearbyPlaces];
-  } else {
-    [self getTrends];
-  }
-}
-
-#pragma mark CardViewController
-- (void)reloadCardController {
-  [super reloadCardController];
-  
-  if ([APP_DELEGATE.locationManager hasAcquiredLocation] && [[NSUserDefaults standardUserDefaults] boolForKey:@"isLoggedIn"]) {
-    [self getNearbyPlaces];
-  } else {
-    [self.sections removeAllObjects];
-    [self.items removeAllObjects];
-    [self.tableView reloadData];
-    [self updateState];
-  }
+- (void)dismiss {
+  [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)getNearbyPlaces {
@@ -121,21 +91,13 @@
   [[RemoteOperation sharedInstance] addRequestToQueue:self.nearbyRequest];
 }
 
-- (void)getTrends {
-  // Trends Mode
-  CGFloat lat = [APP_DELEGATE.locationManager latitude];
-  CGFloat lng = [APP_DELEGATE.locationManager longitude];
+#pragma mark CardViewController
+- (void)reloadCardController {
+  [super reloadCardController];
   
-//  CGFloat distance = 1.0;
+  // NOTE: There is a bug here because of the frame difference between a card and a modal
   
-  NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  [params setObject:[NSString stringWithFormat:@"%f", lat] forKey:@"lat"];
-  [params setObject:[NSString stringWithFormat:@"%f", lng] forKey:@"lng"];
-//  [params setObject:[NSString stringWithFormat:@"%.2f", distance] forKey:@"distance"];
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/checkins/trends", MOOGLE_BASE_URL, API_VERSION];
-  self.trendsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
-  
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.trendsRequest];
+  [self getNearbyPlaces];
 }
 
 #pragma mark Show Place
@@ -216,19 +178,12 @@
     [_nearbyRequest clearDelegatesAndCancel];
     [_nearbyRequest release], _nearbyRequest = nil;
   }
-  
-  if(_trendsRequest) {
-    [_trendsRequest clearDelegatesAndCancel];
-    [_trendsRequest release], _trendsRequest = nil;
-  }
-  
+
   RELEASE_SAFELY (_dataCenter);
-  RELEASE_SAFELY(_trendsDataCenter);
   
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationAcquired object:nil];
   
   [super dealloc];
 }
-
 
 @end

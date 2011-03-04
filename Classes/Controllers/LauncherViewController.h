@@ -14,6 +14,9 @@
 @class PlacesViewController;
 @class DiscoverViewController;
 @class MeViewController;
+@class CheckinHereViewController;
+@class PlaceViewController;
+@class NearbyModalViewController;
 
 @interface LauncherViewController : UIViewController <UITabBarDelegate> {
   IBOutlet UIScrollView *_scrollView;
@@ -25,6 +28,11 @@
   DiscoverViewController *_discoverViewController;
   MeViewController *_meViewController;
 
+  // Modals
+  CheckinHereViewController *_checkinHereViewController;
+  NearbyModalViewController *_nearbyModalViewController;
+  
+  PlaceViewController *_activePlace;
   
   NSArray *_cards;
   
@@ -43,6 +51,8 @@
 @property (nonatomic, retain) PlacesViewController *placesViewController;
 @property (nonatomic, retain) DiscoverViewController *discoverViewController;
 @property (nonatomic, retain) MeViewController *meViewController;
+
+@property (nonatomic, assign) PlaceViewController *activePlace;
 
 @property (nonatomic, retain) NSArray *cards;
 
