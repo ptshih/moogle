@@ -10,7 +10,7 @@
 
 #import "WhoViewController.h"
 #import "PlaceViewController.h"
-#import "CheckinsDataCenter.h"
+#import "FeedDataCenter.h"
 
 #import "CheckinCell.h"
 
@@ -33,7 +33,7 @@
 - (id)init {
   self = [super init];
   if (self) {
-    _dataCenter = [[CheckinsDataCenter alloc ]init];
+    _dataCenter = [[FeedDataCenter alloc ]init];
     _dataCenter.delegate = self;
     
     _who = [[NSString alloc] initWithString:@"friends"]; // Default timeline mode to friends
@@ -120,7 +120,7 @@
   [self.sections addObject:@"Checkins"];
   
   [self.items removeAllObjects];
-  [self.items addObject:self.dataCenter.responseArray];
+  [self.items addObject:self.dataCenter.response];
   [self.tableView reloadData];
   [self dataSourceDidLoad];
 }

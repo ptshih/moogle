@@ -16,12 +16,12 @@
   MeDataCenter *_dataCenter;
   UIAlertView *_logoutAlert;
   
-  ASIHTTPRequest *_kupoRequest;
+  ASIHTTPRequest *_meRequest;
 }
 
 @property (nonatomic, retain) MeDataCenter *dataCenter;
-@property (nonatomic, retain) ASIHTTPRequest *kupoRequest;
+@property (nonatomic, retain) ASIHTTPRequest *meRequest;
 
-- (void)getKupos;
+- (void)getMe;
 
 @end

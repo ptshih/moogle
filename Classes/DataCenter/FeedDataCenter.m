@@ -13,7 +13,7 @@
 - (id)init {
   self = [super init];
   if (self) {
-    _responseKeys = [NSArray arrayWithObjects:@"checkin_id", @"facebook_id", @"name", @"place_id", @"place_name", @"message", @"checkin_timestamp", @"tagged_count", @"tagged_user_Array", nil];
+    _responseKeys = [[NSArray arrayWithObjects:@"checkin_id", @"facebook_id", @"name", @"place_id", @"place_name", @"message", @"checkin_timestamp", @"tagged_count", @"tagged_user_Array", nil] retain];
   }
   return self;
 }

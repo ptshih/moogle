@@ -11,7 +11,6 @@
 #import "PlaceViewController.h"
 
 #import "MeDataCenter.h"
-#import "KupoCell.h"
 
 @interface MeViewController (Private)
 
@@ -23,7 +22,7 @@
 @implementation MeViewController
 
 @synthesize dataCenter = _dataCenter;
-@synthesize kupoRequest = _kupoRequest;
+@synthesize meRequest = _meRequest;
 
 - (id)init {
   self = [super init];
@@ -44,7 +43,7 @@
   // Table
   CGRect tableFrame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV);
   [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
-  [self setupPullRefresh];
+//  [self setupPullRefresh];
 
 }
 
@@ -52,7 +51,7 @@
 - (void)reloadCardController {
   [super reloadCardController];
   
-  [self getKupos];
+  [self getMe];
 }
 
 - (void)setupButtons {  
@@ -61,12 +60,12 @@
   self.navigationItem.leftBarButtonItem = logoutButton;
 }
 
-- (void)getKupos {
+- (void)getMe {
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/moogle/kupos", MOOGLE_BASE_URL, API_VERSION];
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/moogle/me", MOOGLE_BASE_URL, API_VERSION];
   
-  self.kupoRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.kupoRequest];
+  self.meRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
+  [[RemoteOperation sharedInstance] addRequestToQueue:self.meRequest];
 }
 
 - (void)showPlaceWithId:(NSString *)placeId andName:(NSString *)placeName {
@@ -80,35 +79,62 @@
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
-  
-  [self showPlaceWithId:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"place_id"] andName:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"place_name"]];
+
 }
 
 #pragma mark UITableView Stuff
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return [KupoCell rowHeight];
+//  return [KupoCell rowHeight];
+  return 88.0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  KupoCell *cell = nil;
+  UITableViewCell *cell = nil;
   NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell_%d", [self class], indexPath.section];
   
-  cell = (KupoCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   if (cell == nil) {
-    cell = [[[KupoCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
   }
   
-  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item valueForKey:@"user_facebook_id"]]];
-  UIImage *image = [self.imageCache getImageWithURL:url];
-  if (!image) {
-    if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
-      [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
+  id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+
+  
+  cell.textLabel.numberOfLines = 100;
+  
+  switch (indexPath.section) {
+    case 0: {
+      NSDate *lastCheckinDate = [[NSDate dateWithTimeIntervalSince1970:[[item objectForKey:@"you_last_checkin_time"] integerValue]] humanIntervalSinceNow];
+      cell.textLabel.text = [NSString stringWithFormat:@"Your last check in was at: %@ %@", [item objectForKey:@"you_last_checkin_place_name"], lastCheckinDate];
+      break;
     }
-    image = nil;
+    case 1:
+      cell.textLabel.text = [NSString stringWithFormat:@"Total Checkins: %@", [item objectForKey:@"total_checkins"]];
+      break;
+    case 2:
+      switch (indexPath.row) {
+        case 0:
+          cell.textLabel.text = @"Your Top Places";
+          break;
+        case 1:
+          cell.textLabel.text = @"Your Friends Top Places";
+          break;
+        case 2:
+          cell.textLabel.text = @"Friends You Have Tagged";
+          break;
+        case 3:
+          cell.textLabel.text = @"Friends Who Tagged You";
+          break;
+        default:
+          break;
+      }
+      cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [item count]];
+      break;
+    default:
+      break;
   }
-  
-  [KupoCell fillCell:cell withDictionary:item withImage:image];
+//  cell.textLabel.text = [NSString stringWithFormat:@"You checked in a total of %@ times, of which %@ checkins were the author. Your friends have tagged you a total of %@ times, and you tagged your friends a total of %@ times. You have visited %@ times in the past, whereas your friends have visited a combined total of %@ places. Your last check in was at %@ %@.", [item objectForKey:@"total_checkins"], [item objectForKey:@"total_authored"], [item objectForKey:@"total_tagged_you"], [item objectForKey:@"total_you_tagged"], [item objectForKey:@"you_total_unique_places"], [item objectForKey:@"you_friend_total_unique_places"], [item objectForKey:@"you_last_checkin_place_name"], [lastCheckinDate humanIntervalSinceNow]];
+//  [KupoCell fillCell:cell withDictionary:item withImage:image];
   
   return cell;
 }
@@ -116,10 +142,26 @@
 #pragma mark MoogleDataCenterDelegate
 - (void)dataCenterDidFinish:(ASIHTTPRequest *)request {
   [self.sections removeAllObjects];
-  [self.sections addObject:@"Checkins"];
-  
   [self.items removeAllObjects];
-  [self.items addObject:self.dataCenter.responseArray];
+
+  NSArray *item = self.dataCenter.rawResponse;
+  
+  // Compose Table Structure
+  [self.sections addObject:@"Your Last Check In"];
+  [self.items addObject:[NSArray arrayWithObject:[item objectAtIndex:0]]];
+  
+  [self.sections addObject:@"Your Check In Totals"];
+  [self.items addObject:[NSArray arrayWithObject:[item objectAtIndex:1]]];
+  
+  [self.sections addObject:@"Your Social Network Statistics"];
+//  NSDictionary *topPlaces = [NSDictionary dictionaryWithObject:[[item objectAtIndex:2] objectForKey:@"you_top_places_array"] forKey:@"Your Top Places"];
+//  NSDictionary *friendTopPlaces = [NSDictionary dictionaryWithObject:[[item objectAtIndex:2] objectForKey:@"you_friends_top_places_array"] forKey:@"Friends Top Places"];
+//  NSDictionary *youTagged = [NSDictionary dictionaryWithObject:[[item objectAtIndex:2] objectForKey:@"you_tagged_friend_array"] forKey:@"Friends You Tagged"];
+//  NSDictionary *friendTagged = [NSDictionary dictionaryWithObject:[[item objectAtIndex:2] objectForKey:@"friend_tagged_you_array"] forKey:@"Friends Who Tagged You"];
+//  [self.items addObject:[NSArray arrayWithObjects:topPlaces, friendTopPlaces, youTagged, friendTagged, nil]];
+  
+  [self.items addObject:[NSArray arrayWithObjects:[[item objectAtIndex:2] objectForKey:@"you_top_places_array"], [[item objectAtIndex:2] objectForKey:@"you_friends_top_places_array"], [[item objectAtIndex:2] objectForKey:@"you_tagged_friend_array"], [[item objectAtIndex:2] objectForKey:@"friend_tagged_you_array"], nil]];
+
   [self.tableView reloadData];
   
   // Update State Machine
@@ -129,20 +171,6 @@
 
 - (void)dataCenterDidFail:(ASIHTTPRequest *)request {
   [self dataSourceDidLoad];
-}
-
-#pragma mark ImageCacheDelegate
-- (void)loadImagesForOnScreenRows {
-  NSArray *visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
-  
-  for (NSIndexPath *indexPath in visibleIndexPaths) {
-    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item valueForKey:@"user_facebook_id"]]];
-    
-    if (![self.imageCache getImageWithURL:url]) {
-      [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
-    }
-  }
 }
 
 #pragma mark UIAlertViewDelegate
@@ -165,7 +193,7 @@
 
 - (void)dealloc {  
   RELEASE_SAFELY(_dataCenter);
-  RELEASE_SAFELY(_kupoRequest);
+  RELEASE_SAFELY(_meRequest);
   [super dealloc];
 }
 

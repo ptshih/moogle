@@ -82,36 +82,31 @@
   self.scrollView.scrollsToTop = NO;
   
   // Configure the cards (CHECK ORDERING)
-  UINavigationController *checkinsNavController = [[UINavigationController alloc] initWithRootViewController:self.checkinsViewController];
-  checkinsNavController.view.frame = CGRectMake(CARD_WIDTH * 0, 0, self.scrollView.width, self.scrollView.height);
+  _checkinsNavController = [[UINavigationController alloc] initWithRootViewController:self.checkinsViewController];
+  _checkinsNavController.view.frame = CGRectMake(CARD_WIDTH * 0, 0, self.scrollView.width, self.scrollView.height);
   
-  UINavigationController *placesNavController = [[UINavigationController alloc] initWithRootViewController:self.placesViewController];
-  placesNavController.view.frame = CGRectMake(CARD_WIDTH * 1, 0, self.scrollView.width, self.scrollView.height);
+  _placesNavController = [[UINavigationController alloc] initWithRootViewController:self.placesViewController];
+  _placesNavController.view.frame = CGRectMake(CARD_WIDTH * 1, 0, self.scrollView.width, self.scrollView.height);
   
-  UINavigationController *discoverNavController = [[UINavigationController alloc] initWithRootViewController:self.discoverViewController];
-  discoverNavController.view.frame = CGRectMake(CARD_WIDTH * 2, 0, self.scrollView.width, self.scrollView.height);
+  _discoverNavController = [[UINavigationController alloc] initWithRootViewController:self.discoverViewController];
+  _discoverNavController.view.frame = CGRectMake(CARD_WIDTH * 2, 0, self.scrollView.width, self.scrollView.height);
   
-  UINavigationController *meNavController = [[UINavigationController alloc] initWithRootViewController:self.meViewController];
-  meNavController.view.frame = CGRectMake(CARD_WIDTH * 3, 0, self.scrollView.width, self.scrollView.height);
+  _meNavController = [[UINavigationController alloc] initWithRootViewController:self.meViewController];
+  _meNavController.view.frame = CGRectMake(CARD_WIDTH * 3, 0, self.scrollView.width, self.scrollView.height);
   
-  checkinsNavController.delegate = self.checkinsViewController;
-  placesNavController.delegate = self.placesViewController;
-  discoverNavController.delegate = self.discoverViewController;
-  meNavController.delegate = self.meViewController;
+  _checkinsNavController.delegate = self.checkinsViewController;
+  _placesNavController.delegate = self.placesViewController;
+  _discoverNavController.delegate = self.discoverViewController;
+  _meNavController.delegate = self.meViewController;
   
   
   // Add the three cards
-  [self.scrollView addSubview:checkinsNavController.view];
-  [self.scrollView addSubview:placesNavController.view];
-  [self.scrollView addSubview:discoverNavController.view];
-  [self.scrollView addSubview:meNavController.view];
+  [self.scrollView addSubview:_checkinsNavController.view];
+  [self.scrollView addSubview:_placesNavController.view];
+  [self.scrollView addSubview:_discoverNavController.view];
+  [self.scrollView addSubview:_meNavController.view];
   
-  self.cards = [NSArray arrayWithObjects:checkinsNavController, placesNavController, discoverNavController, meNavController, nil];
-  
-  [checkinsNavController release];
-  [placesNavController release];
-  [discoverNavController release];
-  [meNavController release];
+  self.cards = [NSArray arrayWithObjects:_checkinsNavController, _placesNavController, _discoverNavController, _meNavController, nil];
   
   // Gestures
   [self addGestures];
@@ -345,6 +340,10 @@
 }
 
 - (void)dealloc {
+  RELEASE_SAFELY(_checkinsNavController);
+  RELEASE_SAFELY(_placesNavController);
+  RELEASE_SAFELY(_discoverNavController);
+  RELEASE_SAFELY(_meNavController);
   RELEASE_SAFELY(_checkinHereViewController);
   RELEASE_SAFELY(_nearbyModalViewController);
   RELEASE_SAFELY (_scrollView);

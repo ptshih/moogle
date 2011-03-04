@@ -68,7 +68,7 @@ static UIImage *_btnSelected;
   [self setupTabView];
   
   // Setup Place Scroll View
-  _placeScrollView.frame = CGRectMake(0, _tabView.height, self.view.width, self.view.height - _tabView.height);
+  _placeScrollView.frame = CGRectMake(0, _tabView.height, self.view.width, self.view.height - _tabView.height - 44.0);
   
   _placeScrollView.contentSize = CGSizeMake(1280.0, _placeScrollView.height);
   _placeScrollView.showsVerticalScrollIndicator = NO;

@@ -10,9 +10,6 @@
 #import "MoogleDataCenter.h"
 
 @interface PlacesDataCenter : MoogleDataCenter {
-   NSMutableArray *_responseArray;   
 }
-
-@property (nonatomic, retain) NSMutableArray *responseArray;
 
 @end

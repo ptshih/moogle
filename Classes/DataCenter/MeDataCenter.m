@@ -8,62 +8,34 @@
 
 #import "MeDataCenter.h"
 
-@interface MeDataCenter (Private)
-
-- (void)kupoRequestDidFinish:(ASIHTTPRequest *)request;
-
-@end
-
 @implementation MeDataCenter
 
-@synthesize responseArray = _responseArray;
-
-- (void)requestFinished:(ASIHTTPRequest *)request {
-  DLog(@"Request Finished with Status Code: %d, : %@", [request responseStatusCode], request);
-  // This is on the main thread
-  NSInteger statusCode = [request responseStatusCode];
-  if(statusCode > 200) {
-    [self dataCenterFailedWithRequest:request];
-  } else {
-    // Successful request
-    [self kupoRequestDidFinish:request];
+- (id)init {
+  self = [super init];
+  if (self) {
+//    _responseKeys = [[NSArray arrayWithObjects:@"place_id", @"place_name", @"checkin_time", @"user_facebook_id", @"user_name", @"your_last_checkin_time", @"your_facebook_id", nil] retain];
+    
+    _responseKeys = [[NSArray arrayWithObjects:@"facebook_id", @"you_last_checkin_time", @"you_last_checkin_place_name", @"you_last_checkin_place_id", @"total_checkins", @"total_authored", @"total_you_tagged", @"total_tagged_you", @"you_total_unique_places", @"you_friend_total_unique_places", @"friend_tagged_you_array", @"you_tagged_friend_array", @"you_top_places_array", @"you_friends_top_places_array", nil] retain];
   }
+  return self;
 }
 
-- (void)kupoRequestDidFinish:(ASIHTTPRequest *)request {
-  DLog(@"Me request finished with response: %@", [request responseString])
+#pragma MoogleDataCenter Implementations
+- (void)dataCenterFinishedWithRequest:(ASIHTTPRequest *)request {
   
-  if (!_responseArray) {
-    _responseArray = [[NSMutableArray array] retain];
-  } else {
-    [_responseArray removeAllObjects];
-  }
   
-  NSArray *jsonArray = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
   
-  NSArray *kupoKeys = [NSArray arrayWithObjects:@"place_id", @"place_name", @"checkin_time", @"user_facebook_id", @"user_name", @"your_last_checkin_time", @"your_facebook_id", nil];
+  // Tell MoogleDataCenter to inform delegate
+  [super dataCenterFinishedWithRequest:request];
+}
+
+- (void)dataCenterFailedWithRequest:(ASIHTTPRequest *)request {
   
-  for (NSDictionary *item in jsonArray) {
-    NSMutableDictionary *responseDict = [NSMutableDictionary dictionary];
-    for (NSString *key in kupoKeys) {
-      NSString *value = nil;
-      value = [item valueForKey:key];
-      
-      if (![value notNil]) {
-        // Check for not nil object
-        [responseDict setObject:[NSNumber numberWithInteger:0] forKey:key];
-      } else {
-        [responseDict setObject:value forKey:key];
-      }
-    }
-    [self.responseArray addObject:responseDict];
-  }
-  
-  [self dataCenterFinishedWithRequest:request];
+  // Tell MoogleDataCenter to inform delegate
+  [super dataCenterFailedWithRequest:request];
 }
 
 - (void)dealloc {
-  RELEASE_SAFELY(_responseArray);
   [super dealloc];
 }
 

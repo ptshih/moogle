@@ -22,6 +22,12 @@
   IBOutlet UIScrollView *_scrollView;
   IBOutlet CardTabBar *_cardTabBar;
   
+  // Nav
+  UINavigationController *_checkinsNavController;
+  UINavigationController *_placesNavController;
+  UINavigationController *_discoverNavController;
+  UINavigationController *_meNavController;
+  
   // Cards
   CheckinsViewController *_checkinsViewController;
   PlacesViewController *_placesViewController;

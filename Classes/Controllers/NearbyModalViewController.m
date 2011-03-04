@@ -115,7 +115,7 @@
   [self.sections addObject:@"Nearby Places"];
   
   [self.items removeAllObjects];
-  [self.items addObject:self.dataCenter.responseArray];
+  [self.items addObject:self.dataCenter.response];
   [self.tableView reloadData];
   [self dataSourceDidLoad];
 }

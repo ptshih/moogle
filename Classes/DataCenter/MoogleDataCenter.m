@@ -20,6 +20,7 @@
 
 @synthesize delegate = _delegate;
 @synthesize response = _response;
+@synthesize rawResponse = _rawResponse;
 @synthesize responseKeys = _responseKeys;
 
 - (id)init {
@@ -65,14 +66,18 @@
     [_response release];
     _response = nil;
   }
+  if (_rawResponse) {
+    [_rawResponse release];
+    _rawResponse = nil;
+  }
   
-  id rawResponse = [[CJSONDeserializer deserializer] deserialize:responseData error:nil];
+  _rawResponse = [[[CJSONDeserializer deserializer] deserialize:responseData error:nil] retain];
   
   // We should sanitize the response
-  if ([rawResponse isKindOfClass:[NSArray class]]) {
-    _response = [[self sanitizeArray:rawResponse forKeys:self.responseKeys] retain];
-  } else if ([rawResponse isKindOfClass:[NSDictionary class]]) {
-    _response = [[self sanitizeDictionary:rawResponse forKeys:self.responseKeys] retain];
+  if ([_rawResponse isKindOfClass:[NSArray class]]) {
+    _response = [[self sanitizeArray:_rawResponse forKeys:self.responseKeys] retain];
+  } else if ([_rawResponse isKindOfClass:[NSDictionary class]]) {
+    _response = [[self sanitizeDictionary:_rawResponse forKeys:self.responseKeys] retain];
   } else {
     // Throw an assertion, why is it not a dictionary or an array???
     DLog(@"### ERROR IN DATA CENTER, RESPONSE IS NEITHER AN ARRAY NOR A DICTIONARY");
@@ -147,6 +152,7 @@
 
 - (void)dealloc {
   RELEASE_SAFELY (_response);
+  RELEASE_SAFELY(_rawResponse);
   RELEASE_SAFELY(_responseKeys);
   [super dealloc];
 }
