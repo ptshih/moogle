@@ -10,5 +10,13 @@
 
 @implementation DiscoverViewController
 
+#pragma mark CardStateMachine
+- (BOOL)dataIsAvailable {
+  return NO;
+}
+
+- (BOOL)dataSourceIsReady {
+  return YES;
+}
 
 @end

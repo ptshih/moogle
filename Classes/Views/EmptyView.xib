@@ -49,6 +49,7 @@
 						<string key="NSFrame">{{19, 325}, {281, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -88,9 +89,10 @@
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{320, 396}</string>
+				<string key="NSFrameSize">{320, 367}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView" ref="472105997"/>
 				<reference key="IBUIBackgroundColor" ref="173911062"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>

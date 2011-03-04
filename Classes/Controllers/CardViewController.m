@@ -14,6 +14,7 @@
 #import "PlaceTabViewController.h"
 #import "WhoViewController.h"
 #import "PlacesViewController.h"
+#import "DiscoverViewController.h"
 
 @interface CardViewController (Private)
 
@@ -47,6 +48,11 @@
   if ([self isKindOfClass:[PlaceTabViewController class]]) {
     [[NSBundle mainBundle] loadNibNamed:@"EmptyPlaceView" owner:self options:nil];
     [[NSBundle mainBundle] loadNibNamed:@"LoadingPlaceView" owner:self options:nil];
+  } else if ([self isKindOfClass:[DiscoverViewController class]]) {
+    [[NSBundle mainBundle] loadNibNamed:@"EmptyDiscoverView" owner:self options:nil];
+    [[NSBundle mainBundle] loadNibNamed:@"LoadingView" owner:self options:nil];
+    
+    self.loadingView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
   } else if ([self isKindOfClass:[WhoViewController class]]) {
   } else if ([self isKindOfClass:[PlacesViewController class]]) {
     [[NSBundle mainBundle] loadNibNamed:@"EmptyView" owner:self options:nil];
