@@ -68,6 +68,10 @@ static UIImage *_btnSelected;
 
 - (void)selectButton:(id)sender {
   NSNumber *buttonIndex = [NSNumber numberWithInteger:[self.buttons indexOfObject:sender]];
+  for (UIButton *button in self.buttons) {
+    [button setSelected:NO];
+  }
+  [[self.buttons objectAtIndex:[buttonIndex integerValue]] setSelected:YES];
   
   // Inform delegate
   if (self.delegate) {
@@ -77,6 +81,10 @@ static UIImage *_btnSelected;
     }
     [self.delegate release];
   }
+}
+
+- (void)setSelectedForTabAtIndex:(NSInteger)index {
+  [[self.buttons objectAtIndex:index] setSelected:YES];
 }
 
 - (void)dealloc {

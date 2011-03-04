@@ -15,8 +15,6 @@
 #import "PlacesDataCenter.h"
 #import "TrendsDataCenter.h"
 
-#import "HeaderTabView.h"
-
 @interface PlacesViewController (Private)
 
 - (void)setupButtons;
@@ -58,30 +56,27 @@
   [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self setupPullRefresh];
   
-  HeaderTabView *headerTabView = [[HeaderTabView alloc] initWithFrame:CGRectMake(0, 0, 320, 44.0) andButtonTitles:[NSArray arrayWithObjects:@"Nearby", @"Popular", @"Followed", nil]];
-  headerTabView.delegate = self;
-  
-  self.tableView.tableHeaderView = headerTabView;
-  
-//  self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
-//  self.title = @"Nearby Places";
-  
-//  [self getNearbyPlaces];
+  [self setupHeaderTabView];
+  [self.headerTabView setSelectedForTabAtIndex:0];
   
   [self setupButtons];
 }
 
-- (void)setupButtons {  
-  UIBarButtonItem *modeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleMode)];
-  self.navigationItem.leftBarButtonItem = modeButton;
-  [modeButton release];
+- (void)setupButtons {
 }
 
-- (void)toggleMode {
-  if (_placesMode == PlacesTypeNearby) {
-    _placesMode = PlacesTypeTrends;
-  } else {
-    _placesMode = PlacesTypeNearby;
+#pragma mark HeaderTabViewDelegate
+- (void)tabSelectedAtIndex:(NSNumber *)index {
+  switch ([index intValue]) {
+    case PlacesTypeNearby:
+      _placesMode = PlacesTypeNearby;
+      break;
+    case PlacesTypePopular:
+      _placesMode = PlacesTypePopular;
+      break;
+    default:
+      _placesMode = PlacesTypeNearby;
+      break;
   }
   [self resetStateAndReload];
 }
@@ -93,10 +88,8 @@
   [self updateState];
   
   if (_placesMode == PlacesTypeNearby) {
-    self.title = @"Nearby Places";
     [self getNearbyPlaces];
   } else {
-    self.title = @"Trending Places";
     [self getTrends];
   }
 }

@@ -10,15 +10,18 @@
 #import "CardViewController.h"
 #import "ImageCacheDelegate.h"
 #import "ImageCache.h"
+#import "HeaderTabView.h"
 #import "EGORefreshTableHeaderView.h"
+#import "HeaderTabViewDelegate.h"
 
-@interface CardTableViewController : CardViewController <UITableViewDelegate, UITableViewDataSource, ImageCacheDelegate, EGORefreshTableHeaderDelegate> {
+@interface CardTableViewController : CardViewController <UITableViewDelegate, UITableViewDataSource, ImageCacheDelegate, EGORefreshTableHeaderDelegate, HeaderTabViewDelegate> {
   UITableView *_tableView;
   NSMutableArray *_sections;
   NSMutableArray *_items;
   
   ImageCache *_imageCache;
   
+  HeaderTabView *_headerTabView;
   EGORefreshTableHeaderView *_refreshHeaderView;
   BOOL _reloading;
 }
@@ -28,8 +31,10 @@
 @property (nonatomic, retain) NSMutableArray *items;
 
 @property (nonatomic, retain) ImageCache *imageCache;
+@property (nonatomic, retain) HeaderTabView *headerTabView;
 
 - (void)setupTableViewWithFrame:(CGRect)frame andStyle:(UITableViewStyle)style andSeparatorStyle:(UITableViewCellSeparatorStyle)separatorStyle;
 - (void)setupPullRefresh;
+- (void)setupHeaderTabView;
 
 @end

@@ -12,7 +12,8 @@
 
 enum {
   PlacesTypeNearby = 0,
-  PlacesTypeTrends = 1
+  PlacesTypePopular = 1,
+  PlacesTypeFollowed = 2
 };
 typedef uint32_t PlacesType;
 

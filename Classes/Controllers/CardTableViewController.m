@@ -21,6 +21,7 @@
 @synthesize sections = _sections;
 @synthesize items = _items;
 @synthesize imageCache = _imageCache;
+@synthesize headerTabView = _headerTabView;
 
 - (id)init {
   self = [super init];
@@ -61,6 +62,13 @@
 	
   //  update the last update date
   [_refreshHeaderView refreshLastUpdatedDate];
+}
+
+- (void)setupHeaderTabView {
+  _headerTabView = [[HeaderTabView alloc] initWithFrame:CGRectMake(0, 0, 320, 44.0) andButtonTitles:[NSArray arrayWithObjects:@"Nearby", @"Popular", @"Followed", nil]];
+  self.headerTabView.delegate = self;
+  
+  self.tableView.tableHeaderView = self.headerTabView;
 }
 
 // Called when the user logs out and we need to clear all cached data
@@ -130,6 +138,11 @@
   return cell;
 }
 
+#pragma mark HeaderTabViewDelegate
+- (void)tabSelectedAtIndex:(NSNumber *)index {
+  // MUST SUBCLASS
+}
+
 #pragma mark ImageCacheDelegate
 - (void)imageDidLoad:(NSIndexPath *)indexPath {
   [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -182,6 +195,7 @@
   RELEASE_SAFELY(_items);
   RELEASE_SAFELY(_imageCache);
   RELEASE_SAFELY(_refreshHeaderView);
+  RELEASE_SAFELY(_headerTabView);
   [super dealloc];
 }
 

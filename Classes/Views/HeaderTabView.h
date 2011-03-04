@@ -18,4 +18,7 @@
 @property (nonatomic, retain) NSMutableArray *buttons;
 @property (nonatomic, assign) id <HeaderTabViewDelegate> delegate;
 
+- (id)initWithFrame:(CGRect)frame andButtonTitles:(NSArray *)titles;
+- (void)setSelectedForTabAtIndex:(NSInteger)index;
+
 @end
