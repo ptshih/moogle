@@ -43,7 +43,7 @@ static UIImage *_btnSelected;
     UIButton *button = nil;
     int i = 0;
     for (NSString *title in titles) {
-      button = [[UIButton alloc] initWithFrame:CGRectMake(BUTTON_SPACING + (BUTTON_SPACING * i), 8.0, buttonWidth, BUTTON_HEIGHT)];
+      button = [[UIButton alloc] initWithFrame:CGRectMake(BUTTON_SPACING + (buttonWidth * i) + (BUTTON_SPACING * i), 8.0, buttonWidth, BUTTON_HEIGHT)];
       
       button.adjustsImageWhenHighlighted = NO;
       [button setBackgroundImage:_btnNormal forState:UIControlStateNormal];

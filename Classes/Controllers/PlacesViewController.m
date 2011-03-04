@@ -58,8 +58,10 @@
   [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self setupPullRefresh];
   
-//  HeaderTabView *headerTabView = [HeaderTabView alloc]
-//  self.tableView.tableHeaderView = 
+  HeaderTabView *headerTabView = [[HeaderTabView alloc] initWithFrame:CGRectMake(0, 0, 320, 44.0) andButtonTitles:[NSArray arrayWithObjects:@"Nearby", @"Popular", @"Followed", nil]];
+  headerTabView.delegate = self;
+  
+  self.tableView.tableHeaderView = headerTabView;
   
 //  self.navigationController.navigationBar.tintColor = FB_COLOR_DARK_BLUE;
 //  self.title = @"Nearby Places";
