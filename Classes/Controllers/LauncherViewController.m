@@ -15,6 +15,7 @@
 #import "CardTabBar.h"
 #import "CheckinHereViewController.h"
 #import "PlaceViewController.h"
+#import "Place.h"
 
 @interface LauncherViewController (Private)
 
@@ -113,19 +114,16 @@
   // If there is an activePlace, show checkinHere
   // Otherwise show nearby places modal
   id visibleViewController = [[self.cards objectAtIndex:_currentPage] topViewController];
-  NSString *activePlaceId = nil;
-  NSString *activePlaceName = nil;
+  Place *activePlace = nil;
   if ([visibleViewController isKindOfClass:[PlaceViewController class]]) {
-    activePlaceId = [visibleViewController placeId];
-    activePlaceName = [visibleViewController placeName];
+    activePlace = [visibleViewController place];
   }
   
   if (!_checkinHereViewController) {
     _checkinHereViewController = [[CheckinHereViewController alloc] init];
   }
   
-  _checkinHereViewController.placeId = activePlaceId;
-  _checkinHereViewController.placeName = activePlaceName;
+  _checkinHereViewController.place = activePlace;
   
   [self presentModalViewController:_checkinHereViewController animated:YES];
 }

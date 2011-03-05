@@ -7,14 +7,12 @@
 //
 
 #import "PlacesViewController.h"
-
+#import "PlaceViewController.h"
+#import "LocationManager.h"
 #import "PlaceCell.h"
 #import "Place.h"
-#import "LocationManager.h"
 
-#import "PlaceViewController.h"
 #import "PlacesDataCenter.h"
-#import "TrendsDataCenter.h"
 
 @interface PlacesViewController (Private)
 
@@ -22,27 +20,23 @@
 - (void)toggleMode;
 - (void)resetStateAndReload;
 - (void)showPlaceForPlace:(Place *)place;
+- (void)loadPlaces;
 
 @end
 
 @implementation PlacesViewController
 
 @synthesize dataCenter = _dataCenter;
-@synthesize trendsDataCenter = _trendsDataCenter;
 @synthesize nearbyRequest = _nearbyRequest;
-@synthesize trendsRequest = _trendsRequest;
+@synthesize popularRequest = _popularRequest;
 
 - (id)init {
   self = [super init];
   if (self) {
     _dataCenter = [[PlacesDataCenter alloc] init];
     _dataCenter.delegate = self;
-    _trendsDataCenter = [[TrendsDataCenter alloc] init];
-    _trendsDataCenter.delegate = self;
     
     _placesMode = PlacesTypeNearby;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadCardController) name:kLocationAcquired object:nil];
   }
   return self;
 }
@@ -90,7 +84,7 @@
   if (_placesMode == PlacesTypeNearby) {
     [self getNearbyPlaces];
   } else {
-    [self getTrends];
+    [self getPopularPlaces];
   }
 }
 
@@ -98,6 +92,19 @@
 - (void)reloadCardController {
   [super reloadCardController];
   
+  if (![APP_DELEGATE.locationManager hasAcquiredLocation]) {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPlaces) name:kLocationAcquired object:nil];
+  } else {
+    [self loadPlaces];
+  }
+}
+
+- (void)unloadCardController {
+  [super unloadCardController];
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationAcquired object:nil];
+}
+
+- (void)loadPlaces {
   if ([APP_DELEGATE.locationManager hasAcquiredLocation] && [[NSUserDefaults standardUserDefaults] boolForKey:@"isLoggedIn"]) {
     [self.headerTabView setSelectedForTabAtIndex:0];
   } else {
@@ -123,7 +130,7 @@
 
 }
 
-- (void)getTrends {
+- (void)getPopularPlaces {
   // Trends Mode
   CGFloat lat = [APP_DELEGATE.locationManager latitude];
   CGFloat lng = [APP_DELEGATE.locationManager longitude];
@@ -134,8 +141,8 @@
   [params setObject:[NSString stringWithFormat:@"%f", lng] forKey:@"lng"];
   [params setObject:[NSString stringWithFormat:@"%d", distance] forKey:@"distance"];
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/popular", MOOGLE_BASE_URL, API_VERSION];
-  self.trendsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.trendsRequest];
+  self.popularRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
+  [[RemoteOperation sharedInstance] addRequestToQueue:self.popularRequest];
 }
 
 #pragma mark Show Place
@@ -220,15 +227,7 @@
     [_nearbyRequest release], _nearbyRequest = nil;
   }
   
-  if(_trendsRequest) {
-    [_trendsRequest clearDelegatesAndCancel];
-    [_trendsRequest release], _trendsRequest = nil;
-  }
-  
   RELEASE_SAFELY (_dataCenter);
-  RELEASE_SAFELY(_trendsDataCenter);
-  
-  [[NSNotificationCenter defaultCenter] removeObserver:self name:kLocationAcquired object:nil];
   
   [super dealloc];
 }

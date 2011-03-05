@@ -107,9 +107,9 @@
 }
 
 - (void)showPlaceWithId:(NSString *)placeId andName:(NSString *)placeName {
-  PlaceViewController *pvc = [[PlaceViewController alloc] init];
-  [self.navigationController pushViewController:pvc animated:YES];
-  [pvc release];  
+//  PlaceViewController *pvc = [[PlaceViewController alloc] init];
+//  [self.navigationController pushViewController:pvc animated:YES];
+//  [pvc release];  
 }
 
 #pragma mark MoogleDataCenterDelegate

@@ -23,6 +23,9 @@
 
 #pragma MoogleDataCenter Implementations
 - (void)dataCenterFinishedWithRequest:(ASIHTTPRequest *)request {  
+  if (self.placesArray) {
+    [self.placesArray removeAllObjects];
+  }
   // Serialize all the places in the array
   for (NSDictionary *placeDict in self.response) {
     Place *newPlace = [[Place alloc] initWithDictionary:placeDict];

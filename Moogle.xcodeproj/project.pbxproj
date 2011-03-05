@@ -49,7 +49,6 @@
 		2529FD51130158800041DA95 /* bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 2529FD4D130158800041DA95 /* bubble.png */; };
 		2529FD52130158800041DA95 /* bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2529FD4E130158800041DA95 /* bubble@2x.png */; };
 		2529FD591301598D0041DA95 /* PlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2529FD571301598D0041DA95 /* PlacesViewController.m */; };
-		2530F89D131CB64400EC8C3A /* TrendsDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2530F89C131CB64300EC8C3A /* TrendsDataCenter.m */; };
 		253FED9E1317B79D00871D79 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 253FED9C1317B79D00871D79 /* ImageCache.m */; };
 		253FEDA11317B86300871D79 /* PlaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 253FEDA01317B86300871D79 /* PlaceCell.m */; };
 		25433D7712FA241B0066A191 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25433D7612FA241B0066A191 /* LoginViewController.m */; };
@@ -216,8 +215,6 @@
 		2529FD4E130158800041DA95 /* bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble@2x.png"; sourceTree = "<group>"; };
 		2529FD561301598D0041DA95 /* PlacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacesViewController.h; sourceTree = "<group>"; };
 		2529FD571301598D0041DA95 /* PlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacesViewController.m; sourceTree = "<group>"; };
-		2530F89B131CB64300EC8C3A /* TrendsDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendsDataCenter.h; sourceTree = "<group>"; };
-		2530F89C131CB64300EC8C3A /* TrendsDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendsDataCenter.m; sourceTree = "<group>"; };
 		253FED9B1317B79D00871D79 /* ImageCacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCacheDelegate.h; sourceTree = "<group>"; };
 		253FED9C1317B79D00871D79 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
 		253FED9D1317B79D00871D79 /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
@@ -853,8 +850,6 @@
 				25F2079C1314E73C00178E09 /* MoogleDataCenterDelegate.h */,
 				25BB16A51318FDB90068A10B /* MeDataCenter.h */,
 				25BB16A61318FDB90068A10B /* MeDataCenter.m */,
-				2530F89B131CB64300EC8C3A /* TrendsDataCenter.h */,
-				2530F89C131CB64300EC8C3A /* TrendsDataCenter.m */,
 				25F207961314E6FE00178E09 /* PlaceDataCenter.h */,
 				25F207971314E6FE00178E09 /* PlaceDataCenter.m */,
 				25EC95C91318B57D009E44DE /* PlacesDataCenter.h */,
@@ -1102,7 +1097,6 @@
 				25094745131A68BB00356DF8 /* PlaceActivityCell.m in Sources */,
 				2516A4ED131C762E00D11686 /* UINavigationBar+Custom.m in Sources */,
 				2516A4F8131C8A9A00D11686 /* CardModalViewController.m in Sources */,
-				2530F89D131CB64400EC8C3A /* TrendsDataCenter.m in Sources */,
 				251D496A131D4DC2003D988A /* PlaceReviewCell.m in Sources */,
 				251D496D131D511C003D988A /* PlaceReviewsViewController.m in Sources */,
 				25BF9B50131F97F400469ECE /* CardTabBar.m in Sources */,

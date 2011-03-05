@@ -15,6 +15,7 @@
 #import "RemoteOperation.h"
 
 #import "LocationManager.h"
+#import "Place.h"
 
 @interface CheckinHereViewController (Private)
 
@@ -30,8 +31,7 @@
 @synthesize message = _message;
 @synthesize tagsArray = _tagsArray;
 
-@synthesize placeId = _placeId;
-@synthesize placeName = _placeName;
+@synthesize place = _place;
 
 - (id)init {
   self = [super init];
@@ -48,7 +48,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  self.navItem.title = self.placeName;
+  self.navItem.title = self.place.placeName;
 }
 
 - (IBAction)checkinHere {
@@ -66,7 +66,7 @@
   NSString *coordinates = [NSString stringWithFormat:@"{\"latitude\":\"%f\", \"longitude\":\"%f\"}", lat, lng];
   
   NSMutableDictionary *postDict = [NSMutableDictionary dictionary];
-  [postDict setObject:self.placeId forKey:@"place"];
+  [postDict setObject:self.place.placeId forKey:@"place"];
   [postDict setObject:coordinates forKey:@"coordinates"];
   if (self.message) [postDict setObject:self.message forKey:@"message"];
   if (self.tagsArray) {
@@ -123,9 +123,7 @@
   RELEASE_SAFELY (_dataCenter);
   RELEASE_SAFELY (_message);
   RELEASE_SAFELY (_tagsArray);
-  
-  RELEASE_SAFELY(_placeName);
-  RELEASE_SAFELY(_placeId);
+
   [super dealloc];
 }
 

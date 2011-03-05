@@ -18,23 +18,20 @@ enum {
 typedef uint32_t PlacesType;
 
 @class PlacesDataCenter;
-@class TrendsDataCenter;
 
 @interface PlacesViewController : CardTableViewController <MoogleDataCenterDelegate> {
   PlacesDataCenter *_dataCenter;
-  TrendsDataCenter *_trendsDataCenter;
   ASIHTTPRequest *_nearbyRequest;
-  ASIHTTPRequest *_trendsRequest;
+  ASIHTTPRequest *_popularRequest;
   
   PlacesType _placesMode;
 }
 
 @property (nonatomic, retain) PlacesDataCenter *dataCenter;
-@property (nonatomic, retain) TrendsDataCenter *trendsDataCenter;
 @property (nonatomic, retain) ASIHTTPRequest *nearbyRequest;
-@property (nonatomic, retain) ASIHTTPRequest *trendsRequest;
+@property (nonatomic, retain) ASIHTTPRequest *popularRequest;
 
 - (void)getNearbyPlaces;
-- (void)getTrends;
+- (void)getPopularPlaces;
 
 @end
