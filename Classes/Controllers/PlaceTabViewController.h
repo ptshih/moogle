@@ -8,23 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "CardTableViewController.h"
-#import "MoogleDataCenterDelegate.h"
-
 #import "LocationManager.h"
+#import "Place.h"
+#import "MoogleDataCenterDelegate.h"
 #import "PlaceDataCenter.h"
-
-@class PlaceDataCenter;
 
 @interface PlaceTabViewController : CardTableViewController <MoogleDataCenterDelegate> {
   PlaceDataCenter *_dataCenter;
-  NSString *_placeId;
+  Place *place;
   CGRect viewport; // NOTE: this is totally a hack around the view init hierarchy
 }
 
 @property (nonatomic, retain) PlaceDataCenter *dataCenter;
-@property (nonatomic, retain) NSString *placeId;
+@property (nonatomic, assign) Place *place;
 @property (nonatomic, assign) CGRect viewport;
-
-- (void)reloadDataSource;
 
 @end

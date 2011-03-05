@@ -11,8 +11,6 @@
 
 @implementation PlaceInfoViewController
 
-@synthesize placeInfoRequest = _placeInfoRequest;
-
 - (id)init {
   self = [super init];
   if (self) {
@@ -25,26 +23,6 @@
   
   // Table
   [self setupTableViewWithFrame:self.viewport andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-  [self reloadDataSource];
-}
-
-- (void)reloadDataSource {
-  [self getPlaceInfo];
-}
-
-- (void)getPlaceInfo {
-  CGFloat lat = [APP_DELEGATE.locationManager latitude];
-  CGFloat lng = [APP_DELEGATE.locationManager longitude];
-  
-  NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  [params setObject:[[NSNumber numberWithFloat:lat] stringValue] forKey:@"lat"];
-  [params setObject:[[NSNumber numberWithFloat:lng] stringValue] forKey:@"lng"];
-  
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/%@", MOOGLE_BASE_URL, API_VERSION, self.placeId];
-  
-  self.placeInfoRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
-  self.dataCenter.placeInfoRequest = self.placeInfoRequest;
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.placeInfoRequest];
 }
 
 #pragma mark UITableViewDelegate
@@ -69,14 +47,13 @@
     if (cell == nil) {
       cell = [[[PlaceHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
     }
-    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+//    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
-    if (!_placeImage) {
-      _placeImage = [[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"place_id"]]]]] retain];
-//      _placeImage = [[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[item objectForKey:@"picture"]]]] retain];
-    }
+//    if (!_placeImage) {
+//      _placeImage = [[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"place_id"]]]]] retain];
+//    }
     
-    [PlaceHeaderCell fillCell:cell withDictionary:item withImage:_placeImage];
+//    [PlaceHeaderCell fillCell:cell withDictionary:item withImage:_placeImage];
   } else {
     cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (cell == nil) {
@@ -89,35 +66,7 @@
   return cell;
 }
 
-#pragma mark MoogleDataCenterDelegate
-- (void)dataCenterDidFinish:(ASIHTTPRequest *)request {
-  // Update Table Cells
-  [self.sections removeAllObjects];
-  [self.items removeAllObjects];
-  
-  // Header
-  [self.sections addObject:@"HeaderCell"];
-  [self.items addObject:self.dataCenter.headersArray];
-  
-  // Details
-  [self.sections addObject:@"DetailsCell"];
-  [self.items addObject:self.dataCenter.detailsArray];
-  
-  [self.tableView reloadData];
-  
-  [self dataSourceDidLoad];
-}
-
-- (void)dataCenterDidFail:(ASIHTTPRequest *)request {
-  [self dataSourceDidLoad];
-}
-
 - (void)dealloc {
-  if (_placeInfoRequest) {
-    [_placeInfoRequest clearDelegatesAndCancel];
-    [_placeInfoRequest release], _placeInfoRequest = nil;
-  }
-  
   RELEASE_SAFELY(_placeImage);
 
   [super dealloc];

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CardViewController.h"
 
+@class Place;
 @class PlaceInfoViewController;
 @class PlaceActivityViewController;
 @class PlaceFeedViewController;
@@ -23,8 +24,7 @@
   id _visibleViewController;
   
   // Params
-  NSString *_placeId;
-  NSString *_placeName;
+  Place *place;
   
   // UI
   UIBarButtonItem *_checkinHereButton;
@@ -36,7 +36,6 @@
   UIButton *_reviewsButton;
 }
 
-@property (nonatomic, retain) NSString *placeId;
-@property (nonatomic, retain) NSString *placeName;
+@property (nonatomic, retain) Place *place;
 
 @end

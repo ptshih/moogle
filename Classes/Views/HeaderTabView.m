@@ -85,6 +85,7 @@ static UIImage *_btnSelected;
 
 - (void)setSelectedForTabAtIndex:(NSInteger)index {
   [[self.buttons objectAtIndex:index] setSelected:YES];
+  [self selectButton:[self.buttons objectAtIndex:index]];
 }
 
 - (void)dealloc {

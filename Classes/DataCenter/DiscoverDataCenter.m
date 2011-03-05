@@ -1,35 +1,26 @@
 //
-//  PlacesDataCenter.m
+//  DiscoverDataCenter.m
 //  Moogle
 //
-//  Created by Peter Shih on 2/25/11.
+//  Created by Peter Shih on 3/4/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "PlacesDataCenter.h"
-#import "Place.h"
+#import "DiscoverDataCenter.h"
 
-@implementation PlacesDataCenter
-  
-@synthesize placesArray = _placesArray;
+
+@implementation DiscoverDataCenter
 
 - (id)init {
   self = [super init];
   if (self) {
-    _placesArray = [[NSMutableArray alloc] init];
+    _responseKeys = [[NSArray arrayWithObjects:@"facebook_id", @"name", @"place_id", @"place_name", @"message", nil] retain];
   }
   return self;
 }
 
 #pragma MoogleDataCenter Implementations
 - (void)dataCenterFinishedWithRequest:(ASIHTTPRequest *)request {  
-  // Serialize all the places in the array
-  for (NSDictionary *placeDict in self.response) {
-    Place *newPlace = [[Place alloc] initWithDictionary:placeDict];
-    [self.placesArray addObject:newPlace];
-    [newPlace release];
-  }
-  
   // Tell MoogleDataCenter to inform delegate
   [super dataCenterFinishedWithRequest:request];
 }
@@ -41,7 +32,7 @@
 }
 
 - (void)dealloc {
-  RELEASE_SAFELY(_placesArray);
   [super dealloc];
 }
+
 @end

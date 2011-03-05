@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MoogleImageCell.h"
 
+@class Place;
+
 @interface PlaceCell : MoogleImageCell {
   UILabel *_nameLabel;
   UILabel *_distanceLabel;
@@ -28,6 +30,6 @@
 @property (nonatomic, retain) UILabel *totalLabel;
 @property (nonatomic, retain) UILabel *likesLabel;
 
-+ (void)fillCell:(PlaceCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image;
++ (void)fillCell:(PlaceCell *)cell withPlace:(Place *)place withImage:(UIImage *)image;
 
 @end

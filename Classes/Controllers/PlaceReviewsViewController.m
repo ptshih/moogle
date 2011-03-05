@@ -26,17 +26,13 @@
   // Table
   //  CGRect tableFrame = self.view.frame;
   [self setupTableViewWithFrame:self.viewport andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-  [self reloadDataSource];
-}
-
-- (void)reloadDataSource {  
   [self getPlaceReviews];
 }
 
 - (void)getPlaceReviews {
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
   
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/%@/reviews", MOOGLE_BASE_URL, API_VERSION, self.placeId];
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/%@/reviews", MOOGLE_BASE_URL, API_VERSION, self.place.placeId];
   
   self.placeReviewsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   self.dataCenter.placeReviewsRequest = self.placeReviewsRequest;

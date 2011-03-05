@@ -10,12 +10,7 @@
 #import "PlaceTabViewController.h"
 
 @interface PlaceInfoViewController : PlaceTabViewController {
-  ASIHTTPRequest *_placeInfoRequest;
   UIImage *_placeImage;
 }
-
-@property (nonatomic, retain) ASIHTTPRequest *placeInfoRequest;
-
-- (void)getPlaceInfo;
 
 @end

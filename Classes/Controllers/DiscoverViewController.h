@@ -10,8 +10,16 @@
 #import "CardTableViewController.h"
 #import "MoogleDataCenterDelegate.h"
 
+@class DiscoverDataCenter;
+
 @interface DiscoverViewController : CardTableViewController <MoogleDataCenterDelegate> {
-    
+  DiscoverDataCenter *_dataCenter;
+  ASIHTTPRequest *_discoverRequest;
 }
+
+@property (nonatomic, retain) DiscoverDataCenter *dataCenter;
+@property (nonatomic, retain) ASIHTTPRequest *discoverRequest;
+
+- (void)getDiscovers;
 
 @end

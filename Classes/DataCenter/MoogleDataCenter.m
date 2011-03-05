@@ -12,7 +12,7 @@
 
 - (BOOL)serializeResponse:(NSData *)responseData;
 - (NSDictionary *)sanitizeDictionary:(NSDictionary *)dictionary forKeys:(NSArray *)keys;
-- (NSArray *)sanitizeArray:(NSArray *)array forKeys:(NSArray *)keys;
+- (NSArray *)sanitizeArray:(NSArray *)array;
 
 @end
 
@@ -31,13 +31,13 @@
   return self;
 }
 
-- (NSArray *)sanitizeArray:(NSArray *)array forKeys:(NSArray *)keys {
+- (NSArray *)sanitizeArray:(NSArray *)array {
   NSMutableArray *sanitizedArray = [NSMutableArray array];
   
   // Loop thru all dictionaries in the array
   NSDictionary *sanitizedDictionary = nil;
   for (NSDictionary *dictionary in array) {
-    sanitizedDictionary = [self sanitizeDictionary:dictionary forKeys:keys];
+    sanitizedDictionary = [self sanitizeDictionary:dictionary forKeys:[dictionary allKeys]];
     [sanitizedArray addObject:sanitizedDictionary];
   }
 
@@ -75,9 +75,9 @@
   
   // We should sanitize the response
   if ([_rawResponse isKindOfClass:[NSArray class]]) {
-    _response = [[self sanitizeArray:_rawResponse forKeys:self.responseKeys] retain];
+    _response = [[self sanitizeArray:_rawResponse] retain];
   } else if ([_rawResponse isKindOfClass:[NSDictionary class]]) {
-    _response = [[self sanitizeDictionary:_rawResponse forKeys:self.responseKeys] retain];
+    _response = [[self sanitizeDictionary:_rawResponse forKeys:[_rawResponse allKeys]] retain];
   } else {
     // Throw an assertion, why is it not a dictionary or an array???
     DLog(@"### ERROR IN DATA CENTER, RESPONSE IS NEITHER AN ARRAY NOR A DICTIONARY");

@@ -16,7 +16,6 @@
 @class MeViewController;
 @class CheckinHereViewController;
 @class PlaceViewController;
-@class NearbyModalViewController;
 
 @interface LauncherViewController : UIViewController <UITabBarDelegate> {
   IBOutlet UIScrollView *_scrollView;
@@ -36,7 +35,6 @@
 
   // Modals
   CheckinHereViewController *_checkinHereViewController;
-  NearbyModalViewController *_nearbyModalViewController;
   
   PlaceViewController *_activePlace;
   

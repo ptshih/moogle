@@ -9,6 +9,7 @@
 #import "PlaceViewController.h"
 #import "LauncherViewController.h"
 
+#import "Place.h"
 #import "PlaceInfoViewController.h"
 #import "PlaceActivityViewController.h"
 #import "PlaceFeedViewController.h"
@@ -39,8 +40,7 @@ static UIImage *_btnSelected;
 
 @implementation PlaceViewController
 
-@synthesize placeId = _placeId;
-@synthesize placeName = _placeName;
+@synthesize place = _place;
 
 + (void)initialize {
   _btnNormal = [[[UIImage imageNamed:@"btn_filter.png"] stretchableImageWithLeftCapWidth:37 topCapHeight:14] retain];
@@ -63,11 +63,8 @@ static UIImage *_btnSelected;
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  self.title = self.placeName;
-  
-  // Tell Launcher about our activePlaceId
-  APP_DELEGATE.launcherViewController.activePlace = self;
-  
+//  self.title = self.placeName;
+
   [self setupTabView];
   
   // Setup Place Scroll View
@@ -99,28 +96,28 @@ static UIImage *_btnSelected;
 }
 
 - (void)setupPlaceInfo {
-  _placeInfoViewController.placeId = self.placeId;
+  _placeInfoViewController.place = self.place;
   _placeInfoViewController.viewport = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
   _placeInfoViewController.view.frame = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
   [_placeScrollView addSubview:_placeInfoViewController.view];
 }
 
 - (void)setupPlaceActivity {
-  _placeActivityViewController.placeId = self.placeId;
+  _placeActivityViewController.place = self.place;
   _placeActivityViewController.viewport = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
   _placeActivityViewController.view.frame = CGRectMake(320, 0, _placeScrollView.width, _placeScrollView.height);
   [_placeScrollView addSubview:_placeActivityViewController.view];
 }
 
 - (void)setupPlaceFeed {
-  _placeFeedViewController.placeId = self.placeId;
+  _placeFeedViewController.place = self.place;
   _placeFeedViewController.viewport = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
   _placeFeedViewController.view.frame = CGRectMake(640, 0, _placeScrollView.width, _placeScrollView.height);
   [_placeScrollView addSubview:_placeFeedViewController.view];
 }
 
 - (void)setupPlaceReviews {
-  _placeReviewsViewController.placeId = self.placeId;
+  _placeReviewsViewController.place = self.place;
   _placeReviewsViewController.viewport = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
   _placeReviewsViewController.view.frame = CGRectMake(960, 0, _placeScrollView.width, _placeScrollView.height);
   [_placeScrollView addSubview:_placeReviewsViewController.view];
@@ -221,7 +218,7 @@ static UIImage *_btnSelected;
   DLog(@"starting post share request to moogle");
   
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  [params setObject:self.placeId forKey:@"place_id"];
+  [params setObject:self.place.placeId forKey:@"place_id"];
   [params setObject:@"Check this place out!" forKey:@"message"];
   
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/share", MOOGLE_BASE_URL, API_VERSION];
@@ -285,8 +282,7 @@ static UIImage *_btnSelected;
   RELEASE_SAFELY(_placeActivityViewController);
   RELEASE_SAFELY(_placeFeedViewController);
   RELEASE_SAFELY(_placeReviewsViewController);
-  RELEASE_SAFELY(_placeName);
-  RELEASE_SAFELY (_placeId);
+  RELEASE_SAFELY(_place);
   
   // UI
   RELEASE_SAFELY(_placeScrollView);

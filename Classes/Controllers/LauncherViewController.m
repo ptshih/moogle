@@ -14,7 +14,6 @@
 #import "Constants.h"
 #import "CardTabBar.h"
 #import "CheckinHereViewController.h"
-#import "NearbyModalViewController.h"
 #import "PlaceViewController.h"
 
 @interface LauncherViewController (Private)
@@ -28,8 +27,7 @@
 - (void)scrollToCardAtIndex:(NSInteger)index;
 - (void)setActiveCardTab;
 
-- (void)showCheckinHereModalForPlace:(PlaceViewController *)place;
-- (void)showNearbyModal;
+- (void)showCheckinHereModal;
 
 @end
 
@@ -60,7 +58,6 @@
     
     _activePlace = nil;
     
-    _nearbyModalViewController = nil;
     _checkinHereViewController = nil;
   }
   return self;
@@ -112,21 +109,25 @@
   [self addGestures];
 }
 
-- (void)showCheckinHereModalForPlace:(PlaceViewController *)place {
-  if (!place) return;
+- (void)showCheckinHereModal {
+  // If there is an activePlace, show checkinHere
+  // Otherwise show nearby places modal
+  id visibleViewController = [[self.cards objectAtIndex:_currentPage] topViewController];
+  NSString *activePlaceId = nil;
+  NSString *activePlaceName = nil;
+  if ([visibleViewController isKindOfClass:[PlaceViewController class]]) {
+    activePlaceId = [visibleViewController placeId];
+    activePlaceName = [visibleViewController placeName];
+  }
   
   if (!_checkinHereViewController) {
     _checkinHereViewController = [[CheckinHereViewController alloc] init];
   }
-  _checkinHereViewController.place = place;
+  
+  _checkinHereViewController.placeId = activePlaceId;
+  _checkinHereViewController.placeName = activePlaceName;
+  
   [self presentModalViewController:_checkinHereViewController animated:YES];
-}
-
-- (void)showNearbyModal {
-  if (!_nearbyModalViewController) {
-    _nearbyModalViewController = [[NearbyModalViewController alloc] init];
-  }
-  [self presentModalViewController:_nearbyModalViewController animated:YES];
 }
 
 - (void)clearAllCachedData {
@@ -201,14 +202,7 @@
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
   if (!item) {
     // This is the center action button
-    // If there is an activePlace, show checkinHere
-    // Otherwise show nearby places modal
-    id visibleViewController = [[self.cards objectAtIndex:_currentPage] topViewController];
-    if ([visibleViewController isKindOfClass:[PlaceViewController class]]) {
-      [self showCheckinHereModalForPlace:self.activePlace];
-    } else {
-      [self showNearbyModal];
-    }
+    [self showCheckinHereModal];
     return;
   }
   
@@ -345,7 +339,6 @@
   RELEASE_SAFELY(_discoverNavController);
   RELEASE_SAFELY(_meNavController);
   RELEASE_SAFELY(_checkinHereViewController);
-  RELEASE_SAFELY(_nearbyModalViewController);
   RELEASE_SAFELY (_scrollView);
   RELEASE_SAFELY(_cardTabBar);
   RELEASE_SAFELY (_meViewController);

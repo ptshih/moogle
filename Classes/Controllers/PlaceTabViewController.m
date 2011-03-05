@@ -11,7 +11,7 @@
 @implementation PlaceTabViewController
 
 @synthesize dataCenter = _dataCenter;
-@synthesize placeId = _placeId;
+@synthesize place = _place;
 @synthesize viewport = _viewport;
 
 - (id)init {
@@ -27,13 +27,8 @@
   [super viewDidLoad];
 }
 
-// SUBCLASS NEEDS TO IMPLEMENT
-- (void)reloadDataSource {
-}
-
 - (void)dealloc {
   RELEASE_SAFELY(_dataCenter);
-  RELEASE_SAFELY(_placeId);
   [super dealloc];
 }
 

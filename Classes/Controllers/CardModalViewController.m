@@ -7,7 +7,6 @@
 //
 
 #import "CardModalViewController.h"
-#import "Constants.h"
 
 @implementation CardModalViewController
 
@@ -31,7 +30,7 @@
   // Setup Nav Items and Done button
   _navItem = [[UINavigationItem alloc] initWithTitle:self.title];
   UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:self.dismissButtonTitle style:UIBarButtonItemStyleBordered target:self action:@selector(dismiss)];
-  _navItem.rightBarButtonItem = dismissButton;
+  _navItem.leftBarButtonItem = dismissButton;
   [dismissButton release];
   [self.navigationBar setItems:[NSArray arrayWithObject:_navItem]];
   

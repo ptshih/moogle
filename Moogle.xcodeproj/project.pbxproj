@@ -90,6 +90,8 @@
 		2544EFB213204D140080055B /* FeedDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2544EFB113204D140080055B /* FeedDataCenter.m */; };
 		2544EFB5132059EC0080055B /* tab_discover.png in Resources */ = {isa = PBXBuildFile; fileRef = 2544EFB3132059EC0080055B /* tab_discover.png */; };
 		2544EFB6132059EC0080055B /* tab_discover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2544EFB4132059EC0080055B /* tab_discover@2x.png */; };
+		255DE9A113219C2700AA8BBD /* DiscoverDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 255DE9A013219C2500AA8BBD /* DiscoverDataCenter.m */; };
+		255DE9A41321C1CF00AA8BBD /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 255DE9A31321C1CF00AA8BBD /* Place.m */; };
 		25606A9812FA465200481E43 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25606A9712FA465200481E43 /* MainWindow.xib */; };
 		25606B1612FA48F500481E43 /* PlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25606B1412FA48F500481E43 /* PlaceViewController.m */; };
 		2560A65C13186B09000BE27D /* PlaceHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2560A65B13186B09000BE27D /* PlaceHeaderCell.m */; };
@@ -141,7 +143,6 @@
 		25C6C2C91317C8030092E598 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6C2C11317C8030092E598 /* whiteArrow@2x.png */; };
 		25C6C2F81317CD1F0092E598 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2F71317CD1F0092E598 /* Reachability.m */; };
 		25CFAE43132074D5003DD56A /* EmptyDiscoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25CFAE42132074D5003DD56A /* EmptyDiscoverView.xib */; };
-		25CFAE46132081FA003DD56A /* NearbyModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25CFAE45132081F9003DD56A /* NearbyModalViewController.m */; };
 		25EC95CB1318B57F009E44DE /* PlacesDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25EC95CA1318B57E009E44DE /* PlacesDataCenter.m */; };
 		25F207981314E6FE00178E09 /* PlaceDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F207971314E6FE00178E09 /* PlaceDataCenter.m */; };
 		25F2079B1314E72400178E09 /* MoogleDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F2079A1314E72400178E09 /* MoogleDataCenter.m */; };
@@ -280,6 +281,10 @@
 		2544EFB113204D140080055B /* FeedDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedDataCenter.m; sourceTree = "<group>"; };
 		2544EFB3132059EC0080055B /* tab_discover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_discover.png; sourceTree = "<group>"; };
 		2544EFB4132059EC0080055B /* tab_discover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_discover@2x.png"; sourceTree = "<group>"; };
+		255DE99F13219C2400AA8BBD /* DiscoverDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverDataCenter.h; sourceTree = "<group>"; };
+		255DE9A013219C2500AA8BBD /* DiscoverDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverDataCenter.m; sourceTree = "<group>"; };
+		255DE9A21321C1CF00AA8BBD /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
+		255DE9A31321C1CF00AA8BBD /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		25606A9712FA465200481E43 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = SOURCE_ROOT; };
 		25606B1312FA48F500481E43 /* PlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceViewController.h; sourceTree = "<group>"; };
 		25606B1412FA48F500481E43 /* PlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceViewController.m; sourceTree = "<group>"; };
@@ -367,8 +372,6 @@
 		25C6C2F61317CD1F0092E598 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		25C6C2F71317CD1F0092E598 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		25CFAE42132074D5003DD56A /* EmptyDiscoverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyDiscoverView.xib; sourceTree = "<group>"; };
-		25CFAE44132081F9003DD56A /* NearbyModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyModalViewController.h; sourceTree = "<group>"; };
-		25CFAE45132081F9003DD56A /* NearbyModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyModalViewController.m; sourceTree = "<group>"; };
 		25EC95C91318B57D009E44DE /* PlacesDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacesDataCenter.h; sourceTree = "<group>"; };
 		25EC95CA1318B57E009E44DE /* PlacesDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacesDataCenter.m; sourceTree = "<group>"; };
 		25F207961314E6FE00178E09 /* PlaceDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceDataCenter.h; sourceTree = "<group>"; };
@@ -608,8 +611,6 @@
 				25F209521315072200178E09 /* CheckinHereViewController.h */,
 				25F209531315072200178E09 /* CheckinHereViewController.m */,
 				25F209541315072200178E09 /* CheckinHereViewController.xib */,
-				25CFAE44132081F9003DD56A /* NearbyModalViewController.h */,
-				25CFAE45132081F9003DD56A /* NearbyModalViewController.m */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -692,6 +693,8 @@
 		25B464CF12F7BA2200C71FA9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				255DE9A21321C1CF00AA8BBD /* Place.h */,
+				255DE9A31321C1CF00AA8BBD /* Place.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -858,6 +861,8 @@
 				25EC95CA1318B57E009E44DE /* PlacesDataCenter.m */,
 				2544EFB013204D140080055B /* FeedDataCenter.h */,
 				2544EFB113204D140080055B /* FeedDataCenter.m */,
+				255DE99F13219C2400AA8BBD /* DiscoverDataCenter.h */,
+				255DE9A013219C2500AA8BBD /* DiscoverDataCenter.m */,
 			);
 			path = DataCenter;
 			sourceTree = "<group>";
@@ -1106,7 +1111,8 @@
 				2544EFB213204D140080055B /* FeedDataCenter.m in Sources */,
 				2597550613205BDB009D4E7C /* DiscoverViewController.m in Sources */,
 				2597550913206086009D4E7C /* HeaderTabView.m in Sources */,
-				25CFAE46132081FA003DD56A /* NearbyModalViewController.m in Sources */,
+				255DE9A113219C2700AA8BBD /* DiscoverDataCenter.m in Sources */,
+				255DE9A41321C1CF00AA8BBD /* Place.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

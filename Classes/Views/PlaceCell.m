@@ -7,6 +7,7 @@
 //
 
 #import "PlaceCell.h"
+#import "Place.h"
 
 #define NAME_FONT_SIZE 14.0
 #define CELL_FONT_SIZE 14.0
@@ -174,15 +175,14 @@ static UIImage *_distanceIcon = nil;
   self.countLabel.left = _countIconView.right + SPACING_X;
 }
 
-+ (void)fillCell:(PlaceCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
++ (void)fillCell:(PlaceCell *)cell withPlace:(Place *)place withImage:(UIImage *)image {
   cell.imageView.image = image;
   
-  // NOTE: make sure not <null>
-  cell.nameLabel.text = [dictionary valueForKey:@"place_name"];
-  cell.distanceLabel.text = [NSString stringWithFormat:@"%.2f miles", [[dictionary valueForKey:@"distance"] floatValue]];
-  cell.likesLabel.text = [NSString stringWithFormat:@"%@ likes", [dictionary valueForKey:@"like_count"]];
-  cell.totalLabel.text = [NSString stringWithFormat:@"%@ people", [dictionary valueForKey:@"checkins_count"]];
-  cell.countLabel.text = [NSString stringWithFormat:@"%@ friends", [dictionary valueForKey:@"checkins_friend_count"]];
+  cell.nameLabel.text = place.placeName;
+  cell.distanceLabel.text = [NSString stringWithFormat:@"%.2f miles", [place.placeDistance floatValue]];
+  cell.likesLabel.text = [NSString stringWithFormat:@"%@ likes", place.placeLikes];
+  cell.totalLabel.text = [NSString stringWithFormat:@"%@ people", place.placeCheckins];
+  cell.countLabel.text = [NSString stringWithFormat:@"%@ friends", place.placeFriendCheckins];
 }
 
 + (MoogleCellType)cellType {

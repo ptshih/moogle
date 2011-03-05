@@ -26,17 +26,13 @@
   // Table
   //  CGRect tableFrame = self.view.frame;
   [self setupTableViewWithFrame:self.viewport andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-  [self reloadDataSource];
-}
-
-- (void)reloadDataSource {  
   [self getPlaceFeed];
 }
 
 - (void)getPlaceFeed {
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
   
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/%@/feed", MOOGLE_BASE_URL, API_VERSION, self.placeId];
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/%@/feed", MOOGLE_BASE_URL, API_VERSION, self.place.placeId];
   
   self.placeFeedRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   self.dataCenter.placeFeedRequest = self.placeFeedRequest;

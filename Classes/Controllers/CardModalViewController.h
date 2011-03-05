@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Constants.h"
 
 @interface CardModalViewController : UIViewController {
   UINavigationBar *_navigationBar;

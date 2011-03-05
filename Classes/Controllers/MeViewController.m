@@ -70,8 +70,7 @@
 
 - (void)showPlaceWithId:(NSString *)placeId andName:(NSString *)placeName {
   PlaceViewController *pvc = [[PlaceViewController alloc] init];
-  pvc.placeId = placeId;
-  pvc.placeName = placeName;
+//  pvc.place = place;
   [self.navigationController pushViewController:pvc animated:YES];
   [pvc release];  
 }
