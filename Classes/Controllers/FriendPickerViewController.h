@@ -1,8 +1,8 @@
 //
-//  WhoViewController.h
+//  FriendPickerViewController.h
 //  Moogle
 //
-//  Created by Peter Shih on 2/18/11.
+//  Created by Peter Shih on 3/5/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
@@ -10,14 +10,15 @@
 #import "CardTableViewController.h"
 #import "FriendPickerDelegate.h"
 
-@interface WhoViewController : CardTableViewController <FriendPickerDelegate> {  
+@interface FriendPickerViewController : CardTableViewController {
+  NSMutableDictionary *_selectedDict;
   NSMutableArray *_sortedFriends;
-  NSMutableArray *_sortedGroups;
-
+  
   id <FriendPickerDelegate> _delegate;
 }
 
 @property (nonatomic, assign) id <FriendPickerDelegate> delegate;
+@property (nonatomic, retain) NSMutableDictionary *selectedDict;
 
 - (void)dismiss;
 

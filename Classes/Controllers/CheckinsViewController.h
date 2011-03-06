@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "CardTableViewController.h"
-#import "WhoFilterDelegate.h"
+#import "FriendPickerDelegate.h"
 #import "MoogleDataCenterDelegate.h"
 
 @class FeedDataCenter;
 @class WhoViewController;
 
-@interface CheckinsViewController : CardTableViewController <WhoFilterDelegate, MoogleDataCenterDelegate> {
+@interface CheckinsViewController : CardTableViewController <FriendPickerDelegate, MoogleDataCenterDelegate> {
   FeedDataCenter *_dataCenter;
   
   ASIHTTPRequest *_checkinsRequest;

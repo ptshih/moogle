@@ -232,10 +232,11 @@
   self.fbAccessToken = nil;
   self.sessionKey = nil;
   
+  [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"friends"];
+  [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"groups"];
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastExitDate"];
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"fbAccessToken"];
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"facebookId"];
-  [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"friends"];
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"isLoggedIn"];
   [[NSUserDefaults standardUserDefaults] synchronize];
   [self loginFacebook];

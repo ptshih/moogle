@@ -45,28 +45,29 @@
   self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"moogle_logo.png"]] autorelease];
   
   // Setup Empty and Loading View
-  if ([self isKindOfClass:[PlaceTabViewController class]]) {
-    [[NSBundle mainBundle] loadNibNamed:@"EmptyPlaceView" owner:self options:nil];
-    [[NSBundle mainBundle] loadNibNamed:@"LoadingPlaceView" owner:self options:nil];
-  } else if ([self isKindOfClass:[DiscoverViewController class]]) {
-    [[NSBundle mainBundle] loadNibNamed:@"EmptyDiscoverView" owner:self options:nil];
-    [[NSBundle mainBundle] loadNibNamed:@"LoadingView" owner:self options:nil];
-    
-    self.loadingView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
-  } else if ([self isKindOfClass:[WhoViewController class]]) {
-  } else if ([self isKindOfClass:[PlacesViewController class]]) {
-    [[NSBundle mainBundle] loadNibNamed:@"EmptyView" owner:self options:nil];
-    [[NSBundle mainBundle] loadNibNamed:@"LocationLoadingView" owner:self options:nil];
-    self.emptyView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
-    self.loadingView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
-  } else {
-    [[NSBundle mainBundle] loadNibNamed:@"EmptyView" owner:self options:nil];
-    [[NSBundle mainBundle] loadNibNamed:@"LoadingView" owner:self options:nil];
-    
-    self.emptyView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
-    self.loadingView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
-  }
+//  if ([self isKindOfClass:[PlaceTabViewController class]]) {
+//    [[NSBundle mainBundle] loadNibNamed:@"EmptyPlaceView" owner:self options:nil];
+//    [[NSBundle mainBundle] loadNibNamed:@"LoadingPlaceView" owner:self options:nil];
+//  } else if ([self isKindOfClass:[DiscoverViewController class]]) {
+//    [[NSBundle mainBundle] loadNibNamed:@"EmptyDiscoverView" owner:self options:nil];
+//    [[NSBundle mainBundle] loadNibNamed:@"LoadingView" owner:self options:nil];
+//    
+//    self.loadingView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
+//  } else if ([self isKindOfClass:[WhoViewController class]]) {
+//  } else if ([self isKindOfClass:[PlacesViewController class]]) {
+//    [[NSBundle mainBundle] loadNibNamed:@"EmptyView" owner:self options:nil];
+//    [[NSBundle mainBundle] loadNibNamed:@"LocationLoadingView" owner:self options:nil];
+//    self.emptyView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
+//    self.loadingView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
+//  } else {
+//    [[NSBundle mainBundle] loadNibNamed:@"EmptyView" owner:self options:nil];
+//    [[NSBundle mainBundle] loadNibNamed:@"LoadingView" owner:self options:nil];
+//    
+//    self.emptyView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
+//    self.loadingView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
+//  }
   
+  self.loadingView.hidden = YES;
   self.emptyView.hidden = YES;
   self.loadingView.frame = CGRectMake(0, 0, self.loadingView.width, self.loadingView.height);
   [self.view addSubview:self.emptyView];

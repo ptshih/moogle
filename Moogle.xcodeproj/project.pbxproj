@@ -96,6 +96,8 @@
 		2560A65C13186B09000BE27D /* PlaceHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2560A65B13186B09000BE27D /* PlaceHeaderCell.m */; };
 		2560A65F131878C4000BE27D /* MoogleImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2560A65E131878C0000BE27D /* MoogleImageCell.m */; };
 		25718C2C1319C72900FF6293 /* WhoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25718C2B1319C72300FF6293 /* WhoCell.m */; };
+		257F617A1322F8C000D62F96 /* friend_no_picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 257F61791322F8C000D62F96 /* friend_no_picture.png */; };
+		257F617D1323183F00D62F96 /* FriendPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 257F617C1323183D00D62F96 /* FriendPickerViewController.m */; };
 		258CCC5C131A7E59009767B3 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 258CCC5B131A7E59009767B3 /* LoadingView.xib */; };
 		258CCC5E131A7E65009767B3 /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 258CCC5D131A7E65009767B3 /* EmptyView.xib */; };
 		2597550613205BDB009D4E7C /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2597550513205BDB009D4E7C /* DiscoverViewController.m */; };
@@ -291,6 +293,10 @@
 		2560A65E131878C0000BE27D /* MoogleImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoogleImageCell.m; sourceTree = "<group>"; };
 		25718C2A1319C72000FF6293 /* WhoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoCell.h; sourceTree = "<group>"; };
 		25718C2B1319C72300FF6293 /* WhoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoCell.m; sourceTree = "<group>"; };
+		257F61791322F8C000D62F96 /* friend_no_picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friend_no_picture.png; sourceTree = "<group>"; };
+		257F617B1323183C00D62F96 /* FriendPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendPickerViewController.h; sourceTree = "<group>"; };
+		257F617C1323183D00D62F96 /* FriendPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendPickerViewController.m; sourceTree = "<group>"; };
+		257F617E13231FEC00D62F96 /* FriendPickerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendPickerDelegate.h; sourceTree = "<group>"; };
 		258CCC59131A6F35009767B3 /* CardStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardStateMachine.h; sourceTree = "<group>"; };
 		258CCC5B131A7E59009767B3 /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		258CCC5D131A7E65009767B3 /* EmptyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyView.xib; sourceTree = "<group>"; };
@@ -565,6 +571,7 @@
 		2544EF8B1320432C0080055B /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				257F61791322F8C000D62F96 /* friend_no_picture.png */,
 				2544EF8C1320432C0080055B /* icon_comment.png */,
 				2544EF8D1320432C0080055B /* icon_comment@2x.png */,
 			);
@@ -605,6 +612,9 @@
 				25FC2D29130E644B0077C9A7 /* WhoViewController.h */,
 				25FC2D2A130E644B0077C9A7 /* WhoViewController.m */,
 				25FC2E35130E70560077C9A7 /* WhoFilterDelegate.h */,
+				257F617B1323183C00D62F96 /* FriendPickerViewController.h */,
+				257F617C1323183D00D62F96 /* FriendPickerViewController.m */,
+				257F617E13231FEC00D62F96 /* FriendPickerDelegate.h */,
 				25F209521315072200178E09 /* CheckinHereViewController.h */,
 				25F209531315072200178E09 /* CheckinHereViewController.m */,
 				25F209541315072200178E09 /* CheckinHereViewController.xib */,
@@ -1023,6 +1033,7 @@
 				2544EFB5132059EC0080055B /* tab_discover.png in Resources */,
 				2544EFB6132059EC0080055B /* tab_discover@2x.png in Resources */,
 				25CFAE43132074D5003DD56A /* EmptyDiscoverView.xib in Resources */,
+				257F617A1322F8C000D62F96 /* friend_no_picture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1107,6 +1118,7 @@
 				2597550913206086009D4E7C /* HeaderTabView.m in Sources */,
 				255DE9A113219C2700AA8BBD /* DiscoverDataCenter.m in Sources */,
 				255DE9A41321C1CF00AA8BBD /* Place.m in Sources */,
+				257F617D1323183F00D62F96 /* FriendPickerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

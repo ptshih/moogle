@@ -8,51 +8,45 @@
 
 #import "WhoViewController.h"
 #import "WhoCell.h"
+#import "FriendPickerViewController.h"
+
+static UIImage *_placeholderPicture;
 
 @interface WhoViewController (Private)
 
+- (void)reloadDataSource;
 - (void)getPeople;
+- (void)createGroup;
+- (void)selectGroupAtIndex:(NSInteger)index;
+- (void)selectFriendAtIndex:(NSInteger)index;
 
 @end
 
 @implementation WhoViewController
 
-@synthesize navigationBar = _navigationBar;
-@synthesize selectedDict = _selectedDict;
-
 @synthesize delegate = _delegate;
+
++ (void)initialize {
+  _placeholderPicture = [[UIImage imageNamed:@"friend_no_picture.png"] retain];
+}
 
 - (id)init {
   self = [super init];
   if (self) {
-    _navigationBar = [[UINavigationBar alloc] init];
-    _selectedDict = [[NSMutableDictionary alloc] init];
-    self.title = @"Moogle";
+    self.title = @"Filter Feed";
   }
   return self;
 }
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.navigationBar.frame = CGRectMake(0, 0, 320, 44);
   
-  // Setup Nav Items and Done button
-  UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:self.title];
   UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(dismiss)];
-  UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(done)];
-  navItem.leftBarButtonItem = dismissButton;
-  navItem.rightBarButtonItem = doneButton;
+  self.navigationItem.leftBarButtonItem = dismissButton;
   [dismissButton release];
-  [doneButton release];
-  [self.navigationBar setItems:[NSArray arrayWithObject:navItem]];
-  [navItem release];
-  
-  [self.view addSubview:self.navigationBar];
-  
-  self.navigationBar.tintColor = MOOGLE_BLUE_COLOR;
   
   // Table
-  [self setupTableViewWithFrame:CGRectMake(0, 44, 320, 416) andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+  [self setupTableViewWithFrame:CGRectMake(0, 0, 320, CARD_HEIGHT_WITH_NAV + 49.0) andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
   
   [self getPeople];
 }
@@ -61,22 +55,47 @@
   [self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)done {
-  NSString *selected = nil;
-  NSArray *selectedArray = [self.selectedDict allValues];
-  if ([selectedArray count] > 1) {
-    selected = [selectedArray componentsJoinedByString:@","];
-  } else if ([selectedArray count] > 0) {
-    selected = [selectedArray objectAtIndex:0];
-  } else {
-    // EPIC FAIL, NEED TO SELECT AT LEAST ONE
-    return;
+- (void)reloadDataSource {
+  [self.sections removeAllObjects];
+  [self.items removeAllObjects];
+  [self getPeople];
+  [self.tableView reloadData];
+}
+
+- (void)getPeople {
+  [self.sections addObject:@"Groups"];
+  [self.sections addObject:@"Friends"];
+  
+  // Groups
+  // Me and Friends default groups
+  _sortedGroups = [[NSMutableArray array] retain];
+  NSDictionary *meGroup = [NSDictionary dictionaryWithObjectsAndKeys:@"My Feed", @"group_name", @"me", @"group_id", nil];
+  NSDictionary *friendsGroup = [NSDictionary dictionaryWithObjectsAndKeys:@"Friend Feed", @"group_name", @"friends", @"group_id", nil];
+  [_sortedGroups addObject:meGroup];
+  [_sortedGroups addObject:friendsGroup];
+  
+  // Saved Groups IF any
+  NSArray *savedGroups = [[NSUserDefaults standardUserDefaults] objectForKey:@"groups"];
+  if (savedGroups) {
+    [_sortedGroups addObjectsFromArray:savedGroups];
   }
   
+  // Create a group
+  [_sortedGroups addObject:[NSDictionary dictionaryWithObject:@"Create a New Group" forKey:@"group_name"]];
+  [self.items addObject:_sortedGroups];
+  
+  // Friends
+  NSArray *friends = [[NSUserDefaults standardUserDefaults] objectForKey:@"friends"];
+  _sortedFriends = [[friends sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"friend_name" ascending:YES]]] retain];
+  [self.items addObject:_sortedFriends];
+}
+
+- (void)selectGroupAtIndex:(NSInteger)index {
   if (self.delegate) {
     [self.delegate retain];
-    if ([self.delegate respondsToSelector:@selector(whoPickedWithString:)]) {
-      [self.delegate performSelector:@selector(whoPickedWithString:) withObject:selected];
+    if ([self.delegate respondsToSelector:@selector(friendPickedWithString:)]) {
+      // Tell delegate which group we selected
+      [self.delegate performSelector:@selector(friendPickedWithString:) withObject:[[_sortedGroups objectAtIndex:index] objectForKey:@"group_id"]];
     }
     [self.delegate release];
   }
@@ -84,13 +103,35 @@
   [self dismiss];
 }
 
-- (void)getPeople {
-  NSArray *friends = [[NSUserDefaults standardUserDefaults] objectForKey:@"friends"];
-  [self.sections addObject:@"Me/Friends"];
-  [self.sections addObject:@"Choose a Friend"];
+- (void)selectFriendAtIndex:(NSInteger)index {
+  if (self.delegate) {
+    [self.delegate retain];
+    if ([self.delegate respondsToSelector:@selector(friendPickedWithString:)]) {
+      // Tell delegate which group we selected
+      [self.delegate performSelector:@selector(friendPickedWithString:) withObject:[[[_sortedFriends objectAtIndex:index] objectForKey:@"friend_id"] stringValue]];
+    }
+    [self.delegate release];
+  }
   
-  [self.items addObject:[NSArray arrayWithObjects:[NSDictionary dictionaryWithObject:@"me" forKey:@"friend_name"], [NSDictionary dictionaryWithObject:@"friends" forKey:@"friend_name"], nil]];
-  [self.items addObject:friends];
+  [self dismiss];
+}
+                             
+- (void)createGroup {
+  FriendPickerViewController *fpvc = [[FriendPickerViewController alloc] init];
+  fpvc.delegate = self;
+  [self.navigationController pushViewController:fpvc animated:YES];
+  [fpvc release];
+}
+
+#pragma mark FriendPickerDelegate
+- (void)friendPickedWithString:(NSString *)friends {
+  // Create a new group for these friends
+  NSArray *savedGroups = [[NSUserDefaults standardUserDefaults] objectForKey:@"groups"];
+  NSDictionary *newGroup = [NSDictionary dictionaryWithObjectsAndKeys:@"New Group", @"group_name", friends, @"group_id", nil];
+  NSMutableArray *newSavedGroups = [NSMutableArray arrayWithArray:savedGroups];
+  [newSavedGroups addObject:newGroup];
+  [[NSUserDefaults standardUserDefaults] setObject:newSavedGroups forKey:@"groups"];
+  [self reloadDataSource];
 }
 
 #pragma mark UITableViewDelegate
@@ -98,39 +139,23 @@
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
   if (indexPath.section == 0) {
-    if (self.delegate) {
-      [self.delegate retain];
-      if ([self.delegate respondsToSelector:@selector(whoPickedWithString:)]) {
-        [self.delegate performSelector:@selector(whoPickedWithString:) withObject:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_name"]];
-      }
-      [self.delegate release];
-    }
-    
-    [self dismiss];
-  } else {
-    if ([self.selectedDict objectForKey:indexPath]) {
-      [self.selectedDict removeObjectForKey:indexPath];
+    if (indexPath.row == [_sortedGroups count] - 1) {
+      [self createGroup];
     } else {
-      [self.selectedDict setObject:[[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"friend_id"] stringValue] forKey:indexPath];
+      [self selectGroupAtIndex:indexPath.row];
     }
+  } else {
+    [self selectFriendAtIndex:indexPath.row];
   }
 }
 
 #pragma mark UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return [self.sections count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return [[self.items objectAtIndex:section] count];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell", [self class]];
-  WhoCell *cell = nil;
-  cell = (WhoCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell_%d", [self class], indexPath.section];
+  UITableViewCell *cell = nil;
+  cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   if (cell == nil) {
-    cell = [[[WhoCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier] autorelease];
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
   }
   
   // Fill Cell
@@ -139,24 +164,63 @@
   UIImage *image = nil;
   NSURL *url = nil;
   
-  if ([[item objectForKey:@"friend_name"] isEqualToString:@"me"]) {
-
-  } else if ([[item objectForKey:@"friend_name"] isEqualToString:@"friends"]) {
-    
+  if (indexPath.section == 0) {
+    // Groups
+    image = [UIImage imageNamed:@"tab_friends.png"]; // placeholder groups image
+    cell.textLabel.text = [item objectForKey:@"group_name"];
+    if (indexPath.row == [_sortedGroups count] - 1) {
+      // last section is add a group
+      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    } else {
+      cell.accessoryType = UITableViewCellAccessoryNone;
+    }
   } else {
+    // Single Friends
+    cell.textLabel.text = [item objectForKey:@"friend_name"];
     url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"friend_id"]]];
     image = [self.imageCache getImageWithURL:url];
     if (!image) {
       if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
         [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
       }
-      image = nil;
+      image = _placeholderPicture;
     }
   }
-  
-  [WhoCell fillCell:cell withDictionary:item withImage:image];
+
+  cell.imageView.image = image;
 
   return cell;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (indexPath.section == 0 && indexPath.row > 1 && (indexPath.row < [_sortedGroups count] - 1)) {
+      return UITableViewCellEditingStyleDelete;
+  } else {
+      return UITableViewCellEditingStyleNone;
+  }
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (editingStyle == UITableViewCellEditingStyleDelete) {
+    // Remove this group
+    NSMutableArray *savedGroups = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"groups"]];
+    [savedGroups removeObjectAtIndex:indexPath.row - 2]; // -2 for the me/friends grps
+    [[NSUserDefaults standardUserDefaults] setObject:savedGroups forKey:@"groups"];
+    
+    
+    
+    [tableView beginUpdates];
+    
+    [self.sections removeAllObjects];
+    [self.items removeAllObjects];
+    [self getPeople];
+    
+//    if ([tableView numberOfRowsInSection:indexPath.section] <= 1) {
+//      [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+//    }
+    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [tableView endUpdates];
+  }
 }
 
 #pragma mark ImageCacheDelegate
@@ -168,11 +232,8 @@
     
     NSURL *url = nil;
     
-    if ([[item objectForKey:@"friend_name"] isEqualToString:@"me"]) {
-      
-    } else if ([[item objectForKey:@"friend_name"] isEqualToString:@"friends"]) {
-      
-    } else {
+    // Only cache images for section 1 (friends)
+    if (indexPath.section == 1) {
       url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"friend_id"]]];
       if (![self.imageCache getImageWithURL:url]) {
         [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
@@ -182,8 +243,8 @@
 }
 
 - (void)dealloc {
-  RELEASE_SAFELY(_navigationBar);
-  RELEASE_SAFELY(_selectedDict);
+  RELEASE_SAFELY(_sortedFriends);
+  RELEASE_SAFELY(_sortedGroups);
   [super dealloc];
 }
 

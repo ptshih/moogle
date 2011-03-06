@@ -70,19 +70,21 @@
 
 #pragma mark Button Actions
 - (void)toggleWho {
-  _wvc = [[WhoViewController alloc] init];
-  _wvc.delegate = self;
-  [[APP_DELEGATE launcherViewController] presentModalViewController:_wvc animated:YES];
+  WhoViewController *wvc = [[WhoViewController alloc] init];
+  wvc.delegate = self;
+  UINavigationController *wvcNav = [[UINavigationController alloc] initWithRootViewController:wvc];
+  [[APP_DELEGATE launcherViewController] presentModalViewController:wvcNav animated:YES];
+  [wvc release];
+  [wvcNav release];
 }
 
 - (void)toggleDistance {
 
 }
 
-#pragma mark WhoFilterDelegate
-- (void)whoPickedWithString:(NSString *)whoString {
-  _who = [whoString retain];
-  [_wvc release];
+#pragma mark FriendPickerDelegate
+- (void)friendPickedWithString:(NSString *)friends {
+  _who = [friends copy];
 
   [self.sections removeAllObjects];
   [self.items removeAllObjects];
