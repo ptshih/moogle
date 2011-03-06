@@ -93,9 +93,9 @@ static UIImage *_placeholderPicture;
 - (void)selectGroupAtIndex:(NSInteger)index {
   if (self.delegate) {
     [self.delegate retain];
-    if ([self.delegate respondsToSelector:@selector(friendPickedWithString:)]) {
+    if ([self.delegate respondsToSelector:@selector(friendPickedWithFriendIds:)]) {
       // Tell delegate which group we selected
-      [self.delegate performSelector:@selector(friendPickedWithString:) withObject:[[_sortedGroups objectAtIndex:index] objectForKey:@"group_id"]];
+      [self.delegate performSelector:@selector(friendPickedWithFriendIds:) withObject:[[_sortedGroups objectAtIndex:index] objectForKey:@"group_id"]];
     }
     [self.delegate release];
   }
@@ -106,9 +106,9 @@ static UIImage *_placeholderPicture;
 - (void)selectFriendAtIndex:(NSInteger)index {
   if (self.delegate) {
     [self.delegate retain];
-    if ([self.delegate respondsToSelector:@selector(friendPickedWithString:)]) {
+    if ([self.delegate respondsToSelector:@selector(friendPickedWithFriendIds:)]) {
       // Tell delegate which group we selected
-      [self.delegate performSelector:@selector(friendPickedWithString:) withObject:[[[_sortedFriends objectAtIndex:index] objectForKey:@"friend_id"] stringValue]];
+      [self.delegate performSelector:@selector(friendPickedWithFriendIds:) withObject:[[[_sortedFriends objectAtIndex:index] objectForKey:@"friend_id"] stringValue]];
     }
     [self.delegate release];
   }
@@ -124,10 +124,10 @@ static UIImage *_placeholderPicture;
 }
 
 #pragma mark FriendPickerDelegate
-- (void)friendPickedWithString:(NSString *)friends {
+- (void)friendPickedWithFriendIds:(NSString *)friendIds {
   // Create a new group for these friends
   NSArray *savedGroups = [[NSUserDefaults standardUserDefaults] objectForKey:@"groups"];
-  NSDictionary *newGroup = [NSDictionary dictionaryWithObjectsAndKeys:@"New Group", @"group_name", friends, @"group_id", nil];
+  NSDictionary *newGroup = [NSDictionary dictionaryWithObjectsAndKeys:@"New Group", @"group_name", friendIds, @"group_id", nil];
   NSMutableArray *newSavedGroups = [NSMutableArray arrayWithArray:savedGroups];
   [newSavedGroups addObject:newGroup];
   [[NSUserDefaults standardUserDefaults] setObject:newSavedGroups forKey:@"groups"];

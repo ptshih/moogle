@@ -215,7 +215,7 @@ static UIImage *_messageIcon = nil;
 
 + (CGFloat)variableRowHeightWithDictionary:(NSDictionary *)dictionary {
   CGFloat calculatedHeight = SPACING_Y; // Top Spacer
-  CGFloat left = IMAGE_WIDTH + ICON_WIDTH + SPACING_X * 3;
+  CGFloat left = IMAGE_WIDTH + ICON_WIDTH + SPACING_X * 4;
   CGFloat textWidth = CELL_WIDTH - left - SPACING_X;
   CGSize textSize = CGSizeMake(textWidth, INT_MAX); // Variable height
   CGSize labelSize = CGSizeZero;

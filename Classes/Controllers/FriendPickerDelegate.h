@@ -11,6 +11,7 @@
 
 @protocol FriendPickerDelegate <NSObject>
 @optional
-- (void)friendPickedWithString:(NSString *)friends;
+- (void)friendPickedWithFriendIds:(NSString *)friendIds;
+- (void)friendPickedWithFriendNames:(NSString *)friendNames;
 
 @end

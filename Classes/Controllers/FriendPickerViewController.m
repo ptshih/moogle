@@ -52,12 +52,23 @@ static UIImage *_placeholderPicture;
 }
 
 - (void)done {
-  NSString *selected = nil;
-  NSArray *selectedArray = [self.selectedDict allValues];
-  if ([selectedArray count] > 1) {
-    selected = [selectedArray componentsJoinedByString:@","];
-  } else if ([selectedArray count] > 0) {
-    selected = [[selectedArray objectAtIndex:0] stringValue];
+  // OPTIMIZE
+  NSString *selectedIds = nil;
+  NSString *selectedNames = nil;
+  NSMutableArray *selectedIdsArray = [NSMutableArray array];
+  NSMutableArray *selectedNamesArray = [NSMutableArray array];
+
+  for (NSDictionary *selectedDict in [self.selectedDict allValues]) {
+    [selectedIdsArray addObject:[selectedDict objectForKey:@"friend_id"]];
+    [selectedNamesArray addObject:[selectedDict objectForKey:@"friend_name"]]; 
+  }
+  
+  if ([selectedIdsArray count] > 1) {
+    selectedIds = [selectedIdsArray componentsJoinedByString:@","];
+    selectedNames = [selectedNamesArray componentsJoinedByString:@","];
+  } else if ([selectedIdsArray count] > 0) {
+    selectedIds = [[[selectedIdsArray objectAtIndex:0] objectForKey:@"friend_id"] stringValue];
+    selectedNames = [[[selectedIdsArray objectAtIndex:0] objectForKey:@"friend_name"] stringValue];
   } else {
     // EPIC FAIL, NEED TO SELECT AT LEAST ONE
     UIAlertView *doneAlert = [[UIAlertView alloc] initWithTitle:@"Whoops!" message:@"You need to select at least one friend!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
@@ -68,8 +79,11 @@ static UIImage *_placeholderPicture;
   
   if (self.delegate) {
     [self.delegate retain];
-    if ([self.delegate respondsToSelector:@selector(friendPickedWithString:)]) {
-      [self.delegate performSelector:@selector(friendPickedWithString:) withObject:selected];
+    if ([self.delegate respondsToSelector:@selector(friendPickedWithFriendIds:)]) {
+      [self.delegate performSelector:@selector(friendPickedWithFriendIds:) withObject:selectedIds];
+    }
+    if ([self.delegate respondsToSelector:@selector(friendPickedWithFriendNames:)]) {
+      [self.delegate performSelector:@selector(friendPickedWithFriendNames:) withObject:selectedNames];
     }
     [self.delegate release];
   }
@@ -131,7 +145,7 @@ static UIImage *_placeholderPicture;
     [self.selectedDict removeObjectForKey:indexPath];
   } else {
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    [self.selectedDict setObject:[[_sortedFriends objectAtIndex:indexPath.row] objectForKey:@"friend_id"] forKey:indexPath];
+    [self.selectedDict setObject:[_sortedFriends objectAtIndex:indexPath.row] forKey:indexPath];
   }
 }
 

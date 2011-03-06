@@ -119,13 +119,13 @@
     activePlace = [visibleViewController place];
   }
   
-  if (!_checkinHereViewController) {
-    _checkinHereViewController = [[CheckinHereViewController alloc] init];
-  }
+  CheckinHereViewController *checkinHereViewController = [[CheckinHereViewController alloc] init];
+  checkinHereViewController.place = activePlace;
+  UINavigationController *checkinHereNavController = [[UINavigationController alloc] initWithRootViewController:checkinHereViewController];
   
-  _checkinHereViewController.place = activePlace;
-  
-  [self presentModalViewController:_checkinHereViewController animated:YES];
+  [self presentModalViewController:checkinHereNavController animated:YES];
+  [checkinHereViewController release];
+  [checkinHereNavController release];
 }
 
 - (void)clearAllCachedData {

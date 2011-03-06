@@ -26,6 +26,9 @@
 
 @implementation CheckinHereViewController
 
+@synthesize checkinMessage = _checkinMessage;
+@synthesize placeAddressLabel = _placeAddressLabel;
+@synthesize placeNameLabel = _placeNameLabel;
 @synthesize dataCenter = _dataCenter;
 @synthesize checkinHereRequest = _checkinHereRequest;
 @synthesize message = _message;
@@ -44,19 +47,31 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
+  self.navigationItem.leftBarButtonItem = dismissButton;
+  [dismissButton release];
+  
+  // Load place info
+  self.placeNameLabel.text = self.place.placeName;
+  self.placeAddressLabel.text = self.place.placeStreet;
+  
+  [self.checkinMessage becomeFirstResponder];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  self.navItem.title = self.place.placeName;
-}
-
-- (IBAction)checkinHere {
-  [self postCheckin];
 }
 
 - (IBAction)cancel {
   [self dismissModalViewControllerAnimated:YES];
+}
+
+- (IBAction)tagFriends {
+}
+
+- (IBAction)checkinHere {
+  [self postCheckin];
 }
 
 - (void)postCheckin {
@@ -109,6 +124,9 @@
 }
 
 - (void)viewDidUnload {
+  [self setCheckinMessage:nil];
+  [self setPlaceAddressLabel:nil];
+  [self setPlaceNameLabel:nil];
   [super viewDidUnload];
   // Release any retained subviews of the main view.
   // e.g. self.myOutlet = nil;

@@ -83,8 +83,8 @@
 }
 
 #pragma mark FriendPickerDelegate
-- (void)friendPickedWithString:(NSString *)friends {
-  _who = [friends copy];
+- (void)friendPickedWithFriendIds:(NSString *)friendIds {
+  _who = [friendIds copy];
 
   [self.sections removeAllObjects];
   [self.items removeAllObjects];
