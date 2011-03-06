@@ -124,6 +124,10 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="779656497"/>
+						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">filter_gradient_selected.png</string>
+						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">filter_gradient.png</string>
@@ -184,7 +188,7 @@
 					<object class="IBUIImageView" id="1014765791">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{288, 0}, {32, 37}}</string>
+						<string key="NSFrame">{{288, 0}, {32, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="943715125"/>
@@ -202,7 +206,7 @@
 						<string key="NSFrame">{{5, 49}, {310, 98}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="55463081"/>
+						<reference key="NSNextKeyView" ref="259586107"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -236,7 +240,7 @@
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
-					<object class="IBUIImageView" id="55463081">
+					<object class="IBUIImageView" id="259586107">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 152}, {320, 1}}</string>
@@ -347,7 +351,7 @@
 							<reference ref="943715125"/>
 							<reference ref="13033015"/>
 							<reference ref="354672801"/>
-							<reference ref="55463081"/>
+							<reference ref="259586107"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -412,7 +416,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">43</int>
-						<reference key="object" ref="55463081"/>
+						<reference key="object" ref="259586107"/>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">seperator</string>
 					</object>
@@ -427,6 +431,7 @@
 					<string>1.IBEditorWindowLastContentRect</string>
 					<string>1.IBPluginDependency</string>
 					<string>17.IBPluginDependency</string>
+					<string>17.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>18.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
 					<string>20.IBPluginDependency</string>
@@ -446,6 +451,7 @@
 					<string>{{556, 412}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="1"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -628,6 +634,7 @@
 				<string>btn-green.png</string>
 				<string>dot.png</string>
 				<string>filter_gradient.png</string>
+				<string>filter_gradient_selected.png</string>
 				<string>row_arrow.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
@@ -635,6 +642,7 @@
 				<string>{300, 44}</string>
 				<string>{300, 44}</string>
 				<string>{1, 1}</string>
+				<string>{1, 44}</string>
 				<string>{1, 44}</string>
 				<string>{10, 15}</string>
 			</object>
