@@ -312,6 +312,7 @@
       
       [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLoggedIn"];
       [[NSUserDefaults standardUserDefaults] setObject:[[[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:nil] objectForKey:@"facebook_id"] forKey:@"facebookId"];
+      [[NSUserDefaults standardUserDefaults] setObject:[[[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:nil] objectForKey:@"name"] forKey:@"facebookName"];
       [[NSUserDefaults standardUserDefaults] setObject:[[[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:nil] objectForKey:@"friends"] forKey:@"friends"];
       [[NSUserDefaults standardUserDefaults] synchronize];
       

@@ -228,7 +228,6 @@
   // We don't want a "feedback loop" between the UIPageControl and the scroll delegate in
   // which a scroll event generated from the user hitting the page control triggers updates from
   // the delegate method. We use a boolean to disable the delegate logic when the page control is used.
-  DLog(@"offset x: %f", self.scrollView.contentOffset.x);
   if (self.scrollView.contentOffset.x < 0 || self.scrollView.contentOffset.x > (CARD_WIDTH * (NUMBER_OF_CARDS - 1))) return;
   
   // Switch the indicator when more than 50% of the previous/next page is visible

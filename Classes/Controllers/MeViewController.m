@@ -14,7 +14,10 @@
 
 @interface MeViewController (Private)
 
+- (void)getProfilePicture;
+- (void)setupViews;
 - (void)setupButtons;
+- (void)updateLabels;
 - (void)showPlaceWithId:(NSString *)placeId andName:(NSString *)placeName;
 
 @end
@@ -23,6 +26,8 @@
 
 @synthesize dataCenter = _dataCenter;
 @synthesize meRequest = _meRequest;
+@synthesize lastCheckin = _lastCheckin;
+@synthesize userStats = _userStats;
 
 - (id)init {
   self = [super init];
@@ -36,15 +41,48 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  self.title = @"Moogle Me";
-  
+  [self setupViews];
   [self setupButtons];
+  [self getProfilePicture];
   
   // Table
-  CGRect tableFrame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV);
+  CGRect tableFrame = CGRectMake(0, 120, CARD_WIDTH, CARD_HEIGHT_WITH_NAV - 120);
   [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
 //  [self setupPullRefresh];
 
+}
+
+- (void)setupViews {
+  _nameLabel.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"facebookName"];
+  _checkinsView.layer.cornerRadius = 5.0;
+  _placesView.layer.cornerRadius = 5.0;
+  _friendsView.layer.cornerRadius = 5.0;
+}
+
+- (void)setupButtons {  
+  // Setup Logout button
+  UIBarButtonItem *logoutButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease];
+  self.navigationItem.leftBarButtonItem = logoutButton;
+}
+
+- (void)getProfilePicture {
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
+  NSString *facebookId = [[NSUserDefaults standardUserDefaults] valueForKey:@"facebookId"];
+  UIImage *profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", facebookId]]]];
+  
+  [self performSelectorOnMainThread:@selector(updateProfilePicture:) withObject:profileImage waitUntilDone:YES];
+  [pool release];
+}
+
+- (void)updateProfilePicture:(UIImage *)profileImage {
+  _profilePicture.image = profileImage;
+}
+
+- (void)updateLabels {
+  _checkinsLabel.text = [[_userStats objectForKey:@"total_checkins"] stringValue];
+  _placesLabel.text = [[_userStats objectForKey:@"you_total_unique_places"] stringValue];
+  _friendsLabel.text = [[_userStats objectForKey:@"you_friend_total_unique_places"] stringValue];
 }
 
 #pragma mark CardViewController
@@ -52,12 +90,6 @@
   [super reloadCardController];
   
   [self getMe];
-}
-
-- (void)setupButtons {  
-  // Setup Logout button
-  UIBarButtonItem *logoutButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease];
-  self.navigationItem.leftBarButtonItem = logoutButton;
 }
 
 - (void)getMe {
@@ -84,7 +116,7 @@
 #pragma mark UITableView Stuff
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 //  return [KupoCell rowHeight];
-  return 88.0;
+  return 44;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -94,6 +126,11 @@
   cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   if (cell == nil) {
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier] autorelease];
+    cell.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:30]] autorelease];
+    cell.selectedBackgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"table_cell_bg_selected.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:30]] autorelease];
+    cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.detailTextLabel.backgroundColor = [UIColor clearColor];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
   }
   
   id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
@@ -101,39 +138,24 @@
   
   cell.textLabel.numberOfLines = 100;
   
-  switch (indexPath.section) {
-    case 0: {
-      NSDate *lastCheckinDate = [[NSDate dateWithTimeIntervalSince1970:[[item objectForKey:@"you_last_checkin_time"] integerValue]] humanIntervalSinceNow];
-      cell.textLabel.text = [NSString stringWithFormat:@"Your last check in was at: %@ %@", [item objectForKey:@"you_last_checkin_place_name"], lastCheckinDate];
+  switch (indexPath.row) {
+    case 0:
+      cell.textLabel.text = @"Your Top Places";
       break;
-    }
     case 1:
-      cell.textLabel.text = [NSString stringWithFormat:@"Total Checkins: %@", [item objectForKey:@"total_checkins"]];
+      cell.textLabel.text = @"Your Friends Top Places";
       break;
     case 2:
-      switch (indexPath.row) {
-        case 0:
-          cell.textLabel.text = @"Your Top Places";
-          break;
-        case 1:
-          cell.textLabel.text = @"Your Friends Top Places";
-          break;
-        case 2:
-          cell.textLabel.text = @"Friends You Have Tagged";
-          break;
-        case 3:
-          cell.textLabel.text = @"Friends Who Tagged You";
-          break;
-        default:
-          break;
-      }
-      cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [item count]];
+      cell.textLabel.text = @"Friends You Have Tagged";
+      break;
+    case 3:
+      cell.textLabel.text = @"Friends Who Tagged You";
       break;
     default:
       break;
   }
-//  cell.textLabel.text = [NSString stringWithFormat:@"You checked in a total of %@ times, of which %@ checkins were the author. Your friends have tagged you a total of %@ times, and you tagged your friends a total of %@ times. You have visited %@ times in the past, whereas your friends have visited a combined total of %@ places. Your last check in was at %@ %@.", [item objectForKey:@"total_checkins"], [item objectForKey:@"total_authored"], [item objectForKey:@"total_tagged_you"], [item objectForKey:@"total_you_tagged"], [item objectForKey:@"you_total_unique_places"], [item objectForKey:@"you_friend_total_unique_places"], [item objectForKey:@"you_last_checkin_place_name"], [lastCheckinDate humanIntervalSinceNow]];
-//  [KupoCell fillCell:cell withDictionary:item withImage:image];
+  
+  cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [item count]];
   
   return cell;
 }
@@ -145,13 +167,12 @@
 
   NSArray *item = self.dataCenter.rawResponse;
   
+  _lastCheckin = [[item objectAtIndex:0] retain];
+  _userStats = [[item objectAtIndex:1] retain];
+  
+  [self updateLabels];
+  
   // Compose Table Structure
-  [self.sections addObject:@"Your Last Check In"];
-  [self.items addObject:[NSArray arrayWithObject:[item objectAtIndex:0]]];
-  
-  [self.sections addObject:@"Your Check In Totals"];
-  [self.items addObject:[NSArray arrayWithObject:[item objectAtIndex:1]]];
-  
   [self.sections addObject:@"Your Social Network Statistics"];
 //  NSDictionary *topPlaces = [NSDictionary dictionaryWithObject:[[item objectAtIndex:2] objectForKey:@"you_top_places_array"] forKey:@"Your Top Places"];
 //  NSDictionary *friendTopPlaces = [NSDictionary dictionaryWithObject:[[item objectAtIndex:2] objectForKey:@"you_friends_top_places_array"] forKey:@"Friends Top Places"];
@@ -193,6 +214,8 @@
 - (void)dealloc {  
   RELEASE_SAFELY(_dataCenter);
   RELEASE_SAFELY(_meRequest);
+  RELEASE_SAFELY(_lastCheckin);
+  RELEASE_SAFELY(_userStats);
   [super dealloc];
 }
 

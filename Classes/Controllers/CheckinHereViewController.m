@@ -17,8 +17,11 @@
 #import "LocationManager.h"
 #import "Place.h"
 
+#import "NearbyPickerViewController.h"
+
 @interface CheckinHereViewController (Private)
 
+- (void)updatePlaceLabels;
 - (void)postCheckin;
 - (void)postMoogleCheckin:(NSString *)checkinId;
 
@@ -51,16 +54,25 @@
   UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
   self.navigationItem.leftBarButtonItem = dismissButton;
   [dismissButton release];
-  
-  // Load place info
-  self.placeNameLabel.text = self.place.placeName;
-  self.placeAddressLabel.text = self.place.placeStreet;
+
+  [self updatePlaceLabels];
   
   [self.checkinMessage becomeFirstResponder];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
+}
+
+- (void)updatePlaceLabels {
+  // Load place info
+  if (self.place) {
+    self.placeNameLabel.text = self.place.placeName;
+    self.placeAddressLabel.text = self.place.placeStreet;
+  } else {
+    self.placeNameLabel.text = @"Please Choose a Place to Check In";
+    self.placeAddressLabel.text = @"Tap Here to Find Nearby Places";
+  }
 }
 
 - (IBAction)cancel {
@@ -71,7 +83,25 @@
 }
 
 - (IBAction)checkinHere {
-  [self postCheckin];
+  if (self.place) {
+    [self postCheckin];
+  } else {
+    UIAlertView *placeAlert = [[UIAlertView alloc] initWithTitle:@"Whoops!" message:@"You Need to Choose a Place First" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [placeAlert show];
+    [placeAlert autorelease];
+  }
+}
+
+- (IBAction)choosePlace {
+  NearbyPickerViewController *npvc = [[NearbyPickerViewController alloc] init];
+  npvc.delegate = self;
+  [self.navigationController pushViewController:npvc animated:YES];
+  [npvc release];
+}
+
+- (void)nearbyPickedWithPlace:(Place *)place {
+  self.place = place;
+  [self updatePlaceLabels];
 }
 
 - (void)postCheckin {

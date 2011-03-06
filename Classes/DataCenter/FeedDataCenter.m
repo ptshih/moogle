@@ -7,19 +7,33 @@
 //
 
 #import "FeedDataCenter.h"
+#import "Checkin.h"
 
 @implementation FeedDataCenter
+
+@synthesize checkinsArray = _checkinsArray;
 
 - (id)init {
   self = [super init];
   if (self) {
-    _responseKeys = [[NSArray arrayWithObjects:@"checkin_id", @"facebook_id", @"name", @"place_id", @"place_name", @"message", @"checkin_timestamp", @"tagged_count", @"tagged_user_Array", nil] retain];
+    _checkinsArray = [[NSMutableArray alloc] init];
   }
   return self;
 }
 
 #pragma MoogleDataCenter Implementations
-- (void)dataCenterFinishedWithRequest:(ASIHTTPRequest *)request {  
+- (void)dataCenterFinishedWithRequest:(ASIHTTPRequest *)request {
+  if (self.checkinsArray) {
+    [self.checkinsArray removeAllObjects];
+  }
+  
+  // Serialize all the checkins in the array
+  for (NSDictionary *checkinDict in self.response) {
+    Checkin *newCheckin = [[Checkin alloc] initWithDictionary:checkinDict];
+    [self.checkinsArray addObject:newCheckin];
+    [newCheckin release];
+  }
+  
   // Tell MoogleDataCenter to inform delegate
   [super dataCenterFinishedWithRequest:request];
 }
@@ -31,6 +45,7 @@
 }
 
 - (void)dealloc {
+  RELEASE_SAFELY(_checkinsArray);
   [super dealloc];
 }
 

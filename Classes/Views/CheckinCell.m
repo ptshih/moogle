@@ -7,6 +7,8 @@
 //
 
 #import "CheckinCell.h"
+#import "Checkin.h"
+#import "Place.h"
 
 #define NAME_FONT_SIZE 16.0
 #define CELL_FONT_SIZE 14.0
@@ -197,16 +199,14 @@ static UIImage *_messageIcon = nil;
   }
 }
 
-+ (void)fillCell:(CheckinCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
++ (void)fillCell:(CheckinCell *)cell withCheckin:(Checkin *)checkin withImage:(UIImage *)image {
   cell.imageView.image = image;
   
-  NSDate *date = [NSDate dateWithTimeIntervalSince1970:[[dictionary objectForKey:@"checkin_timestamp"] integerValue]];
-  
-  cell.nameLabel.text = [dictionary valueForKey:@"name"];
-  cell.placeNameLabel.text = [dictionary valueForKey:@"place_name"];
-  cell.timestampLabel.text = [NSString stringWithFormat:@"%@ via %@", [date humanIntervalSinceNow], @"Moogle"];
-  cell.taggedLabel.text = [[dictionary valueForKey:@"tagged_user_array"] componentsJoinedByString:@", "];
-  cell.messageLabel.text = [dictionary valueForKey:@"message"];
+  cell.nameLabel.text = checkin.facebookName;
+  cell.placeNameLabel.text = checkin.place.placeName;
+  cell.timestampLabel.text = [checkin.checkinDate humanIntervalSinceNow];
+//  cell.taggedLabel.text = [checkin.ch componentsJoinedByString:@", "];
+  cell.messageLabel.text = checkin.checkinMessage;
 }
 
 + (MoogleCellType)cellType {
@@ -220,9 +220,6 @@ static UIImage *_messageIcon = nil;
   CGSize textSize = CGSizeMake(textWidth, INT_MAX); // Variable height
   CGSize labelSize = CGSizeZero;
   
-  // The rest (Static)
-  calculatedHeight += 65;
-  
   // Icon Spacing
   calculatedHeight += ICON_SPACING * 2;
   
@@ -235,6 +232,9 @@ static UIImage *_messageIcon = nil;
   // Message String (Variable Height)
   labelSize = [[dictionary valueForKey:@"message"] sizeWithFont:[UIFont systemFontOfSize:CELL_FONT_SIZE] constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
   calculatedHeight = calculatedHeight + labelSize.height;
+  
+  // The rest (Static)
+  calculatedHeight += 65;
   
   // Bottom Spacer
   calculatedHeight += SPACING_Y; // This is spacing*2 because its for top AND bottom

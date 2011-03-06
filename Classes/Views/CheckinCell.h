@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MoogleImageCell.h"
 
+@class Checkin;
+
 @interface CheckinCell : MoogleImageCell {
   UILabel *_nameLabel;
   UILabel *_placeNameLabel;
@@ -28,6 +30,6 @@
 @property (nonatomic, retain) UILabel *taggedLabel;
 @property (nonatomic, retain) UILabel *messageLabel;
 
-+ (void)fillCell:(CheckinCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image;
++ (void)fillCell:(CheckinCell *)cell withCheckin:(Checkin *)checkin withImage:(UIImage *)image;
 
 @end

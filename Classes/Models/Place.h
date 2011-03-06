@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MoogleModel.h"
 
-
-@interface Place : NSObject {
+@interface Place : MoogleModel {
   NSString *_placeId;
   NSString *_placeName;
   NSString *_placePhone;

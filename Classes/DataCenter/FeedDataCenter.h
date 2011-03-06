@@ -10,6 +10,9 @@
 #import "MoogleDataCenter.h"
 
 @interface FeedDataCenter : MoogleDataCenter {
+  NSMutableArray *_checkinsArray;
 }
+
+@property (nonatomic, retain) NSMutableArray *checkinsArray;
 
 @end

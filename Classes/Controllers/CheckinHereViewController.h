@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "CardViewController.h"
 #import "MoogleDataCenterDelegate.h"
+#import "NearbyPickerDelegate.h"
 
 @class ASIHTTPRequest;
 @class MoogleDataCenter;
 @class Place;
 
-@interface CheckinHereViewController : CardViewController <MoogleDataCenterDelegate, UITextFieldDelegate> {
+@interface CheckinHereViewController : CardViewController <MoogleDataCenterDelegate, NearbyPickerDelegate, UITextFieldDelegate> {
   MoogleDataCenter *_dataCenter;
   ASIHTTPRequest *_checkinHereRequest;
   
@@ -42,5 +43,6 @@
 - (IBAction)cancel;
 - (IBAction)tagFriends;
 - (IBAction)checkinHere;
+- (IBAction)choosePlace;
 
 @end

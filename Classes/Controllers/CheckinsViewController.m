@@ -13,6 +13,8 @@
 #import "FeedDataCenter.h"
 
 #import "CheckinCell.h"
+#import "Checkin.h"
+#import "Place.h"
 
 @interface CheckinsViewController (Private)
 
@@ -21,7 +23,8 @@
 - (void)toggleWho;
 - (void)toggleDistance;
 
-- (void)showPlaceWithId:(NSString *)placeId andName:(NSString *)placeName;
+- (void)showPlaceForPlace:(Place *)place;
+
 @end
 
 @implementation CheckinsViewController
@@ -108,10 +111,12 @@
   [[RemoteOperation sharedInstance] addRequestToQueue:self.checkinsRequest];
 }
 
-- (void)showPlaceWithId:(NSString *)placeId andName:(NSString *)placeName {
-//  PlaceViewController *pvc = [[PlaceViewController alloc] init];
-//  [self.navigationController pushViewController:pvc animated:YES];
-//  [pvc release];  
+#pragma mark Show Place
+- (void)showPlaceForPlace:(Place *)place {
+  PlaceViewController *pvc = [[PlaceViewController alloc] init];
+  pvc.place = place;
+  [self.navigationController pushViewController:pvc animated:YES];
+  [pvc release];  
 }
 
 #pragma mark MoogleDataCenterDelegate
@@ -120,7 +125,7 @@
   [self.sections addObject:@"Checkins"];
   
   [self.items removeAllObjects];
-  [self.items addObject:self.dataCenter.response];
+  [self.items addObject:self.dataCenter.checkinsArray];
   [self.tableView reloadData];
   [self dataSourceDidLoad];
 }
@@ -129,30 +134,30 @@
   [self dataSourceDidLoad];
 }
 
-#pragma mark UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  [tableView deselectRowAtIndexPath:indexPath animated:YES];
-  
-  [self showPlaceWithId:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"place_id"] andName:[[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"place_name"]];
+#pragma mark UITableView Stuff
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return [CheckinCell rowHeight];
 }
 
-
-#pragma mark UITableViewDataSource
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-  return [CheckinCell variableRowHeightWithDictionary:item];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  Place *place = [[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] place];
+  [self showPlaceForPlace:place];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   CheckinCell *cell = nil;
-  cell = (CheckinCell *)[tableView dequeueReusableCellWithIdentifier:@"CheckinCell"];
+  NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell_%d", [self class], indexPath.section];
+  
+  cell = (CheckinCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   if(cell == nil) { 
-    cell = [[[CheckinCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CheckinCell"] autorelease];
+    cell = [[[CheckinCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier] autorelease];
   }
   
-  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"facebook_id"]]];
-  
+  //  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  //  NSURL *url = [NSURL URLWithString:[item valueForKey:@"picture"]];
+  Checkin *checkin = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", checkin.facebookId]];
   UIImage *image = [self.imageCache getImageWithURL:url];
   if (!image) {
     if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
@@ -161,7 +166,7 @@
     image = nil;
   }
   
-  [CheckinCell fillCell:cell withDictionary:[[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] withImage:image];
+  [CheckinCell fillCell:cell withCheckin:checkin withImage:image];
   
   return cell;
 }
@@ -171,8 +176,10 @@
   NSArray *visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
   
   for (NSIndexPath *indexPath in visibleIndexPaths) {
-    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"facebook_id"]]];
+    //    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    //    NSURL *url = [NSURL URLWithString:[item valueForKey:@"picture"]];
+    Checkin *checkin = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", checkin.facebookId]];
     if (![self.imageCache getImageWithURL:url]) {
       [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
     }

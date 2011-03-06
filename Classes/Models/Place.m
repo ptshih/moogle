@@ -7,32 +7,8 @@
 //
 
 #import "Place.h"
-#import "Constants.h"
 
 @implementation Place
-
-NSString *_placeId;
-NSString *_placeName;
-NSString *_placePhone;
-NSString *_placeWebsite;
-NSString *_placePrice;
-NSString *_placeAttire;
-NSString *_placeStreet;
-NSString *_placeCity;
-NSString *_placeState;
-NSString *_placeZip;
-NSString *_placeCountry;
-NSString *_placeTerms;
-NSString *_placeCategories;
-
-NSNumber *_placeLat;
-NSNumber *_placeLng;
-NSNumber *_placeDistance;
-NSNumber *_placeCheckins;
-NSNumber *_placeFriendCheckins;
-NSNumber *_placeLikes;
-NSNumber *_placeReviews;
-NSNumber *_placeRating;
 
 @synthesize placeId = _placeId;
 @synthesize placeName = _placeName;
@@ -58,7 +34,7 @@ NSNumber *_placeRating;
 @synthesize placeRating = _placeRating;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
-  self = [super init];
+  self = [super initWithDictionary:dictionary];
   if (self) {
     // Strings
     self.placeId = [dictionary valueForKey:@"place_id"];

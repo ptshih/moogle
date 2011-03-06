@@ -1,33 +1,34 @@
 //
-//  DiscoverViewController.m
+//  NearbyPickerViewController.m
 //  Moogle
 //
-//  Created by Peter Shih on 3/3/11.
+//  Created by Peter Shih on 3/5/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "DiscoverViewController.h"
-#import "PlacesDataCenter.h"
-#import "PlaceViewController.h"
+#import "NearbyPickerViewController.h"
 #import "LocationManager.h"
 #import "PlaceCell.h"
 #import "Place.h"
 
-@interface DiscoverViewController (Private)
+#import "PlacesDataCenter.h"
 
-- (void)showPlaceForPlace:(Place *)place;
+@interface NearbyPickerViewController (Private)
+
+- (void)getNearbyPlaces;
 
 @end
 
-@implementation DiscoverViewController
+@implementation NearbyPickerViewController
 
 @synthesize dataCenter = _dataCenter;
-@synthesize discoverRequest = _discoverRequest;
+@synthesize nearbyRequest = _nearbyRequest;
+@synthesize delegate = _delegate;
 
 - (id)init {
   self = [super init];
   if (self) {
-    _dataCenter = [[PlacesDataCenter alloc ]init];
+    _dataCenter = [[PlacesDataCenter alloc] init];
     _dataCenter.delegate = self;
   }
   return self;
@@ -37,32 +38,38 @@
   [super viewDidLoad];
   
   // Table
-  CGRect tableFrame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV);
+  CGRect tableFrame = CGRectMake(0, 0, CARD_WIDTH, 416);
   [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self setupPullRefresh];
+  
+  [self reloadCardController];
 }
 
-#pragma mark CardViewController
 - (void)reloadCardController {
   [super reloadCardController];
   
-  [self getDiscovers];
+  [self getNearbyPlaces];
 }
 
-#pragma mark CardStateMachine
-- (void)getDiscovers {
-  NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  [params setObject:@"true" forKey:@"exclude"];
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/popular", MOOGLE_BASE_URL, API_VERSION];
-  self.discoverRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
+- (void)getNearbyPlaces {
+  CGFloat lat = [APP_DELEGATE.locationManager latitude];
+  CGFloat lng = [APP_DELEGATE.locationManager longitude];
+  NSInteger distance = [APP_DELEGATE.locationManager distance];
   
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.discoverRequest];
+  NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  [params setObject:[NSString stringWithFormat:@"%f", lat] forKey:@"lat"];
+  [params setObject:[NSString stringWithFormat:@"%f", lng] forKey:@"lng"];
+  [params setObject:[NSString stringWithFormat:@"%d", distance] forKey:@"distance"];
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/nearby", MOOGLE_BASE_URL, API_VERSION];  
+  self.nearbyRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
+  [[RemoteOperation sharedInstance] addRequestToQueue:self.nearbyRequest];
+
 }
 
 #pragma mark MoogleDataCenterDelegate
 - (void)dataCenterDidFinish:(ASIHTTPRequest *)request {
   [self.sections removeAllObjects];
-  [self.sections addObject:@"Shared Places"];
+  [self.sections addObject:@"Places"];
   
   [self.items removeAllObjects];
   [self.items addObject:self.dataCenter.placesArray];
@@ -81,8 +88,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
-  Place *place = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-  [self showPlaceForPlace:place];
+  Place *selectedPlace = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  
+  if (self.delegate) {
+    [self.delegate retain];
+    if ([self.delegate respondsToSelector:@selector(nearbyPickedWithPlace:)]) {
+      [self.delegate performSelector:@selector(nearbyPickedWithPlace:) withObject:selectedPlace];
+    }
+    [self.delegate release];
+  }
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -127,13 +142,15 @@
 }
 
 - (void)dealloc {
-  if(_discoverRequest) {
-    [_discoverRequest clearDelegatesAndCancel];
-    [_discoverRequest release], _discoverRequest = nil;
+  if(_nearbyRequest) {
+    [_nearbyRequest clearDelegatesAndCancel];
+    [_nearbyRequest release], _nearbyRequest = nil;
   }
   
-  RELEASE_SAFELY(_dataCenter);
+  RELEASE_SAFELY (_dataCenter);
+  
   [super dealloc];
 }
+
 
 @end
