@@ -22,5 +22,6 @@ typedef uint32_t MoogleCellType;
 + (MoogleCellType)cellType;
 + (CGFloat)rowHeight;
 + (CGFloat)variableRowHeightWithDictionary:(NSDictionary *)dictionary;
++ (CGFloat)variableRowHeightWithText:(NSString *)text andFontSize:(CGFloat)fontSize;
 
 @end

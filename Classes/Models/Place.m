@@ -50,6 +50,7 @@
     self.placeCountry = [dictionary valueForKey:@"place_country"];
     self.placeTerms = [dictionary valueForKey:@"place_terms"];
     self.placeCategories = [dictionary valueForKey:@"place_categories"];
+    self.placeRating = ([[dictionary valueForKey:@"place_rating"] notNil]) ? [[[dictionary valueForKey:@"place_rating"] componentsSeparatedByString:@" "] objectAtIndex:0] : nil;
     
     // Numbers
     self.placeLat = [dictionary valueForKey:@"place_lat"];
@@ -59,7 +60,6 @@
     self.placeFriendCheckins = [dictionary valueForKey:@"place_friend_checkins"];
     self.placeLikes = [dictionary valueForKey:@"place_likes"];
     self.placeReviews = [dictionary valueForKey:@"place_reviews"];
-    self.placeRating = [dictionary valueForKey:@"place_rating"];
   }
   return self;
 }

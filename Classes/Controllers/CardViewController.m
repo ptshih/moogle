@@ -27,6 +27,8 @@
 
 @synthesize emptyView = _emptyView;
 @synthesize loadingView = _loadingView;
+@synthesize loadingLabel = _loadingLabel;
+@synthesize loadingSpinner = _loadingSpinner;
 
 - (id)init {
   self = [super init];
@@ -37,12 +39,16 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil] autorelease];
   self.view.frame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT);
-  self.view.clipsToBounds = YES;
+  self.view.autoresizingMask = UIViewAutoresizingNone;
+  self.view.autoresizesSubviews = NO;
+  self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil] autorelease];
   
   self.navigationController.navigationBar.tintColor = MOOGLE_BLUE_COLOR;
   self.navigationItem.titleView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"moogle_logo.png"]] autorelease];
+
+  [[NSBundle mainBundle] loadNibNamed:@"EmptyView" owner:self options:nil];
+  [[NSBundle mainBundle] loadNibNamed:@"LoadingView" owner:self options:nil];
   
   // Setup Empty and Loading View
 //  if ([self isKindOfClass:[PlaceTabViewController class]]) {
@@ -67,11 +73,18 @@
 //    self.loadingView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
 //  }
   
-  self.loadingView.hidden = YES;
+//  self.loadingView.hidden = YES;
   self.emptyView.hidden = YES;
-  self.loadingView.frame = CGRectMake(0, 0, self.loadingView.width, self.loadingView.height);
   [self.view addSubview:self.emptyView];
   [self.view addSubview:self.loadingView];
+  self.emptyView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
+  self.loadingView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
+  self.loadingSpinner.top = self.view.center.y + 20;
+}
+
+// Subclasses may implement
+- (void)setupLoadingAndEmptyViews {
+
 }
 
 // Called when the user logs out and we need to clear all cached data
@@ -190,6 +203,8 @@
 - (void)dealloc {
   RELEASE_SAFELY(_emptyView);
   RELEASE_SAFELY(_loadingView);
+  RELEASE_SAFELY(_loadingLabel);
+  RELEASE_SAFELY(_loadingSpinner);
   [super dealloc];
 }
 

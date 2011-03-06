@@ -23,9 +23,6 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
-  // Table
-  //  CGRect tableFrame = self.view.frame;
-  [self setupTableViewWithFrame:self.viewport andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
   [self getPlaceFeed];
 }
 

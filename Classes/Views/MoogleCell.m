@@ -43,6 +43,27 @@
   return 0.0;
 }
 
++ (CGFloat)variableRowHeightWithText:(NSString *)text andFontSize:(CGFloat)fontSize {
+  CGFloat calculatedHeight = 0.0;
+  
+  CGFloat left = 10;
+  CGFloat textWidth = 300;
+  CGSize textSize = CGSizeZero;
+  CGSize labelSize = CGSizeZero;
+  
+  // Text
+  textWidth = 300 - left - 10;
+  textSize = CGSizeMake(textWidth, INT_MAX);
+  
+  labelSize = [text sizeWithFont:[UIFont systemFontOfSize:fontSize] constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
+  
+  calculatedHeight = calculatedHeight + labelSize.height;
+  
+  calculatedHeight = calculatedHeight + 10 * 2; // This is spacing*2 because its for top AND bottom
+  
+  return calculatedHeight;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
   [super setSelected:selected animated:animated];
 }

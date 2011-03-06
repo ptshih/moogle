@@ -36,13 +36,21 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
+  self.view.frame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV + 49.0);
+
   // Table
-  CGRect tableFrame = CGRectMake(0, 0, CARD_WIDTH, 416);
-  [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
   [self setupPullRefresh];
   
+  [self setupLoadingAndEmptyViews];
+  
   [self reloadCardController];
+}
+
+// Subclasses may implement
+- (void)setupLoadingAndEmptyViews {
+  self.emptyView.frame = self.view.frame;
+  self.loadingView.frame = self.view.frame;
 }
 
 - (void)reloadCardController {

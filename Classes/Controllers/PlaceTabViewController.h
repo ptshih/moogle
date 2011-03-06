@@ -16,11 +16,9 @@
 @interface PlaceTabViewController : CardTableViewController <MoogleDataCenterDelegate> {
   PlaceDataCenter *_dataCenter;
   Place *place;
-  CGRect viewport; // NOTE: this is totally a hack around the view init hierarchy
 }
 
 @property (nonatomic, retain) PlaceDataCenter *dataCenter;
 @property (nonatomic, assign) Place *place;
-@property (nonatomic, assign) CGRect viewport;
 
 @end

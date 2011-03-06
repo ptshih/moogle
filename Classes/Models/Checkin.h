@@ -40,6 +40,8 @@
 @property (nonatomic, copy) NSString *checkinMessage;
 @property (nonatomic, copy) NSString *checkinAppName;
 
+@property (nonatomic, copy) NSArray *checkinTagsArray;
+
 @property (nonatomic, copy) NSDate *checkinDate;
 
 @end

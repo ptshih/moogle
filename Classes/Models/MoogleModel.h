@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Constants.h"
+#import "NSObject+ConvenienceMethods.h"
 
 @interface MoogleModel : NSObject <NSCopying> {
   NSDictionary *_dictionary;

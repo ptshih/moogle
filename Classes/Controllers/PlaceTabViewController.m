@@ -12,7 +12,6 @@
 
 @synthesize dataCenter = _dataCenter;
 @synthesize place = _place;
-@synthesize viewport = _viewport;
 
 - (id)init {
   self = [super init];
@@ -25,6 +24,22 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  self.view.frame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV - 44);
+  [self setupLoadingAndEmptyViews];
+  
+  // Table
+  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+  
+  self.loadingLabel.textColor = MOOGLE_BLUE_COLOR;
+  self.loadingSpinner.top = self.view.center.y + 20;
+}
+
+// Subclasses may implement
+- (void)setupLoadingAndEmptyViews {
+  self.emptyView.frame = self.view.frame;
+  self.loadingView.frame = self.view.frame;
+  self.emptyView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+  self.loadingView.backgroundColor = [UIColor groupTableViewBackgroundColor];
 }
 
 - (void)dealloc {

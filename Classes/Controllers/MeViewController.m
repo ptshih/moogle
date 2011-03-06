@@ -43,7 +43,6 @@
   
   [self setupViews];
   [self setupButtons];
-  [self getProfilePicture];
   
   // Table
   CGRect tableFrame = CGRectMake(0, 120, CARD_WIDTH, CARD_HEIGHT_WITH_NAV - 120);
@@ -53,7 +52,6 @@
 }
 
 - (void)setupViews {
-  _nameLabel.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"facebookName"];
   _checkinsView.layer.cornerRadius = 5.0;
   _placesView.layer.cornerRadius = 5.0;
   _friendsView.layer.cornerRadius = 5.0;
@@ -61,7 +59,8 @@
 
 - (void)setupButtons {  
   // Setup Logout button
-  UIBarButtonItem *logoutButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease];
+//  UIBarButtonItem *logoutButton = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease];
+  UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStyleBordered target:self action:@selector(logout)];
   self.navigationItem.leftBarButtonItem = logoutButton;
 }
 
@@ -76,6 +75,7 @@
 }
 
 - (void)updateProfilePicture:(UIImage *)profileImage {
+  _nameLabel.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"facebookName"];
   _profilePicture.image = profileImage;
 }
 
@@ -88,7 +88,7 @@
 #pragma mark CardViewController
 - (void)reloadCardController {
   [super reloadCardController];
-  
+  [self getProfilePicture];
   [self getMe];
 }
 

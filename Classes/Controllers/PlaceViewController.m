@@ -86,9 +86,9 @@ static UIImage *_btnSelected;
   [self setupPlaceFeed];
   [self setupPlaceReviews];
   
-  UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
-  self.navigationItem.rightBarButtonItem = shareButton;
-  [shareButton release];
+//  UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)];
+//  self.navigationItem.rightBarButtonItem = shareButton;
+//  [shareButton release];
   
   // Default to PlaceInfo tab
   [_infoButton setSelected:YES];
@@ -97,29 +97,25 @@ static UIImage *_btnSelected;
 
 - (void)setupPlaceInfo {
   _placeInfoViewController.place = self.place;
-  _placeInfoViewController.viewport = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
   _placeInfoViewController.view.frame = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
   [_placeScrollView addSubview:_placeInfoViewController.view];
 }
 
 - (void)setupPlaceActivity {
   _placeActivityViewController.place = self.place;
-  _placeActivityViewController.viewport = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
   _placeActivityViewController.view.frame = CGRectMake(320, 0, _placeScrollView.width, _placeScrollView.height);
   [_placeScrollView addSubview:_placeActivityViewController.view];
 }
 
 - (void)setupPlaceFeed {
   _placeFeedViewController.place = self.place;
-  _placeFeedViewController.viewport = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
-  _placeFeedViewController.view.frame = CGRectMake(640, 0, _placeScrollView.width, _placeScrollView.height);
+  _placeFeedViewController.view.frame = CGRectMake(960, 0, _placeScrollView.width, _placeScrollView.height);
   [_placeScrollView addSubview:_placeFeedViewController.view];
 }
 
 - (void)setupPlaceReviews {
   _placeReviewsViewController.place = self.place;
-  _placeReviewsViewController.viewport = CGRectMake(0, 0, _placeScrollView.width, _placeScrollView.height);
-  _placeReviewsViewController.view.frame = CGRectMake(960, 0, _placeScrollView.width, _placeScrollView.height);
+  _placeReviewsViewController.view.frame = CGRectMake(640, 0, _placeScrollView.width, _placeScrollView.height);
   [_placeScrollView addSubview:_placeReviewsViewController.view];
 }
 
@@ -135,8 +131,8 @@ static UIImage *_btnSelected;
 - (void)setupTabButtons {
   _infoButton = [[UIButton alloc] initWithFrame:CGRectMake(4, 8, 75, 29)];
   _activityButton = [[UIButton alloc] initWithFrame:CGRectMake(83, 8, 75, 29)];
-  _feedButton = [[UIButton alloc] initWithFrame:CGRectMake(162, 8, 75, 29)];
-  _reviewsButton = [[UIButton alloc] initWithFrame:CGRectMake(241, 8, 75, 29)];
+  _reviewsButton = [[UIButton alloc] initWithFrame:CGRectMake(162, 8, 75, 29)];
+  _feedButton = [[UIButton alloc] initWithFrame:CGRectMake(241, 8, 75, 29)];
   
   _infoButton.adjustsImageWhenHighlighted = NO;
   _activityButton.adjustsImageWhenHighlighted = NO;
@@ -210,21 +206,21 @@ static UIImage *_btnSelected;
   }
 }
 
-- (void)share {
-  [self postShareRequest];
-}
-
-- (void)postShareRequest {
-  DLog(@"starting post share request to moogle");
-  
-  NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  [params setObject:self.place.placeId forKey:@"place_id"];
-  [params setObject:@"Check this place out!" forKey:@"message"];
-  
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/share", MOOGLE_BASE_URL, API_VERSION];
-  ASIHTTPRequest *shareRequest = [RemoteRequest postRequestWithBaseURLString:baseURLString andParams:params isGzip:NO withDelegate:nil];
-  [[RemoteOperation sharedInstance] addRequestToQueue:shareRequest];
-}
+//- (void)share {
+//  [self postShareRequest];
+//}
+//
+//- (void)postShareRequest {
+//  DLog(@"starting post share request to moogle");
+//  
+//  NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//  [params setObject:self.place.placeId forKey:@"place_id"];
+//  [params setObject:@"Check this place out!" forKey:@"message"];
+//  
+//  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/share", MOOGLE_BASE_URL, API_VERSION];
+//  ASIHTTPRequest *shareRequest = [RemoteRequest postRequestWithBaseURLString:baseURLString andParams:params isGzip:NO withDelegate:nil];
+//  [[RemoteOperation sharedInstance] addRequestToQueue:shareRequest];
+//}
 
 #pragma mark UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
@@ -254,10 +250,10 @@ static UIImage *_btnSelected;
       [_activityButton setSelected:YES];
       break;
     case 2:
-      [_feedButton setSelected:YES];
+      [_reviewsButton setSelected:YES];
       break;
     case 3:
-      [_reviewsButton setSelected:YES];
+      [_feedButton setSelected:YES];
       break;
     default:
       [_infoButton setSelected:YES];

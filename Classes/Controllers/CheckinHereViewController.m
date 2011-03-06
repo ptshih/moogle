@@ -51,11 +51,16 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  self.view.frame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV + 49.0);
+
+  
   UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
   self.navigationItem.leftBarButtonItem = dismissButton;
   [dismissButton release];
 
   [self updatePlaceLabels];
+  
+  [self setupLoadingAndEmptyViews];
   
   [self.checkinMessage becomeFirstResponder];
 }
@@ -64,11 +69,17 @@
   [super viewWillAppear:animated];
 }
 
+// Subclasses may implement
+- (void)setupLoadingAndEmptyViews {
+  self.emptyView.hidden = YES;
+  self.loadingView.hidden = YES;
+}
+
 - (void)updatePlaceLabels {
   // Load place info
   if (self.place) {
     self.placeNameLabel.text = self.place.placeName;
-    self.placeAddressLabel.text = self.place.placeStreet;
+    self.placeAddressLabel.text = [self.place.placeStreet notNil] ? self.place.placeStreet : @"No Address Found";
   } else {
     self.placeNameLabel.text = @"Please Choose a Place to Check In";
     self.placeAddressLabel.text = @"Tap Here to Find Nearby Places";

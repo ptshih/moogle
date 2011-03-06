@@ -23,6 +23,7 @@
   NSString *_placeCountry;
   NSString *_placeTerms;
   NSString *_placeCategories;
+  NSString *_placeRating;
   
   NSNumber *_placeLat;
   NSNumber *_placeLng;
@@ -31,7 +32,6 @@
   NSNumber *_placeFriendCheckins;
   NSNumber *_placeLikes;
   NSNumber *_placeReviews;
-  NSNumber *_placeRating;
 }
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
@@ -49,6 +49,7 @@
 @property (nonatomic, copy) NSString *placeCountry;
 @property (nonatomic, copy) NSString *placeTerms;
 @property (nonatomic, copy) NSString *placeCategories;
+@property (nonatomic, copy) NSString *placeRating;
 
 @property (nonatomic, copy) NSNumber *placeLat;
 @property (nonatomic, copy) NSNumber *placeLng;
@@ -57,6 +58,5 @@
 @property (nonatomic, copy) NSNumber *placeFriendCheckins;
 @property (nonatomic, copy) NSNumber *placeLikes;
 @property (nonatomic, copy) NSNumber *placeReviews;
-@property (nonatomic, copy) NSNumber *placeRating;
 
 @end

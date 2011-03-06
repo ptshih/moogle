@@ -205,7 +205,7 @@ static UIImage *_messageIcon = nil;
   cell.nameLabel.text = checkin.facebookName;
   cell.placeNameLabel.text = checkin.place.placeName;
   cell.timestampLabel.text = [checkin.checkinDate humanIntervalSinceNow];
-//  cell.taggedLabel.text = [checkin.ch componentsJoinedByString:@", "];
+  cell.taggedLabel.text = [checkin.checkinTagsArray componentsJoinedByString:@", "];
   cell.messageLabel.text = checkin.checkinMessage;
 }
 
@@ -213,7 +213,7 @@ static UIImage *_messageIcon = nil;
   return MoogleCellTypePlain;
 }
 
-+ (CGFloat)variableRowHeightWithDictionary:(NSDictionary *)dictionary {
++ (CGFloat)variableRowHeightWithCheckin:(Checkin *)checkin {
   CGFloat calculatedHeight = SPACING_Y; // Top Spacer
   CGFloat left = IMAGE_WIDTH + ICON_WIDTH + SPACING_X * 4;
   CGFloat textWidth = CELL_WIDTH - left - SPACING_X;
@@ -224,13 +224,13 @@ static UIImage *_messageIcon = nil;
   calculatedHeight += ICON_SPACING * 2;
   
   // Tagged String (Variable Height)
-  NSString *taggedString = [[dictionary valueForKey:@"tagged_user_array"] componentsJoinedByString:@", "];
+  NSString *taggedString = [checkin.checkinTagsArray componentsJoinedByString:@", "];
 //  NSString *taggedString = @"Peter Shih, James Liu, Thomas Liou, Gene Tsai, Nathan Bohannon";
   labelSize = [taggedString sizeWithFont:[UIFont systemFontOfSize:CELL_FONT_SIZE] constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
   calculatedHeight = calculatedHeight + labelSize.height;
   
   // Message String (Variable Height)
-  labelSize = [[dictionary valueForKey:@"message"] sizeWithFont:[UIFont systemFontOfSize:CELL_FONT_SIZE] constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
+  labelSize = [checkin.checkinMessage sizeWithFont:[UIFont systemFontOfSize:CELL_FONT_SIZE] constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
   calculatedHeight = calculatedHeight + labelSize.height;
   
   // The rest (Static)

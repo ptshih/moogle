@@ -31,5 +31,6 @@
 @property (nonatomic, retain) UILabel *messageLabel;
 
 + (void)fillCell:(CheckinCell *)cell withCheckin:(Checkin *)checkin withImage:(UIImage *)image;
++ (CGFloat)variableRowHeightWithCheckin:(Checkin *)checkin;
 
 @end

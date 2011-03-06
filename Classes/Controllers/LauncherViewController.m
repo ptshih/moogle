@@ -60,14 +60,14 @@
     _activePlace = nil;
     
     _checkinHereViewController = nil;
+
+    self.view.frame = CGRectMake(0, 20, self.view.width, self.view.height);
   }
   return self;
 }
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
-  self.view.frame = CGRectMake(0, 20, self.view.width, self.view.height);
   
   // Setup Current Page
   _currentPage = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastSelectedCard"]; // Start at last selected card

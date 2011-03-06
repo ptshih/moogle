@@ -37,14 +37,24 @@ static UIImage *_placeholderPicture;
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  self.view.frame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV + 49.0);
+  
   UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(done)];
   self.navigationItem.rightBarButtonItem = doneButton;
   [doneButton release];
   
   // Table
-  [self setupTableViewWithFrame:CGRectMake(0, 0, 320, CARD_HEIGHT_WITH_NAV + 49.0) andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+  [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+  
+  [self setupLoadingAndEmptyViews];
   
   [self getFriends];
+}
+
+// Subclasses may implement
+- (void)setupLoadingAndEmptyViews {
+  self.emptyView.hidden = YES;
+  self.loadingView.hidden = YES;
 }
 
 - (void)dismiss {
@@ -98,6 +108,7 @@ static UIImage *_placeholderPicture;
   NSArray *friends = [[NSUserDefaults standardUserDefaults] objectForKey:@"friends"];
   _sortedFriends = [[friends sortedArrayUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"friend_name" ascending:YES]]] retain];
   [self.items addObject:_sortedFriends];
+  [self dataSourceDidLoad];
 }
 
 #pragma mark UITableView Stuff

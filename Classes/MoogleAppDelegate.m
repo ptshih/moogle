@@ -262,10 +262,10 @@
   NSString *errorMessage;
   if(userDidCancel) {
     errorTitle = @"Permissions Error";
-    errorMessage = @"Friendmash was unable to login to Facebook. Please try again.";
+    errorMessage = @"Moogle was unable to login to Facebook. Please try again.";
   } else {
     errorTitle = @"Login Error";
-    errorMessage = @"Friendmash is having trouble logging in to Facebook. Please try again.";
+    errorMessage = @"Moogle is having trouble logging in to Facebook. Please try again.";
   }
   
   _loginFailedAlert = [[UIAlertView alloc] initWithTitle:errorTitle message:errorMessage delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];

@@ -49,7 +49,6 @@
   [self getDiscovers];
 }
 
-#pragma mark CardStateMachine
 - (void)getDiscovers {
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
   [params setObject:@"true" forKey:@"exclude"];
@@ -57,6 +56,14 @@
   self.discoverRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   
   [[RemoteOperation sharedInstance] addRequestToQueue:self.discoverRequest];
+}
+
+#pragma mark Show Place
+- (void)showPlaceForPlace:(Place *)place {
+  PlaceViewController *pvc = [[PlaceViewController alloc] init];
+  pvc.place = place;
+  [self.navigationController pushViewController:pvc animated:YES];
+  [pvc release];  
 }
 
 #pragma mark MoogleDataCenterDelegate

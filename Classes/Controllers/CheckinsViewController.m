@@ -136,7 +136,8 @@
 
 #pragma mark UITableView Stuff
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return [CheckinCell rowHeight];
+  Checkin *checkin = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  return [CheckinCell variableRowHeightWithCheckin:checkin];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
