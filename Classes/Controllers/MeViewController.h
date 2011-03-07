@@ -16,6 +16,7 @@
 @interface MeViewController : CardTableViewController <MoogleDataCenterDelegate> {
   // UI
   IBOutlet UILabel *_nameLabel;
+  IBOutlet UILabel *_lastPlaceLabel;
   IBOutlet UIImageView *_profilePicture;
   
   IBOutlet UIView *_checkinsView;
