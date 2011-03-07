@@ -80,6 +80,7 @@
 }
 
 - (void)updateLabels {
+  _lastPlaceLabel.text = [NSString stringWithFormat:@"%@", [_lastCheckin valueForKey:@"you_last_checkin_place_name"]];
   _checkinsLabel.text = [[_userStats objectForKey:@"total_checkins"] stringValue];
   _placesLabel.text = [[_userStats objectForKey:@"you_total_unique_places"] stringValue];
   _friendsLabel.text = [[_userStats objectForKey:@"you_friend_total_unique_places"] stringValue];

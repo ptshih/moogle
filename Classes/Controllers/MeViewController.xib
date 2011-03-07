@@ -103,7 +103,7 @@
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Last Place Name</string>
+								<string key="IBUIText"/>
 								<reference key="IBUIFont" ref="472975935"/>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">2</int>
@@ -311,6 +311,7 @@
 										<string key="NSFrame">{{0, 30}, {100, 16}}</string>
 										<reference key="NSSuperview" ref="995109910"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
 										<int key="IBUIContentMode">7</int>
@@ -435,6 +436,14 @@
 						<reference key="destination" ref="790552114"/>
 					</object>
 					<int key="connectionID">35</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_lastPlaceLabel</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="861853412"/>
+					</object>
+					<int key="connectionID">36</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -652,7 +661,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">35</int>
+			<int key="maxID">36</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -730,6 +739,7 @@
 							<string>_checkinsView</string>
 							<string>_friendsLabel</string>
 							<string>_friendsView</string>
+							<string>_lastPlaceLabel</string>
 							<string>_nameLabel</string>
 							<string>_placesLabel</string>
 							<string>_placesView</string>
@@ -741,6 +751,7 @@
 							<string>UIView</string>
 							<string>UILabel</string>
 							<string>UIView</string>
+							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UIView</string>
@@ -755,6 +766,7 @@
 							<string>_checkinsView</string>
 							<string>_friendsLabel</string>
 							<string>_friendsView</string>
+							<string>_lastPlaceLabel</string>
 							<string>_nameLabel</string>
 							<string>_placesLabel</string>
 							<string>_placesView</string>
@@ -777,6 +789,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">_friendsView</string>
 								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_lastPlaceLabel</string>
+								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">_nameLabel</string>

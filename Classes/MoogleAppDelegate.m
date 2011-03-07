@@ -23,6 +23,7 @@
 - (void)loginFacebook;
 - (void)fbDidLogin;
 - (void)fbDidLogout;
+- (void)checkLogin;
 
 // Session
 - (void)startRegister;
@@ -113,10 +114,16 @@
   [self.window addSubview:self.launcherViewController.view];
   [self.window makeKeyAndVisible];
   
+//  [self checkLogin];
+  
   return YES;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+  [self checkLogin];
+}
+
+- (void)checkLogin {
   if (!_isShowingLogin) {
     // Check Authentication
     _isLoggedIn = [self isAuthenticatedWithFacebook];
