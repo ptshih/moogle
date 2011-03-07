@@ -295,6 +295,12 @@
   if ([[visibleViewController topViewController] respondsToSelector:@selector(reloadCardController)]) {
     [[visibleViewController topViewController] performSelector:@selector(reloadCardController)];
   }
+  
+  if ([[visibleViewController topViewController] isKindOfClass:[PlaceViewController class]]) {
+    self.scrollView.scrollEnabled = NO;
+  } else {
+    self.scrollView.scrollEnabled = YES;
+  }
 }
 
 - (void)updateCards {
@@ -308,6 +314,12 @@
   id visibleViewController = [self.cards objectAtIndex:_currentPage];
   if ([[visibleViewController topViewController] respondsToSelector:@selector(reloadCardController)]) {
     [[visibleViewController topViewController] performSelector:@selector(reloadCardController)];
+  }
+  
+  if ([[visibleViewController topViewController] isKindOfClass:[PlaceViewController class]]) {
+    self.scrollView.scrollEnabled = NO;
+  } else {
+    self.scrollView.scrollEnabled = YES;
   }
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
