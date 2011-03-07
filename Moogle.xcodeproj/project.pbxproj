@@ -167,6 +167,8 @@
 		25C6C2C91317C8030092E598 /* whiteArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25C6C2C11317C8030092E598 /* whiteArrow@2x.png */; };
 		25C6C2F81317CD1F0092E598 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2F71317CD1F0092E598 /* Reachability.m */; };
 		25DA6D711323B825005B584D /* PlaceInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25DA6D701323B824005B584D /* PlaceInfoViewController.xib */; };
+		25E628EA1324BCAD00F7C00F /* btn_distance.png in Resources */ = {isa = PBXBuildFile; fileRef = 25E628E81324BCAD00F7C00F /* btn_distance.png */; };
+		25E628EB1324BCAD00F7C00F /* btn_who.png in Resources */ = {isa = PBXBuildFile; fileRef = 25E628E91324BCAD00F7C00F /* btn_who.png */; };
 		25EC95CB1318B57F009E44DE /* PlacesDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25EC95CA1318B57E009E44DE /* PlacesDataCenter.m */; };
 		25F207981314E6FE00178E09 /* PlaceDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F207971314E6FE00178E09 /* PlaceDataCenter.m */; };
 		25F2079B1314E72400178E09 /* MoogleDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F2079A1314E72400178E09 /* MoogleDataCenter.m */; };
@@ -425,6 +427,8 @@
 		25C6C2F61317CD1F0092E598 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		25C6C2F71317CD1F0092E598 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		25DA6D701323B824005B584D /* PlaceInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaceInfoViewController.xib; sourceTree = "<group>"; };
+		25E628E81324BCAD00F7C00F /* btn_distance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_distance.png; sourceTree = "<group>"; };
+		25E628E91324BCAD00F7C00F /* btn_who.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_who.png; sourceTree = "<group>"; };
 		25EC95C91318B57D009E44DE /* PlacesDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacesDataCenter.h; sourceTree = "<group>"; };
 		25EC95CA1318B57E009E44DE /* PlacesDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacesDataCenter.m; sourceTree = "<group>"; };
 		25F207961314E6FE00178E09 /* PlaceDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceDataCenter.h; sourceTree = "<group>"; };
@@ -639,6 +643,8 @@
 				2516A4EF131C82D700D11686 /* bg_navigation@2x.png */,
 				2516A4F2131C87B800D11686 /* grad_loading.png */,
 				2516A4F3131C87B900D11686 /* grad_loading@2x.png */,
+				25E628E81324BCAD00F7C00F /* btn_distance.png */,
+				25E628E91324BCAD00F7C00F /* btn_who.png */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -1147,6 +1153,8 @@
 				252A8DE91324488E00CE49E6 /* stars_3.0.png in Resources */,
 				252A8DEA1324488E00CE49E6 /* stars_4.5.png in Resources */,
 				252A8DEB1324488E00CE49E6 /* stars_4.0.png in Resources */,
+				25E628EA1324BCAD00F7C00F /* btn_distance.png in Resources */,
+				25E628EB1324BCAD00F7C00F /* btn_who.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
