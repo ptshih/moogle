@@ -69,8 +69,6 @@
   
   if ([self.place.placeReviews notNil]) {
     self.reviewsLabel.text = [NSString stringWithFormat:@"%@ Reviews", self.place.placeReviews];
-  } else {
-    self.reviewsLabel.text = @"No Reviews Found";
   }
   
   if ([self.place.placeRating notNil]) {

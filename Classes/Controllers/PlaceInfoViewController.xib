@@ -173,7 +173,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">No Reviews Found</string>
+						<string key="IBUIText">Searching For Reviews</string>
 						<reference key="IBUIFont" ref="811986319"/>
 						<reference key="IBUITextColor" ref="1066183187"/>
 						<nil key="IBUIHighlightedColor"/>
