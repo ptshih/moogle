@@ -10,7 +10,7 @@
 
 #import "WhoViewController.h"
 #import "PlaceViewController.h"
-#import "FeedDataCenter.h"
+#import "CheckinsDataCenter.h"
 
 #import "CheckinCell.h"
 #import "Checkin.h"
@@ -36,7 +36,7 @@
 - (id)init {
   self = [super init];
   if (self) {
-    _dataCenter = [[FeedDataCenter alloc ]init];
+    _dataCenter = [[CheckinsDataCenter alloc ]init];
     _dataCenter.delegate = self;
     
     _who = [[NSString alloc] initWithString:@"friends"]; // Default timeline mode to friends

@@ -11,11 +11,11 @@
 #import "FriendPickerDelegate.h"
 #import "MoogleDataCenterDelegate.h"
 
-@class FeedDataCenter;
+@class CheckinsDataCenter;
 @class WhoViewController;
 
 @interface CheckinsViewController : CardTableViewController <FriendPickerDelegate, MoogleDataCenterDelegate> {
-  FeedDataCenter *_dataCenter;
+  CheckinsDataCenter *_dataCenter;
   
   ASIHTTPRequest *_checkinsRequest;
   
@@ -23,7 +23,7 @@
   NSString *_who;
 }
 
-@property (nonatomic, retain) FeedDataCenter *dataCenter;
+@property (nonatomic, retain) CheckinsDataCenter *dataCenter;
 @property (nonatomic, retain) ASIHTTPRequest *checkinsRequest;
 
 - (void)getCheckins;

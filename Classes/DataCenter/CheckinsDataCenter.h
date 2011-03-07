@@ -1,5 +1,5 @@
 //
-//  FeedDataCenter.h
+//  CheckinsDataCenter.h
 //  Moogle
 //
 //  Created by Peter Shih on 3/3/11.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MoogleDataCenter.h"
 
-@interface FeedDataCenter : MoogleDataCenter {
+@interface CheckinsDataCenter : MoogleDataCenter {
   NSMutableArray *_checkinsArray;
 }
 

@@ -96,7 +96,7 @@
 		2544EFAB1320443C0080055B /* moogle_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2544EFA91320443B0080055B /* moogle_logo.png */; };
 		2544EFAC1320443C0080055B /* moogle_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2544EFAA1320443B0080055B /* moogle_logo@2x.png */; };
 		2544EFAF13204B7A0080055B /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2544EFAE13204B730080055B /* FeedViewController.m */; };
-		2544EFB213204D140080055B /* FeedDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2544EFB113204D140080055B /* FeedDataCenter.m */; };
+		2544EFB213204D140080055B /* CheckinsDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2544EFB113204D140080055B /* CheckinsDataCenter.m */; };
 		2544EFB5132059EC0080055B /* tab_discover.png in Resources */ = {isa = PBXBuildFile; fileRef = 2544EFB3132059EC0080055B /* tab_discover.png */; };
 		2544EFB6132059EC0080055B /* tab_discover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2544EFB4132059EC0080055B /* tab_discover@2x.png */; };
 		255DE9A113219C2700AA8BBD /* DiscoverDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 255DE9A013219C2500AA8BBD /* DiscoverDataCenter.m */; };
@@ -309,8 +309,8 @@
 		2544EFAA1320443B0080055B /* moogle_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moogle_logo@2x.png"; sourceTree = "<group>"; };
 		2544EFAD13204B6D0080055B /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		2544EFAE13204B730080055B /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
-		2544EFB013204D140080055B /* FeedDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedDataCenter.h; sourceTree = "<group>"; };
-		2544EFB113204D140080055B /* FeedDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedDataCenter.m; sourceTree = "<group>"; };
+		2544EFB013204D140080055B /* CheckinsDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckinsDataCenter.h; sourceTree = "<group>"; };
+		2544EFB113204D140080055B /* CheckinsDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinsDataCenter.m; sourceTree = "<group>"; };
 		2544EFB3132059EC0080055B /* tab_discover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_discover.png; sourceTree = "<group>"; };
 		2544EFB4132059EC0080055B /* tab_discover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_discover@2x.png"; sourceTree = "<group>"; };
 		255DE99F13219C2400AA8BBD /* DiscoverDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverDataCenter.h; sourceTree = "<group>"; };
@@ -957,8 +957,8 @@
 				25F207971314E6FE00178E09 /* PlaceDataCenter.m */,
 				25EC95C91318B57D009E44DE /* PlacesDataCenter.h */,
 				25EC95CA1318B57E009E44DE /* PlacesDataCenter.m */,
-				2544EFB013204D140080055B /* FeedDataCenter.h */,
-				2544EFB113204D140080055B /* FeedDataCenter.m */,
+				2544EFB013204D140080055B /* CheckinsDataCenter.h */,
+				2544EFB113204D140080055B /* CheckinsDataCenter.m */,
 				255DE99F13219C2400AA8BBD /* DiscoverDataCenter.h */,
 				255DE9A013219C2500AA8BBD /* DiscoverDataCenter.m */,
 			);
@@ -1226,7 +1226,7 @@
 				25BF9B50131F97F400469ECE /* CardTabBar.m in Sources */,
 				2526111F131FA21C005FF48C /* MapViewController.m in Sources */,
 				2544EFAF13204B7A0080055B /* FeedViewController.m in Sources */,
-				2544EFB213204D140080055B /* FeedDataCenter.m in Sources */,
+				2544EFB213204D140080055B /* CheckinsDataCenter.m in Sources */,
 				2597550613205BDB009D4E7C /* DiscoverViewController.m in Sources */,
 				2597550913206086009D4E7C /* HeaderTabView.m in Sources */,
 				255DE9A113219C2700AA8BBD /* DiscoverDataCenter.m in Sources */,

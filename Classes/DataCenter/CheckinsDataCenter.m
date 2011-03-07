@@ -1,15 +1,15 @@
 //
-//  FeedDataCenter.m
+//  CheckinsDataCenter.m
 //  Moogle
 //
 //  Created by Peter Shih on 3/3/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "FeedDataCenter.h"
+#import "CheckinsDataCenter.h"
 #import "Checkin.h"
 
-@implementation FeedDataCenter
+@implementation CheckinsDataCenter
 
 @synthesize checkinsArray = _checkinsArray;
 
