@@ -16,7 +16,7 @@
 - (id)init {
   self = [super init];
   if (self) {
-    _dataCenter = [[PlaceDataCenter alloc] init];
+    _dataCenter = [[MoogleDataCenter alloc] init];
     _dataCenter.delegate = self;
   }
   return self;

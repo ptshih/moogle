@@ -13,8 +13,6 @@
   ASIHTTPRequest *_placeFeedRequest;    
 }
 
-@property (nonatomic, retain) ASIHTTPRequest *placeFeedRequest;
-
 - (void)getPlaceFeed;
 
 @end

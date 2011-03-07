@@ -11,8 +11,6 @@
 
 @implementation PlaceReviewsViewController
 
-@synthesize placeReviewsRequest = _placeReviewsRequest;
-
 - (id)init {
   self = [super init];
   if (self) {
@@ -22,8 +20,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
-  [self getPlaceReviews];
+
 }
 
 - (void)getPlaceReviews {
@@ -31,9 +28,8 @@
   
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/%@/reviews", MOOGLE_BASE_URL, API_VERSION, self.place.placeId];
   
-  self.placeReviewsRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
-  self.dataCenter.placeReviewsRequest = self.placeReviewsRequest;
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.placeReviewsRequest];
+  _placeReviewsRequest = [[RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter] retain];
+  [[RemoteOperation sharedInstance] addRequestToQueue:_placeReviewsRequest];
 }
 
 #pragma mark UITableView Stuff
@@ -66,7 +62,7 @@
   [self.items removeAllObjects];
   
   [self.sections addObject:@"Reviews"];
-  [self.items addObject:self.dataCenter.reviewArray];
+  [self.items addObject:self.dataCenter.response];
   [self.tableView reloadData];
   
   [self dataSourceDidLoad];

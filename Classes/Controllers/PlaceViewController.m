@@ -16,6 +16,7 @@
 #import "PlaceReviewsViewController.h"
 
 #import "LocationManager.h"
+#import "PlaceDataCenter.h"
 
 static UIImage *_btnNormal;
 static UIImage *_btnSelected;
@@ -33,6 +34,8 @@ static UIImage *_btnSelected;
 - (void)setupPlaceFeed;
 - (void)setupPlaceReviews;
 
+- (void)getPlace;
+
 - (void)share;
 - (void)postShareRequest;
 
@@ -40,6 +43,7 @@ static UIImage *_btnSelected;
 
 @implementation PlaceViewController
 
+@synthesize dataCenter = _dataCenter;
 @synthesize place = _place;
 
 + (void)initialize {
@@ -56,6 +60,9 @@ static UIImage *_btnSelected;
     _placeFeedViewController = [[PlaceFeedViewController alloc] init];
     _placeReviewsViewController = [[PlaceReviewsViewController alloc] init];
     _tabView = [[UIView alloc] init];
+    
+    _dataCenter = [[PlaceDataCenter alloc] init];
+    _dataCenter.delegate = self;
   }
   return self;
 }
@@ -93,6 +100,8 @@ static UIImage *_btnSelected;
   // Default to PlaceInfo tab
   [_infoButton setSelected:YES];
   _visibleViewController = _placeInfoViewController;
+  
+  [self getPlace];
 }
 
 - (void)setupPlaceInfo {
@@ -206,6 +215,44 @@ static UIImage *_btnSelected;
   }
 }
 
+- (void)getPlace {
+  NSMutableDictionary *params = [NSMutableDictionary dictionary];
+  
+  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/%@", MOOGLE_BASE_URL, API_VERSION, self.place.placeId];
+  
+  _placeRequest = [[RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter] retain];
+  [[RemoteOperation sharedInstance] addRequestToQueue:_placeRequest];
+}
+
+#pragma mark CardStateMachine
+- (BOOL)dataIsAvailable {
+  return YES;
+}
+
+- (BOOL)dataSourceIsReady {
+  return YES;
+}
+
+#pragma mark MoogleDataCenterDelegate
+- (void)dataCenterDidFinish:(ASIHTTPRequest *)request {
+  self.place = self.dataCenter.place;
+  _placeInfoViewController.place = self.place;
+  _placeActivityViewController.place = self.place;
+  _placeReviewsViewController.place = self.place;
+  _placeFeedViewController.place = self.place;
+  [_placeInfoViewController reloadPlaceInfo];
+  [_placeReviewsViewController getPlaceReviews];
+  [self dataSourceDidLoad];
+}
+
+- (void)dataCenterDidFail:(ASIHTTPRequest *)request {
+  [self dataSourceDidLoad];
+}
+
+- (void)reloadInfo {
+  [_placeInfoViewController reloadPlaceInfo];
+}
+
 //- (void)share {
 //  [self postShareRequest];
 //}
@@ -278,6 +325,9 @@ static UIImage *_btnSelected;
   RELEASE_SAFELY(_placeActivityViewController);
   RELEASE_SAFELY(_placeFeedViewController);
   RELEASE_SAFELY(_placeReviewsViewController);
+  
+  RELEASE_SAFELY(_placeRequest);
+  RELEASE_SAFELY(_dataCenter);
   RELEASE_SAFELY(_place);
   
   // UI

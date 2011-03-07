@@ -8,14 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "CardViewController.h"
+#import "MoogleDataCenterDelegate.h"
 
+@class PlaceDataCenter;
 @class Place;
 @class PlaceInfoViewController;
 @class PlaceActivityViewController;
 @class PlaceFeedViewController;
 @class PlaceReviewsViewController;
 
-@interface PlaceViewController : CardViewController <UIScrollViewDelegate> {
+@interface PlaceViewController : CardViewController <MoogleDataCenterDelegate, UIScrollViewDelegate> {
   PlaceInfoViewController *_placeInfoViewController;
   PlaceActivityViewController *_placeActivityViewController;
   PlaceFeedViewController *_placeFeedViewController;
@@ -23,7 +25,9 @@
   
   id _visibleViewController;
   
-  // Params
+  // Network
+  PlaceDataCenter *_dataCenter;
+  ASIHTTPRequest *_placeRequest;
   Place *place;
   
   // UI
@@ -36,6 +40,9 @@
   UIButton *_reviewsButton;
 }
 
+@property (nonatomic, retain) PlaceDataCenter *dataCenter;
 @property (nonatomic, retain) Place *place;
+
+- (void)reloadInfo;
 
 @end

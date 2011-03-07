@@ -11,8 +11,6 @@
 
 @implementation PlaceActivityViewController
 
-@synthesize placeActivityRequest = _placeActivityRequest;
-
 - (id)init {
   self = [super init];
   if (self) {
@@ -30,9 +28,8 @@
   
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/%@/activity", MOOGLE_BASE_URL, API_VERSION, self.place.placeId];
   
-  self.placeActivityRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
-  self.dataCenter.placeActivityRequest = self.placeActivityRequest;
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.placeActivityRequest];
+  _placeActivityRequest = [[RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter] retain];
+  [[RemoteOperation sharedInstance] addRequestToQueue:_placeActivityRequest];
 }
 
 #pragma mark UITableView Stuff
@@ -87,7 +84,7 @@
   [self.items removeAllObjects];
   
   [self.sections addObject:@"Activity"];
-  [self.items addObject:self.dataCenter.activityArray];
+  [self.items addObject:self.dataCenter.response];
   [self.tableView reloadData];
   
   [self dataSourceDidLoad];

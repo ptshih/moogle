@@ -13,8 +13,6 @@
   ASIHTTPRequest *_placeReviewsRequest;    
 }
 
-@property (nonatomic, retain) ASIHTTPRequest *placeReviewsRequest;
-
 - (void)getPlaceReviews;
 
 @end

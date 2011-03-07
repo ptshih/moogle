@@ -11,14 +11,14 @@
 #import "LocationManager.h"
 #import "Place.h"
 #import "MoogleDataCenterDelegate.h"
-#import "PlaceDataCenter.h"
+#import "MoogleDataCenter.h"
 
 @interface PlaceTabViewController : CardTableViewController <MoogleDataCenterDelegate> {
-  PlaceDataCenter *_dataCenter;
+  MoogleDataCenter *_dataCenter;
   Place *place;
 }
 
-@property (nonatomic, retain) PlaceDataCenter *dataCenter;
+@property (nonatomic, retain) MoogleDataCenter *dataCenter;
 @property (nonatomic, assign) Place *place;
 
 @end

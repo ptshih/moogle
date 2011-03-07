@@ -13,8 +13,6 @@
   ASIHTTPRequest *_placeActivityRequest;    
 }
 
-@property (nonatomic, retain) ASIHTTPRequest *placeActivityRequest;
-
 - (void)getPlaceActivity;
 
 @end

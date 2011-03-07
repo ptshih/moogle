@@ -11,8 +11,6 @@
 
 @implementation PlaceFeedViewController
 
-@synthesize placeFeedRequest = _placeFeedRequest;
-
 - (id)init {
   self = [super init];
   if (self) {
@@ -31,9 +29,8 @@
   
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/%@/feed", MOOGLE_BASE_URL, API_VERSION, self.place.placeId];
   
-  self.placeFeedRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
-  self.dataCenter.placeFeedRequest = self.placeFeedRequest;
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.placeFeedRequest];
+  _placeFeedRequest = [[RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter] retain];
+  [[RemoteOperation sharedInstance] addRequestToQueue:_placeFeedRequest];
 }
 
 #pragma mark UITableView Stuff
@@ -90,7 +87,7 @@
   [self.items removeAllObjects];
   
   [self.sections addObject:@"Feed"];
-  [self.items addObject:self.dataCenter.feedArray];
+  [self.items addObject:self.dataCenter.response];
   [self.tableView reloadData];
   
   [self dataSourceDidLoad];

@@ -76,7 +76,7 @@
   if ([self.place.placeRating notNil]) {
     self.starsImageView.image = [self starImageForRating:self.place.placeRating];
   } else {
-    self.starsImageView.image = [UIImage imageNamed:@"stars_0.png"];
+    self.starsImageView.image = [UIImage imageNamed:@"stars_0.0.png"];
   }
   
   [self.sections addObject:@"Place Info"];
@@ -113,6 +113,7 @@
 //    [placeYelpArray addObject:self.place.placeCategories];
 //  }
   
+  [self.tableView reloadData];
   [self updateState];
 }
 
@@ -167,6 +168,7 @@
   } else {
     cell.textLabel.text = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.textLabel.numberOfLines = 10;
+    cell.textLabel.font = [UIFont systemFontOfSize:14.0];
   }
   
   return cell;
