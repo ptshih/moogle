@@ -83,7 +83,7 @@
     self.placeNameLabel.text = self.place.placeName;
     self.placeAddressLabel.text = [self.place.placeStreet notNil] ? self.place.placeStreet : @"No Address Found";
   } else {
-    self.placeNameLabel.text = @"Please Choose a Place to Check In";
+    self.placeNameLabel.text = @"Choose a Place to Check In";
     self.placeAddressLabel.text = @"Tap Here to Find Nearby Places";
   }
 }
