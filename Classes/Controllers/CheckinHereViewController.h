@@ -10,32 +10,36 @@
 #import "CardViewController.h"
 #import "MoogleDataCenterDelegate.h"
 #import "NearbyPickerDelegate.h"
+#import "FriendPickerDelegate.h"
 
 @class ASIHTTPRequest;
 @class MoogleDataCenter;
 @class Place;
 
-@interface CheckinHereViewController : CardViewController <MoogleDataCenterDelegate, NearbyPickerDelegate, UITextFieldDelegate> {
+@interface CheckinHereViewController : CardViewController <MoogleDataCenterDelegate, NearbyPickerDelegate, UITextViewDelegate, FriendPickerDelegate> {
   MoogleDataCenter *_dataCenter;
   ASIHTTPRequest *_checkinHereRequest;
   
   NSString *_message;
-  NSArray *_tagsArray; // Tagged friend IDs
+  NSString *_taggedFriends; // Tagged friend IDs
   
   Place *_place;
-  UITextField *_checkinMessage;
   UILabel *_placeAddressLabel;
   UILabel *_placeNameLabel;
+  UILabel *_taggedLabel;
+  UITextView *_checkinMessage;
 }
-@property (nonatomic, retain) IBOutlet UITextField *checkinMessage;
+
 @property (nonatomic, retain) IBOutlet UILabel *placeAddressLabel;
 @property (nonatomic, retain) IBOutlet UILabel *placeNameLabel;
+@property (nonatomic, retain) IBOutlet UILabel *taggedLabel;
+@property (nonatomic, retain) IBOutlet UITextView *checkinMessage;
 
 @property (nonatomic, retain) MoogleDataCenter *dataCenter;
 @property (nonatomic, retain) ASIHTTPRequest *checkinHereRequest;
 
 @property (nonatomic, retain) NSString *message;
-@property (nonatomic, retain) NSArray *tagsArray;
+@property (nonatomic, retain) NSString *taggedFriends;
 
 @property (nonatomic, assign) Place *place;
 

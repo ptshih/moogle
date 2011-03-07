@@ -17,8 +17,6 @@
 @interface PlacesViewController (Private)
 
 - (void)setupButtons;
-- (void)toggleMode;
-- (void)resetStateAndReload;
 - (void)showPlaceForPlace:(Place *)place;
 - (void)loadPlaces;
 
@@ -28,15 +26,12 @@
 
 @synthesize dataCenter = _dataCenter;
 @synthesize nearbyRequest = _nearbyRequest;
-@synthesize popularRequest = _popularRequest;
 
 - (id)init {
   self = [super init];
   if (self) {
     _dataCenter = [[PlacesDataCenter alloc] init];
     _dataCenter.delegate = self;
-    
-    _placesMode = PlacesTypeNearby;
   }
   return self;
 }
@@ -48,44 +43,14 @@
   
   // Table
   CGRect tableFrame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV);
-  [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
   [self setupPullRefresh];
-  
-  [self setupHeaderTabView];
   
   [self setupButtons];
 }
 
 - (void)setupButtons {
-}
-
-#pragma mark HeaderTabViewDelegate
-- (void)tabSelectedAtIndex:(NSNumber *)index {
-  switch ([index intValue]) {
-    case PlacesTypeNearby:
-      _placesMode = PlacesTypeNearby;
-      break;
-    case PlacesTypePopular:
-      _placesMode = PlacesTypePopular;
-      break;
-    default:
-      _placesMode = PlacesTypeNearby;
-      break;
-  }
-  [self resetStateAndReload];
-}
-
-- (void)resetStateAndReload {
-  [self.sections removeAllObjects];
-  [self.items removeAllObjects];
-  [self.tableView reloadData];
-  [self updateState];
   
-  if (_placesMode == PlacesTypeNearby) {
-    [self getNearbyPlaces];
-  } else {
-    [self getPopularPlaces];
-  }
 }
 
 #pragma mark CardViewController
@@ -106,12 +71,7 @@
 
 - (void)loadPlaces {
   if ([APP_DELEGATE.locationManager hasAcquiredLocation] && [[NSUserDefaults standardUserDefaults] boolForKey:@"isLoggedIn"]) {
-    [self.headerTabView setSelectedForTabAtIndex:0];
-  } else {
-    [self.sections removeAllObjects];
-    [self.items removeAllObjects];
-    [self.tableView reloadData];
-    [self updateState];
+    [self getNearbyPlaces];
   }
 }
 
@@ -128,21 +88,6 @@
   self.nearbyRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   [[RemoteOperation sharedInstance] addRequestToQueue:self.nearbyRequest];
 
-}
-
-- (void)getPopularPlaces {
-  // Trends Mode
-  CGFloat lat = [APP_DELEGATE.locationManager latitude];
-  CGFloat lng = [APP_DELEGATE.locationManager longitude];
-  NSInteger distance = [APP_DELEGATE.locationManager distance];
-  
-  NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  [params setObject:[NSString stringWithFormat:@"%f", lat] forKey:@"lat"];
-  [params setObject:[NSString stringWithFormat:@"%f", lng] forKey:@"lng"];
-  [params setObject:[NSString stringWithFormat:@"%d", distance] forKey:@"distance"];
-  NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/popular", MOOGLE_BASE_URL, API_VERSION];
-  self.popularRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
-  [[RemoteOperation sharedInstance] addRequestToQueue:self.popularRequest];
 }
 
 #pragma mark Show Place

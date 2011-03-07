@@ -73,12 +73,9 @@ static UIImage *_placeholderPicture;
     [selectedNamesArray addObject:[selectedDict objectForKey:@"friend_name"]]; 
   }
   
-  if ([selectedIdsArray count] > 1) {
+  if ([selectedIdsArray count] > 0) {
     selectedIds = [selectedIdsArray componentsJoinedByString:@","];
-    selectedNames = [selectedNamesArray componentsJoinedByString:@","];
-  } else if ([selectedIdsArray count] > 0) {
-    selectedIds = [[[selectedIdsArray objectAtIndex:0] objectForKey:@"friend_id"] stringValue];
-    selectedNames = [[[selectedIdsArray objectAtIndex:0] objectForKey:@"friend_name"] stringValue];
+    selectedNames = [selectedNamesArray componentsJoinedByString:@", "];
   } else {
     // EPIC FAIL, NEED TO SELECT AT LEAST ONE
     UIAlertView *doneAlert = [[UIAlertView alloc] initWithTitle:@"Whoops!" message:@"You need to select at least one friend!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];

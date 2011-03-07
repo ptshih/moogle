@@ -18,6 +18,7 @@
 #import "Place.h"
 
 #import "NearbyPickerViewController.h"
+#import "FriendPickerViewController.h"
 
 @interface CheckinHereViewController (Private)
 
@@ -29,13 +30,14 @@
 
 @implementation CheckinHereViewController
 
-@synthesize checkinMessage = _checkinMessage;
 @synthesize placeAddressLabel = _placeAddressLabel;
 @synthesize placeNameLabel = _placeNameLabel;
+@synthesize taggedLabel = _taggedLabel;
+@synthesize checkinMessage = _checkinMessage;
 @synthesize dataCenter = _dataCenter;
 @synthesize checkinHereRequest = _checkinHereRequest;
 @synthesize message = _message;
-@synthesize tagsArray = _tagsArray;
+@synthesize taggedFriends = _taggedFriends;
 
 @synthesize place = _place;
 
@@ -91,6 +93,10 @@
 }
 
 - (IBAction)tagFriends {
+  FriendPickerViewController *fpvc = [[FriendPickerViewController alloc] init];
+  fpvc.delegate = self;
+  [self.navigationController pushViewController:fpvc animated:YES];
+  [fpvc release];
 }
 
 - (IBAction)checkinHere {
@@ -110,12 +116,23 @@
   [npvc release];
 }
 
+#pragma mark FriendPickerDelegate
+- (void)friendPickedWithFriendIds:(NSString *)friendIds {
+  self.taggedFriends = friendIds;
+}
+
+- (void)friendPickedWithFriendNames:(NSString *)friendNames {
+  self.taggedLabel.text = friendNames;
+}
+
 - (void)nearbyPickedWithPlace:(Place *)place {
   self.place = place;
   [self updatePlaceLabels];
 }
 
 - (void)postCheckin {
+  self.message = self.checkinMessage.text;
+  
   CGFloat lat = [APP_DELEGATE.locationManager latitude];
   CGFloat lng = [APP_DELEGATE.locationManager longitude];
   
@@ -125,9 +142,8 @@
   [postDict setObject:self.place.placeId forKey:@"place"];
   [postDict setObject:coordinates forKey:@"coordinates"];
   if (self.message) [postDict setObject:self.message forKey:@"message"];
-  if (self.tagsArray) {
-    NSString *tags = [self.tagsArray componentsJoinedByString:@","];
-    [postDict setObject:tags forKey:@"tags"];
+  if (self.taggedFriends) {
+    [postDict setObject:self.taggedFriends forKey:@"tags"];
   }
   
   DLog(@"posting checkin to facebook with params: %@", postDict);
@@ -165,9 +181,10 @@
 }
 
 - (void)viewDidUnload {
-  [self setCheckinMessage:nil];
   [self setPlaceAddressLabel:nil];
   [self setPlaceNameLabel:nil];
+    [self setTaggedLabel:nil];
+  [self setCheckinMessage:nil];
   [super viewDidUnload];
   // Release any retained subviews of the main view.
   // e.g. self.myOutlet = nil;
@@ -181,8 +198,8 @@
   
   RELEASE_SAFELY (_dataCenter);
   RELEASE_SAFELY (_message);
-  RELEASE_SAFELY (_tagsArray);
-
+  RELEASE_SAFELY (_taggedFriends);
+  
   [super dealloc];
 }
 

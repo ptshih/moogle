@@ -46,7 +46,7 @@
   
   // Table
   CGRect tableFrame = CGRectMake(0, 120, CARD_WIDTH, CARD_HEIGHT_WITH_NAV - 120);
-  [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
 //  [self setupPullRefresh];
 
 }
@@ -89,7 +89,7 @@
 #pragma mark CardViewController
 - (void)reloadCardController {
   [super reloadCardController];
-  [self getProfilePicture];
+  [self performSelectorInBackground:@selector(getProfilePicture) withObject:nil];
   [self getMe];
 }
 

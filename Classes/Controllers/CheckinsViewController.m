@@ -49,7 +49,7 @@
   
   // Table
   CGRect tableFrame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV);
-  [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleNone];
+  [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
   [self setupPullRefresh];
 
   [self setupButtons];
@@ -63,8 +63,12 @@
 }
 
 - (void)setupButtons {  
-  UIBarButtonItem *distanceButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleDistance)];
-  UIBarButtonItem *whoButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleWho)];
+//  UIBarButtonItem *distanceButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleDistance)];
+//  UIBarButtonItem *whoButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_checkin.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleWho)];
+//  
+  UIBarButtonItem *distanceButton = [[UIBarButtonItem alloc] initWithTitle:@"Distance" style:UIBarButtonItemStyleBordered target:self action:@selector(toggleDistance)];
+  UIBarButtonItem *whoButton = [[UIBarButtonItem alloc] initWithTitle:@"People" style:UIBarButtonItemStyleBordered target:self action:@selector(toggleWho)];
+  
   self.navigationItem.leftBarButtonItem = distanceButton;
   self.navigationItem.rightBarButtonItem = whoButton;
   [distanceButton release];
