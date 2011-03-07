@@ -16,12 +16,14 @@
 
 @interface CardViewController : UIViewController <CardStateMachine, UINavigationControllerDelegate> {
   IBOutlet UIView *_emptyView;
+  IBOutlet UILabel *_emptyLabel;
   IBOutlet UIView *_loadingView;
   IBOutlet UILabel *_loadingLabel;
   IBOutlet UIActivityIndicatorView *_loadingSpinner;
 }
 
 @property (nonatomic, retain) UIView *emptyView;
+@property (nonatomic, retain) UILabel *emptyLabel;
 @property (nonatomic, retain) UIView *loadingView;
 @property (nonatomic, retain) UILabel *loadingLabel;
 @property (nonatomic, retain) UIActivityIndicatorView *loadingSpinner;

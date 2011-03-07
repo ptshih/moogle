@@ -30,7 +30,8 @@
   // Table
   [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
   
-  self.loadingLabel.textColor = MOOGLE_BLUE_COLOR;
+  self.emptyLabel.textColor = [UIColor darkGrayColor];
+  self.loadingLabel.textColor = [UIColor darkGrayColor];
   self.loadingSpinner.top = self.view.center.y + 20;
 }
 

@@ -26,6 +26,7 @@
 @implementation CardViewController
 
 @synthesize emptyView = _emptyView;
+@synthesize emptyLabel = _emptyLabel;
 @synthesize loadingView = _loadingView;
 @synthesize loadingLabel = _loadingLabel;
 @synthesize loadingSpinner = _loadingSpinner;
@@ -202,6 +203,7 @@
 
 - (void)dealloc {
   RELEASE_SAFELY(_emptyView);
+  RELEASE_SAFELY(_emptyLabel);
   RELEASE_SAFELY(_loadingView);
   RELEASE_SAFELY(_loadingLabel);
   RELEASE_SAFELY(_loadingSpinner);
