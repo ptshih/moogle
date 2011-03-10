@@ -13,6 +13,8 @@
 #import "ASIHTTPRequest.h"
 #import "RemoteRequest.h"
 #import "RemoteOperation.h"
+#import "SMAURLCache.h"
+#import "SMAImageView.h"
 
 @interface CardViewController : UIViewController <CardStateMachine, UINavigationControllerDelegate> {
   IBOutlet UIView *_emptyView;

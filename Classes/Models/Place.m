@@ -55,11 +55,11 @@
     // Numbers
     self.placeLat = [dictionary valueForKey:@"place_lat"];
     self.placeLng = [dictionary valueForKey:@"place_lng"];
-    self.placeDistance = [dictionary valueForKey:@"place_distance"];
-    self.placeCheckins = [dictionary valueForKey:@"place_checkins"];
-    self.placeFriendCheckins = [dictionary valueForKey:@"place_friend_checkins"];
-    self.placeLikes = [dictionary valueForKey:@"place_likes"];
-    self.placeReviews = [dictionary valueForKey:@"place_reviews"];
+    self.placeDistance = ([[dictionary valueForKey:@"place_distance"] notNil]) ? [dictionary valueForKey:@"place_distance"] : [NSNumber numberWithInt:0];
+    self.placeCheckins = ([[dictionary valueForKey:@"place_checkins"] notNil]) ? [dictionary valueForKey:@"place_checkins"] : [NSNumber numberWithInt:0];
+    self.placeFriendCheckins = ([[dictionary valueForKey:@"place_friend_checkins"] notNil]) ? [dictionary valueForKey:@"place_friend_checkins"] : [NSNumber numberWithInt:0];
+    self.placeLikes = ([[dictionary valueForKey:@"place_likes"] notNil]) ? [dictionary valueForKey:@"place_likes"] : [NSNumber numberWithInt:0];
+    self.placeReviews = ([[dictionary valueForKey:@"place_reviews"] notNil]) ? [dictionary valueForKey:@"place_reviews"] : [NSNumber numberWithInt:0];
   }
   return self;
 }

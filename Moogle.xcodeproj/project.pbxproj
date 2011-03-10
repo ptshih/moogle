@@ -147,6 +147,8 @@
 		25C3767F13234D360057449E /* MeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25C3767E13234D330057449E /* MeViewController.xib */; };
 		25C3768813235A470057449E /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C3768713235A470057449E /* Checkin.m */; };
 		25C3768B13235DF70057449E /* MoogleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C3768A13235DF60057449E /* MoogleModel.m */; };
+		25C648E11329634C009CD247 /* SMAURLCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C648DE1329634C009CD247 /* SMAURLCache.m */; };
+		25C648E21329634C009CD247 /* SMAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C648E01329634C009CD247 /* SMAImageView.m */; };
 		25C6C2B21317BE9D0092E598 /* MoogleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2B11317BE9C0092E598 /* MoogleCell.m */; };
 		25C6C2B51317C08B0092E598 /* KupoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2B41317C08A0092E598 /* KupoCell.m */; };
 		25C6C2B81317C7CA0092E598 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C6C2B71317C7CA0092E598 /* EGORefreshTableHeaderView.m */; };
@@ -389,6 +391,10 @@
 		25C3768713235A470057449E /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Checkin.m; sourceTree = "<group>"; };
 		25C3768913235DF50057449E /* MoogleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoogleModel.h; sourceTree = "<group>"; };
 		25C3768A13235DF60057449E /* MoogleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoogleModel.m; sourceTree = "<group>"; };
+		25C648DD1329634C009CD247 /* SMAURLCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAURLCache.h; sourceTree = "<group>"; };
+		25C648DE1329634C009CD247 /* SMAURLCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAURLCache.m; sourceTree = "<group>"; };
+		25C648DF1329634C009CD247 /* SMAImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAImageView.h; sourceTree = "<group>"; };
+		25C648E01329634C009CD247 /* SMAImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAImageView.m; sourceTree = "<group>"; };
 		25C6C2B01317BE9C0092E598 /* MoogleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoogleCell.h; sourceTree = "<group>"; };
 		25C6C2B11317BE9C0092E598 /* MoogleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoogleCell.m; sourceTree = "<group>"; };
 		25C6C2B31317C08A0092E598 /* KupoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KupoCell.h; sourceTree = "<group>"; };
@@ -807,6 +813,10 @@
 		25B464D012F7BA2200C71FA9 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				25C648DD1329634C009CD247 /* SMAURLCache.h */,
+				25C648DE1329634C009CD247 /* SMAURLCache.m */,
+				25C648DF1329634C009CD247 /* SMAImageView.h */,
+				25C648E01329634C009CD247 /* SMAImageView.m */,
 				251F4FA41328A46000F0C68D /* JSONKit */,
 				25C6C2F51317CD1F0092E598 /* Reachability */,
 				25C6C2B61317C7CA0092E598 /* EGORefreshTableHeaderView.h */,
@@ -1193,6 +1203,8 @@
 				251F4FA71328A46000F0C68D /* JSONKit.m in Sources */,
 				25601F4C1328BD200065B503 /* CardPlacesTableViewController.m in Sources */,
 				25601F501328C06D0065B503 /* MePlacesViewController.m in Sources */,
+				25C648E11329634C009CD247 /* SMAURLCache.m in Sources */,
+				25C648E21329634C009CD247 /* SMAImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1208,7 +1220,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Moogle_Prefix.pch;
-				GCC_VERSION = 4.2;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = "Moogle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Moogle;
@@ -1222,7 +1234,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Moogle_Prefix.pch;
-				GCC_VERSION = 4.2;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = "Moogle-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = Moogle;

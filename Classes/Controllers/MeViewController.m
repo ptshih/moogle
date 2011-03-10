@@ -46,7 +46,6 @@
   // Table
   CGRect tableFrame = CGRectMake(0, 120, CARD_WIDTH, CARD_HEIGHT_WITH_NAV - 120);
   [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-//  [self setupPullRefresh];
 
 }
 
@@ -63,21 +62,6 @@
   self.navigationItem.leftBarButtonItem = logoutButton;
 }
 
-- (void)getProfilePicture {
-  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
-  NSString *facebookId = [[NSUserDefaults standardUserDefaults] valueForKey:@"facebookId"];
-  UIImage *profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", facebookId]]]];
-  
-  [self performSelectorOnMainThread:@selector(updateProfilePicture:) withObject:profileImage waitUntilDone:YES];
-  [pool release];
-}
-
-- (void)updateProfilePicture:(UIImage *)profileImage {
-  _nameLabel.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"facebookName"];
-  _profilePicture.image = profileImage;
-}
-
 - (void)updateLabels {
   _lastPlaceLabel.text = [NSString stringWithFormat:@"%@", [_lastCheckin valueForKey:@"you_last_checkin_place_name"]];
   _checkinsLabel.text = [[_userStats objectForKey:@"total_checkins"] stringValue];
@@ -88,7 +72,12 @@
 #pragma mark CardViewController
 - (void)reloadCardController {
   [super reloadCardController];
-  [self performSelectorInBackground:@selector(getProfilePicture) withObject:nil];
+  
+  // Set profile picture
+  NSString *facebookId = [[NSUserDefaults standardUserDefaults] valueForKey:@"facebookId"];
+  _nameLabel.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"facebookName"];
+  _profilePicture.urlPath = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", facebookId];
+  
   [self getMe];
 }
 
