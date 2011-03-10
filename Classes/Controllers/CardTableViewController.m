@@ -170,6 +170,11 @@
   return YES;
 }
 
+- (void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView {
+  tableView.backgroundColor = VERY_LIGHT_GRAY;
+  tableView.separatorColor = SEPARATOR_COLOR;
+}
+
 #pragma mark HeaderTabViewDelegate
 - (void)tabSelectedAtIndex:(NSNumber *)index {
   // MUST SUBCLASS
@@ -193,7 +198,9 @@
   if (!decelerate) {
     [self loadImagesForOnScreenRows];
   }
-  [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+  if (!self.searchDisplayController.active) {
+    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+  }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -234,6 +241,7 @@
   RELEASE_SAFELY(_imageCache);
   RELEASE_SAFELY(_refreshHeaderView);
   RELEASE_SAFELY(_headerTabView);
+  [self.searchDisplayController release];
   [super dealloc];
 }
 

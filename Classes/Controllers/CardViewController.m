@@ -78,8 +78,8 @@
   self.emptyView.hidden = YES;
   [self.view addSubview:self.emptyView];
   [self.view addSubview:self.loadingView];
-  self.emptyView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
-  self.loadingView.backgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]];
+  self.emptyView.backgroundColor = [[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]] autorelease];
+  self.loadingView.backgroundColor = [[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"grad_loading.png"]] autorelease];
   self.loadingSpinner.top = self.view.center.y + 20;
 }
 

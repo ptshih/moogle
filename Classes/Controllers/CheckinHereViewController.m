@@ -181,13 +181,7 @@
 }
 
 - (void)viewDidUnload {
-  [self setPlaceAddressLabel:nil];
-  [self setPlaceNameLabel:nil];
-    [self setTaggedLabel:nil];
-  [self setCheckinMessage:nil];
   [super viewDidUnload];
-  // Release any retained subviews of the main view.
-  // e.g. self.myOutlet = nil;
 }
 
 - (void)dealloc {
@@ -195,6 +189,11 @@
     [_checkinHereRequest clearDelegatesAndCancel];
     [_checkinHereRequest release], _checkinHereRequest = nil;
   }
+  
+  RELEASE_SAFELY(_placeAddressLabel);
+  RELEASE_SAFELY(_placeNameLabel);
+  RELEASE_SAFELY(_taggedLabel);
+  RELEASE_SAFELY(_checkinMessage);
   
   RELEASE_SAFELY (_dataCenter);
   RELEASE_SAFELY (_message);

@@ -7,10 +7,9 @@
 //
 
 #import "MeViewController.h"
-
 #import "PlaceViewController.h"
-
 #import "MeDataCenter.h"
+#import "MePlacesViewController.h"
 
 @interface MeViewController (Private)
 
@@ -112,6 +111,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+  id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  
+  if (indexPath.section < 2) {
+    // Places List View
+    MePlacesViewController *mpvc = [[MePlacesViewController alloc] init];
+    mpvc.rawPlacesArray = item;
+    [self.navigationController pushViewController:mpvc animated:YES];
+    [mpvc release];
+  } else {
+    // Friends List View
+  }
 }
 
 #pragma mark UITableView Stuff
