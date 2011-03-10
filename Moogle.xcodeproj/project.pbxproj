@@ -102,6 +102,7 @@
 		2544EFB6132059EC0080055B /* tab_discover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2544EFB4132059EC0080055B /* tab_discover@2x.png */; };
 		255DE9A113219C2700AA8BBD /* DiscoverDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 255DE9A013219C2500AA8BBD /* DiscoverDataCenter.m */; };
 		255DE9A41321C1CF00AA8BBD /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 255DE9A31321C1CF00AA8BBD /* Place.m */; };
+		25601F4C1328BD200065B503 /* CardPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25601F4B1328BD1E0065B503 /* CardPlacesTableViewController.m */; };
 		25606A9812FA465200481E43 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25606A9712FA465200481E43 /* MainWindow.xib */; };
 		25606B1612FA48F500481E43 /* PlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25606B1412FA48F500481E43 /* PlaceViewController.m */; };
 		2560A65C13186B09000BE27D /* PlaceInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2560A65B13186B09000BE27D /* PlaceInfoCell.m */; };
@@ -312,6 +313,8 @@
 		255DE9A013219C2500AA8BBD /* DiscoverDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverDataCenter.m; sourceTree = "<group>"; };
 		255DE9A21321C1CF00AA8BBD /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		255DE9A31321C1CF00AA8BBD /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
+		25601F4A1328BD1E0065B503 /* CardPlacesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = CardPlacesTableViewController.h; sourceTree = "<group>"; };
+		25601F4B1328BD1E0065B503 /* CardPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardPlacesTableViewController.m; sourceTree = "<group>"; };
 		25606A9712FA465200481E43 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = SOURCE_ROOT; };
 		25606B1312FA48F500481E43 /* PlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceViewController.h; sourceTree = "<group>"; };
 		25606B1412FA48F500481E43 /* PlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceViewController.m; sourceTree = "<group>"; };
@@ -489,6 +492,8 @@
 				258CCC59131A6F35009767B3 /* CardStateMachine.h */,
 				2516A4F6131C8A9500D11686 /* CardModalViewController.h */,
 				2516A4F7131C8A9600D11686 /* CardModalViewController.m */,
+				25601F4A1328BD1E0065B503 /* CardPlacesTableViewController.h */,
+				25601F4B1328BD1E0065B503 /* CardPlacesTableViewController.m */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -1173,6 +1178,7 @@
 				25C3768813235A470057449E /* Checkin.m in Sources */,
 				25C3768B13235DF70057449E /* MoogleModel.m in Sources */,
 				251F4FA71328A46000F0C68D /* JSONKit.m in Sources */,
+				25601F4C1328BD200065B503 /* CardPlacesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
