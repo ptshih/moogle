@@ -69,7 +69,7 @@
   //  }
   
   // Always leave space for image
-  left = left + IMAGE_WIDTH + SPACING_X * 2;
+  left = left + IMAGE_WIDTH_GROUPED + SPACING_X * 2;
   
   // Initial Y Positions
   self.nameLabel.top = SPACING_Y;

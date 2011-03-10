@@ -107,7 +107,7 @@ static UIImage *_messageIcon = nil;
   [super layoutSubviews];
   
   CGFloat top = SPACING_Y;
-  CGFloat left = IMAGE_WIDTH + SPACING_X * 3; // spacers: left of img, right of img, left of txt
+  CGFloat left = IMAGE_WIDTH_PLAIN + SPACING_X * 3; // spacers: left of img, right of img, left of txt
   CGFloat textWidth = self.contentView.width - left - SPACING_X;
   CGSize textSize = CGSizeZero;
   CGSize labelSize = CGSizeZero;
@@ -211,7 +211,7 @@ static UIImage *_messageIcon = nil;
 
 + (CGFloat)variableRowHeightWithCheckin:(Checkin *)checkin {
   CGFloat calculatedHeight = SPACING_Y; // Top Spacer
-  CGFloat left = IMAGE_WIDTH + ICON_WIDTH + SPACING_X * 4;
+  CGFloat left = IMAGE_WIDTH_PLAIN + ICON_WIDTH + SPACING_X * 4;
   CGFloat textWidth = CELL_WIDTH - left - SPACING_X;
   CGSize textSize = CGSizeMake(textWidth, INT_MAX); // Variable height
   CGSize labelSize = CGSizeZero;

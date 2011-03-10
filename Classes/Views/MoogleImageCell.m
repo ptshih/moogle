@@ -35,10 +35,15 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   
+  if ([[self class] cellType] == MoogleCellTypePlain) {
+    self.smaImageView.width = IMAGE_WIDTH_PLAIN;
+    self.smaImageView.height = IMAGE_HEIGHT_PLAIN;
+  } else {
+    self.smaImageView.width = IMAGE_WIDTH_GROUPED;
+    self.smaImageView.height = IMAGE_HEIGHT_GROUPED;
+  }
   self.smaImageView.top = SPACING_Y;
   self.smaImageView.left = SPACING_X;
-  self.smaImageView.width = IMAGE_WIDTH;
-  self.smaImageView.height = IMAGE_HEIGHT;
   self.smaImageView.layer.masksToBounds = YES;
   self.smaImageView.layer.cornerRadius = 4.0;
   

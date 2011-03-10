@@ -11,8 +11,10 @@
 #import "MoogleCell.h"
 #import "SMAImageView.h"
 
-#define IMAGE_WIDTH 40.0
-#define IMAGE_HEIGHT 40.0
+#define IMAGE_WIDTH_PLAIN 40.0
+#define IMAGE_HEIGHT_PLAIN 40.0
+#define IMAGE_WIDTH_GROUPED 34.0
+#define IMAGE_HEIGHT_GROUPED 34.0
 #define SPACING_X 5.0
 #define SPACING_Y 5.0
 

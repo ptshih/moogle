@@ -108,7 +108,7 @@ static UIImage *_distanceIcon = nil;
   [super layoutSubviews];
   
   CGFloat top = SPACING_Y;
-  CGFloat left = IMAGE_WIDTH + SPACING_X * 3; // spacers: left of img, right of img, left of txt
+  CGFloat left = IMAGE_WIDTH_PLAIN + SPACING_X * 3; // spacers: left of img, right of img, left of txt
   CGFloat textWidth = self.contentView.width - left - SPACING_X;
   CGSize textSize = CGSizeZero;
   CGSize labelSize = CGSizeZero;
