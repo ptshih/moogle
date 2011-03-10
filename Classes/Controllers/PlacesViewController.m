@@ -45,6 +45,7 @@
   CGRect tableFrame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV);
   [self setupTableViewWithFrame:tableFrame andStyle:UITableViewStylePlain andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
   [self setupPullRefresh];
+  [self setupSearchDisplayController];
   
   [self setupButtons];
 }
@@ -136,7 +137,13 @@
   
 //  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 //  NSURL *url = [NSURL URLWithString:[item valueForKey:@"picture"]];
-  Place *place = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  Place *place = nil;
+  if (tableView == self.searchDisplayController.searchResultsTableView) {
+    place = [[self.searchItems objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  } else {
+    place = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  }
+  
   NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", place.placeId]];
   UIImage *image = [self.imageCache getImageWithURL:url];
   if (!image) {
@@ -151,14 +158,42 @@
   return cell;
 }
 
+#pragma mark UISearchDisplayDelegate
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
+  // SUBCLASS MUST IMPLEMENT
+  [self.searchItems removeAllObjects];
+  
+  for (NSArray *section in self.items) {
+    [self.searchItems addObject:[NSMutableArray array]];
+    for (Place *place in section) {
+      NSComparisonResult result = [place.placeName compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
+      if (result == NSOrderedSame) {
+        [[self.searchItems lastObject] addObject:place];
+      }
+    }
+  }
+  
+}
+
 #pragma mark ImageCacheDelegate
 - (void)loadImagesForOnScreenRows {
-  NSArray *visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
+  NSArray *visibleIndexPaths = nil;
+  if (self.searchDisplayController.active) {
+    visibleIndexPaths = [self.searchDisplayController.searchResultsTableView indexPathsForVisibleRows];
+  } else {
+    visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
+  }
   
   for (NSIndexPath *indexPath in visibleIndexPaths) {
 //    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 //    NSURL *url = [NSURL URLWithString:[item valueForKey:@"picture"]];
-    Place *place = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    Place *place = nil;
+    if (self.searchDisplayController.active) {
+      place = [[self.searchItems objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    } else {
+      place = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    }
+    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", place.placeId]];
     if (![self.imageCache getImageWithURL:url]) {
       [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];

@@ -20,6 +20,7 @@
 @synthesize tableView = _tableView;
 @synthesize sections = _sections;
 @synthesize items = _items;
+@synthesize searchItems = _searchItems;
 @synthesize imageCache = _imageCache;
 @synthesize headerTabView = _headerTabView;
 
@@ -39,7 +40,22 @@
   [super viewDidLoad];
 }
 
-// SUBCLASS MUST CALL
+// SUBCLASS CAN OPTIONALLY IMPLEMENT IF THEY WANT A SEARCH BAR
+- (void)setupSearchDisplayController {
+  _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+  _searchBar.delegate = self;
+  self.tableView.tableHeaderView = _searchBar;
+  
+  UISearchDisplayController *searchController = [[UISearchDisplayController alloc] initWithSearchBar:_searchBar contentsController:self];
+  [searchController setDelegate:self];
+  [searchController setSearchResultsDelegate:self];
+  [searchController setSearchResultsDataSource:self];
+  
+  // SUBCLASSES MUST IMPLEMENT THE DELEGATE METHODS
+  _searchItems = [[NSMutableArray alloc] initWithCapacity:1];
+}
+
+// SUBCLASS MUST IMPLEMENT
 - (void)setupTableViewWithFrame:(CGRect)frame andStyle:(UITableViewStyle)style andSeparatorStyle:(UITableViewCellSeparatorStyle)separatorStyle {
   _tableView = [[UITableView alloc] initWithFrame:frame style:style];
   _tableView.separatorStyle = separatorStyle;
@@ -117,12 +133,16 @@
   return [MoogleCell rowHeight];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {  
   return [self.sections count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return [[self.items objectAtIndex:section] count];
+  if (tableView == self.searchDisplayController.searchResultsTableView) {
+    return [[self.searchItems objectAtIndex:section] count];
+  } else {
+    return [[self.items objectAtIndex:section] count];
+  }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -138,6 +158,18 @@
   return cell;
 }
 
+#pragma mark UISearchDisplayDelegate
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
+  // SUBCLASS MUST IMPLEMENT
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+  [self filterContentForSearchText:searchString scope:nil];
+  
+  // Return YES to cause the search result table view to be reloaded.
+  return YES;
+}
+
 #pragma mark HeaderTabViewDelegate
 - (void)tabSelectedAtIndex:(NSNumber *)index {
   // MUST SUBCLASS
@@ -145,7 +177,11 @@
 
 #pragma mark ImageCacheDelegate
 - (void)imageDidLoad:(NSIndexPath *)indexPath {
-  [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+  if (self.searchDisplayController.active) {
+    [self.searchDisplayController.searchResultsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+  } else {
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+  }
 }
 
 - (void)loadImagesForOnScreenRows {
@@ -193,6 +229,8 @@
   RELEASE_SAFELY(_tableView);
   RELEASE_SAFELY(_sections);
   RELEASE_SAFELY(_items);
+  RELEASE_SAFELY(_searchItems);
+  RELEASE_SAFELY(_searchBar);
   RELEASE_SAFELY(_imageCache);
   RELEASE_SAFELY(_refreshHeaderView);
   RELEASE_SAFELY(_headerTabView);

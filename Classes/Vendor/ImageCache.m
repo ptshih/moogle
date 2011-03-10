@@ -10,7 +10,7 @@
 #import "ASIHTTPRequest.h"
 #import "RemoteRequest.h"
 #import "RemoteOperation.h"
-#import "CJSONDeserializer.h"
+#import "JSONKit.h"
 #import "Constants.h"
 
 @implementation ImageCache

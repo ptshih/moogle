@@ -7,7 +7,6 @@
 //
 
 #import "PlaceDataCenter.h"
-#import "CJSONDeserializer.h"
 #import "Place.h"
 
 @implementation PlaceDataCenter

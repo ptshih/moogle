@@ -107,7 +107,7 @@
   self.cards = [NSArray arrayWithObjects:_checkinsNavController, _placesNavController, _discoverNavController, _meNavController, nil];
   
   // Gestures
-  [self addGestures];
+//  [self addGestures];
 }
 
 - (void)showCheckinHereModal {

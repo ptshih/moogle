@@ -71,7 +71,7 @@
     _rawResponse = nil;
   }
   
-  _rawResponse = [[[CJSONDeserializer deserializer] deserialize:responseData error:nil] retain];
+  _rawResponse = [[responseData objectFromJSONData] retain];
   
   // We should sanitize the response
   if ([_rawResponse isKindOfClass:[NSArray class]]) {

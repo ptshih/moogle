@@ -10,7 +10,7 @@
 #import "MoogleDataCenterDelegate.h"
 #import "ASIHTTPRequest.h"
 #import "Constants.h"
-#import "CJSONDeserializer.h"
+#import "JSONKit.h"
 #import "NSObject+ConvenienceMethods.h"
 #import "NSString+ConvenienceMethods.h"
 

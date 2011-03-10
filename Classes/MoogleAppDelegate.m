@@ -12,7 +12,7 @@
 #import "ASIHTTPRequest.h"
 #import "RemoteRequest.h"
 #import "RemoteOperation.h"
-#import "CJSONDeserializer.h"
+#import "JSONKit.h"
 #import "LocationManager.h"
 
 @interface MoogleAppDelegate (Private)
@@ -318,9 +318,9 @@
       // Moogle server will send user ID, name, and array of friend ids
       
       [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLoggedIn"];
-      [[NSUserDefaults standardUserDefaults] setObject:[[[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:nil] objectForKey:@"facebook_id"] forKey:@"facebookId"];
-      [[NSUserDefaults standardUserDefaults] setObject:[[[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:nil] objectForKey:@"name"] forKey:@"facebookName"];
-      [[NSUserDefaults standardUserDefaults] setObject:[[[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:nil] objectForKey:@"friends"] forKey:@"friends"];
+      [[NSUserDefaults standardUserDefaults] setObject:[[[request responseData] objectFromJSONData] objectForKey:@"facebook_id"] forKey:@"facebookId"];
+      [[NSUserDefaults standardUserDefaults] setObject:[[[request responseData] objectFromJSONData] objectForKey:@"name"] forKey:@"facebookName"];
+      [[NSUserDefaults standardUserDefaults] setObject:[[[request responseData] objectFromJSONData] objectForKey:@"friends"] forKey:@"friends"];
       [[NSUserDefaults standardUserDefaults] synchronize];
       
       _isSessionReady = YES;

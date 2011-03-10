@@ -52,6 +52,7 @@
 - (void)getDiscovers {
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
   [params setObject:@"true" forKey:@"exclude"];
+  [params setObject:@"true" forKey:@"random"];
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/popular", MOOGLE_BASE_URL, API_VERSION];
   self.discoverRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   
