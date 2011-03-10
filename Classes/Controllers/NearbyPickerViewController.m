@@ -61,6 +61,20 @@
 
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  Place *selectedPlace = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+  
+  if (self.delegate) {
+    [self.delegate retain];
+    if ([self.delegate respondsToSelector:@selector(nearbyPickedWithPlace:)]) {
+        [self.delegate performSelector:@selector(nearbyPickedWithPlace:) withObject:selectedPlace];
+    }
+    [self.delegate release];
+  }
+  [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)dealloc {
   if(_nearbyRequest) {
     [_nearbyRequest clearDelegatesAndCancel];

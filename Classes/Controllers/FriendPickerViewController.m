@@ -7,6 +7,7 @@
 //
 
 #import "FriendPickerViewController.h"
+#import "FriendCell.h"
 
 static UIImage *_placeholderPicture;
 
@@ -39,9 +40,9 @@ static UIImage *_placeholderPicture;
   
   self.view.frame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV + 49.0);
   
-  UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(done)];
-  self.navigationItem.rightBarButtonItem = doneButton;
-  [doneButton release];
+  UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(back)];
+  self.navigationItem.leftBarButtonItem = backButton;
+  [backButton release];
   
   // Table
   [self setupTableViewWithFrame:self.view.frame andStyle:UITableViewStyleGrouped andSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
@@ -61,13 +62,13 @@ static UIImage *_placeholderPicture;
   [self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)done {
+- (void)back {
   // OPTIMIZE
   NSString *selectedIds = nil;
   NSString *selectedNames = nil;
   NSMutableArray *selectedIdsArray = [NSMutableArray array];
   NSMutableArray *selectedNamesArray = [NSMutableArray array];
-
+  
   for (NSDictionary *selectedDict in [self.selectedDict allValues]) {
     [selectedIdsArray addObject:[selectedDict objectForKey:@"friend_id"]];
     [selectedNamesArray addObject:[selectedDict objectForKey:@"friend_name"]]; 
@@ -76,23 +77,17 @@ static UIImage *_placeholderPicture;
   if ([selectedIdsArray count] > 0) {
     selectedIds = [selectedIdsArray componentsJoinedByString:@","];
     selectedNames = [selectedNamesArray componentsJoinedByString:@", "];
-  } else {
-    // EPIC FAIL, NEED TO SELECT AT LEAST ONE
-    UIAlertView *doneAlert = [[UIAlertView alloc] initWithTitle:@"Whoops!" message:@"You need to select at least one friend!" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    [doneAlert show];
-    [doneAlert autorelease];
-    return;
-  }
-  
-  if (self.delegate) {
-    [self.delegate retain];
-    if ([self.delegate respondsToSelector:@selector(friendPickedWithFriendIds:)]) {
-      [self.delegate performSelector:@selector(friendPickedWithFriendIds:) withObject:selectedIds];
+    
+    if (self.delegate) {
+      [self.delegate retain];
+      if ([self.delegate respondsToSelector:@selector(friendPickedWithFriendIds:)]) {
+        [self.delegate performSelector:@selector(friendPickedWithFriendIds:) withObject:selectedIds];
+      }
+      if ([self.delegate respondsToSelector:@selector(friendPickedWithFriendNames:)]) {
+        [self.delegate performSelector:@selector(friendPickedWithFriendNames:) withObject:selectedNames];
+      }
+      [self.delegate release];
     }
-    if ([self.delegate respondsToSelector:@selector(friendPickedWithFriendNames:)]) {
-      [self.delegate performSelector:@selector(friendPickedWithFriendNames:) withObject:selectedNames];
-    }
-    [self.delegate release];
   }
   
   [self.navigationController popViewControllerAnimated:YES];
@@ -111,35 +106,27 @@ static UIImage *_placeholderPicture;
 #pragma mark UITableView Stuff
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell_%d", [self class], indexPath.section];
-  UITableViewCell *cell = nil;
-  cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  FriendCell *cell = nil;
+  cell = (FriendCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
+    cell = [[[FriendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
   }
   
   // Fill Cell
   NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-  
-  UIImage *image = nil;
-  NSURL *url = nil;
   
   if ([self.selectedDict objectForKey:indexPath]) {
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
   } else {
     cell.accessoryType = UITableViewCellAccessoryNone;
   }
+  
   // Single Friends
   cell.textLabel.text = [item objectForKey:@"friend_name"];
-  url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"friend_id"]]];
-  image = [self.imageCache getImageWithURL:url];
-  if (!image) {
-    if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
-      [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
-    }
-    image = _placeholderPicture;
-  }
   
-  cell.imageView.image = image;
+  cell.smaImageView.urlPath = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"friend_id"]];
+
+  [cell.smaImageView loadImage];
   
   return cell;
 }
@@ -154,22 +141,6 @@ static UIImage *_placeholderPicture;
   } else {
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     [self.selectedDict setObject:[_sortedFriends objectAtIndex:indexPath.row] forKey:indexPath];
-  }
-}
-
-#pragma mark ImageCacheDelegate
-- (void)loadImagesForOnScreenRows {
-  NSArray *visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
-  
-  for (NSIndexPath *indexPath in visibleIndexPaths) {
-    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    
-    NSURL *url = nil;
-    
-    url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"friend_id"]]];
-    if (![self.imageCache getImageWithURL:url]) {
-      [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
-    }
   }
 }
 

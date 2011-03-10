@@ -8,6 +8,7 @@
 
 #import "CardTableViewController.h"
 #import "MoogleCell.h"
+#import "MoogleImageCell.h"
 
 @interface CardTableViewController (Private)
 
@@ -21,7 +22,6 @@
 @synthesize sections = _sections;
 @synthesize items = _items;
 @synthesize searchItems = _searchItems;
-@synthesize imageCache = _imageCache;
 @synthesize headerTabView = _headerTabView;
 
 - (id)init {
@@ -29,9 +29,6 @@
   if (self) {    
     _sections = [[NSMutableArray alloc] initWithCapacity:1];
     _items = [[NSMutableArray alloc] initWithCapacity:1];
-    
-    _imageCache = [[ImageCache alloc] init];
-    _imageCache.delegate = self;
   }
   return self;
 }
@@ -92,7 +89,6 @@
 - (void)clearCachedData {
   [self.sections removeAllObjects];
   [self.items removeAllObjects];
-  [self.imageCache resetCache];
   [self.tableView reloadData];
   [self dataSourceDidLoad];
 }
@@ -180,17 +176,26 @@
   // MUST SUBCLASS
 }
 
-#pragma mark ImageCacheDelegate
-- (void)imageDidLoad:(NSIndexPath *)indexPath {
-  if (self.searchDisplayController.active) {
-    [self.searchDisplayController.searchResultsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-  } else {
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-  }
-}
-
 - (void)loadImagesForOnScreenRows {
-  // MUST Subclass
+  NSArray *visibleCells = nil;
+  NSArray *visibleIndexPaths = nil;
+  if (self.searchDisplayController.active) {
+    visibleCells = [self.searchDisplayController.searchResultsTableView visibleCells];
+    visibleIndexPaths = [self.searchDisplayController.searchResultsTableView indexPathsForVisibleRows];
+  } else {
+    visibleCells = [self.tableView visibleCells];
+    visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
+  }
+  
+  for (id cell in visibleCells) {
+    if ([cell isKindOfClass:[MoogleImageCell class]]) {
+      MoogleImageCell *mic = cell;
+      [mic.smaImageView loadImage];
+    }
+  }
+  
+//  for (NSIndexPath *indexPath in visibleIndexPaths) {
+//  }
 }
 
 #pragma mark UIScrollViewDelegate
@@ -228,8 +233,6 @@
 - (void)didReceiveMemoryWarning {
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
-  
-//  [self.imageCache resetCache];
 }
 
 - (void)dealloc {
@@ -238,7 +241,6 @@
   RELEASE_SAFELY(_items);
   RELEASE_SAFELY(_searchItems);
   RELEASE_SAFELY(_searchBar);
-  RELEASE_SAFELY(_imageCache);
   RELEASE_SAFELY(_refreshHeaderView);
   RELEASE_SAFELY(_headerTabView);
   [self.searchDisplayController release];

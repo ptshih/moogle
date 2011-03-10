@@ -15,12 +15,12 @@
 @synthesize placeholderImage = _placeholderImage;
 
 // Override Setter
-- (void)setUrlPath:(NSString *)urlPath {
-  if (urlPath) {
-    NSString* urlPathCopy = [urlPath copy];
-    [_urlPath release];
-    _urlPath = urlPathCopy;
-    
+//- (void)setUrlPath:(NSString *)urlPath {
+//
+//}
+
+- (void)loadImage {
+  if (_urlPath) {    
     if ([[SMAURLCache sharedCache] hasImageForURLPath:_urlPath]) {
       // Image found in cache
       self.image = [[SMAURLCache sharedCache] imageForURLPath:_urlPath];
@@ -33,6 +33,19 @@
   } else {
     self.image = self.placeholderImage;
   }
+}
+
+- (void)loadImageIfCached {
+  if ([[SMAURLCache sharedCache] hasImageForURLPath:_urlPath]) {
+    // Image found in cache
+    self.image = [[SMAURLCache sharedCache] imageForURLPath:_urlPath];
+  } else {
+    self.image = self.placeholderImage;
+  }
+}
+
+- (void)unloadImage {
+  self.image = self.placeholderImage;
 }
 
 #pragma mark ASIHTTPRequestDelegate

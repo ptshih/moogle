@@ -9,8 +9,6 @@
 #import "PlaceFeedCell.h"
 
 #define CELL_FONT_SIZE 14.0
-#define SPACING_X 5.0
-#define SPACING_Y 5.0
 #define LABEL_HEIGHT 20.0
 
 @implementation PlaceFeedCell
@@ -60,21 +58,10 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   
-  // Image
-  self.imageView.left = SPACING_X;
-  self.imageView.top = SPACING_Y;
-  self.imageView.width = 40.0;
-  self.imageView.height = 40.0;
-  
   CGFloat left = SPACING_X;
   CGFloat textWidth = 0.0;
   CGSize textSize = CGSizeZero;
   CGSize labelSize = CGSizeZero;
-  
-  // Dynamically Space for Image
-//  if (self.imageView.image) {
-//    left = self.imageView.right + SPACING_X;
-//  }
   
   // Always leave space for image
   left = left + IMAGE_WIDTH + SPACING_X * 2;
@@ -112,8 +99,10 @@
   self.messageLabel.left = left;
 }
 
-+ (void)fillCell:(PlaceFeedCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
-  cell.imageView.image = image;
++ (void)fillCell:(PlaceFeedCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {  
+  cell.smaImageView.urlPath = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [dictionary objectForKey:@"from_id"]];
+  
+  [cell.smaImageView loadImageIfCached];
   
   cell.nameLabel.text = [dictionary objectForKey:@"from"];
   cell.messageLabel.text = [dictionary objectForKey:@"message"];

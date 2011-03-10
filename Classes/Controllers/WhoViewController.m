@@ -34,6 +34,9 @@ static UIImage *_placeholderPicture;
   self = [super init];
   if (self) {
     self.title = @"Filter Feed";
+    
+    _fpvc = [[FriendPickerViewController alloc] init];
+    _fpvc.delegate = self;
   }
   return self;
 }
@@ -129,10 +132,7 @@ static UIImage *_placeholderPicture;
 }
                              
 - (void)createGroup {
-  FriendPickerViewController *fpvc = [[FriendPickerViewController alloc] init];
-  fpvc.delegate = self;
-  [self.navigationController pushViewController:fpvc animated:YES];
-  [fpvc release];
+  [self.navigationController pushViewController:_fpvc animated:YES];
 }
 
 #pragma mark FriendPickerDelegate
@@ -164,22 +164,19 @@ static UIImage *_placeholderPicture;
 #pragma mark UITableViewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   NSString *reuseIdentifier = [NSString stringWithFormat:@"%@_TableViewCell_%d", [self class], indexPath.section];
-  UITableViewCell *cell = nil;
-  cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+  WhoCell *cell = nil;
+  cell = (WhoCell *)[tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
+    cell = [[[WhoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
   }
   
   // Fill Cell
   NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
   
-  UIImage *image = nil;
-  NSURL *url = nil;
-  
   if (indexPath.section == 0) {
     // Groups
-    image = [UIImage imageNamed:@"tab_friends.png"]; // placeholder groups image
-    cell.textLabel.text = [item objectForKey:@"group_name"];
+    [WhoCell fillCell:cell withDictionary:item forType:WhoCellTypeGroup];
+    
     if (indexPath.row == [_sortedGroups count] - 1) {
       // last section is add a group
       cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -188,18 +185,8 @@ static UIImage *_placeholderPicture;
     }
   } else {
     // Single Friends
-    cell.textLabel.text = [item objectForKey:@"friend_name"];
-    url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"friend_id"]]];
-    image = [self.imageCache getImageWithURL:url];
-    if (!image) {
-      if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
-        [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
-      }
-      image = _placeholderPicture;
-    }
+    [WhoCell fillCell:cell withDictionary:item forType:WhoCellTypeFriend];
   }
-
-  cell.imageView.image = image;
 
   return cell;
 }
@@ -235,26 +222,8 @@ static UIImage *_placeholderPicture;
   }
 }
 
-#pragma mark ImageCacheDelegate
-- (void)loadImagesForOnScreenRows {
-  NSArray *visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
-  
-  for (NSIndexPath *indexPath in visibleIndexPaths) {
-    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    
-    NSURL *url = nil;
-    
-    // Only cache images for section 1 (friends)
-    if (indexPath.section == 1) {
-      url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [item objectForKey:@"friend_id"]]];
-      if (![self.imageCache getImageWithURL:url]) {
-        [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
-      }
-    }
-  }
-}
-
 - (void)dealloc {
+  RELEASE_SAFELY(_fpvc);
   RELEASE_SAFELY(_sortedFriends);
   RELEASE_SAFELY(_sortedGroups);
   [super dealloc];

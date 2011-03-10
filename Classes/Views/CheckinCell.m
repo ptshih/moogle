@@ -12,8 +12,6 @@
 
 #define NAME_FONT_SIZE 16.0
 #define CELL_FONT_SIZE 14.0
-#define SPACING_X 5.0
-#define SPACING_Y 5.0
 #define LABEL_HEIGHT 20.0
 #define CELL_WIDTH 320.0
 #define ICON_WIDTH 18.0
@@ -114,10 +112,6 @@ static UIImage *_messageIcon = nil;
   CGSize textSize = CGSizeZero;
   CGSize labelSize = CGSizeZero;
   
-  // Configure ImageView
-  self.imageView.top = top;
-  self.imageView.left = SPACING_X;
-  
   // Configure Icons
   _placeIconView.left = left;
   _taggedIconView.left = left;
@@ -154,7 +148,7 @@ static UIImage *_messageIcon = nil;
   textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
   
   // Place Name
-  _placeIconView.top = self.imageView.bottom + SPACING_Y;
+  _placeIconView.top = self.smaImageView.bottom + SPACING_Y;
   self.placeNameLabel.top = _placeIconView.top;
   
   labelSize = [self.placeNameLabel.text sizeWithFont:self.placeNameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
@@ -200,7 +194,9 @@ static UIImage *_messageIcon = nil;
 }
 
 + (void)fillCell:(CheckinCell *)cell withCheckin:(Checkin *)checkin withImage:(UIImage *)image {
-  cell.imageView.image = image;
+  cell.smaImageView.urlPath = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", checkin.facebookId];
+  
+  [cell.smaImageView loadImageIfCached];
   
   cell.nameLabel.text = checkin.facebookName;
   cell.placeNameLabel.text = checkin.place.placeName;

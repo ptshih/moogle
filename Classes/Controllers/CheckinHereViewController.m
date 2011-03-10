@@ -46,6 +46,9 @@
   if (self) {
     _dataCenter = [[MoogleDataCenter alloc] init];
     _dataCenter.delegate = self;
+    
+    _fpvc = [[FriendPickerViewController alloc] init];
+    _fpvc.delegate = self;
   }
   return self;
 }
@@ -93,10 +96,7 @@
 }
 
 - (IBAction)tagFriends {
-  FriendPickerViewController *fpvc = [[FriendPickerViewController alloc] init];
-  fpvc.delegate = self;
-  [self.navigationController pushViewController:fpvc animated:YES];
-  [fpvc release];
+  [self.navigationController pushViewController:_fpvc animated:YES];
 }
 
 - (IBAction)checkinHere {
@@ -198,6 +198,8 @@
   RELEASE_SAFELY (_dataCenter);
   RELEASE_SAFELY (_message);
   RELEASE_SAFELY (_taggedFriends);
+  
+  RELEASE_SAFELY(_fpvc);
   
   [super dealloc];
 }

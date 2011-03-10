@@ -158,37 +158,17 @@
   if(cell == nil) { 
     cell = [[[CheckinCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier] autorelease];
   }
-  
-  //  NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-  //  NSURL *url = [NSURL URLWithString:[item valueForKey:@"picture"]];
+
   Checkin *checkin = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", checkin.facebookId]];
-  UIImage *image = [self.imageCache getImageWithURL:url];
-  if (!image) {
-    if (self.tableView.dragging == NO && self.tableView.decelerating == NO) {
-      [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
-    }
-    image = nil;
-  }
   
-  [CheckinCell fillCell:cell withCheckin:checkin withImage:image];
+  [CheckinCell fillCell:cell withCheckin:checkin withImage:nil];
+  
+  // Initial static render of cell
+  if (tableView.dragging == NO && tableView.decelerating == NO) {
+    [cell.smaImageView loadImage];
+  }
   
   return cell;
-}
-
-#pragma mark ImageCacheDelegate
-- (void)loadImagesForOnScreenRows {
-  NSArray *visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
-  
-  for (NSIndexPath *indexPath in visibleIndexPaths) {
-    //    NSDictionary *item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    //    NSURL *url = [NSURL URLWithString:[item valueForKey:@"picture"]];
-    Checkin *checkin = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", checkin.facebookId]];
-    if (![self.imageCache getImageWithURL:url]) {
-      [self.imageCache cacheImageWithURL:url forIndexPath:indexPath];
-    }
-  }
 }
 
 - (void)dealloc {

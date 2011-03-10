@@ -8,19 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "CardViewController.h"
-#import "ImageCacheDelegate.h"
-#import "ImageCache.h"
 #import "HeaderTabView.h"
 #import "EGORefreshTableHeaderView.h"
 #import "HeaderTabViewDelegate.h"
 
-@interface CardTableViewController : CardViewController <UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate, ImageCacheDelegate, EGORefreshTableHeaderDelegate, HeaderTabViewDelegate> {
+@interface CardTableViewController : CardViewController <UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate, EGORefreshTableHeaderDelegate, HeaderTabViewDelegate> {
   UITableView *_tableView;
   NSMutableArray *_sections;
   NSMutableArray *_items;
   NSMutableArray *_searchItems;
-  
-  ImageCache *_imageCache;
 
   UISearchBar *_searchBar;
   HeaderTabView *_headerTabView;
@@ -33,12 +29,13 @@
 @property (nonatomic, retain) NSMutableArray *items;
 @property (nonatomic, retain) NSMutableArray *searchItems;
 
-@property (nonatomic, retain) ImageCache *imageCache;
 @property (nonatomic, retain) HeaderTabView *headerTabView;
 
 - (void)setupTableViewWithFrame:(CGRect)frame andStyle:(UITableViewStyle)style andSeparatorStyle:(UITableViewCellSeparatorStyle)separatorStyle;
 - (void)setupPullRefresh;
 - (void)setupHeaderTabView;
 - (void)setupSearchDisplayController;
+
+- (void)loadImagesForOnScreenRows;
 
 @end

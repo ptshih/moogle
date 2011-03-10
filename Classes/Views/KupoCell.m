@@ -10,8 +10,6 @@
 
 #define NAME_FONT_SIZE 16.0
 #define CELL_FONT_SIZE 14.0
-#define SPACING_X 5.0
-#define SPACING_Y 5.0
 #define LABEL_HEIGHT 20.0
 #define ICON_WIDTH 18.0
 #define ICON_HEIGHT 18.0

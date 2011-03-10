@@ -9,9 +9,7 @@
 #import "PlaceActivityCell.h"
 
 #define CELL_FONT_SIZE 14.0
-#define SPACING_X 4.0
-#define SPACING_Y 4.0
-#define LABEL_HEIGHT 17.0
+#define LABEL_HEIGHT 20.0
 
 @implementation PlaceActivityCell
 
@@ -101,7 +99,7 @@
 }
 
 + (void)fillCell:(PlaceActivityCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image {
-  cell.imageView.image = image;
+  cell.smaImageView.urlPath = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [dictionary objectForKey:@"facebook_id"]];
   
   cell.nameLabel.text = [dictionary valueForKey:@"place_name"];
   

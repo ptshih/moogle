@@ -15,10 +15,13 @@
 @class ASIHTTPRequest;
 @class MoogleDataCenter;
 @class Place;
+@class FriendPickerViewController;
 
 @interface CheckinHereViewController : CardViewController <MoogleDataCenterDelegate, NearbyPickerDelegate, UITextViewDelegate, FriendPickerDelegate> {
   MoogleDataCenter *_dataCenter;
   ASIHTTPRequest *_checkinHereRequest;
+  
+  FriendPickerViewController *_fpvc;
   
   NSString *_message;
   NSString *_taggedFriends; // Tagged friend IDs

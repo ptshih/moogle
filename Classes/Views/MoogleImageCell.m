@@ -10,30 +10,42 @@
 
 @implementation MoogleImageCell
 
+@synthesize smaImageView = _smaImageView;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
+    _smaImageView = [[SMAImageView alloc] init];
     _imageLoadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [_imageLoadingIndicator startAnimating];
     [self.contentView addSubview:_imageLoadingIndicator];
+    [self.contentView addSubview:_smaImageView];
+    
+    // Override default text labels
+    self.textLabel.backgroundColor = [UIColor clearColor];
   }
   return self;
 }
 
 - (void)prepareForReuse {
   [super prepareForReuse];
-  self.imageView.image = nil;
+  [self.smaImageView unloadImage];
 }
 
 - (void)layoutSubviews {
   [super layoutSubviews];
   
-  self.imageView.width = IMAGE_WIDTH;
-  self.imageView.height = IMAGE_HEIGHT;
-  self.imageView.layer.masksToBounds = YES;
-  self.imageView.layer.cornerRadius = 4.0;
+  self.smaImageView.top = SPACING_Y;
+  self.smaImageView.left = SPACING_X;
+  self.smaImageView.width = IMAGE_WIDTH;
+  self.smaImageView.height = IMAGE_HEIGHT;
+  self.smaImageView.layer.masksToBounds = YES;
+  self.smaImageView.layer.cornerRadius = 4.0;
   
-  _imageLoadingIndicator.frame = CGRectMake(10, 10, 20, 20);
+  _imageLoadingIndicator.frame = CGRectMake(15, 15, 20, 20);
+
+  self.textLabel.left = self.smaImageView.right + SPACING_X;
+  
 }
 
 + (CGFloat)rowHeight {
@@ -46,6 +58,7 @@
 }
 
 - (void)dealloc {
+  RELEASE_SAFELY(_smaImageView);
   RELEASE_SAFELY(_imageLoadingIndicator);
   [super dealloc];
 }

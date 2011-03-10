@@ -9,12 +9,18 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "MoogleCell.h"
+#import "SMAImageView.h"
 
 #define IMAGE_WIDTH 40.0
 #define IMAGE_HEIGHT 40.0
+#define SPACING_X 5.0
+#define SPACING_Y 5.0
 
 @interface MoogleImageCell : MoogleCell {
+  SMAImageView *_smaImageView;
   UIActivityIndicatorView *_imageLoadingIndicator;
 }
+
+@property (nonatomic, retain) SMAImageView *smaImageView;
 
 @end

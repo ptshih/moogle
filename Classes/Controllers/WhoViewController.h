@@ -10,9 +10,13 @@
 #import "CardTableViewController.h"
 #import "FriendPickerDelegate.h"
 
+@class FriendPickerViewController;
+
 @interface WhoViewController : CardTableViewController <FriendPickerDelegate> {  
   NSMutableArray *_sortedFriends;
   NSMutableArray *_sortedGroups;
+  
+  FriendPickerViewController *_fpvc;
 
   id <FriendPickerDelegate> _delegate;
 }

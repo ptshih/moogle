@@ -18,4 +18,8 @@
 @property (nonatomic, copy) NSString *urlPath;
 @property (nonatomic, retain) UIImage *placeholderImage;
 
+- (void)loadImage;
+- (void)loadImageIfCached;
+- (void)unloadImage;
+
 @end

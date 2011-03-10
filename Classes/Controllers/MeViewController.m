@@ -77,6 +77,7 @@
   NSString *facebookId = [[NSUserDefaults standardUserDefaults] valueForKey:@"facebookId"];
   _nameLabel.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"facebookName"];
   _profilePicture.urlPath = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", facebookId];
+  [_profilePicture loadImage];
   
   [self getMe];
 }

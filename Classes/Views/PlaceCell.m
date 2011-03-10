@@ -11,8 +11,6 @@
 
 #define NAME_FONT_SIZE 14.0
 #define CELL_FONT_SIZE 14.0
-#define SPACING_X 5.0
-#define SPACING_Y 5.0
 #define LABEL_HEIGHT 20.0
 #define CELL_WIDTH 320.0
 #define ICON_WIDTH 18.0
@@ -115,10 +113,6 @@ static UIImage *_distanceIcon = nil;
   CGSize textSize = CGSizeZero;
   CGSize labelSize = CGSizeZero;
   
-  // Configure ImageView
-  self.imageView.top = top;
-  self.imageView.left = SPACING_X;
-  
   // Configure Icons
   _distanceIconView.top = top + LABEL_HEIGHT + SPACING_Y;
   _likesIconView.top = top + LABEL_HEIGHT + SPACING_Y;
@@ -176,7 +170,9 @@ static UIImage *_distanceIcon = nil;
 }
 
 + (void)fillCell:(PlaceCell *)cell withPlace:(Place *)place withImage:(UIImage *)image {
-  cell.imageView.image = image;
+  cell.smaImageView.urlPath = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", place.placeId];
+  
+  [cell.smaImageView loadImageIfCached];
   
   cell.nameLabel.text = place.placeName;
   cell.distanceLabel.text = [NSString stringWithFormat:@"%.2f miles", [place.placeDistance floatValue]];

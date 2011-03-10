@@ -9,15 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "MoogleImageCell.h"
 
-@interface WhoCell : MoogleImageCell {
-  UILabel *_nameLabel;
-  
+enum {
+  WhoCellTypeFriend = 0,
+  WhoCellTypeGroup = 1
+};
+typedef uint32_t WhoCellType;
+
+@interface WhoCell : MoogleImageCell {  
   BOOL _isSelected;
 }
 
-@property (nonatomic, retain) UILabel *nameLabel;
 @property (nonatomic, assign) BOOL isSelected;
 
-+ (void)fillCell:(WhoCell *)cell withDictionary:(NSDictionary *)dictionary withImage:(UIImage *)image;
++ (void)fillCell:(WhoCell *)cell withDictionary:(NSDictionary *)dictionary forType:(WhoCellType)type;
 
 @end
