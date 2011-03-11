@@ -63,8 +63,8 @@
 }
 
 - (void)setupButtons {  
-  UIBarButtonItem *distanceButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_distance.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleDistance)];
-  UIBarButtonItem *whoButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn_who.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleWho)];
+  UIBarButtonItem *distanceButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn-distance.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleDistance)];
+  UIBarButtonItem *whoButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn-who.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleWho)];
 
 //  UIBarButtonItem *distanceButton = [[UIBarButtonItem alloc] initWithTitle:@"Distance" style:UIBarButtonItemStyleBordered target:self action:@selector(toggleDistance)];
 //  UIBarButtonItem *whoButton = [[UIBarButtonItem alloc] initWithTitle:@"People" style:UIBarButtonItemStyleBordered target:self action:@selector(toggleWho)];

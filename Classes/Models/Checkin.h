@@ -18,10 +18,10 @@
   NSString *_checkinMessage;
   NSString *_checkinAppName;
   
-  NSNumber *_checkinAppId;
-  NSNumber *_checkinLikesCount;
-  NSNumber *_checkinCommentsCount;
-  NSNumber *_checkinTagsCount;
+//  NSNumber *_checkinAppId;
+//  NSNumber *_checkinLikesCount;
+//  NSNumber *_checkinCommentsCount;
+//  NSNumber *_checkinTagsCount;
   
   NSArray *_checkinTagsArray;
   NSArray *_checkinLikesArray;
@@ -41,6 +41,8 @@
 @property (nonatomic, copy) NSString *checkinAppName;
 
 @property (nonatomic, copy) NSArray *checkinTagsArray;
+@property (nonatomic, copy) NSArray *checkinLikesArray;
+@property (nonatomic, copy) NSArray *checkinCommentsArray;
 
 @property (nonatomic, copy) NSDate *checkinDate;
 

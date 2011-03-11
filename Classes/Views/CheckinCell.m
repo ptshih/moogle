@@ -20,6 +20,7 @@
 
 static UIImage *_placeIcon = nil;
 static UIImage *_taggedIcon = nil;
+static UIImage *_likeIcon = nil;
 
 @implementation CheckinCell
 
@@ -28,10 +29,12 @@ static UIImage *_taggedIcon = nil;
 @synthesize timestampLabel = _timestampLabel;
 @synthesize taggedLabel = _taggedLabel;
 @synthesize messageLabel = _messageLabel;
+@synthesize likesCommentsLabel = _likesCommentsLabel;
 
 + (void)initialize {
   _placeIcon = [[UIImage imageNamed:@"icon-place.png"] retain];
   _taggedIcon = [[UIImage imageNamed:@"icon-friends.png"] retain];
+  _likeIcon = [[UIImage imageNamed:@"icon-like.png"] retain];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -42,18 +45,21 @@ static UIImage *_taggedIcon = nil;
     _timestampLabel = [[UILabel alloc] init];
     _taggedLabel = [[UILabel alloc] init];
     _messageLabel = [[UILabel alloc] init];
+    _likesCommentsLabel = [[UILabel alloc] init];
     
     self.nameLabel.backgroundColor = [UIColor clearColor];
     self.placeNameLabel.backgroundColor = [UIColor clearColor];
     self.timestampLabel.backgroundColor = [UIColor clearColor];
     self.taggedLabel.backgroundColor = [UIColor clearColor];
     self.messageLabel.backgroundColor = [UIColor clearColor];
+    self.likesCommentsLabel.backgroundColor = [UIColor clearColor];
     
     self.nameLabel.font = [UIFont boldSystemFontOfSize:NAME_FONT_SIZE];
     self.placeNameLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
     self.timestampLabel.font = [UIFont italicSystemFontOfSize:CELL_FONT_SIZE];
     self.taggedLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
     self.messageLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
+    self.likesCommentsLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
     
     self.timestampLabel.textColor = GRAY_COLOR;
     
@@ -62,30 +68,36 @@ static UIImage *_taggedIcon = nil;
     self.timestampLabel.textAlignment = UITextAlignmentRight;
     self.taggedLabel.textAlignment = UITextAlignmentLeft;
     self.messageLabel.textAlignment = UITextAlignmentLeft;
+    self.likesCommentsLabel.textAlignment = UITextAlignmentLeft;
     
     self.nameLabel.lineBreakMode = UILineBreakModeTailTruncation;
     self.placeNameLabel.lineBreakMode = UILineBreakModeTailTruncation;
     self.timestampLabel.lineBreakMode = UILineBreakModeTailTruncation;
     self.taggedLabel.lineBreakMode = UILineBreakModeWordWrap; // multi-line
     self.messageLabel.lineBreakMode = UILineBreakModeWordWrap; // multi-line
+    self.likesCommentsLabel.lineBreakMode = UILineBreakModeTailTruncation;
     
     self.nameLabel.numberOfLines = 1;
     self.placeNameLabel.numberOfLines = 1;
     self.timestampLabel.numberOfLines = 1;
     self.taggedLabel.numberOfLines = 10;
     self.messageLabel.numberOfLines = 10;
+    self.likesCommentsLabel.numberOfLines = 1;
     
     [self.contentView addSubview:self.nameLabel];
     [self.contentView addSubview:self.placeNameLabel];
     [self.contentView addSubview:self.timestampLabel];
     [self.contentView addSubview:self.taggedLabel];
     [self.contentView addSubview:self.messageLabel];
+    [self.contentView addSubview:self.likesCommentsLabel];
     
     _placeIconView = [[UIImageView alloc] initWithImage:_placeIcon];
     _taggedIconView = [[UIImageView alloc] initWithImage:_taggedIcon];
+    _likeIconView = [[UIImageView alloc] initWithImage:_likeIcon];
     
     [self.contentView addSubview:_placeIconView];
     [self.contentView addSubview:_taggedIconView];
+    [self.contentView addSubview:_likeIconView];
   }
   return self;
 }
@@ -111,6 +123,7 @@ static UIImage *_taggedIcon = nil;
   // Configure Icons
   _placeIconView.left = left;
   _taggedIconView.left = left;
+  _likeIconView.left = left;
 
   
   // Initial Label Y Positions
@@ -152,9 +165,22 @@ static UIImage *_taggedIcon = nil;
   self.placeNameLabel.height = labelSize.height;
   self.placeNameLabel.left = left + ICON_SPACING;
   
+  // Likes Commemts
+  _likeIconView.top = self.placeNameLabel.bottom + ICON_SPACING;
+  self.likesCommentsLabel.top = _likeIconView.top;
+  
+  if ([self.likesCommentsLabel.text length] > 0) {
+    _likeIconView.hidden = NO;
+    labelSize = [self.likesCommentsLabel.text sizeWithFont:self.likesCommentsLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
+    self.likesCommentsLabel.width = labelSize.width;
+    self.likesCommentsLabel.height = labelSize.height;
+    self.likesCommentsLabel.left = left + ICON_SPACING;
+  } else {
+    _likeIconView.hidden = YES;
+  }
   
   // Tagged Users
-  _taggedIconView.top = self.placeNameLabel.bottom + ICON_SPACING;
+  _taggedIconView.top = self.likesCommentsLabel.bottom + ICON_SPACING;
   self.taggedLabel.top = _taggedIconView.top;
   
   if ([self.taggedLabel.text length] > 0) {
@@ -172,7 +198,7 @@ static UIImage *_taggedIcon = nil;
   if ([self.taggedLabel.text length] > 0) {
     self.messageLabel.top = self.taggedLabel.bottom + ICON_SPACING;
   } else {
-    self.messageLabel.top = self.placeNameLabel.bottom + ICON_SPACING;
+    self.messageLabel.top = self.likesCommentsLabel.bottom + ICON_SPACING;
   }
 
   
@@ -181,7 +207,7 @@ static UIImage *_taggedIcon = nil;
     labelSize = [self.messageLabel.text sizeWithFont:self.messageLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
     self.messageLabel.width = labelSize.width;
     self.messageLabel.height = labelSize.height;
-    self.messageLabel.left =  left - ICON_WIDTH - SPACING_X + ICON_SPACING;
+    self.messageLabel.left =  left - ICON_WIDTH - ICON_SPACING;
   } else {
   }
 }
@@ -196,6 +222,7 @@ static UIImage *_taggedIcon = nil;
   cell.timestampLabel.text = [checkin.checkinDate humanIntervalSinceNow];
   cell.taggedLabel.text = [checkin.checkinTagsArray componentsJoinedByString:@", "];
   cell.messageLabel.text = checkin.checkinMessage;
+  cell.likesCommentsLabel.text = [NSString stringWithFormat:@"%d likes, %d comments", [checkin.checkinLikesArray count], [checkin.checkinCommentsArray count]];
 }
 
 + (MoogleCellType)cellType {
@@ -214,6 +241,11 @@ static UIImage *_taggedIcon = nil;
   
   // Place
   calculatedHeight += LABEL_HEIGHT + ICON_SPACING;
+  
+  // Likes/Comments
+//  if (([checkin.checkinLikesArray count] > 0) || ([checkin.checkinCommentsArray count] > 0)) {
+    calculatedHeight += LABEL_HEIGHT + ICON_SPACING;
+//  }
   
   // Tagged String (Variable Height)
   if ([checkin.checkinTagsArray count] > 0) {
@@ -246,8 +278,10 @@ static UIImage *_taggedIcon = nil;
   RELEASE_SAFELY (_timestampLabel);
   RELEASE_SAFELY(_taggedLabel);
   RELEASE_SAFELY (_messageLabel);
+  RELEASE_SAFELY(_likesCommentsLabel);
   RELEASE_SAFELY(_placeIconView);
   RELEASE_SAFELY(_taggedIconView);
+  RELEASE_SAFELY(_likeIconView);
   [super dealloc];
 }
 

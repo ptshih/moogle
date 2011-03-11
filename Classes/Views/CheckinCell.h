@@ -17,9 +17,11 @@
   UILabel *_timestampLabel;
   UILabel *_taggedLabel;
   UILabel *_messageLabel;
+  UILabel *_likesCommentsLabel;
   
   UIImageView *_placeIconView;
   UIImageView *_taggedIconView;
+  UIImageView *_likeIconView;
   
 }
 
@@ -28,6 +30,7 @@
 @property (nonatomic, retain) UILabel *timestampLabel;
 @property (nonatomic, retain) UILabel *taggedLabel;
 @property (nonatomic, retain) UILabel *messageLabel;
+@property (nonatomic, retain) UILabel *likesCommentsLabel;
 
 + (void)fillCell:(CheckinCell *)cell withCheckin:(Checkin *)checkin withImage:(UIImage *)image;
 + (CGFloat)variableRowHeightWithCheckin:(Checkin *)checkin;
