@@ -15,12 +15,15 @@
 #import "PlaceCell.h"
 #import "Place.h"
 
-@interface CardPlacesTableViewController : CardTableViewController <MoogleDataCenterDelegate> {
+@interface CardPlacesTableViewController : CardTableViewController <UIActionSheetDelegate, MoogleDataCenterDelegate> {
   PlacesDataCenter *_dataCenter;
+  NSString *_distance;
+  UIBarButtonItem *_distanceButton;
 }
 
 @property (nonatomic, retain) PlacesDataCenter *dataCenter;
 
+- (void)setupDistanceButton;
 - (void)showPlaceForPlace:(Place *)place;
 
 @end

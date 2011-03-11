@@ -19,6 +19,14 @@
 @synthesize nearbyRequest = _nearbyRequest;
 @synthesize delegate = _delegate;
 
+- (id)init {
+  self = [super init];
+  if (self) {
+    _distance = [@"2" retain]; // default to 1 mile
+  }
+  return self;
+}
+
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.view.frame = CGRectMake(0, 0, CARD_WIDTH, CARD_HEIGHT_WITH_NAV + 49.0);
@@ -31,6 +39,35 @@
   
   [self setupLoadingAndEmptyViews];
   
+  [self reloadCardController];
+  
+  [self setupDistanceButton];
+}
+
+#pragma mark Distance Filter
+- (void)toggleDistance {
+  UIActionSheet *distanceActionSheet = [[UIActionSheet alloc] initWithTitle:@"How Far Away?" delegate:self cancelButtonTitle:@"Nevermind" destructiveButtonTitle:nil otherButtonTitles:@"1 miles", @"2 miles", @"5 miles", nil];
+  [distanceActionSheet showInView:[APP_DELEGATE.launcherViewController view]];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+  NSLog(@"button: %d", buttonIndex);
+  switch (buttonIndex) {
+    case 0:
+      _distance = [@"1" retain];
+      break;
+    case 1:
+      _distance = [@"2" retain];
+      break;
+    case 2:
+      _distance = [@"5" retain];
+      break;
+    case 3:
+    default:
+      break;
+  }
+  
+  [_distanceButton setTitle:[NSString stringWithFormat:@"%@ miles", _distance]];
   [self reloadCardController];
 }
 
@@ -49,12 +86,13 @@
 - (void)getNearbyPlaces {
   CGFloat lat = [APP_DELEGATE.locationManager latitude];
   CGFloat lng = [APP_DELEGATE.locationManager longitude];
-  NSInteger distance = [APP_DELEGATE.locationManager distance];
+//  NSInteger distance = [APP_DELEGATE.locationManager distance];
   
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
   [params setObject:[NSString stringWithFormat:@"%f", lat] forKey:@"lat"];
   [params setObject:[NSString stringWithFormat:@"%f", lng] forKey:@"lng"];
-  [params setObject:[NSString stringWithFormat:@"%d", distance] forKey:@"distance"];
+//  [params setObject:[NSString stringWithFormat:@"%d", distance] forKey:@"distance"];
+  [params setObject:_distance forKey:@"distance"];
   NSString *baseURLString = [NSString stringWithFormat:@"%@/%@/places/nearby", MOOGLE_BASE_URL, API_VERSION];  
   self.nearbyRequest = [RemoteRequest getRequestWithBaseURLString:baseURLString andParams:params withDelegate:self.dataCenter];
   [[RemoteOperation sharedInstance] addRequestToQueue:self.nearbyRequest];

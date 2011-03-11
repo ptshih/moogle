@@ -17,8 +17,16 @@
   if (self) {
     _dataCenter = [[PlacesDataCenter alloc] init];
     _dataCenter.delegate = self;
+    _distance = [@"25" retain]; // default to 100 miles
   }
   return self;
+}
+
+- (void)setupDistanceButton {
+  //  _distanceButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btn-distance.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleDistance)];
+  
+  _distanceButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%@ miles", _distance] style:UIBarButtonItemStyleBordered target:self action:@selector(toggleDistance)];
+  self.navigationItem.rightBarButtonItem = _distanceButton;
 }
 
 #pragma mark Show Place
@@ -107,7 +115,8 @@
 
 - (void)dealloc {
   RELEASE_SAFELY (_dataCenter);
-  
+  RELEASE_SAFELY(_distance);
+  RELEASE_SAFELY(_distanceButton);
   [super dealloc];
 }
 
