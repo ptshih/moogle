@@ -178,13 +178,13 @@
 
 - (void)loadImagesForOnScreenRows {
   NSArray *visibleCells = nil;
-  NSArray *visibleIndexPaths = nil;
+//  NSArray *visibleIndexPaths = nil;
   if (self.searchDisplayController.active) {
     visibleCells = [self.searchDisplayController.searchResultsTableView visibleCells];
-    visibleIndexPaths = [self.searchDisplayController.searchResultsTableView indexPathsForVisibleRows];
+//    visibleIndexPaths = [self.searchDisplayController.searchResultsTableView indexPathsForVisibleRows];
   } else {
     visibleCells = [self.tableView visibleCells];
-    visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
+//    visibleIndexPaths = [self.tableView indexPathsForVisibleRows];
   }
   
   for (id cell in visibleCells) {
