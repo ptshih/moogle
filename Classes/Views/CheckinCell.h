@@ -20,7 +20,6 @@
   
   UIImageView *_placeIconView;
   UIImageView *_taggedIconView;
-  UIImageView *_messageIconView;
   
 }
 

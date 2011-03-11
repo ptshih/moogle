@@ -9,13 +9,13 @@
 #import "PlaceCell.h"
 #import "Place.h"
 
-#define NAME_FONT_SIZE 14.0
-#define CELL_FONT_SIZE 14.0
-#define LABEL_HEIGHT 20.0
+#define NAME_FONT_SIZE 13.0
+#define CELL_FONT_SIZE 13.0
+#define LABEL_HEIGHT 15.0
 #define CELL_WIDTH 320.0
-#define ICON_WIDTH 18.0
-#define ICON_HEIGHT 18.0
-#define ICON_SPACING 2.0
+#define ICON_WIDTH 13.0
+#define ICON_HEIGHT 13.0
+#define ICON_SPACING 4.0
 
 static UIImage *_likesIcon = nil;
 static UIImage *_countIcon = nil;
@@ -31,10 +31,10 @@ static UIImage *_distanceIcon = nil;
 @synthesize likesLabel = _likesLabel;
 
 + (void)initialize {
-  _likesIcon = [[UIImage imageNamed:@"cell_place_icon.png"] retain];
-  _countIcon = [[UIImage imageNamed:@"cell_place_icon.png"] retain];
-  _totalIcon = [[UIImage imageNamed:@"cell_place_icon.png"] retain];
-  _distanceIcon = [[UIImage imageNamed:@"cell_place_icon.png"] retain];
+  _likesIcon = [[UIImage imageNamed:@"icon-like.png"] retain];
+  _countIcon = [[UIImage imageNamed:@"icon-friends.png"] retain];
+  _totalIcon = [[UIImage imageNamed:@"icon-checkin.png"] retain];
+  _distanceIcon = [[UIImage imageNamed:@"icon-distance.png"] retain];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -108,14 +108,25 @@ static UIImage *_distanceIcon = nil;
   [super layoutSubviews];
   
   CGFloat top = SPACING_Y;
-  CGFloat left = IMAGE_WIDTH_PLAIN + SPACING_X * 3; // spacers: left of img, right of img, left of txt
+  CGFloat left = IMAGE_WIDTH_PLAIN + SPACING_X * 2; // spacers: left of img, right of img
   CGFloat textWidth = self.contentView.width - left - SPACING_X;
   CGSize textSize = CGSizeZero;
   CGSize labelSize = CGSizeZero;
   
-  // Configure Icons
-  _distanceIconView.top = top + LABEL_HEIGHT + SPACING_Y;
-  _likesIconView.top = top + LABEL_HEIGHT + SPACING_Y;
+  // Text size for all labels except taggedLabel (which is variable height)
+  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
+  
+  // Name
+  self.nameLabel.top = top;
+  labelSize = [self.nameLabel.text sizeWithFont:self.nameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
+  self.nameLabel.width = labelSize.width;
+  self.nameLabel.height = labelSize.height;
+  self.nameLabel.left = left;
+  
+  
+  // Icons
+  _distanceIconView.top = self.nameLabel.bottom + ICON_SPACING;
+  _likesIconView.top = self.nameLabel.bottom + ICON_SPACING;
   _totalIconView.top = _distanceIconView.bottom + ICON_SPACING;
   _countIconView.top = _likesIconView.bottom + ICON_SPACING;
   
@@ -125,7 +136,7 @@ static UIImage *_distanceIcon = nil;
   _countIconView.left = _totalIconView.right + ((self.contentView.width - SPACING_X - _totalIconView.right) / 2);
   
   // Initial Label Y Positions
-  self.nameLabel.top = top + 1.0;
+
   self.distanceLabel.top = _distanceIconView.top;
   self.likesLabel.top = _likesIconView.top;
   self.totalLabel.top = _totalIconView.top;
@@ -134,16 +145,8 @@ static UIImage *_distanceIcon = nil;
   /**
    Setup all the labels
    */
-  
-  // Text size for all labels except taggedLabel (which is variable height)
-  textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
-  
-  // Name
-  labelSize = [self.nameLabel.text sizeWithFont:self.nameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
-  self.nameLabel.width = labelSize.width;
-  self.nameLabel.height = labelSize.height;
-  self.nameLabel.left = left;
-  
+
+
   // Distance
   labelSize = [self.distanceLabel.text sizeWithFont:self.distanceLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
   self.distanceLabel.width = labelSize.width;
@@ -186,7 +189,26 @@ static UIImage *_distanceIcon = nil;
 }
 
 + (CGFloat)rowHeight {
-  return 75.0 + ICON_SPACING * 2;
+  CGFloat calculatedHeight = SPACING_Y; // top spacer
+  
+  // Name
+  calculatedHeight += LABEL_HEIGHT + ICON_SPACING;
+  
+  // First row
+  calculatedHeight += LABEL_HEIGHT + ICON_SPACING;
+  
+  // Second row
+  calculatedHeight += LABEL_HEIGHT + ICON_SPACING;
+  
+  // Bottom spacer
+  calculatedHeight += SPACING_Y;
+  
+  // If height is less than image, adjust
+  if (calculatedHeight < IMAGE_HEIGHT_PLAIN + (SPACING_Y * 2)) {
+    calculatedHeight = IMAGE_HEIGHT_PLAIN + (SPACING_Y * 2);
+  }
+  
+  return calculatedHeight;
 }
 
 - (void)dealloc {

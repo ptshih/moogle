@@ -10,17 +10,16 @@
 #import "Checkin.h"
 #import "Place.h"
 
-#define NAME_FONT_SIZE 16.0
-#define CELL_FONT_SIZE 14.0
-#define LABEL_HEIGHT 20.0
+#define NAME_FONT_SIZE 13.0
+#define CELL_FONT_SIZE 13.0
+#define LABEL_HEIGHT 15.0
 #define CELL_WIDTH 320.0
-#define ICON_WIDTH 18.0
-#define ICON_HEIGHT 18.0
-#define ICON_SPACING 2.0
+#define ICON_WIDTH 13.0
+#define ICON_HEIGHT 13.0
+#define ICON_SPACING 4.0
 
 static UIImage *_placeIcon = nil;
 static UIImage *_taggedIcon = nil;
-static UIImage *_messageIcon = nil;
 
 @implementation CheckinCell
 
@@ -31,9 +30,8 @@ static UIImage *_messageIcon = nil;
 @synthesize messageLabel = _messageLabel;
 
 + (void)initialize {
-  _placeIcon = [[UIImage imageNamed:@"cell_place_icon.png"] retain];
-  _taggedIcon = [[UIImage imageNamed:@"cell_place_icon.png"] retain];
-  _messageIcon = [[UIImage imageNamed:@"cell_place_icon.png"] retain];
+  _placeIcon = [[UIImage imageNamed:@"icon-place.png"] retain];
+  _taggedIcon = [[UIImage imageNamed:@"icon-friends.png"] retain];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -52,7 +50,7 @@ static UIImage *_messageIcon = nil;
     self.messageLabel.backgroundColor = [UIColor clearColor];
     
     self.nameLabel.font = [UIFont boldSystemFontOfSize:NAME_FONT_SIZE];
-    self.placeNameLabel.font = [UIFont boldSystemFontOfSize:CELL_FONT_SIZE];
+    self.placeNameLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
     self.timestampLabel.font = [UIFont italicSystemFontOfSize:CELL_FONT_SIZE];
     self.taggedLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
     self.messageLabel.font = [UIFont systemFontOfSize:CELL_FONT_SIZE];
@@ -61,7 +59,7 @@ static UIImage *_messageIcon = nil;
     
     self.nameLabel.textAlignment = UITextAlignmentLeft;
     self.placeNameLabel.textAlignment = UITextAlignmentLeft;
-    self.timestampLabel.textAlignment = UITextAlignmentLeft;
+    self.timestampLabel.textAlignment = UITextAlignmentRight;
     self.taggedLabel.textAlignment = UITextAlignmentLeft;
     self.messageLabel.textAlignment = UITextAlignmentLeft;
     
@@ -84,12 +82,10 @@ static UIImage *_messageIcon = nil;
     [self.contentView addSubview:self.messageLabel];
     
     _placeIconView = [[UIImageView alloc] initWithImage:_placeIcon];
-    _taggedIconView = [[UIImageView alloc] initWithImage:_placeIcon];
-    _messageIconView = [[UIImageView alloc] initWithImage:_placeIcon];
+    _taggedIconView = [[UIImageView alloc] initWithImage:_taggedIcon];
     
     [self.contentView addSubview:_placeIconView];
     [self.contentView addSubview:_taggedIconView];
-    [self.contentView addSubview:_messageIconView];
   }
   return self;
 }
@@ -107,7 +103,7 @@ static UIImage *_messageIcon = nil;
   [super layoutSubviews];
   
   CGFloat top = SPACING_Y;
-  CGFloat left = IMAGE_WIDTH_PLAIN + SPACING_X * 3; // spacers: left of img, right of img, left of txt
+  CGFloat left = IMAGE_WIDTH_PLAIN + SPACING_X * 2; // spacers: left of img, right of img
   CGFloat textWidth = self.contentView.width - left - SPACING_X;
   CGSize textSize = CGSizeZero;
   CGSize labelSize = CGSizeZero;
@@ -115,11 +111,10 @@ static UIImage *_messageIcon = nil;
   // Configure Icons
   _placeIconView.left = left;
   _taggedIconView.left = left;
-  _messageIconView.left = left;
 
   
   // Initial Label Y Positions
-  self.nameLabel.top = top + 1.0;
+  self.nameLabel.top = top;
   
   /**
    Setup all the labels
@@ -135,12 +130,13 @@ static UIImage *_messageIcon = nil;
   self.nameLabel.left = left;
   
   // Timestamp
-  self.timestampLabel.top = self.nameLabel.bottom;
+  textSize = CGSizeMake(textWidth - self.nameLabel.width - SPACING_X, LABEL_HEIGHT);
+  self.timestampLabel.top = top;
   
   labelSize = [self.timestampLabel.text sizeWithFont:self.timestampLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
   self.timestampLabel.width = labelSize.width;
   self.timestampLabel.height = labelSize.height;
-  self.timestampLabel.left = left;
+  self.timestampLabel.left = self.contentView.width - self.timestampLabel.width - SPACING_X;
   
   // Shift over right
   left += ICON_WIDTH + SPACING_X;
@@ -148,13 +144,13 @@ static UIImage *_messageIcon = nil;
   textSize = CGSizeMake(textWidth, LABEL_HEIGHT);
   
   // Place Name
-  _placeIconView.top = self.smaImageView.bottom + SPACING_Y;
+  _placeIconView.top = self.nameLabel.bottom + ICON_SPACING;
   self.placeNameLabel.top = _placeIconView.top;
   
   labelSize = [self.placeNameLabel.text sizeWithFont:self.placeNameLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeTailTruncation];
   self.placeNameLabel.width = labelSize.width;
   self.placeNameLabel.height = labelSize.height;
-  self.placeNameLabel.left = left;
+  self.placeNameLabel.left = left + ICON_SPACING;
   
   
   // Tagged Users
@@ -167,29 +163,26 @@ static UIImage *_messageIcon = nil;
     labelSize = [self.taggedLabel.text sizeWithFont:self.taggedLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
     self.taggedLabel.width = labelSize.width;
     self.taggedLabel.height = labelSize.height;
-    self.taggedLabel.left =  left;
+    self.taggedLabel.left =  left + ICON_SPACING;
   } else {
     _taggedIconView.hidden = YES;
   }
   
   // Message
   if ([self.taggedLabel.text length] > 0) {
-    _messageIconView.top = self.taggedLabel.bottom + ICON_SPACING;
+    self.messageLabel.top = self.taggedLabel.bottom + ICON_SPACING;
   } else {
-    _messageIconView.top = self.placeNameLabel.bottom + ICON_SPACING;
+    self.messageLabel.top = self.placeNameLabel.bottom + ICON_SPACING;
   }
-  
-  self.messageLabel.top = _messageIconView.top;
+
   
   if ([self.messageLabel.text length] > 0) {
-    _messageIconView.hidden = NO;
     textSize = CGSizeMake(textWidth, INT_MAX); // Variable height
     labelSize = [self.messageLabel.text sizeWithFont:self.messageLabel.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
     self.messageLabel.width = labelSize.width;
     self.messageLabel.height = labelSize.height;
-    self.messageLabel.left =  left;
+    self.messageLabel.left =  left - ICON_WIDTH - SPACING_X + ICON_SPACING;
   } else {
-    _messageIconView.hidden = YES;
   }
 }
 
@@ -211,29 +204,38 @@ static UIImage *_messageIcon = nil;
 
 + (CGFloat)variableRowHeightWithCheckin:(Checkin *)checkin {
   CGFloat calculatedHeight = SPACING_Y; // Top Spacer
-  CGFloat left = IMAGE_WIDTH_PLAIN + ICON_WIDTH + SPACING_X * 4;
+  CGFloat left = IMAGE_WIDTH_PLAIN + ICON_WIDTH + SPACING_X * 3;
   CGFloat textWidth = CELL_WIDTH - left - SPACING_X;
   CGSize textSize = CGSizeMake(textWidth, INT_MAX); // Variable height
   CGSize labelSize = CGSizeZero;
   
-  // Icon Spacing
-  calculatedHeight += ICON_SPACING * 2;
+  // Name
+  calculatedHeight += LABEL_HEIGHT + ICON_SPACING;
+  
+  // Place
+  calculatedHeight += LABEL_HEIGHT + ICON_SPACING;
   
   // Tagged String (Variable Height)
+  if ([checkin.checkinTagsArray count] > 0) {
   NSString *taggedString = [checkin.checkinTagsArray componentsJoinedByString:@", "];
 //  NSString *taggedString = @"Peter Shih, James Liu, Thomas Liou, Gene Tsai, Nathan Bohannon";
-  labelSize = [taggedString sizeWithFont:[UIFont systemFontOfSize:CELL_FONT_SIZE] constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
-  calculatedHeight = calculatedHeight + labelSize.height;
+    labelSize = [taggedString sizeWithFont:[UIFont systemFontOfSize:CELL_FONT_SIZE] constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
+    calculatedHeight += labelSize.height + ICON_SPACING;
+  }
   
   // Message String (Variable Height)
-  labelSize = [checkin.checkinMessage sizeWithFont:[UIFont systemFontOfSize:CELL_FONT_SIZE] constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
-  calculatedHeight = calculatedHeight + labelSize.height;
-  
-  // The rest (Static)
-  calculatedHeight += 65;
+  if (checkin.checkinMessage) {
+    labelSize = [checkin.checkinMessage sizeWithFont:[UIFont systemFontOfSize:CELL_FONT_SIZE] constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
+    calculatedHeight += labelSize.height + ICON_SPACING;
+  }
   
   // Bottom Spacer
   calculatedHeight += SPACING_Y; // This is spacing*2 because its for top AND bottom
+  
+  // If height is less than image, adjust
+  if (calculatedHeight < IMAGE_HEIGHT_PLAIN + (SPACING_Y * 2)) {
+    calculatedHeight = IMAGE_HEIGHT_PLAIN + (SPACING_Y * 2);
+  }
   
   return calculatedHeight;
 }
@@ -246,7 +248,6 @@ static UIImage *_messageIcon = nil;
   RELEASE_SAFELY (_messageLabel);
   RELEASE_SAFELY(_placeIconView);
   RELEASE_SAFELY(_taggedIconView);
-  RELEASE_SAFELY(_messageIconView);
   [super dealloc];
 }
 
