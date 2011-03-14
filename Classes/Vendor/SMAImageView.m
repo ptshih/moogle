@@ -8,12 +8,20 @@
 
 #import "SMAImageView.h"
 #import "SMAURLCache.h"
+#import "Constants.h"
 
 @implementation SMAImageView
 
 @synthesize urlPath = _urlPath;
 @synthesize placeholderImage = _placeholderImage;
 
+- (id)init {
+  self = [super init];
+  if (self) {
+    _imageRequest = nil;
+  }
+  return self;
+}
 // Override Setter
 //- (void)setUrlPath:(NSString *)urlPath {
 //
@@ -26,9 +34,9 @@
       self.image = [[SMAURLCache sharedCache] imageForURLPath:_urlPath];
     } else {
       // Image not found in cache, fire a request
-      ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:_urlPath]];
-      request.delegate = self;
-      [request startAsynchronous];
+      _imageRequest = [[ASIHTTPRequest requestWithURL:[NSURL URLWithString:_urlPath]] retain];
+      _imageRequest.delegate = self;
+      [[RemoteOperation sharedInstance] addRequestToQueue:_imageRequest];
     }
   } else {
     self.image = self.placeholderImage;
@@ -60,8 +68,10 @@
 }
 
 - (void)dealloc {
-  [_urlPath release], _urlPath = nil;
-  [_placeholderImage release], _placeholderImage = nil;
+  if (_imageRequest) [_imageRequest clearDelegatesAndCancel];
+  RELEASE_SAFELY(_imageRequest);
+  RELEASE_SAFELY(_urlPath);
+  RELEASE_SAFELY(_placeholderImage);
   
   [super dealloc];
 }

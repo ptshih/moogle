@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ASIHTTPRequestDelegate.h"
+#import "RemoteOperation.h"
+//#import "ASIHTTPRequestDelegate.h"
 #import "ASIHTTPRequest.h"
 
-@interface SMAImageView : UIImageView <ASIHTTPRequestDelegate> {
+@interface SMAImageView : UIImageView {
   NSString *_urlPath;
   UIImage *_placeholderImage;
+  ASIHTTPRequest *_imageRequest;
 }
 
 @property (nonatomic, copy) NSString *urlPath;
