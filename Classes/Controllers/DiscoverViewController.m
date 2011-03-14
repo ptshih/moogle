@@ -55,6 +55,7 @@
       break;
     case 5:
     default:
+      return;
       break;
   }
   if ([_distance isEqualToString:@""]) {

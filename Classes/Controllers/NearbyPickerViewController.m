@@ -22,7 +22,7 @@
 - (id)init {
   self = [super init];
   if (self) {
-    _distance = [@"2" retain]; // default to 1 mile
+    _distance = [@"1" retain]; // default to 1 mile
   }
   return self;
 }
@@ -64,6 +64,7 @@
       break;
     case 3:
     default:
+      return;
       break;
   }
   
