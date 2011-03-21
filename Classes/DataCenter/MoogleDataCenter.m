@@ -21,12 +21,10 @@
 @synthesize delegate = _delegate;
 @synthesize response = _response;
 @synthesize rawResponse = _rawResponse;
-@synthesize responseKeys = _responseKeys;
 
 - (id)init {
   self = [super init];
   if (self) {
-    _responseKeys = nil;
   }
   return self;
 }
@@ -153,7 +151,6 @@
 - (void)dealloc {
   RELEASE_SAFELY (_response);
   RELEASE_SAFELY(_rawResponse);
-  RELEASE_SAFELY(_responseKeys);
   [super dealloc];
 }
 

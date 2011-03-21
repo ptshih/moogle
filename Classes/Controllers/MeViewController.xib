@@ -62,13 +62,39 @@
 									<string key="NSResourceName">filter_gradient.png</string>
 								</object>
 							</object>
-							<object class="IBUILabel" id="724721124">
+							<object class="IBUILabel" id="181852858">
 								<reference key="NSNextResponder" ref="696406694"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{60, 9}, {200, 18}}</string>
+								<string key="NSFrame">{{60, 21}, {255, 16}}</string>
 								<reference key="NSSuperview" ref="696406694"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="861853412"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<int key="IBUIContentMode">7</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<string key="IBUIText">Last checked in at...</string>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica</string>
+									<double key="NSSize">13</double>
+									<int key="NSfFlags">16</int>
+								</object>
+								<object class="NSColor" key="IBUITextColor" id="195195920">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MCAwIDAAA</bytes>
+								</object>
+								<nil key="IBUIHighlightedColor"/>
+								<int key="IBUIBaselineAdjustment">1</int>
+								<float key="IBUIMinimumFontSize">10</float>
+							</object>
+							<object class="IBUILabel" id="724721124">
+								<reference key="NSNextResponder" ref="696406694"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{60, 5}, {255, 16}}</string>
+								<reference key="NSSuperview" ref="696406694"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="181852858"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -80,10 +106,7 @@
 									<double key="NSSize">14</double>
 									<int key="NSfFlags">16</int>
 								</object>
-								<object class="NSColor" key="IBUITextColor">
-									<int key="NSColorSpace">2</int>
-									<bytes key="NSRGB">MC4xNzY0NzA1OTI2IDAuNTc2NDcwNjEzNSAwLjgwMDAwMDA3MTUAA</bytes>
-								</object>
+								<reference key="IBUITextColor" ref="195195920"/>
 								<object class="NSColor" key="IBUIHighlightedColor" id="227204624">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
@@ -94,7 +117,7 @@
 							<object class="IBUILabel" id="861853412">
 								<reference key="NSNextResponder" ref="696406694"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{60, 30}, {285, 18}}</string>
+								<string key="NSFrame">{{60, 37}, {255, 18}}</string>
 								<reference key="NSSuperview" ref="696406694"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="495532079"/>
@@ -485,6 +508,7 @@
 							<reference ref="299037923"/>
 							<reference ref="724721124"/>
 							<reference ref="861853412"/>
+							<reference ref="181852858"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">profileView</string>
@@ -598,6 +622,12 @@
 						<reference key="parent" ref="495532079"/>
 						<string key="objectName">backgroundGradient</string>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">37</int>
+						<reference key="object" ref="181852858"/>
+						<reference key="parent" ref="696406694"/>
+						<string key="objectName">lastSeen</string>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -620,6 +650,7 @@
 					<string>26.IBPluginDependency</string>
 					<string>27.IBPluginDependency</string>
 					<string>3.IBPluginDependency</string>
+					<string>37.IBPluginDependency</string>
 					<string>4.CustomClassName</string>
 					<string>4.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
@@ -631,6 +662,7 @@
 					<string>MeViewController</string>
 					<string>UIResponder</string>
 					<string>{{354, 412}, {320, 480}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -663,7 +695,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">36</int>
+			<int key="maxID">37</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -764,7 +796,7 @@
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UIView</string>
-							<string>UIImageView</string>
+							<string>SMAImageView</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -817,7 +849,7 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">_profilePicture</string>
-								<string key="candidateClassName">UIImageView</string>
+								<string key="candidateClassName">SMAImageView</string>
 							</object>
 						</object>
 					</object>

@@ -93,7 +93,6 @@
 		2544EFB213204D140080055B /* CheckinsDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2544EFB113204D140080055B /* CheckinsDataCenter.m */; };
 		2544EFB5132059EC0080055B /* tab_discover.png in Resources */ = {isa = PBXBuildFile; fileRef = 2544EFB3132059EC0080055B /* tab_discover.png */; };
 		2544EFB6132059EC0080055B /* tab_discover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2544EFB4132059EC0080055B /* tab_discover@2x.png */; };
-		255DE9A113219C2700AA8BBD /* DiscoverDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 255DE9A013219C2500AA8BBD /* DiscoverDataCenter.m */; };
 		255DE9A41321C1CF00AA8BBD /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 255DE9A31321C1CF00AA8BBD /* Place.m */; };
 		25601F4C1328BD200065B503 /* CardPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25601F4B1328BD1E0065B503 /* CardPlacesTableViewController.m */; };
 		25601F501328C06D0065B503 /* MePlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25601F4F1328C06D0065B503 /* MePlacesViewController.m */; };
@@ -101,6 +100,7 @@
 		25606B1612FA48F500481E43 /* PlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25606B1412FA48F500481E43 /* PlaceViewController.m */; };
 		2560A65C13186B09000BE27D /* PlaceInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2560A65B13186B09000BE27D /* PlaceInfoCell.m */; };
 		2560A65F131878C4000BE27D /* MoogleImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2560A65E131878C0000BE27D /* MoogleImageCell.m */; };
+		256B3D1513376BAC009AD409 /* MeFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 256B3D1413376BAB009AD409 /* MeFriendsViewController.m */; };
 		25718C2C1319C72900FF6293 /* WhoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25718C2B1319C72300FF6293 /* WhoCell.m */; };
 		257F617A1322F8C000D62F96 /* friend_no_picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 257F61791322F8C000D62F96 /* friend_no_picture.png */; };
 		257F617D1323183F00D62F96 /* FriendPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 257F617C1323183D00D62F96 /* FriendPickerViewController.m */; };
@@ -313,8 +313,6 @@
 		2544EFB113204D140080055B /* CheckinsDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckinsDataCenter.m; sourceTree = "<group>"; };
 		2544EFB3132059EC0080055B /* tab_discover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_discover.png; sourceTree = "<group>"; };
 		2544EFB4132059EC0080055B /* tab_discover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_discover@2x.png"; sourceTree = "<group>"; };
-		255DE99F13219C2400AA8BBD /* DiscoverDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverDataCenter.h; sourceTree = "<group>"; };
-		255DE9A013219C2500AA8BBD /* DiscoverDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverDataCenter.m; sourceTree = "<group>"; };
 		255DE9A21321C1CF00AA8BBD /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		255DE9A31321C1CF00AA8BBD /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		25601F4A1328BD1E0065B503 /* CardPlacesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardPlacesTableViewController.h; sourceTree = "<group>"; };
@@ -328,6 +326,8 @@
 		2560A65B13186B09000BE27D /* PlaceInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceInfoCell.m; sourceTree = "<group>"; };
 		2560A65D131878BE000BE27D /* MoogleImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoogleImageCell.h; sourceTree = "<group>"; };
 		2560A65E131878C0000BE27D /* MoogleImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoogleImageCell.m; sourceTree = "<group>"; };
+		256B3D1313376BAB009AD409 /* MeFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeFriendsViewController.h; sourceTree = "<group>"; };
+		256B3D1413376BAB009AD409 /* MeFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeFriendsViewController.m; sourceTree = "<group>"; };
 		25718C2A1319C72000FF6293 /* WhoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoCell.h; sourceTree = "<group>"; };
 		25718C2B1319C72300FF6293 /* WhoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoCell.m; sourceTree = "<group>"; };
 		257F61791322F8C000D62F96 /* friend_no_picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friend_no_picture.png; sourceTree = "<group>"; };
@@ -489,7 +489,6 @@
 				25433D9012FA24760066A191 /* Client */,
 				25B464CC12F7BA2200C71FA9 /* Categories */,
 				25B464CD12F7BA2200C71FA9 /* Controllers */,
-				25B464CE12F7BA2200C71FA9 /* Database */,
 				25B464CF12F7BA2200C71FA9 /* Models */,
 				25B464D012F7BA2200C71FA9 /* Vendor */,
 				25B464D112F7BA2200C71FA9 /* Views */,
@@ -539,13 +538,6 @@
 				251D4969131D4DC2003D988A /* PlaceReviewCell.m */,
 			);
 			name = Place;
-			sourceTree = "<group>";
-		};
-		25178A69131BA6480086EB9F /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		251F4FA41328A46000F0C68D /* JSONKit */ = {
@@ -621,7 +613,6 @@
 				259A6E681323339A002A2831 /* Button */,
 				2544EF8B1320432C0080055B /* Icon */,
 				2544EF8E1320432C0080055B /* Tab */,
-				25178A69131BA6480086EB9F /* Cell */,
 				25C6C2B91317C7D60092E598 /* PullRefresh */,
 				25C37672132340680057449E /* dot.png */,
 				25FC2D08130E5E8A0077C9A7 /* moogle.png */,
@@ -736,6 +727,8 @@
 			children = (
 				25601F4E1328C06D0065B503 /* MePlacesViewController.h */,
 				25601F4F1328C06D0065B503 /* MePlacesViewController.m */,
+				256B3D1313376BAB009AD409 /* MeFriendsViewController.h */,
+				256B3D1413376BAB009AD409 /* MeFriendsViewController.m */,
 			);
 			name = Me;
 			sourceTree = "<group>";
@@ -817,13 +810,6 @@
 				2597550513205BDB009D4E7C /* DiscoverViewController.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		25B464CE12F7BA2200C71FA9 /* Database */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Database;
 			sourceTree = "<group>";
 		};
 		25B464CF12F7BA2200C71FA9 /* Models */ = {
@@ -960,8 +946,6 @@
 				25EC95CA1318B57E009E44DE /* PlacesDataCenter.m */,
 				2544EFB013204D140080055B /* CheckinsDataCenter.h */,
 				2544EFB113204D140080055B /* CheckinsDataCenter.m */,
-				255DE99F13219C2400AA8BBD /* DiscoverDataCenter.h */,
-				255DE9A013219C2500AA8BBD /* DiscoverDataCenter.m */,
 			);
 			path = DataCenter;
 			sourceTree = "<group>";
@@ -1231,7 +1215,6 @@
 				2544EFB213204D140080055B /* CheckinsDataCenter.m in Sources */,
 				2597550613205BDB009D4E7C /* DiscoverViewController.m in Sources */,
 				2597550913206086009D4E7C /* HeaderTabView.m in Sources */,
-				255DE9A113219C2700AA8BBD /* DiscoverDataCenter.m in Sources */,
 				255DE9A41321C1CF00AA8BBD /* Place.m in Sources */,
 				257F617D1323183F00D62F96 /* FriendPickerViewController.m in Sources */,
 				25C3767C1323433E0057449E /* NearbyPickerViewController.m in Sources */,
@@ -1243,6 +1226,7 @@
 				25C648E11329634C009CD247 /* SMAURLCache.m in Sources */,
 				25C648E21329634C009CD247 /* SMAImageView.m in Sources */,
 				25C648E51329832B009CD247 /* FriendCell.m in Sources */,
+				256B3D1513376BAC009AD409 /* MeFriendsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,7 @@
 #import "PlaceViewController.h"
 #import "MeDataCenter.h"
 #import "MePlacesViewController.h"
+#import "MeFriendsViewController.h"
 
 @interface MeViewController (Private)
 
@@ -103,7 +104,7 @@
 
   id item = [[self.items objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
   
-  if (indexPath.section < 2) {
+  if (indexPath.row < 2) {
     // Places List View
     MePlacesViewController *mpvc = [[MePlacesViewController alloc] init];
     mpvc.rawPlacesArray = item;
@@ -111,6 +112,10 @@
     [mpvc release];
   } else {
     // Friends List View
+    MeFriendsViewController *mfvc = [[MeFriendsViewController alloc] init];
+    mfvc.rawFriendsArray = item;
+    [self.navigationController pushViewController:mfvc animated:YES];
+    [mfvc release];
   }
 }
 

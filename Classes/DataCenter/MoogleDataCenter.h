@@ -18,13 +18,11 @@
   id <MoogleDataCenterDelegate> _delegate;
   id _response;
   id _rawResponse;
-  NSArray *_responseKeys;
 }
 
 @property (nonatomic, retain) id <MoogleDataCenterDelegate> delegate;
 @property (nonatomic, retain) id response;
 @property (nonatomic, retain) id rawResponse;
-@property (nonatomic, retain) NSArray *responseKeys;
 
 
 // Subclass should Implement AND call super's implementation

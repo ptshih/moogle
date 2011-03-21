@@ -9,7 +9,7 @@
 #import "FriendPickerViewController.h"
 #import "FriendCell.h"
 
-static UIImage *_placeholderPicture;
+static UIImage *_placeholderPicture = nil;
 
 @interface FriendPickerViewController (Private)
 

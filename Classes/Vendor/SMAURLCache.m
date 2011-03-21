@@ -13,35 +13,12 @@ static SMAURLCache *_sharedCache;
 @implementation SMAURLCache
 
 @synthesize imageCache = _imageCache;
-@synthesize htmlCache = _htmlCache;
 
 + (SMAURLCache *)sharedCache {
   if (!_sharedCache) {
     _sharedCache = [[self alloc] init];
   }
   return _sharedCache;
-}
-
-// HTML Cache
-- (void)cacheHTML:(NSData *)html forURLPath:(NSString *)urlPath {
-  if (!_htmlCache) {
-    _htmlCache = [[NSMutableDictionary alloc] init];
-  }
-  
-  [self.htmlCache setObject:html forKey:urlPath];
-}
-
-- (NSString *)htmlForURLPath:(NSString *)urlPath {
-  NSData *data = [self.htmlCache objectForKey:urlPath];
-	if (data) {
-    return [[[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding] autorelease];
-	} else {
-    return nil;
-  }
-}
-
-- (BOOL)hasHTMLForURLPath:(NSString *)urlPath {
-  return ([self.htmlCache objectForKey:urlPath] != nil);
 }
 
 // Image Cache

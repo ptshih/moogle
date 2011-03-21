@@ -24,6 +24,7 @@
   NSString *_placeTerms;
   NSString *_placeCategories;
   NSString *_placeRating;
+  NSString *_placePicture;
   
   NSNumber *_placeLat;
   NSNumber *_placeLng;
@@ -50,6 +51,7 @@
 @property (nonatomic, copy) NSString *placeTerms;
 @property (nonatomic, copy) NSString *placeCategories;
 @property (nonatomic, copy) NSString *placeRating;
+@property (nonatomic, copy) NSString *placePicture;
 
 @property (nonatomic, copy) NSNumber *placeLat;
 @property (nonatomic, copy) NSNumber *placeLng;

@@ -23,6 +23,7 @@
 @synthesize placeCountry = _placeCountry;
 @synthesize placeTerms = _placeTerms;
 @synthesize placeCategories = _placeCategories;
+@synthesize placePicture = _placePicture;
 
 @synthesize placeLat = _placeLat;
 @synthesize placeLng = _placeLng;
@@ -51,6 +52,7 @@
     self.placeTerms = [dictionary valueForKey:@"place_terms"];
     self.placeCategories = [dictionary valueForKey:@"place_categories"];
     self.placeRating = ([[dictionary valueForKey:@"place_rating"] notNil]) ? [[[dictionary valueForKey:@"place_rating"] componentsSeparatedByString:@" "] objectAtIndex:0] : nil;
+    self.placePicture = ([[dictionary valueForKey:@"place_picture"] notNil]) ? [dictionary valueForKey:@"place_picture"] : nil;
     
     // Numbers
     self.placeLat = [dictionary valueForKey:@"place_lat"];
@@ -78,6 +80,7 @@
   RELEASE_SAFELY(_placeCountry);
   RELEASE_SAFELY(_placeTerms);
   RELEASE_SAFELY(_placeCategories);
+  RELEASE_SAFELY(_placePicture);
   
   RELEASE_SAFELY(_placeLat);
   RELEASE_SAFELY(_placeLng);

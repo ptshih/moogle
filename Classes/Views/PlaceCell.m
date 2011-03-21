@@ -132,8 +132,8 @@ static UIImage *_distanceIcon = nil;
   
   _distanceIconView.left = left;
   _totalIconView.left = left;
-  _likesIconView.left = _distanceIconView.right + ((self.contentView.width - SPACING_X - _distanceIconView.right) / 2);
-  _countIconView.left = _totalIconView.right + ((self.contentView.width - SPACING_X - _totalIconView.right) / 2);
+  _likesIconView.left = _distanceIconView.right + floor(((self.contentView.width - SPACING_X - _distanceIconView.right) / 2));
+  _countIconView.left = _totalIconView.right + floor(((self.contentView.width - SPACING_X - _totalIconView.right) / 2));
   
   // Initial Label Y Positions
 
@@ -173,7 +173,8 @@ static UIImage *_distanceIcon = nil;
 }
 
 + (void)fillCell:(PlaceCell *)cell withPlace:(Place *)place withImage:(UIImage *)image {
-  cell.smaImageView.urlPath = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", place.placeId];
+//  cell.smaImageView.urlPath = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", place.placeId];
+  cell.smaImageView.urlPath = place.placePicture;
   
   [cell.smaImageView loadImageIfCached];
   
