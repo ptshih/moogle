@@ -101,6 +101,8 @@
 		2560A65C13186B09000BE27D /* PlaceInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2560A65B13186B09000BE27D /* PlaceInfoCell.m */; };
 		2560A65F131878C4000BE27D /* MoogleImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2560A65E131878C0000BE27D /* MoogleImageCell.m */; };
 		256B3D1513376BAC009AD409 /* MeFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 256B3D1413376BAB009AD409 /* MeFriendsViewController.m */; };
+		256B3D1813377126009AD409 /* who_groups.png in Resources */ = {isa = PBXBuildFile; fileRef = 256B3D1613377124009AD409 /* who_groups.png */; };
+		256B3D1913377126009AD409 /* who_groups@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 256B3D1713377125009AD409 /* who_groups@2x.png */; };
 		25718C2C1319C72900FF6293 /* WhoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25718C2B1319C72300FF6293 /* WhoCell.m */; };
 		257F617A1322F8C000D62F96 /* friend_no_picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 257F61791322F8C000D62F96 /* friend_no_picture.png */; };
 		257F617D1323183F00D62F96 /* FriendPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 257F617C1323183D00D62F96 /* FriendPickerViewController.m */; };
@@ -328,6 +330,8 @@
 		2560A65E131878C0000BE27D /* MoogleImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoogleImageCell.m; sourceTree = "<group>"; };
 		256B3D1313376BAB009AD409 /* MeFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeFriendsViewController.h; sourceTree = "<group>"; };
 		256B3D1413376BAB009AD409 /* MeFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeFriendsViewController.m; sourceTree = "<group>"; };
+		256B3D1613377124009AD409 /* who_groups.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = who_groups.png; sourceTree = "<group>"; };
+		256B3D1713377125009AD409 /* who_groups@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "who_groups@2x.png"; sourceTree = "<group>"; };
 		25718C2A1319C72000FF6293 /* WhoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoCell.h; sourceTree = "<group>"; };
 		25718C2B1319C72300FF6293 /* WhoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoCell.m; sourceTree = "<group>"; };
 		257F61791322F8C000D62F96 /* friend_no_picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friend_no_picture.png; sourceTree = "<group>"; };
@@ -651,6 +655,8 @@
 				25F93A59132A344000154B6B /* btn-friends@2x.png */,
 				25F93A5C132A34CD00154B6B /* btn-who.png */,
 				25F93A5D132A34CD00154B6B /* btn-who@2x.png */,
+				256B3D1613377124009AD409 /* who_groups.png */,
+				256B3D1713377125009AD409 /* who_groups@2x.png */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -1144,6 +1150,8 @@
 				25F93A5B132A344000154B6B /* btn-friends@2x.png in Resources */,
 				25F93A5E132A34CD00154B6B /* btn-who.png in Resources */,
 				25F93A5F132A34CD00154B6B /* btn-who@2x.png in Resources */,
+				256B3D1813377126009AD409 /* who_groups.png in Resources */,
+				256B3D1913377126009AD409 /* who_groups@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

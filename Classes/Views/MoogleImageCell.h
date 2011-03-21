@@ -24,5 +24,5 @@
 }
 
 @property (nonatomic, retain) SMAImageView *smaImageView;
-
+@property (nonatomic, retain) UIActivityIndicatorView *imageLoadingIndicator;
 @end

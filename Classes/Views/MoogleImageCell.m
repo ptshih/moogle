@@ -11,6 +11,7 @@
 @implementation MoogleImageCell
 
 @synthesize smaImageView = _smaImageView;
+@synthesize imageLoadingIndicator = _imageLoadingIndicator;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

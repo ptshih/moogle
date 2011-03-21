@@ -34,13 +34,14 @@
 }
 
 + (void)fillCell:(WhoCell *)cell withDictionary:(NSDictionary *)dictionary forType:(WhoCellType)type {  
-  cell.smaImageView.placeholderImage = [UIImage imageNamed:@"tab_friends.png"];
+  cell.smaImageView.placeholderImage = [UIImage imageNamed:@"who_groups.png"];
 
   if (type == WhoCellTypeFriend) {
     cell.smaImageView.urlPath = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", [dictionary objectForKey:@"friend_id"]];
     cell.textLabel.text = [dictionary valueForKey:@"friend_name"];
   } else {
     cell.textLabel.text = [dictionary valueForKey:@"group_name"];
+    [cell.imageLoadingIndicator stopAnimating];
   }
   
   [cell.smaImageView loadImage];
